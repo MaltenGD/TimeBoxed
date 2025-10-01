@@ -10,15 +10,23 @@
     </head>
     <body>
         <div class = "open">
-            <div class = "openText">
+            <div class = "openText" id="screen1">
                 <h1>CLICK TO OPEN</h1>
                 <div class = "openArrow">
                     <i class="fa-solid fa-caret-down"></i>
                 </div>
             </div>
-            <button class = "boxButton" onclick = "alert('box clicked!')">
-                <img src = "images/boxClosed.png" alt = "closed box">
+            <button class = "boxButton" onclick = "switchScreen(1);">
+                <img src = "images/boxClosed.png" id="boxImg" alt = "closed box">
             </button>
+        </div>
+
+        <div class = "openedScreen" id="screen2">
+            <div class = "title">
+                <h1>TIMEBOXED</h1>
+                <img src = "images/logo.png">
+                <h2>by POPCAT GAMES</h2>
+            </div>
         </div>
     </body>
 </html>

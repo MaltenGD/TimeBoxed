@@ -1,15 +1,16 @@
 @font-face {
-    font-family: 'Anantason';
-    src: url('fonts/AnantasonRegular.woff2') format('woff2');
+    font-family: 'Minima';
+    src: url('fonts/MinimaExpanded.woff2') format('woff2');
     font-weight: normal;
     font-style: normal;
 }
 
 * {
-    font-family: 'Anantason', sans-serif;
+    font-family: 'Minima', sans-serif;
     margin: 0%;
     padding: 0;
     box-sizing: border-box;
+    background-color: beige;
 }
 
 .open {
@@ -52,4 +53,23 @@
 .boxButton img {
     width: 150px;
     height: auto;
+}
+/* 
+.boxButton img.opened {
+
+} */
+
+.openedScreen {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 1s ease;
+    text-align: center;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.openedScreen.active {
+    display: block;
+    opacity: 1;
 }
