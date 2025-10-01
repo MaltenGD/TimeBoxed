@@ -1,5 +1,12 @@
+@font-face {
+    font-family: 'Anantason';
+    src: url('fonts/AnantasonRegular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
 * {
-    font-family: 'Courier New', Courier, monospace;
+    font-family: 'Anantason', sans-serif;
     margin: 0%;
     padding: 0;
     box-sizing: border-box;
@@ -19,6 +26,16 @@
     flex-direction: column;
     align-items: center;
     gap: 1vh;
+}
+
+.openArrow {
+    animation: floatUpDown 1.5s ease-in-out infinite;
+}
+
+@keyframes floatUpDown {
+    0% { transform: translateY(0);}
+    50% { transform: translateY(-10px);}
+    100% { transform: translateY(0);}
 }
 
 .boxButton {
