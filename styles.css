@@ -73,16 +73,16 @@
     position: fixed;
     top: 0;
     left: 0;
+    width: 100vw;
+    height: 100vh;
     display: flex;
+    align-items: center;
+    justify-content: center;
     opacity: 0;
     pointer-events: none;
     transition: opacity 1s ease;
     text-align: center;
-    align-items: center;
-    justify-content: center;
-    width: 100vw;
-    height: 100vh;
-    display: flex;
+    overflow-y: auto;
     flex-direction: column;
 }
 
