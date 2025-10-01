@@ -1,4 +1,7 @@
 function switchScreen(screenNr) {
-    const boxImg = document.getElementById("boxImg");
-    boxImg.src = "images/boxOpen.png";
+    const newScreen = document.getElementById("screen2");
+
+    setTimeout(() => {
+        newScreen.classList.add("active");
+    }, 1000);
 }
