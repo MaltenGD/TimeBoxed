@@ -5,11 +5,11 @@ export class Start extends Phaser.Scene {
     }
 
     preload() {
-    this.load.image('background', 'Phaser template/assets/space.png');
-    this.load.image('logo', 'Phaser template/assets/phaser.png');
+    this.load.image('background', 'Phaser/assets/space.png');
+    this.load.image('logo', 'Phaser/assets/phaser.png');
 
     //  The ship sprite is CC0 from https://ansimuz.itch.io - check out his other work!
-    this.load.spritesheet('ship', 'Phaser template/assets/spaceship.png', { frameWidth: 176, frameHeight: 96 });
+    this.load.spritesheet('ship', 'Phaser/assets/spaceship.png', { frameWidth: 176, frameHeight: 96 });
     }
 
     create() {
