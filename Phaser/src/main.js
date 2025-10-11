@@ -13,9 +13,8 @@ const config = {
     pixelArt: false,
     scene: [
         Start,
-        GameScene,
-        SelectionMenuScene
-
+        SelectionMenuScene,
+        GameScene
     ],
     scale: {
         mode: Phaser.Scale.FIT,

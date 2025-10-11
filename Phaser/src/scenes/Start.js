@@ -31,7 +31,7 @@ export class Start extends Phaser.Scene {
         });
 
         playButton.on('pointerup', () => { // This method will change to another scene (not created yet)
-            this.scene.start('GameScene');
+            this.scene.start('SelectionMenuScene');
         });
         logo.setScale(0.5);
 
