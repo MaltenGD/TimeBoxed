@@ -19,6 +19,12 @@ export class GameScene extends Phaser.Scene {
         .on('pointerover', () => this.counterBtn.setStyle({fill: '#0ff'}))
         .on('pointerdown', () => countText.setText(++counterTxt))
         .on('pointerout', () => this.counterBtn.setStyle({fill: '#0f0'}));
+
+        this.backBtn = this.add.text(0, 0, 'Back', { fontSize: 64, fill: '#fff'})
+        .setInteractive()
+        .on('pointerover', () => this.backBtn.setStyle({fill: '#0f0'}))
+        .on('pointerdown', () => this.scene.switch('SelectionMenuScene'))
+        .on('pointerout', () => this.backBtn.setStyle({fill: '#fff'}));
     }
     
 }
