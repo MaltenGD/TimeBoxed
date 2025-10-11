@@ -6,40 +6,43 @@ export class Start extends Phaser.Scene {
 
     preload() {
     this.load.image('background', 'Phaser/assets/space.png');
-    this.load.image('logo', 'Phaser/assets/phaser.png');
+    this.load.image('logo', 'Phaser/assets/titlelogo.png');
+    this.load.spritesheet('playButton', 'Phaser/assets/playButton.png', { frameWidth: 186, frameHeight: 92 });
 
-    //  The ship sprite is CC0 from https://ansimuz.itch.io - check out his other work!
-    this.load.spritesheet('ship', 'Phaser/assets/spaceship.png', { frameWidth: 176, frameHeight: 96 });
     }
 
     create() {
         this.background = this.add.tileSprite(640, 360, 1280, 720, 'background');
 
-        const logo = this.add.image(640, 200, 'logo');
+        const logo = this.add.image(640, 150, 'logo');
+        const playButton = this.add.sprite(640, 500, 'playButton', 0).setInteractive();
 
-        const ship = this.add.sprite(640, 360, 'ship');
-
-        ship.anims.create({
-            key: 'fly',
-            frames: this.anims.generateFrameNumbers('ship', { start: 0, end: 2 }),
-            frameRate: 15,
-            repeat: -1
+        playButton.on('pointerover', () => {
+            playButton.setFrame(1);
+        });
+        
+        playButton.on('pointerout', () => {
+            playButton.setFrame(0);
         });
 
-        ship.play('fly');
+        playButton.on('pointerup', () => { // This method will change to another scene (not created yet)
+            this.scene.start('SelectionMenuScene');
+        });
+        logo.setScale(0.5);
 
         this.tweens.add({
             targets: logo,
-            y: 400,
-            duration: 1500,
-            ease: 'Sine.inOut',
+            y: 200,
+            duration: 1800,
+            ease: 'Sine.easeInOut',
             yoyo: true,
             loop: -1
         });
+
     }
 
     update() {
-        this.background.tilePositionX += 2;
+        this.background.tilePositionX += 0.3;
     }
     
 }
