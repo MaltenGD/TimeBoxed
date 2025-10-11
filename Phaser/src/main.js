@@ -1,4 +1,5 @@
 import { Start } from './scenes/Start.js';
+import { SelectionMenuScene } from './scenes/SelectionMenuScene.js';
 import { GameScene } from './scenes/GameScene.js';
 
 const config = {
@@ -13,6 +14,8 @@ const config = {
     scene: [
         Start,
         GameScene,
+        SelectionMenuScene
+
     ],
     scale: {
         mode: Phaser.Scale.FIT,
