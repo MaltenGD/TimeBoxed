@@ -26,3 +26,4 @@ export class GameScene extends Phaser.Scene {
         .on('pointerdown', () => this.scene.start('SelectionMenuScene', { counterTxt: this.counterTxt }))
         .on('pointerout', () => this.backBtn.setStyle({fill: '#fff'}));
     }
+}

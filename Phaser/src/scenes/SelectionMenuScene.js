@@ -30,8 +30,22 @@ export class SelectionMenuScene extends Phaser.Scene {
             .on('pointerdown', () => {
                 this.scene.start('GameScene');
             });
-        });
+                
+            });
+
+            const backBtn = this.add.text(width / 2, height / 2 + 250, 'Volver al inicio', {
+                fontSize: '30px',
+                fill: '#000000ff',
+                backgroundColor: '#f7f7f7ff',
+                padding: { x: 20, y: 10 }
+            })
+            .setOrigin(0.5)
+            .setInteractive()
+            .on('pointerover', () => backBtn.setStyle({ backgroundColor: '#bbbabaff' }))
+            .on('pointerout', () => backBtn.setStyle({ backgroundColor: '#bbbabaff' }))
+            .on('pointerdown', () => {
+                this.scene.start('Start');
+            });
+
+        }
     }
-
-
-}
