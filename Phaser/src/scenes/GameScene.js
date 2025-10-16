@@ -1,5 +1,5 @@
 /**
- * Escena genérica y temporaria de juego.  
+ * Escena genérica y temporaria de juego. Contiene un acumulador y un botón para sumar 1 al acumulador. El valor del acumulador se mantiene aunque se haya cambiado de escena.
  */
 export class GameScene extends Phaser.Scene {
     /**
