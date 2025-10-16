@@ -1,6 +1,7 @@
 import { Start } from './scenes/Start.js';
 import { SelectionMenuScene } from './scenes/SelectionMenuScene.js';
 import { GameScene } from './scenes/GameScene.js';
+import { TaliScene } from './scenes/TaliScene.js';
 
 const config = {
     type: Phaser.CANVAS,
@@ -14,7 +15,8 @@ const config = {
     scene: [
         Start,
         SelectionMenuScene,
-        GameScene
+        GameScene,
+        TaliScene
     ],
     scale: {
         mode: Phaser.Scale.FIT,
