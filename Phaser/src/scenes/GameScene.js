@@ -15,7 +15,7 @@ export class GameScene extends Phaser.Scene {
     }
 
     create() {
-        let { width, height } = canvas;
+        let { width, height } = this.canvas;
 
         let countText = this.add.text(width / 2, height / 2, this.counterTxt, { fontSize: 64 }).setOrigin(0.5);
 

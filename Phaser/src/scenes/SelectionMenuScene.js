@@ -31,6 +31,7 @@ export class SelectionMenuScene extends Phaser.Scene {
         ];
 
         const opciones = ['Egypt', 'Rome', 'Japan'];
+        const scenes = ['AsebScene', 'TaliScene', 'HanafudaScene'];
         const buttons = [];
         
         // Se crean los botones pero se dejan ocultos hasta que se haga click en la caja
@@ -94,7 +95,7 @@ export class SelectionMenuScene extends Phaser.Scene {
                             .on('pointerover', () => btn.setStyle({ fill: 'rgba(92, 163, 255, 1)' }))
                             .on('pointerout', () => btn.setStyle({ fill: 'rgba(0, 0, 0, 1)' }))
                             .on('pointerdown', () => {
-                                this.scene.start('GameScene');
+                                this.scene.start(scenes[index]);
                             });
                     }
                 });
