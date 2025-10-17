@@ -1,3 +1,7 @@
+/**
+ * @class TaliScene
+ * The scene for the Tali game (Rome).
+ */
 export class TaliScene extends Phaser.Scene {
     constructor() {
         super('TaliScene');
