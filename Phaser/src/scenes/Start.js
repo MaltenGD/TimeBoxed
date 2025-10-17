@@ -18,9 +18,19 @@ export class Start extends Phaser.Scene {
         const logo = this.add.image(640, 150, 'logo');
         const playButton = this.add.sprite(640, 500, 'playButton', 0).setInteractive();
         
-        
-        let counterValue = data.counterTxt !== undefined ? data.counterTxt : 0;
-        this.counterDisplay = this.add.text(width / 2, height / 2, `Counter: ${counterValue}`, { fontSize: 64 }).setOrigin(0.5);
+        const creditsButton = this.add.text(width/2, 600, 'CREDITS',
+            {
+                fontsize:'36px',
+                fill: '#000000',
+                backgroundColor: '#ffffffff',
+                padding: {x:40,y:20}
+            })
+
+            .setOrigin(0.5)
+            .setInteractive();
+
+        // let counterValue = data.counterTxt !== undefined ? data.counterTxt : 0;
+        // this.counterDisplay = this.add.text(width / 2, height / 2, `Counter: ${counterValue}`, { fontSize: 64 }).setOrigin(0.5);
 
         playButton.on('pointerover', () => {
             playButton.setFrame(1);
@@ -33,6 +43,16 @@ export class Start extends Phaser.Scene {
         playButton.on('pointerup', () => { // This method will change to another scene (not created yet)
             this.scene.start('SelectionMenuScene');
         });
+
+        creditsButton.on('pointerover', () => creditsButton.setStyle({ fill: '#62a6ffff' }));
+
+        creditsButton.on('pointerout', () => creditsButton.setStyle({ fill: '#000000ff' }));
+
+        creditsButton.on('pointerdown', () => {
+
+            this.scene.start('CreditsScene');
+        });
+
         logo.setScale(0.5);
 
         this.tweens.add({
