@@ -7,6 +7,7 @@ export class Start extends Phaser.Scene {
     preload() {
     this.load.image('background', 'Phaser/assets/space.png');
     this.load.image('logo', 'Phaser/assets/titlelogo.png');
+      this.load.image('teamLogo', 'Phaser/assets/teamLogo.png');
     this.load.spritesheet('playButton', 'Phaser/assets/playButton.png', { frameWidth: 186, frameHeight: 92 });
 
     }
@@ -63,6 +64,13 @@ export class Start extends Phaser.Scene {
             yoyo: true,
             loop: -1
         });
+
+         const teamLogo = this.add.image(width - 20, height - 20, 'teamLogo')
+            .setOrigin(1, 1)
+            .setScale(0.1)
+            //.setAlpha(0.9);
+            //.setTint(0xffffffff);
+
 
     }
 

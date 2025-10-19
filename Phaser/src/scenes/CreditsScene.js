@@ -3,24 +3,62 @@ export class CreditsScene extends Phaser.Scene {
         super('CreditsScene');
     }
 
+    preload() {
+        this.load.image('member1', 'Phaser/assets/mewingCat.jpg');
+        this.load.image('member2', 'Phaser/assets/oreoCat.jpg');
+        this.load.image('member3', 'Phaser/assets/alienCat.jpg');
+        this.load.image('member4', 'Phaser/assets/awkwarCat.jpg');
+    }
+
     create() {
         const { width, height } = this.sys.game.canvas;
 
         this.cameras.main.setBackgroundColor('#000000');
 
-        this.add.text(width / 2, height / 2 - 200, 'C R É D I T O S', {
+        this.add.text(width / 2, 120, 'C R É D I T O S', {
             fontSize: '48px',
             fill: '#ffffff'
         }).setOrigin(0.5);
 
-        this.add.text(width / 2, height / 2, 
-            ' POPCAT\n\nTimeboxed:\n\nHola Grupo\nToñete', 
-            {
-                fontSize: '28px',
-                fill: '#cccccc',
-                align: 'center'
-            }
-        ).setOrigin(0.5);
+        this.add.text(width / 2, 180, 'POPCAT\nTimeboxed:', {
+            fontSize:'28px',
+            fill: '#ffffff',
+            align:'center'
+        } ).setOrigin(0.5);
+
+         const members = [
+            { name: 'Oliver', title: 'Krono Lover', image: 'member1' },
+            { name: 'Sarahi', title: 'Nr 1 Krono Hater', image: 'member2' },
+            { name: 'Zhiyi', title: 'Code Overlord', image: 'member3' },
+            { name: 'Alexandra', title: 'Time Keeper', image: 'member4' }
+        ];
+
+        const imageWidth = 150;
+        const imageHeight = 150;
+        const spacingX = 220;
+        const startX = width / 2 - ((members.length - 1) * spacingX) / 2;
+        const y = height / 2;
+
+        members.forEach((member, i) => {
+
+            const x = startX + i * spacingX;
+
+            this.add.text(x, y - imageHeight / 2 - 10, member.name, {
+                fontSize: '22px',
+                fill: '#ffffff',
+                fontStyle: 'bold'
+            }).setOrigin(0.5);
+
+            const img = this.add.image(x, y, member.image).setOrigin(0.5);
+            img.displayWidth = imageWidth;
+            img.displayHeight = imageHeight;
+
+            this.add.text(x, y + imageHeight / 2 + 25, member.title, {
+                fontSize: '18px',
+                fill: '#aaaaaa',
+                fontStyle: 'italic'
+            }).setOrigin(0.5);
+        });
 
         const backBtn = this.add.text(width / 2, height / 2 + 250, 'Volver al Inicio', {
             fontSize: '36px',
