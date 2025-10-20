@@ -1,5 +1,10 @@
+/**
+ * Escena genérica y temporaria de juego. Contiene un acumulador y un botón para sumar 1 al acumulador. El valor del acumulador se mantiene aunque se haya cambiado de escena.
+ */
 export class GameScene extends Phaser.Scene {
-
+    /**
+     * Llama al constructor de Phaser.Scene con el nombre 'GameScene'
+     */
     constructor() {
         super('GameScene');
         this.counterTxt = 0;
@@ -10,7 +15,7 @@ export class GameScene extends Phaser.Scene {
     }
 
     create() {
-        let { width, height } = this.sys.game.canvas;
+        let { width, height } = this.canvas;
 
         let countText = this.add.text(width / 2, height / 2, this.counterTxt, { fontSize: 64 }).setOrigin(0.5);
 

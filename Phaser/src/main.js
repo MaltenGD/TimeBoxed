@@ -1,6 +1,10 @@
 import { Start } from './scenes/Start.js';
 import { SelectionMenuScene } from './scenes/SelectionMenuScene.js';
 import { GameScene } from './scenes/GameScene.js';
+import { TaliScene } from './scenes/TaliScene.js';
+import { AsebScene } from './scenes/AsebScene.js';
+import { HanafudaScene } from './scenes/HanafudaScene.js';
+import { CreditsScene } from './scenes/CreditsScene.js';
 
 const config = {
     type: Phaser.CANVAS,
@@ -13,8 +17,12 @@ const config = {
     pixelArt: false,
     scene: [
         Start,
+        CreditsScene,
         SelectionMenuScene,
-        GameScene
+        GameScene,
+        AsebScene,
+        TaliScene,
+        HanafudaScene
     ],
     scale: {
         mode: Phaser.Scale.FIT,
