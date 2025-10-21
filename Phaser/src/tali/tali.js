@@ -11,6 +11,8 @@ export default class Tali {
     enemy;
     dice;
     diceRolls = [];
+    static NUMBER_OF_DICE = 4;
+ 
     /**
      * @constructor Creates a new player, enemy, and dice object.
      */
@@ -18,6 +20,7 @@ export default class Tali {
         this.player = new Player();
         this.enemy = new Enemy();
         this.dice = new Dice();
+        this.diceNr = 4;
     }
 
     /**
