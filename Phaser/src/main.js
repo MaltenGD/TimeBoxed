@@ -4,6 +4,7 @@ import { GameScene } from './scenes/GameScene.js';
 import { TaliScene } from './scenes/TaliScene.js';
 import { AsebScene } from './scenes/AsebScene.js';
 import { HanafudaScene } from './scenes/HanafudaScene.js';
+import { CreditsScene } from './scenes/CreditsScene.js';
 
 const config = {
     type: Phaser.CANVAS,
@@ -16,6 +17,7 @@ const config = {
     pixelArt: false,
     scene: [
         Start,
+        CreditsScene,
         SelectionMenuScene,
         GameScene,
         AsebScene,
