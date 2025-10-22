@@ -1,6 +1,6 @@
 import Player from './player.js';
 import Enemy from './enemy.js';
-import Dice from './dice.js';
+import RandomNumber from '../randomnumber.js';
 
 /**
  * @class Tali
@@ -10,17 +10,15 @@ export default class Tali {
     player;
     enemy;
     dice;
-    diceRolls = [];
+    // diceNumbers = [1, 3, 4, 6];
     static NUMBER_OF_DICE = 4;
  
     /**
-     * @constructor Creates a new player, enemy, and dice object.
+     * @constructor Creates new player and enemy objects.
      */
     constructor() {
         this.player = new Player();
         this.enemy = new Enemy();
-        this.dice = new Dice();
-        this.diceNr = 4;
     }
 
     /**
@@ -39,9 +37,14 @@ export default class Tali {
 
     /**
      * Rolls the dice.
+     * @returns An array containing four indexes, each corresponding to the respective dice image/value.
      */
-    rollDice() {
-        this.dice.rollDice();
+    rollDice() {    
+        let arr = [];
+        for (let i = 0; i < Tali.NUMBER_OF_DICE; i++) {
+            arr.push(RandomNumber.get(0, Tali.NUMBER_OF_DICE));
+        }
+        return arr;
     }
 
     /**
