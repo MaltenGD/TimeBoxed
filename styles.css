@@ -1,3 +1,8 @@
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 70px; /* This should match the height of your banner */
+}
+
 body{
     background: rgb(17, 17, 17);
 
@@ -48,7 +53,7 @@ body{
 }
 
 .info-section p {
-    font-size: 25px;
+    font-size: 30px;
     line-height: 1.7;
     color: #ddd;    
 }
@@ -61,7 +66,8 @@ body{
     gap: 20px;
     max-width: 70%;
     margin-left: auto;
-    margin-right: auto; 
+    margin-right: auto;
+    
 }
 
 .info-module {
@@ -80,6 +86,11 @@ body{
     margin-bottom: 15px;
     border-radius: 10px;
 }
+#TeamLogo
+{
+    width: 300px;
+    height: 300px;
+}
 
 .info-module:hover {
     transform: translateY(-10px);
@@ -87,7 +98,19 @@ body{
 
 .info-module h3 {
     font-size: 20px;
-    margin-bottom: 20px;
+}
+.info-module p{
+    margin-top: 20px;
+    font-size: 15px;
+
+}
+#TeamInfoP
+{
+    margin-top: 30px;
+    max-width: 100%;
+    font-size: 25px;
+    line-height: 40px;
+    
 }
 
 
@@ -124,6 +147,11 @@ body{
   letter-spacing: 2px;
   font-weight: bold;
   color: #ff2e2e;
+}
+
+.project-name a {
+  text-decoration: none;
+  color: inherit;
 }
 
 .nav-links {
