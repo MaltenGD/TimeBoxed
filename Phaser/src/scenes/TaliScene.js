@@ -107,15 +107,19 @@ export class TaliScene extends Phaser.Scene {
                 ease: 'Sine.easeOut',
                 onComplete: () => {
                     console.log("compelte");
-                    this.tweens.add({
-                        targets: img,
-                        alpha: 0,
-                        duration: 2000,
-                        ease: 'Sine.easeOut',
-                        onComplete: () => {
-                            console.log("compelte");
-                        }
-                    })
+                    this.time.addEvent({
+                        delay: 2000, 
+                        callback: () => this.tweens.add({
+                            targets: img,
+                            alpha: 0,
+                            duration: 500,
+                            ease: 'Sine.easeOut',
+                            onComplete: () => {
+                                console.log("compelte2");
+                            }
+                        }),
+                        repeat: 1,
+                    });
                 }
             })
         })
