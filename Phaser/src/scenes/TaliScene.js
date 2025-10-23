@@ -90,39 +90,55 @@ export class TaliScene extends Phaser.Scene {
         }
     }
 
+    /**
+     * Rolls the dice.
+     */
     rollDice() {
-        this.currentRoll = this.taliGame.rollDice()
+        this.currentRoll = this.taliGame.rollDice();
         for (let i = 0, j = -100; i < Tali.NUMBER_OF_DICE; i++, j+=100) { 
             this.diceImages[i] = this.add.image(this.width/2 - j, this.height/2, 'dice' + this.currentRoll[i]).setOrigin(0, 0.5).setScale(0.2).setAlpha(0);
         }
         this.animateDice();
     }
 
+    /**
+     * Animates the dice appearing and disappearing.
+     */
     animateDice() {
-        this.diceImages.forEach((img, index) => {
-            this.tweens.add({
+        this.diceImages.forEach((img) => {
+            this.animateDiceIn(img);
+        })
+        
+    }
+
+    /**
+     * Animates the appearance of the dice.
+     */
+    animateDiceIn(img) {
+        this.tweens.add({
                 targets: img,
                 alpha: 1,
                 duration: 1000,
                 ease: 'Sine.easeOut',
                 onComplete: () => {
-                    console.log("compelte");
                     this.time.addEvent({
                         delay: 2000, 
-                        callback: () => this.tweens.add({
-                            targets: img,
-                            alpha: 0,
-                            duration: 500,
-                            ease: 'Sine.easeOut',
-                            onComplete: () => {
-                                console.log("compelte2");
-                            }
-                        }),
+                        callback: () => {this.animateDiceOut(img)},
                         repeat: 1,
                     });
                 }
             })
+    }
+
+    /**
+     * Animates the disappearance of the dice. 
+     */
+    animateDiceOut(img) {
+        this.tweens.add({
+            targets: img,
+            alpha: 0,
+            duration: 500,
+            ease: 'Sine.easeOut',
         })
-        
     }
 }
