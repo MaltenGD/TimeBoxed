@@ -1,4 +1,11 @@
+/**
+ * @file Start.js
+ * @description Escena inicial del juego. Desde aqui el jugador puede incial la partida 
+ * y ver los creditos
+ */
+
 export class Start extends Phaser.Scene {
+
 /**
  * Crea una nueva instancia de la escena Start
  * @constructor
