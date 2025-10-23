@@ -69,7 +69,6 @@ export class TaliScene extends Phaser.Scene {
      */
     addImages() {
         this.boardImg = this.add.image(this.width/2, this.height/2, 'board').setOrigin(0.5).setScale(0.3);
-        
     }
 
     /**
@@ -116,18 +115,18 @@ export class TaliScene extends Phaser.Scene {
      */
     animateDiceIn(img) {
         this.tweens.add({
-                targets: img,
-                alpha: 1,
-                duration: 1000,
-                ease: 'Sine.easeOut',
-                onComplete: () => {
-                    this.time.addEvent({
-                        delay: 2000, 
-                        callback: () => {this.animateDiceOut(img)},
-                        repeat: 1,
-                    });
-                }
-            })
+            targets: img,
+            alpha: 1,
+            duration: 1000,
+            ease: 'Sine.easeOut',
+            onComplete: () => {
+                this.time.addEvent({
+                    delay: 2000, 
+                    callback: () => {this.animateDiceOut(img)},
+                    repeat: 1,
+                });
+            }
+        })
     }
 
     /**
