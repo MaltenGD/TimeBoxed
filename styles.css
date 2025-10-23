@@ -175,3 +175,55 @@ body{
 body {
   padding-top: 70px;
 }
+
+footer {
+  background-color: #000;
+  color: beige;
+  padding: 20px 40px;
+  border-top: 2px solid #b22222;
+  width: 100%;
+  margin-top: 80px;
+  position: relative;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer-left p {
+  margin: 2px 0;
+  font-size: 0.9;
+}
+
+.footer-left strong {
+  color: #ff3333;
+}
+
+.footer-right a {
+  color: beige;
+  margin-left: 15px;
+  font-size: 1.3;
+  transition: all 0.3s ease;
+}
+
+.footer-right a:hover {
+  color: beige;
+  transform: scale(1.2);
+}
+
+@media (max-width: 700px) {
+  .footer-container {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .footer-right {
+    margin-top: 10px;
+  }
+}
