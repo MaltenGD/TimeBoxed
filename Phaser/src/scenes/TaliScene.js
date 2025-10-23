@@ -11,7 +11,7 @@ export class TaliScene extends Phaser.Scene {
     enemyScore;
     playerScore;
 
-    currentRoll = [];
+    currentRoll = [0, 0, 0, 0];
     
     boardImg;
     diceImages = [];
@@ -68,11 +68,7 @@ export class TaliScene extends Phaser.Scene {
      */
     addImages() {
         this.boardImg = this.add.image(this.width/2, this.height/2, 'board').setOrigin(0.5).setScale(0.3);
-        for (let i = 0, j = -100; i < Tali.NUMBER_OF_DICE; i++, j+=100) { 
-            console.log(i + ' j:' + j + ' height:' + this.height);
-            let img = this.add.image(this.width - 20, this.height/2 - j, 'dice' + i).setOrigin(1, 0).setScale(0.2);
-            this.diceImages.push(img);
-        }
+        
     }
 
     /**
@@ -96,7 +92,7 @@ export class TaliScene extends Phaser.Scene {
     rollDice() {
         this.currentRoll = this.taliGame.rollDice()
         for (let i = 0, j = -100; i < Tali.NUMBER_OF_DICE; i++, j+=100) { 
-            this.diceImages.at(this.currentRoll[i]).setPosition(this.width - 20, this.height/2 - j)
+            this.diceImages[i] = this.add.image(this.width - 20, this.height/2 - j, 'dice' + this.currentRoll[i]).setOrigin(1, 0).setScale(0.2);
         }
     }
 }
