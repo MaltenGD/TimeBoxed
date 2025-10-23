@@ -30,11 +30,12 @@ export class TaliScene extends Phaser.Scene {
 
     create() {
         let text = this.add.text(this.width/2, this.height/2, "Tali Scene", {fontSize: 64}).setOrigin(0.5);
+
+        this.startTaliGame();
+
         this.createButtons();
         this.addImages();
         this.addText();
-
-        this.startTaliGame();
     }
 
     /**
@@ -92,7 +93,7 @@ export class TaliScene extends Phaser.Scene {
     rollDice() {
         this.currentRoll = this.taliGame.rollDice()
         for (let i = 0, j = -100; i < Tali.NUMBER_OF_DICE; i++, j+=100) { 
-            this.diceImages[i] = this.add.image(this.width - 20, this.height/2 - j, 'dice' + this.currentRoll[i]).setOrigin(1, 0).setScale(0.2);
+            this.diceImages[i] = this.add.image(this.width/2 - j, this.height/2, 'dice' + this.currentRoll[i]).setOrigin(0, 0.5).setScale(0.2);
         }
     }
 }

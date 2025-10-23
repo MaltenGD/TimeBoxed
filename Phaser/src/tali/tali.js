@@ -7,12 +7,15 @@ import RandomNumber from '../randomnumber.js';
  * Controls the Tali game.
  */
 export default class Tali {
+    static NUMBER_OF_DICE = 4;
+
     player;
     enemy;
     dice;
-    // diceNumbers = [1, 3, 4, 6];
-    static NUMBER_OF_DICE = 4;
- 
+
+    playerScore;
+    enemyScore;
+
     /**
      * @constructor Creates new player and enemy objects.
      */
@@ -22,10 +25,25 @@ export default class Tali {
     }
 
     /**
+     * @returns The player's current score.
+     */
+    get playerScore() {
+        return this.player.score;
+    }
+
+    /**
+     * @returns The enemy's current score.
+     */
+    get enemyScore() {
+        return this.enemy.score;
+    }
+
+    /**
      * Starts the new game.
      */
     startGame() {
-        
+        this.player.resetScore();
+        this.enemy.resetScore();
     }
 
     /**
