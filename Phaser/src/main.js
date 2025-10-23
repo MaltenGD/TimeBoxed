@@ -8,11 +8,11 @@ import { CreditsScene } from './scenes/CreditsScene.js';
 
 const config = {
     type: Phaser.CANVAS,
-    title: 'Overlord Rising',
+    title: 'Timeboxed',
     description: '',
     parent: 'game-container',
-    width: 1280,
-    height: 720,
+    width: 2560,
+    height: 1440,
     backgroundColor: '#000000',
     pixelArt: false,
     scene: [
