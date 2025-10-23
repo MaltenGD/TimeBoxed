@@ -8,13 +8,17 @@ import RandomNumber from '../randomnumber.js';
  */
 export default class Tali {
     static NUMBER_OF_DICE = 4;
+    static TURNS = 3;
 
     player;
     enemy;
     dice;
+    currentTurn;
 
     playerScore;
     enemyScore;
+
+    playerFirst = true;
 
     emitter;
 
@@ -25,6 +29,7 @@ export default class Tali {
         this.player = new Player();
         this.enemy = new Enemy();
         this.emitter = new Phaser.Events.EventEmitter();
+        this.currentTurn = 1;
     }
 
     /**
@@ -51,6 +56,11 @@ export default class Tali {
     startGame() {
         this.player.resetScore();
         this.enemy.resetScore();
+
+        this.emitter.on('enemyTurnEnd', () => this.playerTurn());
+        this.emitter.on('playerTurnEnd', () => this.enemyTurn());
+
+        this.playerTurn();
     }
 
     /**
@@ -73,9 +83,28 @@ export default class Tali {
     }
 
     /**
-     * All the enemy's actions.
+     * Plays the enemy's turn.
      */
     enemyTurn() {
+        // TODO: check if its the last turn and who started
 
+        this.emitter.emit('enemyTurnStart');
+        this.time.addEvent({
+            delay: 1000, 
+            callback: () => {this.rollDice(); playerTurn = true;},
+            loop: false
+        });   
+        this.emitter.emit('enemyTurnEnd');
+    }
+    
+    /**
+     * Plays the player's turn.
+     */
+    playerTurn() {
+        // TODO: check if its the last turn and who started
+
+        this.emitter.emit('playerTurnStart');
+        playerTurn = false;
+        this.rollDice();
     }
 }

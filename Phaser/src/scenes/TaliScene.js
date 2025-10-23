@@ -10,6 +10,7 @@ export class TaliScene extends Phaser.Scene {
     
     enemyScore;
     playerScore;
+    textBox;
 
     currentRoll = [0, 0, 0, 0];
     
@@ -54,7 +55,7 @@ export class TaliScene extends Phaser.Scene {
         this.rollBtn = this.add.text(this.width/2, this.height - 10, 'Roll!', { fontSize: 64, fill: '#000', backgroundColor: '#fff'}).setOrigin(0.5, 1)
         .setInteractive()
         .on('pointerover', () => this.rollBtn.setStyle({fill: 'rgba(116, 8, 9, 1)'}))
-        .on('pointerdown', () => this.taliGame.rollDice())
+        .on('pointerdown', () => this.taliGame.playerTurn())
         .on('pointerout', () => this.rollBtn.setStyle({fill: '#000'}));
 
         this.backBtn = this.add.text(0, 0, 'Back', { fontSize: 64, fill: '#fff'})
@@ -75,8 +76,9 @@ export class TaliScene extends Phaser.Scene {
      * Adds all the text to the scene.
      */
     addText() {
-        this.enemyScore = this.add.text(this.width - 20, 20, 'Score: 0').setOrigin(1, 0);
-        this.playerScore = this.add.text(20, this.height - 20, 'My Score: 0').setOrigin(0, 1);
+        this.enemyScore = this.add.text(this.width - 20, 20, 'Score: ' + this.taliGame.enemyScore).setOrigin(1, 0);
+        this.playerScore = this.add.text(20, this.height - 20, 'My Score: ' + this.taliGame.playerScore).setOrigin(0, 1);
+        this.textBox = this.add.text(this.width/2, this.height/3, 'Roll to decide who begins!', { fontSize: 64, fill: '#000'}).setOrigin(0.5);
     }
 
     /**
@@ -90,6 +92,9 @@ export class TaliScene extends Phaser.Scene {
     }
 
     addEventListeners() {
+        this.taliGame.emitter.on('playerTurnStart', () => this.textBox.setText('Your turn'));
+        this.taliGame.emitter.on('enemyTurnStart', () => this.textBox.setText("Mercury's turn"));
+
         this.taliGame.emitter.on('diceRolled', (arr) => {this.rollDice(arr)});
     }
 
@@ -126,7 +131,7 @@ export class TaliScene extends Phaser.Scene {
                 this.time.addEvent({
                     delay: 2000, 
                     callback: () => {this.animateDiceOut(img)},
-                    repeat: 1,
+                    loop: false
                 });
             }
         })
@@ -141,6 +146,7 @@ export class TaliScene extends Phaser.Scene {
             alpha: 0,
             duration: 500,
             ease: 'Sine.easeOut',
+            onComplete: () => this.events.emit('diceOut')
         })
     }
 }
