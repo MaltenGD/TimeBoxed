@@ -29,13 +29,14 @@ export class TaliScene extends Phaser.Scene {
     }
 
     create() {
-        let text = this.add.text(this.width/2, this.height/2, "Tali Scene", {fontSize: 64}).setOrigin(0.5);
-
-        this.startTaliGame();
-
+        this.taliGame = new Tali();
+        
         this.createButtons();
         this.addImages();
         this.addText();
+        this.addEventListeners();
+
+        this.startTaliGame();
     }
 
     /**
@@ -43,7 +44,6 @@ export class TaliScene extends Phaser.Scene {
      * Starts the Tali game.
      */
     startTaliGame() {
-        this.taliGame = new Tali();
         this.taliGame.startGame();
     }
 
@@ -54,7 +54,7 @@ export class TaliScene extends Phaser.Scene {
         this.rollBtn = this.add.text(this.width/2, this.height - 10, 'Roll!', { fontSize: 64, fill: '#000', backgroundColor: '#fff'}).setOrigin(0.5, 1)
         .setInteractive()
         .on('pointerover', () => this.rollBtn.setStyle({fill: 'rgba(116, 8, 9, 1)'}))
-        .on('pointerdown', () => this.rollDice())
+        .on('pointerdown', () => this.taliGame.rollDice())
         .on('pointerout', () => this.rollBtn.setStyle({fill: '#000'}));
 
         this.backBtn = this.add.text(0, 0, 'Back', { fontSize: 64, fill: '#fff'})
@@ -68,7 +68,7 @@ export class TaliScene extends Phaser.Scene {
      * Adds all the images to the scene.
      */
     addImages() {
-        this.boardImg = this.add.image(this.width/2, this.height/2, 'board').setOrigin(0.5).setScale(0.3);
+        this.boardImg = this.add.image(this.width/2, this.height/2, 'board').setOrigin(0.5).setScale(0.6);
     }
 
     /**
@@ -89,13 +89,17 @@ export class TaliScene extends Phaser.Scene {
         }
     }
 
+    addEventListeners() {
+        this.taliGame.emitter.on('diceRolled', (arr) => {this.rollDice(arr)});
+    }
+
     /**
      * Rolls the dice.
      */
-    rollDice() {
-        this.currentRoll = this.taliGame.rollDice();
-        for (let i = 0, j = -100; i < Tali.NUMBER_OF_DICE; i++, j+=100) { 
-            this.diceImages[i] = this.add.image(this.width/2 - j, this.height/2, 'dice' + this.currentRoll[i]).setOrigin(0, 0.5).setScale(0.2).setAlpha(0);
+    rollDice(arr) {
+        this.currentRoll = arr;
+        for (let i = 0, j = -this.width/12; i < Tali.NUMBER_OF_DICE; i++, j+=this.width/12) { 
+            this.diceImages[i] = this.add.image(this.width/2 - j, this.height/2, 'dice' + this.currentRoll[i]).setOrigin(0, 0.5).setScale(0.3).setAlpha(0);
         }
         this.animateDice();
     }
@@ -107,7 +111,6 @@ export class TaliScene extends Phaser.Scene {
         this.diceImages.forEach((img) => {
             this.animateDiceIn(img);
         })
-        
     }
 
     /**

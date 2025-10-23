@@ -16,12 +16,15 @@ export default class Tali {
     playerScore;
     enemyScore;
 
+    emitter;
+
     /**
      * @constructor Creates new player and enemy objects.
      */
     constructor() {
         this.player = new Player();
         this.enemy = new Enemy();
+        this.emitter = new Phaser.Events.EventEmitter();
     }
 
     /**
@@ -36,6 +39,10 @@ export default class Tali {
      */
     get enemyScore() {
         return this.enemy.score;
+    }
+
+    get emitter() {
+        return this.emitter;
     }
 
     /**
@@ -62,7 +69,7 @@ export default class Tali {
         for (let i = 0; i < Tali.NUMBER_OF_DICE; i++) {
             arr.push(RandomNumber.get(0, Tali.NUMBER_OF_DICE));
         }
-        return arr;
+        this.emitter.emit('diceRolled', arr);
     }
 
     /**
