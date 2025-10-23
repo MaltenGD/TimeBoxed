@@ -57,10 +57,9 @@ export default class Tali {
         this.player.resetScore();
         this.enemy.resetScore();
 
-        this.emitter.on('enemyTurnEnd', () => this.playerTurn());
+        this.emitter.on('enemyTurnEnd', () => {this.playerTurn(); console.log('enemyturnend');});
         this.emitter.on('playerTurnEnd', () => this.enemyTurn());
 
-        this.playerTurn();
     }
 
     /**
@@ -89,12 +88,9 @@ export default class Tali {
         // TODO: check if its the last turn and who started
 
         this.emitter.emit('enemyTurnStart');
-        this.time.addEvent({
-            delay: 1000, 
-            callback: () => {this.rollDice(); playerTurn = true;},
-            loop: false
-        });   
-        this.emitter.emit('enemyTurnEnd');
+        this.emitter.once('diceRolled', () => this.emitter.emit('enemyTurnEnd'));
+        this.rollDice();
+        
     }
     
     /**
@@ -104,7 +100,7 @@ export default class Tali {
         // TODO: check if its the last turn and who started
 
         this.emitter.emit('playerTurnStart');
-        playerTurn = false;
-        this.rollDice();
+        this.playerTurn = false;
+        // this.rollDice();
     }
 }

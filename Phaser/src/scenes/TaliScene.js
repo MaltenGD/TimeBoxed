@@ -11,6 +11,7 @@ export class TaliScene extends Phaser.Scene {
     enemyScore;
     playerScore;
     textBox;
+    playerTurn = false;
 
     currentRoll = [0, 0, 0, 0];
     
@@ -46,16 +47,25 @@ export class TaliScene extends Phaser.Scene {
      */
     startTaliGame() {
         this.taliGame.startGame();
+        this.time.addEvent(({
+            delay: 2000,
+            callback: () => this.nextTurn(),
+            loop: false
+        }))
+    }
+
+    firstRolls() {
+        this.taliGame.enemyTurn();
     }
 
     /**
      * Creates and places all the buttons for the scene.
      */
     createButtons() {
-        this.rollBtn = this.add.text(this.width/2, this.height - 10, 'Roll!', { fontSize: 64, fill: '#000', backgroundColor: '#fff'}).setOrigin(0.5, 1)
+        this.rollBtn = this.add.text(this.width/2, this.height/2, 'Roll!', { fontSize: 64, fill: '#000', backgroundColor: '#fff'}).setOrigin(0.5, 1).setAlpha(0)
         .setInteractive()
         .on('pointerover', () => this.rollBtn.setStyle({fill: 'rgba(116, 8, 9, 1)'}))
-        .on('pointerdown', () => this.taliGame.playerTurn())
+        .on('pointerdown', () => this.taliGame.rollDice())
         .on('pointerout', () => this.rollBtn.setStyle({fill: '#000'}));
 
         this.backBtn = this.add.text(0, 0, 'Back', { fontSize: 64, fill: '#fff'})
@@ -92,8 +102,10 @@ export class TaliScene extends Phaser.Scene {
     }
 
     addEventListeners() {
-        this.taliGame.emitter.on('playerTurnStart', () => this.textBox.setText('Your turn'));
-        this.taliGame.emitter.on('enemyTurnStart', () => this.textBox.setText("Mercury's turn"));
+        this.taliGame.emitter.on('playerTurnStart', () => this.playerTurn());
+        this.taliGame.emitter.on('enemyTurnStart', () => this.enemyTurn());
+        
+        this.events.on('turnEnd', ()=>this.nextTurn());
 
         this.taliGame.emitter.on('diceRolled', (arr) => {this.rollDice(arr)});
     }
@@ -148,5 +160,28 @@ export class TaliScene extends Phaser.Scene {
             ease: 'Sine.easeOut',
             onComplete: () => this.events.emit('diceOut')
         })
+    }
+
+    nextTurn() {
+        if (this.playerTurn) {
+            this.playersTurn();
+            this.playerTurn = false;
+        }
+        else {
+            this.enemyTurn();
+            this.taliGame.rollDice();
+            this.playerTurn = true;
+        }
+        this.events.once('diceOut', () => this.events.emit('turnEnd'));
+    }
+
+    playersTurn() {
+        this.textBox.setText('Your turn');
+        this.rollBtn.setAlpha(1);
+    }
+
+    enemyTurn() {
+        this.textBox.setText("Mercury's turn");
+        this.rollBtn.setAlpha(0);
     }
 }
