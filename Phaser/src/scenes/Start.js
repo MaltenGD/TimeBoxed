@@ -16,8 +16,8 @@ export class Start extends Phaser.Scene {
         let { width, height } = this.sys.game.canvas;
         this.background = this.add.tileSprite(640, 360, 1280, 720, 'background');
         
-        const logo = this.add.image(640, 150, 'logo');
-        const playButton = this.add.sprite(640, 500, 'playButton', 0).setInteractive();
+        const logo = this.add.image(width/2, 150, 'logo').setOrigin(0.5);
+        const playButton = this.add.sprite(width/2, 500, 'playButton', 0).setInteractive().setOrigin(0.5);
         
         const creditsButton = this.add.text(width/2, 600, 'CREDITS',
             {
