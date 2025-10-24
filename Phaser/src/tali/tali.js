@@ -15,6 +15,8 @@ export default class Tali {
     dice;
     currentTurn;
 
+    diceNrs = [1, 3, 4, 6]
+
     playerScore;
     enemyScore;
 
@@ -56,10 +58,6 @@ export default class Tali {
     startGame() {
         this.player.resetScore();
         this.enemy.resetScore();
-
-        this.emitter.on('enemyTurnEnd', () => {this.playerTurn(); console.log('enemyturnend');});
-        this.emitter.on('playerTurnEnd', () => this.enemyTurn());
-
     }
 
     /**
@@ -79,28 +77,38 @@ export default class Tali {
             arr.push(RandomNumber.get(0, Tali.NUMBER_OF_DICE));
         }
         this.emitter.emit('diceRolled', arr);
+        return arr;
     }
-
+ 
     /**
-     * Plays the enemy's turn.
-     */
-    enemyTurn() {
-        // TODO: check if its the last turn and who started
-
-        this.emitter.emit('enemyTurnStart');
-        this.emitter.once('diceRolled', () => this.emitter.emit('enemyTurnEnd'));
-        this.rollDice();
-        
-    }
-    
-    /**
-     * Plays the player's turn.
+     * The player's turn.
+     * @returns The sum of the numbers on the dice.
      */
     playerTurn() {
-        // TODO: check if its the last turn and who started
+        let score = this.#generalTurn();
+        return score;
+    }
 
-        this.emitter.emit('playerTurnStart');
-        this.playerTurn = false;
-        // this.rollDice();
+    /**
+     * The enemy's turn.
+     * @returns The sum of the numbers on the dice.
+     */
+    enemyTurn() {
+        let score = this.#generalTurn();
+        return score;
+    }
+
+    /**
+     * Rolls and calculates the sum.
+     * @returns The sum of the numbers on the dice for the currrent roll.
+     */
+    #generalTurn() {
+        let roll = this.rollDice();
+        let sum = 0;
+        roll.forEach(element => {
+            sum+=this.diceNrs[element];
+            console.log(sum);
+        });
+        return sum;
     }
 }

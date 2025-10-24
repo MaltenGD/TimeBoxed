@@ -10,8 +10,8 @@ export class TaliScene extends Phaser.Scene {
     
     enemyScore;
     playerScore;
-    textBox;
-    playerTurn = false;
+    turnText;
+    resultText;
 
     currentRoll = [0, 0, 0, 0];
     
@@ -33,8 +33,8 @@ export class TaliScene extends Phaser.Scene {
     create() {
         this.taliGame = new Tali();
         
-        this.createButtons();
         this.addImages();
+        this.createButtons();
         this.addText();
         this.addEventListeners();
 
@@ -47,25 +47,75 @@ export class TaliScene extends Phaser.Scene {
      */
     startTaliGame() {
         this.taliGame.startGame();
-        this.time.addEvent(({
-            delay: 2000,
-            callback: () => this.nextTurn(),
-            loop: false
-        }))
+        this.firstRolls();
     }
 
+    /**
+     * Executes the first rolls.
+     */
     firstRolls() {
-        this.taliGame.enemyTurn();
+        let text = this.add.text(this.width/2, this.height/4, 'Roll to decide who begins!', { fontSize: 64, fill: '#000'}).setOrigin(0.5);
+        this.rollBtn.once('pointerdown', () => {this.gameStarted();});
+    }
+
+    /**
+     * Starts the game with the first rolls.
+     */
+    gameStarted() {
+        let pScore = this.taliGame.playerTurn();
+        this.resultText.setText('Result: ' + pScore);
+
+        this.rollBtn.on('pointerdown', () => this.playerTurn());
+        this.rollBtn.setPosition(this.width/2, this.height - this.height/14).setOrigin(0.5).setAlpha(0);
+        
+        let eScore;
+        this.events.once('diceOut', () => { eScore = this.taliGame.enemyTurn(); this.resultText.setText('Result: ' + eScore); this.calculateBeginner(pScore, eScore)});
+    }
+
+    /**
+     * 
+     * @param {*} pScore The player's score.
+     * @param {*} eScore The enemy's score.
+     */
+    calculateBeginner(pScore, eScore) {
+        let txt;
+        if (pScore > eScore) {
+            txt = 'You start!';
+        }
+        else {
+            txt = 'Mercury starts!';
+        }
+        this.time.addEvent({
+            delay: 4000, 
+            callback: () => {
+                let beginText = this.add.text(this.width/2, this.height/2, txt, {fontSize: 100, fill: '#fff', backgroundColor: '#000'}).setOrigin(0.5);
+                this.time.addEvent({
+                    delay: 3000,
+                    callback: () => beginText.destroy()
+                })
+            },
+            loop: false
+        });
+    }
+
+    /**
+     * Loads all the images.
+     */
+    loadImages() {
+        this.load.image('board', 'Phaser/assets/tali/temporary_board.png');
+        for (let i = 0; i < Tali.NUMBER_OF_DICE; i++) { 
+            this.load.image('dice' + i, 'Phaser/assets/tali/temporary_dice' + i + '.png');
+        }
     }
 
     /**
      * Creates and places all the buttons for the scene.
      */
     createButtons() {
-        this.rollBtn = this.add.text(this.width/2, this.height/2, 'Roll!', { fontSize: 64, fill: '#000', backgroundColor: '#fff'}).setOrigin(0.5, 1).setAlpha(0)
+        this.rollBtn = this.add.text(this.width/2, this.height/2, 'Roll!', { fontSize: 80, fill: '#000', backgroundColor: '#fff'}).setOrigin(0.5)
         .setInteractive()
         .on('pointerover', () => this.rollBtn.setStyle({fill: 'rgba(116, 8, 9, 1)'}))
-        .on('pointerdown', () => this.taliGame.rollDice())
+        // .on('pointerdown', () => this.taliGame.playerTurn())
         .on('pointerout', () => this.rollBtn.setStyle({fill: '#000'}));
 
         this.backBtn = this.add.text(0, 0, 'Back', { fontSize: 64, fill: '#fff'})
@@ -88,32 +138,20 @@ export class TaliScene extends Phaser.Scene {
     addText() {
         this.enemyScore = this.add.text(this.width - 20, 20, 'Score: ' + this.taliGame.enemyScore).setOrigin(1, 0);
         this.playerScore = this.add.text(20, this.height - 20, 'My Score: ' + this.taliGame.playerScore).setOrigin(0, 1);
-        this.textBox = this.add.text(this.width/2, this.height/3, 'Roll to decide who begins!', { fontSize: 64, fill: '#000'}).setOrigin(0.5);
+        this.turnText = this.add.text(this.width/2, this.height/3, ' ', { fontSize: 64, fill: '#000'}).setOrigin(0.5);
+        this.resultText = this.add.text(this.width/2, this.height - this.height/3, ' ', { fontSize: 64, fill: '#000'}).setOrigin(0.5);
     }
 
-    /**
-     * Loads all the images.
-     */
-    loadImages() {
-        this.load.image('board', 'Phaser/assets/tali/temporary_board.png');
-        for (let i = 0; i < Tali.NUMBER_OF_DICE; i++) { 
-            this.load.image('dice' + i, 'Phaser/assets/tali/temporary_dice' + i + '.png');
-        }
-    }
+    
 
     addEventListeners() {
-        this.taliGame.emitter.on('playerTurnStart', () => this.playerTurn());
-        this.taliGame.emitter.on('enemyTurnStart', () => this.enemyTurn());
-        
-        this.events.on('turnEnd', ()=>this.nextTurn());
-
-        this.taliGame.emitter.on('diceRolled', (arr) => {this.rollDice(arr)});
+        this.taliGame.emitter.on('diceRolled', (arr) => {this.setDiceImages(arr)});
     }
 
     /**
      * Rolls the dice.
      */
-    rollDice(arr) {
+    setDiceImages(arr) {
         this.currentRoll = arr;
         for (let i = 0, j = -this.width/12; i < Tali.NUMBER_OF_DICE; i++, j+=this.width/12) { 
             this.diceImages[i] = this.add.image(this.width/2 - j, this.height/2, 'dice' + this.currentRoll[i]).setOrigin(0, 0.5).setScale(0.3).setAlpha(0);
@@ -162,26 +200,23 @@ export class TaliScene extends Phaser.Scene {
         })
     }
 
-    nextTurn() {
-        if (this.playerTurn) {
-            this.playersTurn();
-            this.playerTurn = false;
-        }
-        else {
-            this.enemyTurn();
-            this.taliGame.rollDice();
-            this.playerTurn = true;
-        }
-        this.events.once('diceOut', () => this.events.emit('turnEnd'));
+    /**
+     * The player's turn.
+     */
+    playerTurn() {
+        console.log('player turn');
+        this.turnText.setText('Your turn');
+        this.taliGame.playerTurn();
+        this.events.once('diceOut', () => this.events.emit('playerTurnEnd'));
     }
 
-    playersTurn() {
-        this.textBox.setText('Your turn');
-        this.rollBtn.setAlpha(1);
-    }
-
+    /**
+     * The enemy's turn.
+     */
     enemyTurn() {
-        this.textBox.setText("Mercury's turn");
-        this.rollBtn.setAlpha(0);
+        console.log('enemy Turn');
+        this.turnText.setText("Mercury's turn");
+        this.taliGame.enemyTurn()
+        this.events.emit('enemyTurnEnd');
     }
 }
