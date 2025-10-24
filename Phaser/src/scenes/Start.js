@@ -5,11 +5,10 @@ export class Start extends Phaser.Scene {
     }
 
     preload() {
-    this.load.image('background', 'Phaser/assets/space.png');
-    this.load.image('logo', 'Phaser/assets/titlelogo.png');
-      this.load.image('teamLogo', 'Phaser/assets/teamLogo.png');
-    this.load.spritesheet('playButton', 'Phaser/assets/playButton.png', { frameWidth: 186, frameHeight: 92 });
-
+        this.load.image('background', 'Phaser/assets/space.png');
+        this.load.image('logo', 'Phaser/assets/titlelogo.png');
+        this.load.image('teamLogo', 'Phaser/assets/teamLogo.png');
+        this.load.spritesheet('playButton', 'Phaser/assets/playButton.png', { frameWidth: 186, frameHeight: 92 });
     }
 
     create(data) {

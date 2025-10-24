@@ -16,8 +16,10 @@ export class TaliBeginScene extends Phaser.Scene {
     diceImages = [];
 
     currentRoll = [0, 0, 0, 0];
+    
     playerScore;
     enemyScore;
+
     playerFirst = true;
 
     constructor() {
@@ -64,7 +66,7 @@ export class TaliBeginScene extends Phaser.Scene {
         this.backBtn = this.add.text(0, 0, 'Back', { fontSize: 64, fill: '#fff'})
         .setInteractive()
         .on('pointerover', () => this.backBtn.setStyle({fill: '#0f0'}))
-        .on('pointerdown', () => this.scene.start('SelectionMenuScene', { counterTxt: this.counterTxt }))
+        .on('pointerdown', () => this.scene.start('SelectionMenuScene'))
         .on('pointerout', () => this.backBtn.setStyle({fill: '#fff'}));
     }
 
@@ -92,12 +94,19 @@ export class TaliBeginScene extends Phaser.Scene {
         this.taliGame.emitter.on('diceRolled', (arr) => {this.setDiceImages(arr)});
     }
 
+    /**
+     * Begin the rolls.
+     */
     startGame() {
         this.playerRolls();
         this.events.once('playerRollDone', () => this.enemyRolls());
         this.events.once('enemyRollDone', () => this.calculateBeginner());
+        this.events.once('beginnerAnnounced', () => this.endGame());
     }
 
+    /**
+     * The player's first roll.
+     */
     playerRolls() {
         this.turnText.setText('Your rolls: ');
         this.rollBtn.setAlpha(0);
@@ -106,6 +115,9 @@ export class TaliBeginScene extends Phaser.Scene {
         this.events.once('diceOut', () => { this.resultText.setText(' '); this.events.emit('playerRollDone'); });
     }
 
+    /**
+     * The enemy's first roll.
+     */
     enemyRolls() {
         this.turnText.setText("Mercury's rolls: ");
         this.enemyScore = this.taliGame.enemyTurn();
@@ -118,6 +130,9 @@ export class TaliBeginScene extends Phaser.Scene {
         });
     }
 
+    /**
+     * Calculates the beginner and shows it on the screen.
+     */
     calculateBeginner() {
         if (this.playerScore > this.enemyScore) {
             this.playerFirst = true;
@@ -127,6 +142,22 @@ export class TaliBeginScene extends Phaser.Scene {
             this.playerFirst = false;
             this.turnText.setText("Mercury begins!");
         }
+        this.events.emit('beginnerAnnounced');
+    }
+
+    /**
+     * Ends the game and starts the proper Tali Scene.
+     * @sends playerFirst: true if the player begins, false if the enemy begins.
+     */
+    endGame() {
+        console.log("switching scenes: " + this.playerFirst);
+        this.time.addEvent(
+            {
+                delay: 2000,
+                loop: false,
+                callback: () => this.scene.start('TaliScene', {playerFirst: this.playerFirst})
+            }
+        );
     }
 
     /**
