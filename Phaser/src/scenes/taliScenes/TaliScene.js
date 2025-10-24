@@ -1,4 +1,4 @@
-import Tali from '../tali/tali.js';
+import Tali from '../../tali/tali.js';
 /**
  * @class TaliScene
  * The scene for the Tali game (Rome).
@@ -62,14 +62,14 @@ export class TaliScene extends Phaser.Scene {
      * Starts the game with the first rolls.
      */
     gameStarted() {
-        let pScore = this.taliGame.playerTurn();
+        var pScore = this.taliGame.playerTurn();
         this.resultText.setText('Result: ' + pScore);
 
         this.rollBtn.on('pointerdown', () => this.playerTurn());
         this.rollBtn.setPosition(this.width/2, this.height - this.height/14).setOrigin(0.5).setAlpha(0);
         
         let eScore;
-        this.events.once('diceOut', () => { eScore = this.taliGame.enemyTurn(); this.resultText.setText('Result: ' + eScore); this.calculateBeginner(pScore, eScore)});
+        this.events.once('diceOut', () => { eScore = this.taliGame.enemyTurn(); this.resultText.setText('Result: ' + eScore); this.calculateBeginner(pScore, eScore);});
     }
 
     /**
@@ -142,8 +142,6 @@ export class TaliScene extends Phaser.Scene {
         this.resultText = this.add.text(this.width/2, this.height - this.height/3, ' ', { fontSize: 64, fill: '#000'}).setOrigin(0.5);
     }
 
-    
-
     addEventListeners() {
         this.taliGame.emitter.on('diceRolled', (arr) => {this.setDiceImages(arr)});
     }
@@ -180,7 +178,7 @@ export class TaliScene extends Phaser.Scene {
             onComplete: () => {
                 this.time.addEvent({
                     delay: 2000, 
-                    callback: () => {this.animateDiceOut(img)},
+                    callback: () => {this.events.emit('diceIn'); this.animateDiceOut(img);},
                     loop: false
                 });
             }
