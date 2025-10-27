@@ -19,7 +19,7 @@ export class DialogTestingScene extends Phaser.Scene {
         // En futuro sería conveniente que cargaramos la instancia de esta clase
         // (DialogueController) y el metodo init desde una escena para carga de assets
 
-        this.dialogueController.start(this,"Intro"); // Establece la escena donde se va a mostrar el dialogo
+        this.dialogueController.start(this,"WIP"); // Establece la escena donde se va a mostrar el dialogo
         // y el bloque de dialogo en cuestión
 
 

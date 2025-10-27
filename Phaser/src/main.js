@@ -19,6 +19,7 @@ const config = {
     backgroundColor: '#000000',
     pixelArt: false,
     scene: [
+        DialogTestingScene,
         Start,
         CreditsScene,
         SelectionMenuScene,
@@ -26,8 +27,7 @@ const config = {
         AsebScene,
         TaliScene,
         TaliBeginScene,
-        HanafudaScene,
-        DialogTestingScene
+        HanafudaScene
     ],
     scale: {
         mode: Phaser.Scale.FIT,

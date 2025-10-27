@@ -54,6 +54,11 @@ export default class DialogueController{
             new Dialogue(kronos, 'You probably passed an incorrect parameter.', true),
             new Dialogue(kronos, 'See you later in the game!', true),
         ];
+        this.wipDialogues = [
+            new Dialogue(kronos, '¿Estabas esperando encontrarte el juego en desarrollo?', true),
+            new Dialogue(kronos, 'Nah bro, aquí no', true),
+            new Dialogue(kronos, ':P', false)
+        ];
 
 
         
@@ -78,6 +83,10 @@ export default class DialogueController{
             case 'Japan':
                 this.dialogues = this.japanDialogues;
                 break;
+            case 'WIP':
+                this.dialogues = this.wipDialogues;
+                break;
+
             default:
                 this.dialogues = this.errorDialogues;
                 break;
