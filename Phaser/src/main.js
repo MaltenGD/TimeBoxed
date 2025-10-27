@@ -6,17 +6,20 @@ import { TaliBeginScene } from './scenes/taliScenes/TaliBeginScene.js';
 import { AsebScene } from './scenes/AsebScene.js';
 import { HanafudaScene } from './scenes/HanafudaScene.js';
 import { CreditsScene } from './scenes/CreditsScene.js';
+import { DialogTestingScene } from './scenes/DialogTestingScene.js';
+
 
 const config = {
     type: Phaser.CANVAS,
     title: 'Timeboxed',
     description: '',
     parent: 'game-container',
-    width: 2560,
-    height: 1440,
+    width: 1920,
+    height: 1080,
     backgroundColor: '#000000',
     pixelArt: false,
     scene: [
+        DialogTestingScene, // Puse esta escena como la principal para testear, eliminad esta escena cuando lo veais oportuno
         Start,
         CreditsScene,
         SelectionMenuScene,
