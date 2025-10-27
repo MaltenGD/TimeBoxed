@@ -19,7 +19,6 @@ const config = {
     backgroundColor: '#000000',
     pixelArt: false,
     scene: [
-        DialogTestingScene, // Puse esta escena como la principal para testear, eliminad esta escena cuando lo veais oportuno
         Start,
         CreditsScene,
         SelectionMenuScene,
@@ -27,7 +26,8 @@ const config = {
         AsebScene,
         TaliScene,
         TaliBeginScene,
-        HanafudaScene
+        HanafudaScene,
+        DialogTestingScene
     ],
     scale: {
         mode: Phaser.Scale.FIT,
@@ -36,5 +36,3 @@ const config = {
 }
 
 new Phaser.Game(config);
-
-
