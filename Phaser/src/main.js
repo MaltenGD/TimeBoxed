@@ -1,18 +1,21 @@
 import { Start } from './scenes/Start.js';
 import { SelectionMenuScene } from './scenes/SelectionMenuScene.js';
 import { GameScene } from './scenes/GameScene.js';
-import { TaliScene } from './scenes/TaliScene.js';
+import { TaliScene } from './scenes/taliScenes/TaliScene.js';
+import { TaliBeginScene } from './scenes/taliScenes/TaliBeginScene.js';
 import { AsebScene } from './scenes/AsebScene.js';
 import { HanafudaScene } from './scenes/HanafudaScene.js';
 import { CreditsScene } from './scenes/CreditsScene.js';
+import { DialogTestingScene } from './scenes/DialogTestingScene.js';
+
 
 const config = {
     type: Phaser.CANVAS,
-    title: 'Overlord Rising',
+    title: 'Timeboxed',
     description: '',
     parent: 'game-container',
-    width: 1280,
-    height: 720,
+    width: 1920,
+    height: 1080,
     backgroundColor: '#000000',
     pixelArt: false,
     scene: [
@@ -22,7 +25,9 @@ const config = {
         GameScene,
         AsebScene,
         TaliScene,
-        HanafudaScene
+        TaliBeginScene,
+        HanafudaScene,
+        DialogTestingScene
     ],
     scale: {
         mode: Phaser.Scale.FIT,
@@ -31,5 +36,3 @@ const config = {
 }
 
 new Phaser.Game(config);
-
-

@@ -9,49 +9,113 @@
         <script src="script.js"></script>
     </head>
     <body>
-        <div id="game-container" style="width: 100vw; max-width: 100%; margin: 0 auto; display: flex; justify-content: center; align-items: center;"></div>
-        <script src="Phaser/phaser.js"></script>
-        <script type="module" src="Phaser/src/main.js"></script>
-        <div class = "closedScreen">
-            <div class = "openText" id="screen1">
-                <h1>CLICK TO OPEN</h1>
-                <div class = "openArrow">
-                    <i class="fa-solid fa-caret-down"></i>
-                </div>
-            </div>
-            <button class = "boxButton" onclick = "openScreen();">
-                <img src = "images/boxClosed.png" alt = "closed box">
-            </button>
+        <header class="banner">
+        <div class="banner-content">
+            <h1 class="project-name"><a href="#game-container">TimeBoxed</a></h1>
+            <nav class="nav-links">
+            <a href="#about-game">About the Game</a>
+            <a href="#about-team">About the Team</a>
+            <a href="#credits">Social Media</a>
+            </nav>
         </div>
 
-        <div class = "openedScreen" id="screen2">
-            <div class="title" style="width: 80vw; max-width: 900px; height: 70vh; display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 3vw; margin: auto;">
-                <div style="flex: 0 0 320px; display: flex; flex-direction: column; align-items: center;">
-                    <img src="images/logo.png" style="width: 320px; max-width: 90vw; height: auto; margin-bottom: 1em;">
-                </div>
-                <div style="flex: 1 1 0; display: flex; flex-direction: column; justify-content: center; align-items: center; min-width: 250px; max-width: 500px;">
-                    <div id="insigniaContent" style="opacity:0; transition: opacity 1s; width: 100%;">
-                        <h1 style="margin-bottom: 0.5em; text-align: center;">Timeboxed</h1>
-                        <h2 style="margin-top: 0; margin-bottom: 1em; font-weight: normal; text-align: center;">PopCat Games</h2>
-                        <div style="margin-bottom: 2em; text-align: center;">
-                            <span style="font-size: 1.1em;">Autores: Oliver Garcia Aguado, Alicia Sarahi Sanchez Varela, Zhiyi Zhou, Alexandra Lenta
-</span>
-                        </div>
-                        <div style="max-width: 500px; margin: 0 auto;">
-                            <p style="text-align: center;">
-                                Timeboxed es un juego 2D para navegador que combina elementos de mitología, apuestas, juegos de azar y juegos de mesa con la presencia de gatos como protagonistas.
-                            </p>
-                        </div>
-                        <div style="display: flex; gap: 2em; justify-content: center; margin-top: 1em;">
-                            <a href="https://x.com/PopCatGames" target="_blank" style="text-decoration: none;">Twitter</a>
-                            <a href="https://github.com/MaltenGD/TimeBoxed/" target="_blank" style="text-decoration: none;">GitHub</a>
-                        </div>
-                    </div>
-                </div>
-                <button class = "boxButtonOpen" onclick = "closeScreen();" style="position: absolute; bottom: 5%; left: 50%; transform: translateX(-50%);">
-                    <img src = "images/boxOpen.png" alt = "open box">
-                </button>
-            </div>
+        </header>
+        <div id="game-container" ></div>
+        <script src="Phaser/phaser.js"></script>
+        <script type="module" src="Phaser/src/main.js"></script>
+        <div id="about-game" class="info-section"> 
+            <h1> About the game</h1>
+            <p> 
+                What this game has to offer
+            </p>
         </div>
-    </body>
+        <div class="info-modules-container">
+            <a class="info-module">
+                <img src="images/CoolCat.png"></img>
+                <h3>Cats</h3>
+                <p>A lot of cats</p>
+            </a>
+            <a class="info-module">
+                <img src="images/timeTraveling.png"></img>
+                <h3>Time Traveling</h3>
+                <p>It seems that cats can time travel</p>
+            </a>
+            <a class="info-module">
+                <img src="images/mythology.png"></img>
+                <h3>Mythology</h3>
+                <p>Meet some good old deities</p>
+            </a>
+            <a class="info-module">
+                <img src="images/boxClosed.png"></img>
+                <h3>Board games</h3>
+                <p>WAIT WHAT!?</p>
+            </a>
+        </div>
+        <div id="about-team" class="info-section"> 
+            <h1> About the team</h1>
+            <p> 
+                We've made the game (yeyyy) 
+            </p>
+        </div>
+        <div style="max-width: 100%" class="info-modules-container" >
+            <a class="info-module" style="max-width: 80%">
+                <img id='TeamLogo'src="images/WhitePopCatGamesLogo.png"></img>
+                <h3>PopCat Games</h3>
+                <p></p>
+            </a>
+            <a class="info-module" style="min-width: 800px">
+                <p id="TeamInfoP">
+                PopCatGames is a video game development team formed by 4 students from the Complutense University of Madrid.
+
+                
+                </p>
+                <p id="TeamInfoP">
+                    Our main project is this game (Timeboxed).
+                </p>
+
+                <p>
+                    We hope you like it! :>
+                </p>
+                <img src="images/peepoLove.png">
+            </a>
+            
+        </div>
+        <div id="credits" class="info-section"> 
+            <h1> Social Media</h1>
+            <p> 
+                Follow our development journey on Twitter
+            </p>
+        </div>
+        <div class="info-modules-container">
+            <a href="https://x.com/PopCatGames" target="_blank" class="info-module">
+                <img src="images/TwitterLogo.png" alt="X/Twitter Logo">
+                <h3>@PopCatGames</h3>
+                <p>Follow us on X for updates and announcements! (and cats)</p>
+            </a>
+        </div>
+
+        <footer>
+        <div class="footer-container">
+        <div class="footer-left">
+          <p>© 2025 PopCat Games — All rights reserved.</p>
+          <p>Proyecto: <strong>TimeBoxed</strong></p>
+          <p class="footer-uni">
+          <a href="https://informatica.ucm.es" target="_blank" rel="noopener noreferrer">
+          Facultad de Informática - UCM
+          </a>
+      </p>
+        </div>
+        <div class="footer-right">
+          <a href="https://x.com/PopCatGames" target="_blank" aria-label="Twitter">
+            <i class="fa-brands fa-x-twitter"></i>
+          </a>
+          <a href="https://github.com/MaltenGD/TimeBoxed" target="_blank" aria-label="GitHub">
+            <i class="fa-brands fa-github"></i>
+          </a>
+        </div>
+      </div>
+    </footer>
+</body>
 </html>
+
+        
