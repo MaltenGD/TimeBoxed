@@ -19,7 +19,12 @@ export class Start extends Phaser.Scene {
      * @method preload
      */
     preload() {
+<<<<<<< Updated upstream
         this.load.image('background', 'Phaser/assets/StartMenu/MainBackgroundPlaceholder.png');
+=======
+
+        this.load.image('background', 'Phaser/assets/space.png');
+>>>>>>> Stashed changes
         this.load.image('logo', 'Phaser/assets/titlelogo.png');
         this.load.image('teamLogo', 'Phaser/assets/teamLogo.png');
         this.load.spritesheet('playButton', 'Phaser/assets/playButton.png', { frameWidth: 186, frameHeight: 92 });
@@ -31,6 +36,9 @@ export class Start extends Phaser.Scene {
      * @param {object} data 
      */
     create(data) {
+        
+       
+
         let { width, height } = this.sys.game.canvas;
         this.background = this.add.image(width / 2, height / 2, 'background').setDisplaySize(width, height);
         const logo = this.add.image(width / 2, 150, 'logo').setOrigin(0.5);
@@ -51,6 +59,8 @@ export class Start extends Phaser.Scene {
         // let counterValue = data.counterTxt !== undefined ? data.counterTxt : 0;
         // this.counterDisplay = this.add.text(width / 2, height / 2, `Counter: ${counterValue}`, { fontSize: 64 }).setOrigin(0.5);
 
+        //PLAY BUTTON INTERACTIONS
+
         //efecto hover del boton play
         playButton.on('pointerover', () => {
             playButton.setFrame(1);
@@ -61,8 +71,10 @@ export class Start extends Phaser.Scene {
 
         //accion click
         playButton.on('pointerup', () => { // This method will change to another scene (not created yet)
-            this.scene.start('SelectionMenuScene');
+            this.scene.start('Intro');
         });
+
+        //CREDITS BUTTON INTERACTIONS
 
         //efecto hover del boton Creditos
         creditsButton.on('pointerover', () => creditsButton.setStyle({ fill: '#62a6ffff' }));
@@ -86,8 +98,13 @@ export class Start extends Phaser.Scene {
             loop: -1
         });
 
+<<<<<<< Updated upstream
         //Logo del equipo en la esquina
         const teamLogo = this.add.image(width - 20, height - 20, 'teamLogo')
+=======
+        //LOGO del equipo en la esquina
+         const teamLogo = this.add.image(width - 20, height - 20, 'teamLogo')
+>>>>>>> Stashed changes
             .setOrigin(1, 1)
             .setScale(0.1)
         //.setAlpha(0.9);
@@ -96,6 +113,17 @@ export class Start extends Phaser.Scene {
 
     }
 
+<<<<<<< Updated upstream
 
 
+=======
+/**
+ * Actualiza el estado de la escena en cada frame del juego
+ * @method update
+ */
+    update() {
+        this.background.tilePositionX += 0.3;
+    }
+    
+>>>>>>> Stashed changes
 }
