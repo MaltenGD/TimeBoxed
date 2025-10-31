@@ -14,13 +14,13 @@ export class Intro extends Phaser.Scene
     // Here we will load the assets for dialogues, fonts, etc...
     preload()
     {
-        this.load.image('kronosPlaceholder', 'Phaser/assets/KronosPlaceHolder.png');
-        
+        this.load.image('IntroBackgroundPlaceholder', 'Phaser/assets/Intro/IntroBackgroundPlaceholder.jpeg');
     }
     
     create() 
     {
-        this.cameras.main.setBackgroundColor('#1f6696ff');
+        let { width, height } = this.sys.game.canvas;
+        this.background = this.add.image(width / 2, height / 2, 'IntroBackgroundPlaceholder').setDisplaySize(width, height);
 
         this.dialogueController = new DialogueController();
 
