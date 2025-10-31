@@ -7,7 +7,6 @@ import { AsebBeginScene } from './scenes/asebScenes/AsebBeginScene.js';
 import { AsebScene } from './scenes/asebScenes/AsebScene.js';
 import { HanafudaScene } from './scenes/HanafudaScene.js';
 import { CreditsScene } from './scenes/CreditsScene.js';
-import { DialogTestingScene } from './scenes/DialogTestingScene.js';
 import { Intro } from './scenes/Intro.js';
 
 
