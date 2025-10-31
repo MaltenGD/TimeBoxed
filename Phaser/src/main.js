@@ -19,28 +19,15 @@ const config = {
     height: 1080,
     backgroundColor: '#000000',
     pixelArt: false,
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-    scene: [
-        Start,
-=======
     scene: 
     [
         Start,
-=======
-    scene: 
-    [
-        Start,
->>>>>>> Stashed changes
         Intro,
         CreditsScene,
->>>>>>> Stashed changes
         SelectionMenuScene,
         AsebScene,
         AsebBeginScene,
         TaliBeginScene,
-        DialogTestingScene,
-        CreditsScene,
         GameScene,
         TaliScene,
         HanafudaScene

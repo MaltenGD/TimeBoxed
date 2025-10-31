@@ -45,7 +45,7 @@ export default class DialogueController{
             new Dialogue(kronos, "*stares into the distance* oh Yes, you see there's a buch of meat in the corner of this alley.\nI was thinking if I should go eat it", true),
             new Dialogue(game, "At the mention of food, your brain knows no better than your stomach, both empty. You turn around naively all excited for food but find nothing", true),
             new Dialogue(player, "That's weird, I don't see anything, sir", true),
-<<<<<<< Updated upstream
+
             new Dialogue(kronos, "*smirks* oh yeah, sorry I was thinking of a different alley. Anyway I see you're sooo intelligent my friend, so let's do this: you see this thing?", true),
             new Dialogue(game, "Kronos suddenly makes YOUR yarn ball appear next to him, while you were distracted he took the opportunity to stole it", true),
             new Dialogue(player, "*in pure disbelief* YOU!! How do you have my yarn ball!?", true),
@@ -72,12 +72,8 @@ export default class DialogueController{
 
 
 
-=======
             new Dialogue(kronos, "oh yeah, sorry I was thinking of a different alley", true),
 
-            new Dialogue(player, 'It sure does.', true),
-            new Dialogue(kronos, 'Good. Oliver will explain the rest to you.', true)
->>>>>>> Stashed changes
         ];
         this.egyptDialogues = 
         [
