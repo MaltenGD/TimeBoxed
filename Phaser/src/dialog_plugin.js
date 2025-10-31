@@ -9,7 +9,8 @@
  */
 export default class DialogBox{
 
-	constructor(scene, opts){
+	constructor(scene, opts)
+	{
 		this.scene = scene;
 		this.init(opts);
 	}

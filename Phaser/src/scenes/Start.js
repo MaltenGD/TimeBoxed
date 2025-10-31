@@ -19,6 +19,7 @@ export class Start extends Phaser.Scene {
  * @method preload
  */
     preload() {
+
         this.load.image('background', 'Phaser/assets/space.png');
         this.load.image('logo', 'Phaser/assets/titlelogo.png');
         this.load.image('teamLogo', 'Phaser/assets/teamLogo.png');
@@ -31,6 +32,9 @@ export class Start extends Phaser.Scene {
  * @param {object} data 
  */
     create(data) {
+        
+       
+
         let { width, height } = this.sys.game.canvas;
         this.background = this.add.tileSprite(640, 360, 1280, 720, 'background');
         
@@ -52,6 +56,8 @@ export class Start extends Phaser.Scene {
         // let counterValue = data.counterTxt !== undefined ? data.counterTxt : 0;
         // this.counterDisplay = this.add.text(width / 2, height / 2, `Counter: ${counterValue}`, { fontSize: 64 }).setOrigin(0.5);
 
+        //PLAY BUTTON INTERACTIONS
+
         //efecto hover del boton play
         playButton.on('pointerover', () => {
             playButton.setFrame(1);
@@ -62,8 +68,10 @@ export class Start extends Phaser.Scene {
 
         //accion click
         playButton.on('pointerup', () => { // This method will change to another scene (not created yet)
-            this.scene.start('SelectionMenuScene');
+            this.scene.start('Intro');
         });
+
+        //CREDITS BUTTON INTERACTIONS
 
         //efecto hover del boton Creditos
         creditsButton.on('pointerover', () => creditsButton.setStyle({ fill: '#62a6ffff' }));
@@ -87,7 +95,7 @@ export class Start extends Phaser.Scene {
             loop: -1
         });
 
-        //Logo del equipo en la esquina
+        //LOGO del equipo en la esquina
          const teamLogo = this.add.image(width - 20, height - 20, 'teamLogo')
             .setOrigin(1, 1)
             .setScale(0.1)
@@ -98,7 +106,7 @@ export class Start extends Phaser.Scene {
     }
 
 /**
- * Actualoiza el estado de la escena en cada frame del juego
+ * Actualiza el estado de la escena en cada frame del juego
  * @method update
  */
     update() {
