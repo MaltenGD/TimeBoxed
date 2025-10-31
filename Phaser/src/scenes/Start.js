@@ -6,44 +6,43 @@
 
 export class Start extends Phaser.Scene {
 
-/**
- * Crea una nueva instancia de la escena Start
- * @constructor
- */
+    /**
+     * Crea una nueva instancia de la escena Start
+     * @constructor
+     */
     constructor() {
         super('Start');
     }
 
-/**
- * Carga imagenes y logos utilizados en la pantalla inicial
- * @method preload
- */
+    /**
+     * Carga imagenes y logos utilizados en la pantalla inicial
+     * @method preload
+     */
     preload() {
-        this.load.image('background', 'Phaser/assets/space.png');
+        this.load.image('background', 'Phaser/assets/StartMenu/MainBackgroundPlaceholder.png');
         this.load.image('logo', 'Phaser/assets/titlelogo.png');
         this.load.image('teamLogo', 'Phaser/assets/teamLogo.png');
         this.load.spritesheet('playButton', 'Phaser/assets/playButton.png', { frameWidth: 186, frameHeight: 92 });
     }
 
-/**
- * Crea los elemnetos visuales e interactivos de la escena
- * @method create
- * @param {object} data 
- */
+    /**
+     * Crea los elemnetos visuales e interactivos de la escena
+     * @method create
+     * @param {object} data 
+     */
     create(data) {
         let { width, height } = this.sys.game.canvas;
-        this.background = this.add.tileSprite(640, 360, 1280, 720, 'background');
-        
-        const logo = this.add.image(width/2, 150, 'logo').setOrigin(0.5);
-        const playButton = this.add.sprite(width/2, 500, 'playButton', 0).setInteractive().setOrigin(0.5);
-        
+        this.background = this.add.image(width / 2, height / 2, 'background').setDisplaySize(width, height);
+        const logo = this.add.image(width / 2, 150, 'logo').setOrigin(0.5);
+        const playButton = this.add.sprite(width / 2, 500, 'playButton', 0).setInteractive().setOrigin(0.5);
+
         //boton de creditos
-        const creditsButton = this.add.text(width/2, 600, 'CREDITS',
+        const creditsButton = this.add.text(width / 2, 600, 'CREDITS',
             {
-                fontsize:'36px',
+                fontsize: '36px',
                 fill: '#000000',
                 backgroundColor: '#ffffffff',
-                padding: {x:40,y:20}
+                padding: { x: 40, y: 20 }
             })
 
             .setOrigin(0.5)
@@ -88,21 +87,15 @@ export class Start extends Phaser.Scene {
         });
 
         //Logo del equipo en la esquina
-         const teamLogo = this.add.image(width - 20, height - 20, 'teamLogo')
+        const teamLogo = this.add.image(width - 20, height - 20, 'teamLogo')
             .setOrigin(1, 1)
             .setScale(0.1)
-            //.setAlpha(0.9);
-            //.setTint(0xffffffff);
+        //.setAlpha(0.9);
+        //.setTint(0xffffffff);
 
 
     }
 
-/**
- * Actualoiza el estado de la escena en cada frame del juego
- * @method update
- */
-    update() {
-        this.background.tilePositionX += 0.3;
-    }
-    
+
+
 }
