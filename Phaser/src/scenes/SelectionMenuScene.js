@@ -31,7 +31,7 @@ export class SelectionMenuScene extends Phaser.Scene {
         ];
 
         const opciones = ['Egypt', 'Rome', 'Japan'];
-        const scenes = ['AsebScene', 'TaliBeginScene', 'HanafudaScene'];
+        const scenes = ['AsebBeginScene', 'TaliBeginScene', 'HanafudaScene'];
         const buttons = [];
         
         // Se crean los botones pero se dejan ocultos hasta que se haga click en la caja

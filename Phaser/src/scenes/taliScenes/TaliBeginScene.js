@@ -38,7 +38,7 @@ export class TaliBeginScene extends Phaser.Scene {
      * Loads all the images.
      */
     loadImages() {
-        this.load.image('board', 'Phaser/assets/tali/temporary_board.png');
+        this.load.image('taliBoard', 'Phaser/assets/tali/temporary_board.png');
         for (let i = 0; i < Tali.NUMBER_OF_DICE; i++) { 
             this.load.image('dice' + i, 'Phaser/assets/tali/temporary_dice' + i + '.png');
         }
@@ -74,7 +74,7 @@ export class TaliBeginScene extends Phaser.Scene {
      * Adds all the images to the scene.
      */
     addImages() {
-        this.boardImg = this.add.image(this.width/2, this.height/2, 'board').setOrigin(0.5).setScale(0.6);
+        this.boardImg = this.add.image(this.width/2, this.height/2, 'taliBoard').setOrigin(0.5).setScale(0.6);
     }
 
     /**
