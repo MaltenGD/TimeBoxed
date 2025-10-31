@@ -19,7 +19,7 @@ const config = {
     backgroundColor: '#000000',
     pixelArt: false,
     scene: [
-        DialogTestingScene,
+        //DialogTestingScene,
         Start,
         CreditsScene,
         SelectionMenuScene,
