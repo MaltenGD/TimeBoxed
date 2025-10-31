@@ -48,16 +48,16 @@ export default class DialogueController{
             new Dialogue(player, "They don't even have a loading screen yet.", true),
             new Dialogue(player, "Don't worry, pal. They're on the right track.", false),
         ];
+        this.wipDialogues = [
+            new Dialogue(kronos, '¿Estabas esperando encontrarte el juego en desarrollo?', true),
+            new Dialogue(kronos, 'Nah bro, aquí no', true),
+            new Dialogue(kronos, ':P', false)
+        ];
         this.errorDialogues = [
             new Dialogue(kronos, 'Hey, you. Yes, you, the one writing the code.', true),
             new Dialogue(kronos, 'Double-check your recent call to the "start" method.', true),
             new Dialogue(kronos, 'You probably passed an incorrect parameter.', true),
             new Dialogue(kronos, 'See you later in the game!', true),
-        ];
-        this.wipDialogues = [
-            new Dialogue(kronos, '¿Estabas esperando encontrarte el juego en desarrollo?', true),
-            new Dialogue(kronos, 'Nah bro, aquí no', true),
-            new Dialogue(kronos, ':P', false)
         ];
 
 

@@ -3,7 +3,8 @@ import { SelectionMenuScene } from './scenes/SelectionMenuScene.js';
 import { GameScene } from './scenes/GameScene.js';
 import { TaliScene } from './scenes/taliScenes/TaliScene.js';
 import { TaliBeginScene } from './scenes/taliScenes/TaliBeginScene.js';
-import { AsebScene } from './scenes/AsebScene.js';
+import { AsebBeginScene } from './scenes/asebScenes/AsebBeginScene.js';
+import { AsebScene } from './scenes/asebScenes/AsebScene.js';
 import { HanafudaScene } from './scenes/HanafudaScene.js';
 import { CreditsScene } from './scenes/CreditsScene.js';
 import { DialogTestingScene } from './scenes/DialogTestingScene.js';
@@ -19,14 +20,15 @@ const config = {
     backgroundColor: '#000000',
     pixelArt: false,
     scene: [
-        DialogTestingScene,
         Start,
-        CreditsScene,
         SelectionMenuScene,
-        GameScene,
         AsebScene,
-        TaliScene,
+        AsebBeginScene,
         TaliBeginScene,
+        DialogTestingScene,
+        CreditsScene,
+        GameScene,
+        TaliScene,
         HanafudaScene
     ],
     scale: {
