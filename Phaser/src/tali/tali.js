@@ -89,6 +89,7 @@ export default class Tali {
     }
 
     enemyRoll() {
+        console.log('enemy rolling');
         this.rollDice();
         this.identifyRoll(this.enemy);
     }
@@ -120,8 +121,6 @@ export default class Tali {
         this.checkAddJupiterRoll();
         this.checkAddNeptunoRoll();
         this.checkLunaRoll();
-        
-
         this.emitter.emit('turnEnded');
     }
 
@@ -140,6 +139,7 @@ export default class Tali {
         }
         if (venus) {
             this.diceThrows.push(TALI_THROWS.VENUS);
+            console.log('venus');
         }
     }
 
@@ -150,6 +150,7 @@ export default class Tali {
     checkAddMarteRoll() {
         if (this.counter[3] > 0) {
             this.diceThrows.push(TALI_THROWS.MARTE);
+            console.log('marte');
         }
     }      
 
@@ -164,9 +165,11 @@ export default class Tali {
             if (this.counter[i] == Tali.NUMBER_OF_DICE) {
                 jupiter = true;
             }
+            i++;
         }
         if (jupiter) {
             this.diceThrows.push(TALI_THROWS.JUPITER);
+            console.log('jupiter');
         }
     }
 
@@ -177,6 +180,7 @@ export default class Tali {
     checkAddNeptunoRoll() {
         if (this.counter[0] == 4) {
             this.diceThrows.push(TALI_THROWS.NEPTUNO);
+            console.log('neptuno');
         }
     }
 
@@ -184,6 +188,7 @@ export default class Tali {
         if (this.counter[1] >= 3) {
             this.diceThrows.push(TALI_THROWS.LUNA);
             this.emitter.emit('luna');
+            console.log('luna');
         }
     }
 
