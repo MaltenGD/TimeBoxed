@@ -45,8 +45,6 @@ export class TaliBeginScene extends Phaser.Scene {
         this.taliGame = new Tali(this, this.width, this.height);
         this.createButtons();
         this.addText();
-        this.addEventListeners();
-        
     }
 
     /**
@@ -81,13 +79,6 @@ export class TaliBeginScene extends Phaser.Scene {
         this.playerScore = this.add.text(20, this.height - 20, 'My Score: ' + this.taliGame.playerScore).setOrigin(0, 1);
         this.turnText = this.add.text(this.width/2, this.height/3, 'Roll to decide who begins:', { fontSize: 64, fill: '#000'}).setOrigin(0.5);
         this.resultText = this.add.text(this.width/2, this.height - this.height/3, ' ', { fontSize: 64, fill: '#000'}).setOrigin(0.5);
-    }
-
-    /**
-     * Adds all the event listeners.
-     */
-    addEventListeners() {
-        // this.taliGame.emitter.on('diceRolled', (arr) => {this.setDiceImages(arr)});
     }
 
     /**
@@ -134,9 +125,13 @@ export class TaliBeginScene extends Phaser.Scene {
             this.playerFirst = true;
             this.turnText.setText('You begin!');
         }
-        else {
+        else if (this.playerScore < this.enemyScore) {
             this.playerFirst = false;
             this.turnText.setText("Mercury begins!");
+        }
+        else {
+            this.playerFirst = true;
+            this.turnText.setText("It's a tie! Mercury lets you begin.");
         }
         this.events.emit('beginnerAnnounced');
     }

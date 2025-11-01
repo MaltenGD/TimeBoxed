@@ -1,7 +1,15 @@
-import Player from './player.js';
-import Enemy from './enemy.js';
+import TaliPlayer from './taliplayer.js';
 import RandomNumber from '../randomnumber.js';
-import Dice from './dice.js';
+
+/**
+ * The states of the game.
+ */
+export const GAME_STATE = {
+    PLAYER_TURN: 'PLAYER_TURN',
+    ENEMY_TURN: 'ENEMY_TURN',
+    PLAYER_VICTORY: 'PLAYER_VICTORY',
+    ENEMY_VICTORY: 'ENEMY_VICTORY'
+};
 
 /**
  * @class Tali
@@ -23,20 +31,26 @@ export default class Tali {
 
     /**
      * @constructor Creates new player and enemy objects.
+     * @param {Phaser.Scene} scene The current scene.
+     * @param {number} canvasWidth The canvas's width.
+     * @param {number} canvasHeight The canvas's height.  
+     * @param {boolean} playerFirst Determines if the player begins first. 
      */
-    constructor(scene, canvasWidth, canvasHeight) {
-        this.emitter = new Phaser.Events.EventEmitter();
+    constructor(scene, canvasWidth, canvasHeight, playerFirst = true) {
+        this.scene = scene;
+        this.scene.add.existing(this);
         this.width = canvasWidth;
         this.height = canvasHeight;
-        this.scene = scene;
-        this.player = new Player();
-        this.enemy = new Enemy();
-        this.currentTurn = 1;
-        this.scene.add.existing(this);
 
-        // for (let i = 0, j = -this.width/12; i < Tali.NUMBER_OF_DICE; i++, j+=this.width/12) { 
-        //     this.diceImages[i] = new Dice(this.scene, this.width/2 - j, this.height/2, 'dice' + i);
-        // }
+        this.emitter = new Phaser.Events.EventEmitter();
+        
+        this.playerFirst = playerFirst;
+        this.state = playerFirst ? GAME_STATE.PLAYER_TURN : GAME_STATE.ENEMY_TURN;
+
+        this.player = new TaliPlayer();
+        this.enemy = new TaliPlayer();
+        
+        this.currentTurn = 1;
     }
 
     /**
@@ -65,11 +79,15 @@ export default class Tali {
         this.enemy.resetScore();
     }
 
-    /**
-     * Ends the game.
-     */
-    stopGame() {
-
+    playerRoll() {
+        this.rollDice();
+        // this.emitter.once('diceOut', () => {
+        //     this.scene.time.addEvent({
+        //         delay: 1000,
+        //         callback: () => { },
+        //         loop: false
+        //     })
+        // })
     }
 
     /**
@@ -81,30 +99,15 @@ export default class Tali {
         for (let i = 0; i < Tali.NUMBER_OF_DICE; i++) {
             arr.push(RandomNumber.get(0, Tali.NUMBER_OF_DICE));
         }
-        // this.emitter.emit('diceRolled', arr);
         this.setDiceImages(arr);
+        this.emitter.once('diceOut', () => this.identifyRoll(arr));
         return arr;
     }
 
-
     /**
-     * The player's turn.
-     * @returns The sum of the numbers on the dice.
+     * Positions the dice images.
+     * @param {} roll The current roll to position. 
      */
-    playerTurn() {
-        let score = this.#generalTurn();
-        return score;
-    }
-
-    /**
-     * The enemy's turn.
-     * @returns The sum of the numbers on the dice.
-     */
-    enemyTurn() {
-        let score = this.#generalTurn();
-        return score;
-    }
-
     setDiceImages(roll) {
         for (let i = 0, j = -this.width/12; i < Tali.NUMBER_OF_DICE; i++, j+=this.width/12) { 
             this.diceImages[i] = this.scene.add.image(this.width/2 - j, this.height/2, 'dice' + roll[i]).setOrigin(0, 0.5).setScale(0.3).setAlpha(0);
@@ -152,6 +155,33 @@ export default class Tali {
             ease: 'Sine.easeOut',
             onComplete: () => this.emitter.emit('diceOut')
         })
+    }
+
+    identifyRoll() {
+        
+    }
+
+    
+
+    // ====================================================================
+    // USED ONLY IN BEGIN SCENE
+    // ====================================================================
+    /**
+     * The player's roll.
+     * @returns The sum of the numbers on the dice.
+     */
+    playerTurn() {
+        let score = this.#generalTurn();
+        return score;
+    }
+
+    /**
+     * The enemy's roll.
+     * @returns The sum of the numbers on the dice.
+     */
+    enemyTurn() {
+        let score = this.#generalTurn();
+        return score;
     }
 
     /**

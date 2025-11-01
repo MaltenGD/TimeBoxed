@@ -1,4 +1,4 @@
-import Tali from '../../tali/tali.js';
+import Tali, { GAME_STATE } from '../../tali/tali.js';
 /**
  * @class TaliScene
  * The scene for the Tali game (Rome).
@@ -28,30 +28,26 @@ export class TaliScene extends Phaser.Scene {
     preload() {
         let {width, height} = this.sys.game.canvas;
         this.width = width;
-        this.height = height;
-        
-        // this.loadImages();
+        this.height = height;    
     }
-
-    // /**
-    //  * Loads all the tali images.
-    //  */
-    // loadImages() {
-    //     this.load.image('board', 'Phaser/assets/tali/temporary_board.png');
-    //     for (let i = 0; i < Tali.NUMBER_OF_DICE; i++) { 
-    //         this.load.image('dice' + i, 'Phaser/assets/tali/temporary_dice' + i + '.png');
-    //     }
-    // }
 
     create() {
         console.log(this.playerFirst ? "Player starts." : "Mercury starts.");
 
-        this.taliGame = new Tali(this, this.width, this.height);
-
         this.addImages();
+        this.taliGame = new Tali(this, this.width, this.height, this.playerFirst);
+        
         this.createButtons();
         this.addText();
-        this.addEventListeners();   
+        this.addEventListeners(); 
+        
+        // Start the first turn.
+        if (this.playerFirst) {
+            this.startPlayerTurn;
+        }
+        else {
+            this.startEnemyTurn;
+        }
     }
 
     /**
@@ -61,7 +57,7 @@ export class TaliScene extends Phaser.Scene {
         this.rollBtn = this.add.text(this.width/2, this.height/2, 'Roll!', { fontSize: 80, fill: '#000', backgroundColor: '#fff'}).setOrigin(0.5)
         .setInteractive()
         .on('pointerover', () => this.rollBtn.setStyle({fill: 'rgba(116, 8, 9, 1)'}))
-        .on('poinerdown', () => this.taliGame.rollDice())
+        .on('pointerdown', () => this.taliGame.playerRoll())
         .on('pointerout', () => this.rollBtn.setStyle({fill: '#000'}));
 
         this.backBtn = this.add.text(0, 0, 'Back', { fontSize: 64, fill: '#fff'})
@@ -75,7 +71,7 @@ export class TaliScene extends Phaser.Scene {
      * Adds all the images to the scene.
      */
     addImages() {
-        this.boardImg = this.add.image(this.width/2, this.height/2, 'board').setOrigin(0.5).setScale(0.6);
+        this.boardImg = this.add.image(this.width/2, this.height/2, 'taliBoard').setOrigin(0.5).setScale(0.6);
     }
 
     /**
@@ -84,8 +80,8 @@ export class TaliScene extends Phaser.Scene {
     addText() {
         this.enemyScore = this.add.text(this.width - 20, 20, 'Score: ' + this.taliGame.enemyScore).setOrigin(1, 0);
         this.playerScore = this.add.text(20, this.height - 20, 'My Score: ' + this.taliGame.playerScore).setOrigin(0, 1);
-        this.turnText = this.add.text(this.width/2, this.height/3, ' ', { fontSize: 64, fill: '#000'}).setOrigin(0.5);
-        this.resultText = this.add.text(this.width/2, this.height - this.height/3, ' ', { fontSize: 64, fill: '#000'}).setOrigin(0.5);
+        this.turnText = this.add.text(this.width/2, this.height/3, '', { fontSize: 64, fill: '#000'}).setOrigin(0.5);
+        this.resultText = this.add.text(this.width/2, this.height - this.height/3, '', { fontSize: 64, fill: '#000'}).setOrigin(0.5);
     }
 
     addEventListeners() {
@@ -94,55 +90,41 @@ export class TaliScene extends Phaser.Scene {
         })
     }
 
+    startPlayerTurn() {
+        this.taliGame.state = GAME_STATE.PLAYER_TURN;
+        console.log("Starting player turn.");
+        this.turnText.setText("Your turn! Roll the dice.");
+        this.setObjectState(this.rollBtn, true);
+    }
+
+    startEnemyTurn() {
+        this.taliGame.state = GAME_STATE.ENEMY_TURN;
+        console.log("Starting enemy turn.");
+        this.turnText.setText("Mercury's turn!");
+        this.setObjectState(this.rollBtn, false);
+    }
+
     /**
-     * Rolls the dice.
+     * Establishes the next turn.
      */
-    setDiceImages(arr) {
-        this.currentRoll = arr;
-        for (let i = 0, j = -this.width/12; i < Tali.NUMBER_OF_DICE; i++, j+=this.width/12) { 
-            this.diceImages[i] = this.add.image(this.width/2 - j, this.height/2, 'dice' + this.currentRoll[i]).setOrigin(0, 0.5).setScale(0.3).setAlpha(0);
+    nextTurn() {
+        if (this.taliGame.state === GAME_STATE.PLAYER_TURN) {
+            this.startEnemyTurn();
         }
-        this.animateDice();
+        else if (this.taliGame.state === GAME_STATE.ENEMY_TURN) {
+            this.startPlayerTurn();
+        }
     }
 
     /**
-     * Animates the dice appearing and disappearing.
+     * Changes visibility and state of an object.
+     * @param object The object to change the state of.
+     * @param {boolean} state The state.
      */
-    animateDice() {
-        this.diceImages.forEach((img) => {
-            this.animateDiceIn(img);
-        })
+    setObjectState(object,state)
+    {
+        object.setActive(state);
+        object.setVisible(state);
     }
 
-    /**
-     * Animates the appearance of the dice.
-     */
-    animateDiceIn(img) {
-        this.tweens.add({
-            targets: img,
-            alpha: 1,
-            duration: 1000,
-            ease: 'Sine.easeOut',
-            onComplete: () => {
-                this.time.addEvent({
-                    delay: 2000, 
-                    callback: () => {this.events.emit('diceIn'); this.animateDiceOut(img);},
-                    loop: false
-                });
-            }
-        })
-    }
-
-    /**
-     * Animates the disappearance of the dice. 
-     */
-    animateDiceOut(img) {
-        this.tweens.add({
-            targets: img,
-            alpha: 0,
-            duration: 500,
-            ease: 'Sine.easeOut',
-            onComplete: () => this.events.emit('diceOut')
-        })
-    }
 }
