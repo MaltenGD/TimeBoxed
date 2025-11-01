@@ -1,4 +1,4 @@
-import TaliPlayer from './taliplayer.js';
+import TaliPlayer, { TALI_THROWS } from './taliplayer.js';
 import RandomNumber from '../randomnumber.js';
 
 /**
@@ -24,6 +24,10 @@ export default class Tali {
 
     playerScore = 0;
     enemyScore = 0;
+
+    currentRoll;
+    diceThrows;
+    counter;
 
     playerFirst = true;
 
@@ -81,13 +85,12 @@ export default class Tali {
 
     playerRoll() {
         this.rollDice();
-        // this.emitter.once('diceOut', () => {
-        //     this.scene.time.addEvent({
-        //         delay: 1000,
-        //         callback: () => { },
-        //         loop: false
-        //     })
-        // })
+        this.identifyRoll(this.player);
+    }
+
+    enemyRoll() {
+        this.rollDice();
+        this.identifyRoll(this.enemy);
     }
 
     /**
@@ -99,18 +102,97 @@ export default class Tali {
         for (let i = 0; i < Tali.NUMBER_OF_DICE; i++) {
             arr.push(RandomNumber.get(0, Tali.NUMBER_OF_DICE));
         }
-        this.setDiceImages(arr);
-        this.emitter.once('diceOut', () => this.identifyRoll(arr));
+        this.currentRoll = arr;
+        this.setDiceImages();
         return arr;
     }
 
+    identifyRoll(taliPlayer) {
+        this.counter = [0, 0, 0, 0];
+        this.currentRoll.forEach(element => {
+            this.counter[element]++;
+            console.log('element: ' + element + ' counter: ' + this.counter[element]);
+        })
+        
+        this.diceThrows = [];
+        this.checkAddVenusRoll();
+        this.checkAddMarteRoll();
+        this.checkAddJupiterRoll();
+        this.checkAddNeptunoRoll();
+        this.checkLunaRoll();
+        
+
+        this.emitter.emit('turnEnded');
+    }
+
     /**
-     * Positions the dice images.
-     * @param {} roll The current roll to position. 
+     * Check if all the dice results are different from each other.
+     * Adds throw to array if true.
      */
-    setDiceImages(roll) {
+    checkAddVenusRoll() {
+        let venus = true;
+        let i = 0;
+        while (i < Tali.NUMBER_OF_DICE && venus) {
+            if (this.counter[i] != 1) {
+                venus = false;
+            }
+            i++;
+        }
+        if (venus) {
+            this.diceThrows.push(TALI_THROWS.VENUS);
+        }
+    }
+
+    /**
+     * Check if there's at least one 6.
+     * Adds throw to array if true.
+     */
+    checkAddMarteRoll() {
+        if (this.counter[3] > 0) {
+            this.diceThrows.push(TALI_THROWS.MARTE);
+        }
+    }      
+
+    /**
+     * Check if all the dice have the same result.
+     * Adds throw to array if true.
+     */
+    checkAddJupiterRoll() {
+        let jupiter = false;
+        let i = 0;
+        while (i < Tali.NUMBER_OF_DICE && !jupiter) {
+            if (this.counter[i] == Tali.NUMBER_OF_DICE) {
+                jupiter = true;
+            }
+        }
+        if (jupiter) {
+            this.diceThrows.push(TALI_THROWS.JUPITER);
+        }
+    }
+
+    /**
+     * Check if all the dice are number 1.
+     * Adds throw to array if true.
+     */
+    checkAddNeptunoRoll() {
+        if (this.counter[0] == 4) {
+            this.diceThrows.push(TALI_THROWS.NEPTUNO);
+        }
+    }
+
+    checkLunaRoll() {
+        if (this.counter[1] >= 3) {
+            this.diceThrows.push(TALI_THROWS.LUNA);
+            this.emitter.emit('luna');
+        }
+    }
+
+    /**
+     * Positions the dice images according to the current roll.
+     */
+    setDiceImages() {
         for (let i = 0, j = -this.width/12; i < Tali.NUMBER_OF_DICE; i++, j+=this.width/12) { 
-            this.diceImages[i] = this.scene.add.image(this.width/2 - j, this.height/2, 'dice' + roll[i]).setOrigin(0, 0.5).setScale(0.3).setAlpha(0);
+            this.diceImages[i] = this.scene.add.image(this.width/2 - j, this.height/2, 'dice' + this.currentRoll[i]).setOrigin(0, 0.5).setScale(0.3).setAlpha(0);
         }
         this.animateDice();
     }
@@ -155,10 +237,6 @@ export default class Tali {
             ease: 'Sine.easeOut',
             onComplete: () => this.emitter.emit('diceOut')
         })
-    }
-
-    identifyRoll() {
-        
     }
 
     

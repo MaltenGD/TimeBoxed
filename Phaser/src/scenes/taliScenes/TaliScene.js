@@ -43,10 +43,11 @@ export class TaliScene extends Phaser.Scene {
         
         // Start the first turn.
         if (this.playerFirst) {
-            this.startPlayerTurn;
+            this.startPlayerTurn();
         }
         else {
-            this.startEnemyTurn;
+            this.startEnemyTurn();
+            
         }
     }
 
@@ -57,7 +58,10 @@ export class TaliScene extends Phaser.Scene {
         this.rollBtn = this.add.text(this.width/2, this.height/2, 'Roll!', { fontSize: 80, fill: '#000', backgroundColor: '#fff'}).setOrigin(0.5)
         .setInteractive()
         .on('pointerover', () => this.rollBtn.setStyle({fill: 'rgba(116, 8, 9, 1)'}))
-        .on('pointerdown', () => this.taliGame.playerRoll())
+        .on('pointerdown', () => {
+            this.taliGame.playerRoll();
+            this.setObjectState(this.rollBtn, false);
+        })
         .on('pointerout', () => this.rollBtn.setStyle({fill: '#000'}));
 
         this.backBtn = this.add.text(0, 0, 'Back', { fontSize: 64, fill: '#fff'})
@@ -88,6 +92,7 @@ export class TaliScene extends Phaser.Scene {
         this.taliGame.emitter.on('turnEnded', () => {
             this.nextTurn();
         })
+        this.taliGame.emitter.on('luna', () => this.lunaThrow());
     }
 
     startPlayerTurn() {
@@ -102,6 +107,7 @@ export class TaliScene extends Phaser.Scene {
         console.log("Starting enemy turn.");
         this.turnText.setText("Mercury's turn!");
         this.setObjectState(this.rollBtn, false);
+        this.taliGame.enemyRoll();
     }
 
     /**
@@ -113,6 +119,17 @@ export class TaliScene extends Phaser.Scene {
         }
         else if (this.taliGame.state === GAME_STATE.ENEMY_TURN) {
             this.startPlayerTurn();
+        }
+    }
+
+    lunaThrow() {
+        if (this.taliGame.state === GAME_STATE.PLAYER_TURN) {
+            this.turnText.setText("LUNA! Roll again!");
+            this.startPlayerTurn();
+        }
+        else if (this.taliGame.state === GAME_STATE.ENEMY_TURN) {
+            this.turnText.setText("LUNA! Mercury rolls again.");
+            this.startEnemyTurn();
         }
     }
 

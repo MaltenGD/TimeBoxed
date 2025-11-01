@@ -1,14 +1,20 @@
+export const TALI_THROWS = {
+    VENUS: {name: 'VENUS', value: 5},
+    MARTE: {name: 'MARTE', value: 3},
+    JUPITER: {name: 'JUPITER', value: 1},
+    NEPTUNO: {name: 'NEPTUNO', value: 0},
+    LUNA: 'LUNA'
+}
+
 /**
  * @class TaliPlayer
  * Abstract class for any player of tali.
  */
 export default class TaliPlayer {
     score;
+    throws = [];
 
     constructor() {
-        if (this.constructor == TaliPlayer) {
-            throw new Error("TaliPlayer is abstract. Cannot instantiate abstract class.");
-        }
         this.score = 0;
     }
 
@@ -18,5 +24,10 @@ export default class TaliPlayer {
 
     resetScore() {
         this.score = 0;
+    }
+
+    addThrow(roll) {
+        this.throws.push(roll);
+        this.score.addScore(roll.value);
     }
 }
