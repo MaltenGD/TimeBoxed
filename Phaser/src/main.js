@@ -1,4 +1,5 @@
 import { Start } from './scenes/Start.js';
+import { LoadingScene } from './scenes/LoadingScene.js';
 import { SelectionMenuScene } from './scenes/SelectionMenuScene.js';
 import { GameScene } from './scenes/GameScene.js';
 import { TaliScene } from './scenes/taliScenes/TaliScene.js';
@@ -22,6 +23,7 @@ const config = {
     scene: 
     [
         Start,
+        LoadingScene,
         Intro,
         CreditsScene,
         SelectionMenuScene,
