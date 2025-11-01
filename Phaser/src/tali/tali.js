@@ -21,6 +21,7 @@ export default class Tali {
 
     diceNrs = [1, 3, 4, 6]
     diceImages = [0, 0, 0, 0];
+    throwImages = [0, 0, 0, 0, 0];
 
     playerScore = 0;
     enemyScore = 0;
@@ -55,8 +56,17 @@ export default class Tali {
         this.enemy = new TaliPlayer();
         
         this.currentTurn = 1;
+
+        this.addImages();        
     }
 
+    addImages() {
+        this.throwImages[0] = this.scene.add.image(this.width/2, this.height/2, 'VENUS').setOrigin(0.5).setAlpha(0);
+        this.throwImages[1] = this.scene.add.image(this.width/2, this.height/2, 'MARTE').setOrigin(0.5).setAlpha(0);
+        this.throwImages[2] = this.scene.add.image(this.width/2, this.height/2, 'JUPITER').setOrigin(0.5).setAlpha(0);
+        this.throwImages[3] = this.scene.add.image(this.width/2, this.height/2, 'NEPTUNO').setOrigin(0.5).setAlpha(0);
+        this.throwImages[4] = this.scene.add.image(this.width/2, this.height/2, 'LUNA').setOrigin(0.5).setAlpha(0);
+    }
     /**
      * @returns The player's current score.
      */
@@ -121,6 +131,10 @@ export default class Tali {
         this.checkAddJupiterRoll();
         this.checkAddNeptunoRoll();
         this.checkLunaRoll();
+        taliPlayer.addThrow(this.diceThrows);
+
+        this.animateThrows(this.diceThrows);
+
         this.emitter.emit('turnEnded');
     }
 
@@ -244,7 +258,47 @@ export default class Tali {
         })
     }
 
-    
+    animateThrows(throws) {
+        throws.forEach(element => {
+            this.animateThrowIn(this.searchThrowImage(element.name));
+        });
+    }
+
+    animateThrowIn(img) {
+        this.scene.tweens.add({
+            targets: img,
+            alpha: 1,
+            duration: 1000,
+            ease: 'Sine.easeOut',
+            onComplete: () => {
+                this.emitter.emit('diceIn');
+                this.scene.time.addEvent({
+                    delay: 2000, 
+                    callback: () => { this.animatThrowOut(img);},
+                    loop: false
+                });
+            }
+        })
+    }
+
+    animateThrowIn(img) {
+        this.scene.tweens.add({
+            targets: img,
+            alpha: 0,
+            duration: 500,
+            ease: 'Sine.easeOut',
+            // onComplete: () => this.emitter.emit('diceOut')
+        })
+    }
+
+    searchThrowImage(name) {
+        this.throwImages.forEach(element => {
+            console.log(element.texture.key + ' ' + name);
+            if (element.texture.key === name) {
+                return element;
+            }
+        });
+    } 
 
     // ====================================================================
     // USED ONLY IN BEGIN SCENE

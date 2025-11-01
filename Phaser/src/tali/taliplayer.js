@@ -1,9 +1,11 @@
+import Score from "./score.js";
+
 export const TALI_THROWS = {
     VENUS: {name: 'VENUS', value: 5},
     MARTE: {name: 'MARTE', value: 3},
     JUPITER: {name: 'JUPITER', value: 1},
     NEPTUNO: {name: 'NEPTUNO', value: 0},
-    LUNA: 'LUNA'
+    LUNA: {name: 'LUNA', value: 0}
 }
 
 /**
@@ -15,7 +17,7 @@ export default class TaliPlayer {
     throws = [];
 
     constructor() {
-        this.score = 0;
+        this.score = new Score();
     }
 
     get score() {
@@ -27,7 +29,9 @@ export default class TaliPlayer {
     }
 
     addThrow(roll) {
-        this.throws.push(roll);
-        this.score.addScore(roll.value);
+        roll.forEach(element => {
+            this.throws.push(element);
+            this.score.addScore(element.value);
+        });
     }
 }

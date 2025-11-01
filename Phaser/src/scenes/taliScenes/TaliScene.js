@@ -13,8 +13,7 @@ export class TaliScene extends Phaser.Scene {
     currentRoll = [0, 0, 0, 0];
 
     playerFirst;
-    
-    diceImages = [];
+
 
     constructor() {
         super('TaliScene');
@@ -28,7 +27,7 @@ export class TaliScene extends Phaser.Scene {
     preload() {
         let {width, height} = this.sys.game.canvas;
         this.width = width;
-        this.height = height;    
+        this.height = height;
     }
 
     create() {

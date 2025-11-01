@@ -5,6 +5,6 @@ export default class Score {
     score = 0;
 
     addScore(score) {
-        this.score += roll;
+        this.score += score;
     }
 }

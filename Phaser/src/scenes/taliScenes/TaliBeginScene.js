@@ -38,6 +38,11 @@ export class TaliBeginScene extends Phaser.Scene {
         for (let i = 0; i < Tali.NUMBER_OF_DICE; i++) { 
             this.load.image('dice' + i, 'Phaser/assets/tali/temporary_dice' + i + '.png');
         }
+        this.load.image('VENUS', 'Phaser/assets/tali/temporary_throw0.png')
+        this.load.image('MARTE', 'Phaser/assets/tali/temporary_throw1.png')
+        this.load.image('JUPITER', 'Phaser/assets/tali/temporary_throw2.png')
+        this.load.image('NEPTUNO', 'Phaser/assets/tali/temporary_throw3.png')
+        this.load.image('LUNA', 'Phaser/assets/tali/temporary_throw4.png')
     }
 
     create() {
