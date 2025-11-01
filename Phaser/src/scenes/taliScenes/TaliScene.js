@@ -4,10 +4,6 @@ import Tali from '../../tali/tali.js';
  * The scene for the Tali game (Rome).
  */
 export class TaliScene extends Phaser.Scene {
-    taliGame;
-    width;
-    height;
-
     turnText;
     resultText;
     
@@ -18,11 +14,15 @@ export class TaliScene extends Phaser.Scene {
 
     playerFirst;
     
-    boardImg;
     diceImages = [];
 
     constructor() {
         super('TaliScene');
+    }
+
+    init(data) {
+        if (data !== undefined) this.playerFirst = data.playerFirst;
+        else this.playerFirst = true;
     }
 
     preload() {
@@ -30,28 +30,28 @@ export class TaliScene extends Phaser.Scene {
         this.width = width;
         this.height = height;
         
-        this.loadImages();
+        // this.loadImages();
     }
 
-    /**
-     * Loads all the images.
-     */
-    loadImages() {
-        this.load.image('board', 'Phaser/assets/tali/temporary_board.png');
-        for (let i = 0; i < Tali.NUMBER_OF_DICE; i++) { 
-            this.load.image('dice' + i, 'Phaser/assets/tali/temporary_dice' + i + '.png');
-        }
-    }
+    // /**
+    //  * Loads all the tali images.
+    //  */
+    // loadImages() {
+    //     this.load.image('board', 'Phaser/assets/tali/temporary_board.png');
+    //     for (let i = 0; i < Tali.NUMBER_OF_DICE; i++) { 
+    //         this.load.image('dice' + i, 'Phaser/assets/tali/temporary_dice' + i + '.png');
+    //     }
+    // }
 
-    create(data) {
-        this.taliGame = new Tali();
-        this.playerFirst = data.playerFirst;
-        
+    create() {
+        console.log(this.playerFirst ? "Player starts." : "Mercury starts.");
+
+        this.taliGame = new Tali(this, this.width, this.height);
+
         this.addImages();
         this.createButtons();
         this.addText();
-        this.addEventListeners();
-        console.log(this.playerFirst);
+        this.addEventListeners();   
     }
 
     /**
@@ -61,7 +61,7 @@ export class TaliScene extends Phaser.Scene {
         this.rollBtn = this.add.text(this.width/2, this.height/2, 'Roll!', { fontSize: 80, fill: '#000', backgroundColor: '#fff'}).setOrigin(0.5)
         .setInteractive()
         .on('pointerover', () => this.rollBtn.setStyle({fill: 'rgba(116, 8, 9, 1)'}))
-        // .on('pointerdown', () => this.taliGame.playerTurn())
+        .on('poinerdown', () => this.taliGame.rollDice())
         .on('pointerout', () => this.rollBtn.setStyle({fill: '#000'}));
 
         this.backBtn = this.add.text(0, 0, 'Back', { fontSize: 64, fill: '#fff'})
@@ -89,7 +89,9 @@ export class TaliScene extends Phaser.Scene {
     }
 
     addEventListeners() {
-        this.taliGame.emitter.on('diceRolled', (arr) => {this.setDiceImages(arr)});
+        this.taliGame.emitter.on('turnEnded', () => {
+            this.nextTurn();
+        })
     }
 
     /**

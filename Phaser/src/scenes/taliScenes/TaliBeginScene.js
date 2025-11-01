@@ -5,15 +5,11 @@ import Tali from '../../tali/tali.js';
  * The scene for the initial rolls for Tali.
  */
 export class TaliBeginScene extends Phaser.Scene {
-    taliGame;
-    width;
-    height;
-
     turnText;
     resultText;
     
     boardImg;
-    diceImages = [];
+    diceImages = [0, 0, 0, 0];
 
     currentRoll = [0, 0, 0, 0];
     
@@ -45,12 +41,12 @@ export class TaliBeginScene extends Phaser.Scene {
     }
 
     create() {
-        this.taliGame = new Tali();
-        
         this.addImages();
+        this.taliGame = new Tali(this, this.width, this.height);
         this.createButtons();
         this.addText();
         this.addEventListeners();
+        
     }
 
     /**
@@ -91,7 +87,7 @@ export class TaliBeginScene extends Phaser.Scene {
      * Adds all the event listeners.
      */
     addEventListeners() {
-        this.taliGame.emitter.on('diceRolled', (arr) => {this.setDiceImages(arr)});
+        // this.taliGame.emitter.on('diceRolled', (arr) => {this.setDiceImages(arr)});
     }
 
     /**
@@ -111,8 +107,8 @@ export class TaliBeginScene extends Phaser.Scene {
         this.turnText.setText('Your rolls: ');
         this.rollBtn.setAlpha(0);
         this.playerScore = this.taliGame.playerTurn();
-        this.events.once('diceIn', () => this.resultText.setText('Your result: ' + this.playerScore));
-        this.events.once('diceOut', () => { this.resultText.setText(' '); this.events.emit('playerRollDone'); });
+        this.taliGame.emitter.once('diceIn', () => this.resultText.setText('Your result: ' + this.playerScore));
+        this.taliGame.emitter.once('diceOut', () => { this.resultText.setText(' '); this.events.emit('playerRollDone'); });
     }
 
     /**
@@ -121,9 +117,9 @@ export class TaliBeginScene extends Phaser.Scene {
     enemyRolls() {
         this.turnText.setText("Mercury's rolls: ");
         this.enemyScore = this.taliGame.enemyTurn();
-        this.events.once('diceIn', () => {
+        this.taliGame.emitter.once('diceIn', () => {
             this.resultText.setText("Mercury's result: " + this.enemyScore); 
-            this.events.once('diceOut', () => {
+            this.taliGame.emitter.once('diceOut', () => {
                 this.events.emit('enemyRollDone');
                 this.resultText.setText('');
             });
@@ -158,58 +154,5 @@ export class TaliBeginScene extends Phaser.Scene {
                 callback: () => this.scene.start('TaliScene', {playerFirst: this.playerFirst})
             }
         );
-    }
-
-    /**
-     * Rolls the dice.
-     */
-    setDiceImages(arr) {
-        this.currentRoll = arr;
-        for (let i = 0, j = -this.width/12; i < Tali.NUMBER_OF_DICE; i++, j+=this.width/12) { 
-            this.diceImages[i] = this.add.image(this.width/2 - j, this.height/2, 'dice' + this.currentRoll[i]).setOrigin(0, 0.5).setScale(0.3).setAlpha(0);
-        }
-        this.animateDice();
-    }
-
-    /**
-     * Animates the dice appearing and disappearing.
-     */
-    animateDice() {
-        this.diceImages.forEach((img) => {
-            this.animateDiceIn(img);
-        })
-    }
-
-    /**
-     * Animates the appearance of the dice.
-     */
-    animateDiceIn(img) {
-        this.tweens.add({
-            targets: img,
-            alpha: 1,
-            duration: 1000,
-            ease: 'Sine.easeOut',
-            onComplete: () => {
-                this.events.emit('diceIn');
-                this.time.addEvent({
-                    delay: 2000, 
-                    callback: () => { this.animateDiceOut(img);},
-                    loop: false
-                });
-            }
-        })
-    }
-
-    /**
-     * Animates the disappearance of the dice. 
-     */
-    animateDiceOut(img) {
-        this.tweens.add({
-            targets: img,
-            alpha: 0,
-            duration: 500,
-            ease: 'Sine.easeOut',
-            onComplete: () => this.events.emit('diceOut')
-        })
     }
 }
