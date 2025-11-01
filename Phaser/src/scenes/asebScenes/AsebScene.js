@@ -35,13 +35,18 @@ export class AsebScene extends Phaser.Scene {
      */
             
     loadImages() {
-            this.load.image('asebBoard', 'Phaser/assets/aseb/AsebBoard.png');
-            this.load.image('redPiece', 'Phaser/assets/aseb/redPiece.png');
-            this.load.image('bluePiece', 'Phaser/assets/aseb/bluePiece.png');   
+            
     }
 
 
     create(){
+
+        this.backBtn = this.add.text(0, 0, 'Back', { fontSize: 64, fill: '#fff'})
+        .setInteractive()
+        .on('pointerover', () => this.backBtn.setStyle({fill: '#0f0'}))
+        .on('pointerout', () => this.backBtn.setStyle({fill: '#fff'}))
+        .on('pointerdown', () => this.scene.start('SelectionMenuScene'));
+        
         console.log(this.playerFirst ? "Player starts the game." : "Anubis starts the game.");
 
         this.asebGame = new AsebGame(this, this.playerFirst);
