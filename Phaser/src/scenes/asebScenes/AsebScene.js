@@ -4,15 +4,22 @@ import { PIECE_TYPE } from '../../aseb/AsebPiece.js';
 
 
 
-
+/**
+ * @class AsebScene
+ * @description The main scene for the actual Aseb game.
+ * This scene manages the game flow, and the board events.
+ */
 export class AsebScene extends Phaser.Scene {
-        // Game states
         constructor() {
             super('AsebScene'); 
             this.debugMode = false;
         }
 
-
+        /**
+         * Initializes scene data.
+         * @param {object} data - Data passed from the previous scene.
+         * @param {boolean} [data.playerFirst=true] - Determines if the player takes the first turn.
+         */
         init(data) {
             // Default to player going first if no data is passed.
             if (data !== undefined) this.playerFirst = data.playerFirst
@@ -32,15 +39,10 @@ export class AsebScene extends Phaser.Scene {
             this.loadImages();
         }
 
+
     /**
-     * Loads all the aseb images.
+     * Creates the game objects and sets up the scene.
      */
-            
-    loadImages() {
-            
-    }
-
-
     create(){
 
         this.backBtn = this.add.text(0, 0, 'Back', { fontSize: 64, fill: '#fff'})
@@ -55,9 +57,11 @@ export class AsebScene extends Phaser.Scene {
 
         this.board = new AsebBoard(this,this.boardAnchor.x,this.boardAnchor.y,'asebBoard');
 
-        this.pauseTime = 1000 // 1000 miliseconds
+        /** @type {number} The pause time in milliseconds for showing information to the player. */
+        this.pauseTime = 1000        // 1000 miliseconds
 
-        
+        // --- Board Event Listeners ---
+
         this.board.on('pieceMoved', (piece) => {
             this.nextTurn();
         });
@@ -95,16 +99,21 @@ export class AsebScene extends Phaser.Scene {
             this.pieceReachesEnd(piece);
         });
 
+        // --- UI Elements ---
+
         this.infoText = this.add.text(this.width/2, 100, '*', {fontSize: 55}).setOrigin(0.5);
 
         this.eventsText = this.add.text(200, this.height/2, '*', {fontSize: 35}).setOrigin(0.5);
 
+        /** @type {Phaser.GameObjects.Text} The button for the player to throw the sticks. */
         this.throwBtn = this.add.text(this.width/2 , this.height - 100, 'Throw', {fontSize: 55}).setOrigin(0.5)
         .setInteractive()
         .on('pointerdown', () => {
 
             this.playerThrows();
         }) 
+
+        // --- Game Start ---
 
         // Start the first turn based on the result from the previous scene.
         if (this.playerFirst) {
@@ -115,7 +124,7 @@ export class AsebScene extends Phaser.Scene {
     }
 
     /**
-     * Manages the game loop, transitioning between player and enemy turns.
+     * Manages the game loop, transitioning between player and enemy turns and checking for win/loss conditions.
      */
     nextTurn() {
         
@@ -134,7 +143,10 @@ export class AsebScene extends Phaser.Scene {
         }
     }
 
-    //This method is called when the game starts with the player as the first player or when the enemy has moved a piece
+    /**
+     * Sets up the game state for the player's turn and makes the placer pieces interactable.
+     * 
+     */
     startPlayerTurn() {
         this.asebGame.state = GAME_STATE.PLAYER_TURN;
         console.log(`Current state: ${this.asebGame.state}`);
@@ -144,7 +156,9 @@ export class AsebScene extends Phaser.Scene {
         this.board.setPlayerPieceInteractable(false); // Can't move pieces before throwing.
     }
 
-    // This method is called when the Throw button is clicked
+    /**
+     * Handles the player's action of throwing the sticks.
+     */
     playerThrows() 
     {
         this.setObjectState(this.throwBtn, false);
@@ -183,7 +197,9 @@ export class AsebScene extends Phaser.Scene {
         }
     }
     
-    // This method is responsible for the Machine behaviour
+    /**
+     * Manages the AI's (Anubis's) turn, including throwing sticks and moving a piece.
+     */
     startEnemyTurn() 
     {
         this.asebGame.state = GAME_STATE.ENEMY_TURN;
@@ -208,8 +224,10 @@ export class AsebScene extends Phaser.Scene {
 
 
    
-
-
+    /**
+     * Handles the logic when a piece reaches the end of the board.
+     * @param {AsebPiece} piece - The piece that reached the end.
+     */
     pieceReachesEnd(piece)
     {
         this.asebGame.pieceReachedEnd(piece);
@@ -224,6 +242,11 @@ export class AsebScene extends Phaser.Scene {
         });
     }
 
+    /**
+     * A utility function to set the active and visible state of a game object.
+     * @param {Phaser.GameObjects.GameObject} object - The game object to modify.
+     * @param {boolean} state - The desired state (true for active/visible, false for inactive/invisible).
+     */
     setObjectState(object,state)
     {
         object.setActive(state);

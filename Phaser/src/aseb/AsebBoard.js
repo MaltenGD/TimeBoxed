@@ -1,27 +1,41 @@
 import AsebPiece, { PIECE_TYPE } from "./AsebPiece.js";
 import AsebBoardPos from "./AsebBoardPos.js";
 
+/**
+ * @class AsebBoard
+ * @extends Phaser.GameObjects.Image
+ * @description Represents the Aseb game board. Manages board positions, pieces, and their movement logic.
+ * Emits events for piece movements and special actions (like landing on special positions).
+ */
 export default class AsebBoard extends Phaser.GameObjects.Image 
 {
 
+  /**
+   * @param {Phaser.Scene} scene - The scene this board belongs to.
+   * @param {number} x - The horizontal position of this board in the world.
+   * @param {number} y - The vertical position of this board in the world.
+   * @param {string} image - The texture key for the board image.
+   */
   constructor(scene, x, y, image = "asebBoard") {
     super(scene,x,y,image);
+    /** @type {AsebGame} */
     this.asebGame = scene.asebGame;
     this.scene.add.existing(this);
 
+    /** @type {number} */
     this.rows = 3;
+    /** @type {number} */
     this.cols = 12;
 
     this.createPositions();
-    
     this.createPieces();
 
     this.debugDrawPositions();
-
-    
-    
   }
 
+  /**
+   * Creates the grid of board positions, marking them as valid, invalid, or special.
+   */
   createPositions()
   {
     this.positions = [];
@@ -59,6 +73,9 @@ export default class AsebBoard extends Phaser.GameObjects.Image
     });
   }
 
+    /**
+     * Creates the player and enemy pieces and places them in their starting spawn areas.
+     */
     createPieces()
     {
       this.enemyPieces = [];
@@ -77,16 +94,23 @@ export default class AsebBoard extends Phaser.GameObjects.Image
       }
     }
 
+    /**
+     * Sets the interactable state for all player pieces.
+     * @param {boolean} state - True to make pieces interactive, false otherwise.
+     */
     setPlayerPieceInteractable(state)
     {
       this.playerPieces.forEach(piece => {
         piece.setInteractable(state);
       });
     }
-    
-    //This method will get the piece that wants to move and how many boxes it wants to travel 
-    // and it will return an object with the row and column of the board that represents its new position
-    // the new position can be out ot bounds or an invalid move
+
+    /**
+     * Calculates the target board position for a piece given a number of moves.
+     * @param {AsebPiece} piece - The piece to calculate the move for.
+     * @param {number} numPositions - The number of squares to move.
+     * @returns {{row: number, col: number}} The calculated target row and column.
+     */
     getNextBoardPosition(piece, numPositions)  
     {
       let currentRow = piece.boardPos.row;
@@ -96,10 +120,10 @@ export default class AsebBoard extends Phaser.GameObjects.Image
       if (currentRow === -1 || currentCol === -1) {
           if (piece.type === PIECE_TYPE.PLAYER) {
               currentRow = 2; // Player pieces enter from the bottom row
-              currentCol = 7; // Assuming a specific entry column
+              currentCol = 7;
           } else {
               currentRow = 0; // Enemy pieces enter from the top row
-              currentCol = 7; // Assuming a specific entry column
+              currentCol = 7;
           }
       }
 
@@ -114,9 +138,9 @@ export default class AsebBoard extends Phaser.GameObjects.Image
         //If at the end of a side row, change rows.
         else if (targetCol === this.cols - 1) { // targetRow is guaranteed not to be 1 here
           if (piece.type === PIECE_TYPE.PLAYER) {
-            targetRow--; // Player moves up (2 -> 1)
+            targetRow--; // Player moves up (2 -> 1) //Down row to middle row
           } else {
-            targetRow++; // Enemy moves down (0 -> 1)
+            targetRow++; // Enemy moves down (0 -> 1) // Upper row to middle row
           }
         }
         // Move right on the side rows.
@@ -129,6 +153,12 @@ export default class AsebBoard extends Phaser.GameObjects.Image
       return { row: targetRow, col: targetCol };
     }
 
+    /**
+     * Checks if there are any valid moves available for a given set of pieces and a move distance.
+     * @param {AsebPiece[]} piecesArray - The array of pieces to check (player pieces or enemy pieces).
+     * @param {number} moves - The number of squares to move.
+     * @returns {boolean} True if at least one valid move exists, false otherwise.
+     */
     IsThereValidMoves(piecesArray, moves)
     {
       for (const piece of piecesArray) {
@@ -145,7 +175,12 @@ export default class AsebBoard extends Phaser.GameObjects.Image
 
 
 
-    // Check if the target position is valid and returns the piece that is in that position
+    /**
+     * Validates a potential move for a piece to a target row and column.
+     * @param {AsebPiece} piece - The piece that is intended to move.
+     * @param {{row: number, col: number}} The target destination with row and column.
+     * @returns {{isValid: boolean, piece: AsebPiece|null, isSpecialPosition: boolean, msg: string}} An object describing the validity of the move.
+     */
     IsValidMove(piece, {row, col})
     {
       if (row < 0 || row >= this.rows || col < 0 || col >= this.cols) return {isValid: false, piece: null, msg: "InValid Move, OutOfRange position"};
@@ -165,9 +200,12 @@ export default class AsebBoard extends Phaser.GameObjects.Image
     
 
     /**
-     * Tries to Move a piece to a row and a col , return true if the piece does a valid movement and false if the piece cannot move
-     * @param {AsebPiece} piece - The piece that WANTS TO MOVE
-    */
+     * Attempts to move a piece to a specified board position.
+     * This function handles validating the move, capturing opponent pieces, and emitting events.
+     * @param {AsebPiece} piece - The piece to move.
+     * @param {{row: number, col: number}} The target destination with row and column.
+     * @returns {boolean} True if the move was successful, false otherwise.
+     */
     TryMovePiece(piece , {row, col})
     {
       // Check if the target position is valid 
@@ -223,7 +261,10 @@ export default class AsebBoard extends Phaser.GameObjects.Image
         return true;
     }
 
-    //this method receive a stickresult and tries to do a random board movement
+    /**
+     * Manages the AI's turn. It gets a throw result and attempts to make a valid move with a random piece.
+     * @param {number} StickResultSum - The result of the AI's stick throw.
+     */
     doRandomMovement(StickResultSum)
     {
         console.log(`Anubis threw a ${StickResultSum}`);
@@ -280,9 +321,8 @@ export default class AsebBoard extends Phaser.GameObjects.Image
 
 
 
-
   /**
-   * A temporary debug method to visualize the board positions.
+   * A debug method to visualize the board positions.
    * It draws a circle on each position, colored by its validity.
    * Green = Valid, Red = Invalid.
    */

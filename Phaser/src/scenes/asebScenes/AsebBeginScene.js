@@ -3,8 +3,19 @@ import AsebBoard from '../../aseb/AsebBoard.js';
 
 
 
+/**
+ * @class AsebBeginScene
+ * @description A Phaser Scene that handles the initial "who goes first" sequence of the Aseb game.
+ * Both the player and Anubis throw the sticks, and the one with the higher score starts the game.
+ */
 export class AsebBeginScene extends Phaser.Scene {
-    // Game states
+    /**
+     * @property {object} GAME_STATE - The different states for the scene's flow.
+     * @property {string} GAME_STATE.RECEIVING_STATE - Initial state.
+     * @property {string} GAME_STATE.PLAYER_THROWS - State for when the player is throwing.
+     * @property {string} GAME_STATE.ENEMY_THROWS - State for when the enemy is throwing.
+     * @property {string} GAME_STATE.DECISSION - State for deciding the winner.
+     */
     GAME_STATE = {
         RECEIVING_STATE: 'RECEIVING_STATE',
         PLAYER_THROWS: 'PLAYER_THROWS',
@@ -12,12 +23,18 @@ export class AsebBeginScene extends Phaser.Scene {
         DECISSION: 'DECISSION'
     };
     constructor() {
-        super('AsebBeginScene'); 
+        super('AsebBeginScene');
+        /** @type {boolean} - Debug flag. If true, might skip parts of the sequence. */
         this.debugMode = false; // Set to true to skip turn decision and start game immediately
+        /** @type {string} - The current state of the scene's mini game flow. */
         this.state = this.GAME_STATE.RECEIVING_STATE;
     }
 
+    /**
+     * Preloads all necessary assets for this scene.
+     */
      preload() {
+        /** @type {number} */
         let {width, height} = this.sys.game.canvas;
         this.width = width;
         this.height = height;
@@ -26,7 +43,7 @@ export class AsebBeginScene extends Phaser.Scene {
     }
 
     /**
-     * Loads all the aseb images.
+     * Loads all the Aseb images for the stick throwing sequence.
      */
             
     loadImages() {
@@ -36,12 +53,18 @@ export class AsebBeginScene extends Phaser.Scene {
     }
 
 
+    /**
+     * Creates the UI elements for the scene.
+     */
     createGameObjects() {
         
+        /** @type {Phaser.GameObjects.Image} */
         this.infoBoard = this.add.image(this.width/2, this.height/2, 'StickBoard').setOrigin(0.5).setScale(0.5);
         
         //The text that guides the player
+        /** @type {Phaser.GameObjects.Text} */
         this.infoText = this.add.text(this.width/2,250, "Lets decide who goes first!", {fontSize: 64, color: '#ffffffff'}).setOrigin(0.5);
+        /** @type {Phaser.GameObjects.Text} */
         this.scoreText = this.add.text(this.width/2,350, "*", {fontSize: 64, color: '#ffffffff'}).setOrigin(0.5);
         
     }
@@ -52,12 +75,13 @@ export class AsebBeginScene extends Phaser.Scene {
     createButtons() {
 
  
+        /** @type {Phaser.GameObjects.Text} */
         this.backBtn = this.add.text(0, 0, 'Back', { fontSize: 64, fill: '#fff'})
         .setInteractive()
         .on('pointerover', () => this.backBtn.setStyle({fill: '#0f0'}))
         .on('pointerout', () => this.backBtn.setStyle({fill: '#fff'}))
         .on('pointerdown', () => this.scene.start('SelectionMenuScene'));
-
+        /** @type {Phaser.GameObjects.Text} */
         this.throwBtn = this.add.text(this.width/2 -100, this.height -300, 'Throw', { fontSize: 64, fill: '#fff'})
         .setInteractive()
         .on('pointerover', () => this.throwBtn.setStyle({fill: '#0f0'}))
@@ -68,6 +92,10 @@ export class AsebBeginScene extends Phaser.Scene {
 
     }
  
+    /**
+     * Advances the scene's state machine.
+     * @param {string} newState - The new state to transition to, from `this.GAME_STATE`.
+     */
     continue(newState)
     {
         this.gameState = newState;
@@ -83,23 +111,23 @@ export class AsebBeginScene extends Phaser.Scene {
 
     }
 
+    /**
+     * The main creation function for the scene. Sets up game objects and buttons.
+     */
     create() 
     {
 
-
+        /** @type {AsebGame} */
         this.asebGame = new AsebGame(this);
         this.createGameObjects();
 
         this.createButtons();
             
     }
-
-    startDecissionSequence() {
-        console.log("throw button working")
-        this.playerInitialThrow();
-    }
     
-
+    /**
+     * Handles player's turn to throw the sticks.
+     */
     playerInitialThrow() {
         this.playerStickResult = this.asebGame.getThrow();
         this.infoText.setText("You threw the sticks")
@@ -121,7 +149,9 @@ export class AsebBeginScene extends Phaser.Scene {
      });
     }
 
-
+    /**
+     * Handles Anubis's turn to throw the sticks.
+     */
     enemyInitialThrow() {
         this.clearSticks();
         this.scoreText.setText("");
@@ -147,6 +177,9 @@ export class AsebBeginScene extends Phaser.Scene {
 
     }
 
+    /**
+     * Compares the player's and enemy's throw results and announces who starts the game.
+     */
     announceBeginner() {
 
         this.clearSticks();
@@ -174,13 +207,18 @@ export class AsebBeginScene extends Phaser.Scene {
         
     }
 
-    // --- MAIN GAME LOOP ---
-
+    /**
+     * Starts the main Aseb game scene, passing the result of who goes first.
+     */
     startActualGame() {
         // Changes the Scene
         this.scene.start('AsebScene', {playerFirst: this.playerFirst});
     }
 
+    /**
+     * Displays the stick images on screen based on the throw results.
+     * @param {number[]} throws - An array of 1s and 0s representing the stick throw result.
+     */
     showSticks(throws)
     {
         if (!throws) {
@@ -188,6 +226,7 @@ export class AsebBeginScene extends Phaser.Scene {
             return; // Exit the function to prevent a crash
         }
 
+        /** @type {Phaser.GameObjects.Image[]} */
         this.stickImages = []; // Array to hold the stick images
         const stickSpacing = 100; // Space between sticks
         const startX = this.width / 2 - (stickSpacing * 1.5); // Initial X position to center the 4 sticks
@@ -213,11 +252,15 @@ export class AsebBeginScene extends Phaser.Scene {
                 ease: 'Power2'
             });
 
-            // Bring the stick to the top of the display list to ensure it's visible above the infoBoard
+            // Brings the stick to the top of the display list to show it above the infoBoard
             this.children.bringToTop(stick);
         });
     }
 
+    /**
+     * Fades out and destroys the currently displayed stick images.
+     * @param {function} [onCompleteCallback] - An optional function to call after the sticks are cleared.
+     */
     clearSticks(onCompleteCallback) {
         if (this.stickImages && this.stickImages.length > 0) {
             // Add a fade-out tween for each stick
@@ -238,6 +281,11 @@ export class AsebBeginScene extends Phaser.Scene {
         }
     }
 
+    /**
+     * A utility function to set the interactive and active state of a game object.
+     * @param {Phaser.GameObjects.GameObject} object - The game object to modify.
+     * @param {boolean} state - The desired state (true for interactive/active, false for non-interactive/inactive).
+     */
     setObjectState(object, state)
     {
         object.setInteractive(state);
