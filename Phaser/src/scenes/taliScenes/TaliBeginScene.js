@@ -80,27 +80,27 @@ export class TaliBeginScene extends Phaser.Scene {
     }
 
     addHands() {
-    // Brazo del jugador que viene desde abajo
-    this.playerArm = this.add.rectangle(
-        this.width / 2,
-        this.height + 700,  // empieza fuera de la pantalla
-        120,                // ancho del brazo
-        500,                // largo del brazo
-        0xff5555            // color rojizo
-    ).setOrigin(0.5, 1);
+        // Brazo del jugador que viene desde abajo
+        this.playerArm = this.add.rectangle(
+            this.width / 2,
+            this.height + 700,  // empieza fuera de la pantalla
+            120,                // ancho del brazo
+            500,                // largo del brazo
+            0xff5555            // color rojizo
+        ).setOrigin(0.5, 1);
 
-    // Brazo del enemigo: viene desde arriba
-    this.enemyArm = this.add.rectangle(
-        this.width / 2,
-        -700,               // empieza fuera de la pantalla
-        120,
-        500,
-        0x5555ff            // color azulado
-    ).setOrigin(0.5, 0);
+        // Brazo del enemigo: viene desde arriba
+        this.enemyArm = this.add.rectangle(
+            this.width / 2,
+            -700,               // empieza fuera de la pantalla
+            120,
+            500,
+            0x5555ff            // color azulado
+        ).setOrigin(0.5, 0);
 
-    this.playerArm.setAlpha(0);
-    this.enemyArm.setAlpha(0);
-}
+        this.playerArm.setAlpha(0);
+        this.enemyArm.setAlpha(0);
+    }
 
     /**
      * Adds all the text to the scene.
@@ -120,37 +120,34 @@ export class TaliBeginScene extends Phaser.Scene {
     }
 
     animateThrow() {
-    // Mostrar brazos
-    this.playerArm.setAlpha(1);
-    this.enemyArm.setAlpha(1);
+        // Mostrar brazos
+        this.playerArm.setAlpha(1);
+        this.enemyArm.setAlpha(1);
 
-    const enterDepth = 10;
+        const enterDepth = this.height/4;
 
-    // Animacion del brazo del jugador (sube y baja)
-    this.tweens.add({
-        targets: this.playerArm,
-        y: this.height - enterDepth,  // entra hasta el centro
-        duration: 190,
-        ease: 'Sine.easeInOut',
-        yoyo: true,
-        hold: 80,
-        onYoyo: () => {
-            this.playerArm.setAlpha(0); // desaparece al volver
-        }
-    });
+        // Animacion del brazo del jugador (sube y baja)
+        this.tweens.add({
+            targets: this.playerArm,
+            y: this.height - enterDepth,  // entra hasta el centro
+            duration: 700,
+            ease: 'Sine.easeInOut',
+            yoyo: true,
+            hold: 200,
+        });
 
-    // Animacion del brazo del enemigo (baja y sube)
-    this.tweens.add({
-        targets: this.enemyArm,
-        y: enterDepth,
-        duration: 190,
-        ease: 'Sine.easeInOut',
-        yoyo: true,
-        hold: 80,
-        onYoyo: () => {
-            this.enemyArm.setAlpha(0);
-        }
-    });
+        // Animacion del brazo del enemigo (baja y sube)
+        this.tweens.add({
+            targets: this.enemyArm,
+            y: enterDepth,
+            duration: 190,
+            ease: 'Sine.easeInOut',
+            yoyo: true,
+            hold: 80,
+            onYoyo: () => {
+                this.enemyArm.setAlpha(0);
+            }
+        });
 }
 
     /**
@@ -262,31 +259,31 @@ export class TaliBeginScene extends Phaser.Scene {
     //     })
     // }
     animateDiceIn(img) {
-    let rollInterval = this.time.addEvent({
-        delay: 100,
-        callback: () => {
-            const randomFace = Phaser.Math.Between(0, Tali.NUMBER_OF_DICE - 1);
-            img.setTexture('dice' + randomFace);
-        },
-        loop: true
-    });
+        let rollInterval = this.time.addEvent({
+            delay: 100,
+            callback: () => {
+                const randomFace = Phaser.Math.Between(0, Tali.NUMBER_OF_DICE - 1);
+                img.setTexture('dice' + randomFace);
+            },
+            loop: true
+        });
 
-    this.tweens.add({
-        targets: img,
-        alpha: 1,
-        duration: 1000,
-        ease: 'Sine.easeOut',
-        onComplete: () => {
-            rollInterval.remove(); // para el “giro”
-            img.setTexture('dice' + this.currentRoll[this.diceImages.indexOf(img)]); // cara real
-            this.events.emit('diceIn');
-            this.time.addEvent({
-                delay: 2000,
-                callback: () => { this.animateDiceOut(img); },
-                loop: false
-            });
-        }
-    });
+        this.tweens.add({
+            targets: img,
+            alpha: 1,
+            duration: 1000,
+            ease: 'Sine.easeOut',
+            onComplete: () => {
+                rollInterval.remove(); // para el “giro”
+                img.setTexture('dice' + this.currentRoll[this.diceImages.indexOf(img)]); // cara real
+                this.events.emit('diceIn');
+                this.time.addEvent({
+                    delay: 2000,
+                    callback: () => { this.animateDiceOut(img); },
+                    loop: false
+                });
+            }
+        });
 }
 
     /**
