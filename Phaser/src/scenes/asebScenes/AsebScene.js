@@ -1,5 +1,7 @@
 import AsebGame, { GAME_STATE } from '../../aseb/AsebGame.js';
 import AsebBoard from '../../aseb/AsebBoard.js';
+import { PIECE_TYPE } from '../../aseb/AsebPiece.js';
+
 
 
 
@@ -53,9 +55,37 @@ export class AsebScene extends Phaser.Scene {
 
         this.board = new AsebBoard(this,this.boardAnchor.x,this.boardAnchor.y,'asebBoard');
 
+        this.pauseTime = 1000 // 1000 miliseconds
+
         
         this.board.on('pieceMoved', (piece) => {
             this.nextTurn();
+        });
+        this.board.on('SpecialPosition', (pieceType) => { // If any
+            
+            if (pieceType === PIECE_TYPE.PLAYER) {
+
+                this.infoText.setText("You Landed on a special position,\nyou've been blessed with another turn")
+                this.time.addEvent({
+                    delay: this.pauseTime,
+                    callback: () => {
+                        this.startPlayerTurn();
+                    },
+                });
+                
+            } 
+            else {
+                this.infoText.setText("Anubis Landed on a special position,\nHe has been blessed with another turn")
+                this.time.addEvent({
+                    delay: this.pauseTime,
+                    callback: () => {
+                        this.startEnemyTurn();
+                    },
+                });
+
+            }
+
+
         });
         this.board.on('skipTurn', (piece) => {
             this.nextTurn();
@@ -94,6 +124,14 @@ export class AsebScene extends Phaser.Scene {
         } else if (this.asebGame.state === GAME_STATE.ENEMY_TURN) {
             this.startPlayerTurn();
         }
+        if (this.asebGame.state === GAME_STATE.PLAYER_VICTORY) {
+            this.scene.start('AsebVictoryScene');
+
+        } 
+        else if (this.asebGame.state === GAME_STATE.ENEMY_VICTORY) {
+            this.scene.start('AsebDefeatScene');
+
+        }
     }
 
     //This method is called when the game starts with the player as the first player or when the enemy has moved a piece
@@ -119,16 +157,28 @@ export class AsebScene extends Phaser.Scene {
 
             // Wait a moment before automatically advancing to the next turn
             this.time.addEvent({
-                delay: 1000,
+                delay: this.pauseTime,
                 callback: () => {
                     this.nextTurn();
                 },
             });
         } else {
             // The player can make a move
-            this.infoText.setText("You threw " + this.asebGame.player.actualStickResult
-                + "!\nClick on a piece to move it."
-            );
+            this.infoText.setText("You threw " + this.asebGame.player.actualStickResult);
+
+            if (this.board.IsThereValidMoves(this.board.playerPieces, ThrowResult.Sum))
+            {
+                this.infoText.setText("You threw " + this.asebGame.player.actualStickResult + "\nClick on a piece to move it");
+            }
+            else{
+                this.infoText.setText("You threw " + this.asebGame.player.actualStickResult + "\nBut you cannot move any piece");
+                this.time.addEvent({
+                delay: this.pauseTime,
+                callback: () => {
+                    this.nextTurn();
+                },
+            });
+            }
             this.board.setPlayerPieceInteractable(true);
         }
     }
@@ -147,7 +197,7 @@ export class AsebScene extends Phaser.Scene {
         this.asebGame.enemy.actualStickResult = ThrowResult.Sum;
 
         this.time.addEvent({
-            delay: 2000,
+            delay: this.pauseTime,
             callback: () => {
             //This method will iterate until anubis does a valid movement or there's no valid movement
             this.board.doRandomMovement(ThrowResult.Sum);
@@ -166,7 +216,7 @@ export class AsebScene extends Phaser.Scene {
         this.eventsText.setText("Piece Reached End");
 
         this.time.addEvent({
-            delay: 1500,
+            delay: this.pauseTime,
             callback: () => {
                 this.eventsText.setText("*");
             },

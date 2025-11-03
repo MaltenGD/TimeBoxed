@@ -9,6 +9,9 @@ import { AsebScene } from './scenes/asebScenes/AsebScene.js';
 import { HanafudaScene } from './scenes/HanafudaScene.js';
 import { CreditsScene } from './scenes/CreditsScene.js';
 import { Intro } from './scenes/Intro.js';
+import { AsebVictoryScene } from './scenes/asebScenes/AsebVictoryScene.js';
+import { AsebDefeatScene } from './scenes/asebScenes/AsebDefeatScene.js';
+
 
 
 const config = {
@@ -29,6 +32,8 @@ const config = {
         SelectionMenuScene,
         AsebScene,
         AsebBeginScene,
+        AsebVictoryScene,
+        AsebDefeatScene,
         TaliBeginScene,
         GameScene,
         TaliScene,

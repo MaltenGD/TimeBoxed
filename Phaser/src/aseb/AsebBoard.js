@@ -25,6 +25,13 @@ export default class AsebBoard extends Phaser.GameObjects.Image
   createPositions()
   {
     this.positions = [];
+    this.specialBoxes = [
+      {row: 0, col: 11},
+      {row: 2, col: 11},
+      {row: 1, col: 8},
+      {row: 1, col: 4},
+    ];
+
 
     // --- Approximate dimensions for positioning ---
     const squareWidth = 81.5;
@@ -46,6 +53,10 @@ export default class AsebBoard extends Phaser.GameObjects.Image
         this.positions[row][col] = new AsebBoardPos(this, posX, posY, null, isValid);
       }
     }
+    // All positions that matches the specialBoxes positions now are special positions
+    this.specialBoxes.forEach(position => {
+      this.positions[position.row][position.col].isSpecial = true;
+    });
   }
 
     createPieces()
@@ -118,6 +129,22 @@ export default class AsebBoard extends Phaser.GameObjects.Image
       return { row: targetRow, col: targetCol };
     }
 
+    IsThereValidMoves(piecesArray, moves)
+    {
+      for (const piece of piecesArray) {
+        if (!piece.active) continue;
+
+        if  (this.IsValidMove(piece, this.getNextBoardPosition(piece, moves)).isValid)
+        {
+          return true;
+        }
+      }
+      return false
+        
+    }
+
+
+
     // Check if the target position is valid and returns the piece that is in that position
     IsValidMove(piece, {row, col})
     {
@@ -131,7 +158,8 @@ export default class AsebBoard extends Phaser.GameObjects.Image
       }
 
       // From here, the movement is valid.
-      return {isValid: true, piece: boardTargetPos.piecePlaced, msg: "Valid Move"}; //piecePlaced can be null
+
+      return {isValid: true, piece: boardTargetPos.piecePlaced, isSpecialPosition: boardTargetPos.isSpecial, msg: "Valid Move"}; //piecePlaced can be null
 
     }
     
@@ -186,7 +214,12 @@ export default class AsebBoard extends Phaser.GameObjects.Image
 
         }
         
-        this.emit('pieceMoved', piece); // Emit an event to notify the scene.
+        if (isNextPositionValid.isSpecialPosition)
+        {
+          this.emit('SpecialPosition' ,piece.type);
+        }
+        else this.emit('pieceMoved', piece); // Emit an event to notify the scene.
+
         return true;
     }
 
@@ -200,7 +233,7 @@ export default class AsebBoard extends Phaser.GameObjects.Image
             console.log("Anubis threw a 0. Turn skipped.");
             this.scene.infoText.setText("Anubis threw a 0!\nTurn is skipped.");
             this.scene.time.addEvent({
-            delay: 1000,
+            delay: this.scene.pauseTime,
             callback: () => {
                 this.emit('skipTurn');
             },
@@ -211,7 +244,7 @@ export default class AsebBoard extends Phaser.GameObjects.Image
         this.scene.infoText.setText(`Anubis threw a ${StickResultSum}!`);
 
         this.scene.time.addEvent({
-            delay: 1000,
+            delay: this.scene.pauseTime,
             callback: () => {
                 // Create a shuffled copy of the enemy pieces array to randomize the selection.
               const shuffledPieces = Phaser.Utils.Array.Shuffle([...this.enemyPieces]);
@@ -233,7 +266,7 @@ export default class AsebBoard extends Phaser.GameObjects.Image
               console.log("Anubis has no valid moves.");
               this.scene.infoText.setText(`Anubis threw a ${throwResult}\nbut has no valid moves!`);
               this.scene.time.addEvent({
-                  delay: 1000,
+                  delay: this.scene.pauseTime,
                   callback: () => {
                       this.emit('skipTurn');
                   },
