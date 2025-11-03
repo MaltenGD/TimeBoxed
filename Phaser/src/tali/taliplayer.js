@@ -28,7 +28,11 @@ export default class TaliPlayer {
         this.score = 0;
     }
 
-    addThrow(roll) {
+    /**
+     * Adds the throws rolled to the player's throws.
+     * @param {array<TALI_THROWS>} roll 
+     */
+    addThrows(roll) {
         roll.forEach(element => {
             this.throws.push(element);
             this.score.addScore(element.value);

@@ -14,6 +14,8 @@ export class TaliScene extends Phaser.Scene {
 
     playerFirst;
 
+    currentTurn = 0;
+
 
     constructor() {
         super('TaliScene');
@@ -35,6 +37,8 @@ export class TaliScene extends Phaser.Scene {
 
         this.addImages();
         this.taliGame = new Tali(this, this.width, this.height, this.playerFirst);
+
+        this.currentTurn = 0;
         
         this.createButtons();
         this.addText();
