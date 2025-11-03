@@ -13,6 +13,7 @@ export class TaliScene extends Phaser.Scene {
     currentRoll = [0, 0, 0, 0];
 
     playerFirst;
+    playerWon = true;
 
     currentTurn = 0;
 
@@ -38,7 +39,7 @@ export class TaliScene extends Phaser.Scene {
         this.addImages();
         this.taliGame = new Tali(this, this.width, this.height, this.playerFirst);
 
-        this.currentTurn = 0;
+        this.currentTurn = 1;
         
         this.createButtons();
         this.addText();
@@ -85,15 +86,21 @@ export class TaliScene extends Phaser.Scene {
      * Adds all the text to the scene.
      */
     addText() {
-        this.enemyScore = this.add.text(this.width - 20, 20, 'Score: ' + this.taliGame.enemyScore).setOrigin(1, 0);
-        this.playerScore = this.add.text(20, this.height - 20, 'My Score: ' + this.taliGame.playerScore).setOrigin(0, 1);
+        this.enemyScore = this.add.text(this.width - 20, 20, "Mercury's Score: " + this.taliGame.playerScore, {fontSize: 32}).setOrigin(1, 0);
+        this.playerScore = this.add.text(20, this.height - 20, 'Your Score: ' + this.taliGame.enemyScore, {fontSize: 32}).setOrigin(0, 1);
         this.turnText = this.add.text(this.width/2, this.height/3, '', { fontSize: 64, fill: '#000'}).setOrigin(0.5);
         this.resultText = this.add.text(this.width/2, this.height - this.height/3, '', { fontSize: 64, fill: '#000'}).setOrigin(0.5);
     }
 
     addEventListeners() {
         this.taliGame.emitter.on('turnEnded', () => {
-            this.nextTurn();
+            this.currentTurn++;
+            if (this.currentTurn <= Tali.TURNS * 2)
+                this.nextTurn();
+            else {
+                this.gameEnded();
+            }
+            this.updateScore();
         })
         this.taliGame.emitter.on('luna', () => this.lunaThrow());
     }
@@ -134,6 +141,20 @@ export class TaliScene extends Phaser.Scene {
             this.turnText.setText("LUNA! Mercury rolls again.");
             this.startEnemyTurn();
         }
+    }
+
+    updateScore() {
+        this.playerScore.setText('Your Score: ' + this.taliGame.playerScore);
+        this.enemyScore.setText("Mercury's Score: " + this.taliGame.enemyScore);
+    }
+
+    /**
+     * Ends the game and announces the winner.
+     */
+    gameEnded() {
+        this.playerWon = this.taliGame.playerWon();
+        let winText = this.playerWon ? "YOU!" : "MERCURY!";
+        this.turnText.setText('GAME ENDED! WINNER: ' + winText);
     }
 
     /**

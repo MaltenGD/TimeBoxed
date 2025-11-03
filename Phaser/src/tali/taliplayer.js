@@ -21,7 +21,7 @@ export default class TaliPlayer {
     }
 
     get score() {
-        return this.score;
+        return this.score.score;
     }
 
     resetScore() {
@@ -36,6 +36,13 @@ export default class TaliPlayer {
         roll.forEach(element => {
             this.throws.push(element);
             this.score.addScore(element.value);
+        });
+    }
+
+    printThrows() {
+        console.log("Throws so far: ")
+        this.throws.forEach(element => {
+            console.log(element.name);
         });
     }
 }

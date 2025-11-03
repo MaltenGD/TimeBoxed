@@ -80,8 +80,8 @@ export class TaliBeginScene extends Phaser.Scene {
      * Adds all the text to the scene.
      */
     addText() {
-        this.enemyScore = this.add.text(this.width - 20, 20, 'Score: ' + this.taliGame.enemyScore).setOrigin(1, 0);
-        this.playerScore = this.add.text(20, this.height - 20, 'My Score: ' + this.taliGame.playerScore).setOrigin(0, 1);
+        this.enemyScore = this.add.text(this.width - 20, 20, "Mercury's Score: " + this.taliGame.enemyScore, {fontSize: 32}).setOrigin(1, 0);
+        this.playerScore = this.add.text(20, this.height - 20, 'Your Score: ' + this.taliGame.playerScore, {fontSize: 32}).setOrigin(0, 1);
         this.turnText = this.add.text(this.width/2, this.height/3, 'Roll to decide who begins:', { fontSize: 64, fill: '#000'}).setOrigin(0.5);
         this.resultText = this.add.text(this.width/2, this.height - this.height/3, ' ', { fontSize: 64, fill: '#000'}).setOrigin(0.5);
     }

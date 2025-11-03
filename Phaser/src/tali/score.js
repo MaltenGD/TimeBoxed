@@ -7,4 +7,8 @@ export default class Score {
     addScore(score) {
         this.score += score;
     }
+
+    get score() {
+        return this.score;
+    }
 }

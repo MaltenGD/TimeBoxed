@@ -23,9 +23,6 @@ export default class Tali {
     diceImages = [0, 0, 0, 0];
     throwImages = [0, 0, 0, 0, 0];
 
-    playerScore = 0;
-    enemyScore = 0;
-
     currentRoll;
     diceThrows;
     diceThrowIndex = 0;
@@ -74,14 +71,14 @@ export default class Tali {
      * @returns The player's current score.
      */
     get playerScore() {
-        return this.player.score;
+        return this.player.score.score;
     }
 
     /**
      * @returns The enemy's current score.
      */
     get enemyScore() {
-        return this.enemy.score;
+        return this.enemy.score.score;
     }
 
     get emitter() {
@@ -99,12 +96,13 @@ export default class Tali {
     playerRoll() {
         this.rollDice();
         this.identifyRoll(this.player);
+        this.player.printThrows();
     }
 
     enemyRoll() {
-        console.log('enemy rolling');
         this.rollDice();
         this.identifyRoll(this.enemy);
+        this.enemy.printThrows();
     }
 
     /**
@@ -231,6 +229,9 @@ export default class Tali {
             if (this.diceThrows.length !== 0) {
                 this.animateThrows();
             }
+            else {
+                this.emitter.emit('turnEnded');
+            }
         })
     }
 
@@ -311,6 +312,10 @@ export default class Tali {
                 }
             }
         })
+    }
+
+    playerWon() {
+        return this.player.score.score >= this.enemy.score.score;
     }
 
     // ====================================================================
