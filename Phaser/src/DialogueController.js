@@ -153,13 +153,22 @@ export default class DialogueController{
     /**
      * Advances to the next dialogue in the sequence.
      */
+
+    skipToEnd()
+    {
+        this.currentDialogueIndex = this.dialogues.length;
+        this.endDialogueBlock();
+    }
+
     handleInteraction(){
-        if (this.dialogBox.isAnimating()) {
+
+        if (this.dialogBox.isAnimating()) 
+        {
             this.dialogBox.skipAnimation();
         } 
         else {
             ++this.currentDialogueIndex;
-            if (this.currentDialogueIndex < this.dialogues.length) 
+            if (this.currentDialogueIndex < this.dialogues.length)
             {
                 this.showCurrentDialogue();
             } 
@@ -170,15 +179,19 @@ export default class DialogueController{
                     this.dialogBox.toggleWindow();
                 }
                 
-                if(this.dialogues == this.introDialogues)
-                {
-                    this.scene.events.emit('IntroFinished');
-
-                    console.log('blkweh');
-                }
+                this.endDialogueBlock();
                
                 console.log('Final del bloque de dialogo.');
             }
+        }
+    }
+
+
+    endDialogueBlock()
+    {
+        if(this.dialogues == this.introDialogues)
+        {
+            this.scene.events.emit('IntroFinished');
         }
     }
 

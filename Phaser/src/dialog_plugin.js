@@ -165,6 +165,15 @@ export default class DialogBox{
 		//Se calcula la dimension de la ventana de diálogo
 		var dimensions = this._calculateWindowDimensions(gameWidth, gameHeight);
 		this.graphics = this.scene.add.graphics();
+
+		this.hitbox = this.scene.add.rectangle(0, 0, gameWidth, gameHeight, 0xffffff, 0x000000)
+		.setOrigin(0,0)
+		.setInteractive()
+		.setDepth(-1)
+		.on('pointerdown', ()=>
+		{
+			this.scene.events.emit('nextDialog');
+		});
 		
 		//Se crean las ventanas interior y exterior
 		this._createOuterWindow(dimensions.x, dimensions.y, dimensions.rectWidth, dimensions.rectHeight);
