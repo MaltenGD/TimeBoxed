@@ -7,7 +7,7 @@ import { AsebBeginScene } from './scenes/asebScenes/AsebBeginScene.js';
 import { AsebScene } from './scenes/asebScenes/AsebScene.js';
 import { HanafudaScene } from './scenes/HanafudaScene.js';
 import { CreditsScene } from './scenes/CreditsScene.js';
-import { DialogTestingScene } from './scenes/DialogTestingScene.js';
+import { Intro } from './scenes/Intro.js';
 
 
 const config = {
@@ -19,14 +19,15 @@ const config = {
     height: 1080,
     backgroundColor: '#000000',
     pixelArt: false,
-    scene: [
+    scene: 
+    [
         Start,
+        Intro,
+        CreditsScene,
         SelectionMenuScene,
         AsebScene,
         AsebBeginScene,
         TaliBeginScene,
-        DialogTestingScene,
-        CreditsScene,
         GameScene,
         TaliScene,
         HanafudaScene
