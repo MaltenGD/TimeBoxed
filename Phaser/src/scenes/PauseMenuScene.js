@@ -6,13 +6,17 @@ export class PauseMenuScene extends Phaser.Scene {
     create() {
         const { width, height } = this.scale;
 
+        //Fondo
         this.overlay = this.add.rectangle(width / 2, height / 2, width, height, 0x000000, 0.6)
             .setOrigin(0.5);
 
-        this.box = this.add.rectangle(width / 2, height / 2, 500, 300, 0x111111, 1)
+        //Caja del centro
+        this.box = this.add.rectangle(width / 2, height / 2, 700, 500, 0x111111, 1)
             .setStrokeStyle(4, 0xAA0000)
             .setOrigin(0.5);
-        this.titleText = this.add.text(width / 2, height / 2 - 80, '¿Quieres salir al menú principal?', {
+        
+        //Texto
+        this.titleText = this.add.text(width / 2, height / 2 - 80, 'Do you want to go back?', {
             fontSize: '28px',
             fill: '#ffffff',
             align: 'center'
@@ -35,9 +39,11 @@ export class PauseMenuScene extends Phaser.Scene {
 
 
         this.yesBtn.on('pointerdown', () => {
-            this.scene.stop('PauseMenu');
-            this.scene.stop(this.sceneToPause);
-            this.scene.start('Start');
+        if (this.sceneToPause) {
+        this.scene.stop(this.sceneToPause);  // 🔥 destruye la escena en pausa
+        }
+        this.scene.stop('PauseMenu');
+        this.scene.start('SelectionMenuScene');
         });
 
         this.noBtn.on('pointerdown', () => {

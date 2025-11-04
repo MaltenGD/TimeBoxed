@@ -35,10 +35,10 @@ const config = {
         AsebVictoryScene,
         AsebDefeatScene,
         TaliBeginScene,
-        PauseMenuScene,
         GameScene,
         TaliScene,
-        HanafudaScene
+        HanafudaScene,
+        PauseMenuScene
     ],
     scale: {
         mode: Phaser.Scale.FIT,

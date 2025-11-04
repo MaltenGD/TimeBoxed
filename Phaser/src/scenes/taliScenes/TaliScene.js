@@ -44,6 +44,13 @@ export class TaliScene extends Phaser.Scene {
         this.createButtons();
         this.addText();
         this.addEventListeners(); 
+
+        this.input.keyboard.on('keydown-ESC', () => 
+        {
+        this.scene.launch('PauseMenu');
+        //this.scene.get('PauseMenu').setPausedScene(this.scene.key);
+        this.scene.pause();
+        });
         
         // Start the first turn.
         if (this.playerFirst) {
@@ -71,7 +78,14 @@ export class TaliScene extends Phaser.Scene {
         this.backBtn = this.add.text(0, 0, 'Back', { fontSize: 64, fill: '#fff'})
         .setInteractive()
         .on('pointerover', () => this.backBtn.setStyle({fill: '#0f0'}))
-        .on('pointerdown', () => this.scene.start('SelectionMenuScene'))
+        .on('pointerdown', () => {
+        if (this.scene.isActive('PauseMenu')) return;
+
+        this.scene.launch('PauseMenu');
+        pauseMenu = this.scene.get('PauseMenu');
+        //pauseMenu.setPausedScene(this.scene.key);
+        this.scene.pause();
+    })
         .on('pointerout', () => this.backBtn.setStyle({fill: '#fff'}));
     }
 
