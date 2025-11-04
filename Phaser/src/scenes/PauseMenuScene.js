@@ -1,3 +1,7 @@
+/**
+ * @file PauseMenuScene.js
+ * @description Scene to pause the game and show options to the player
+ */
 export class PauseMenuScene extends Phaser.Scene {
     constructor() {
         super('PauseMenu');
@@ -6,22 +10,23 @@ export class PauseMenuScene extends Phaser.Scene {
     create() {
         const { width, height } = this.scale;
 
-        //Fondo
+        //Background
         this.overlay = this.add.rectangle(width / 2, height / 2, width, height, 0x000000, 0.6)
             .setOrigin(0.5);
 
-        //Caja del centro
+        //Cetral box
         this.box = this.add.rectangle(width / 2, height / 2, 700, 500, 0x111111, 1)
             .setStrokeStyle(4, 0xAA0000)
             .setOrigin(0.5);
         
-        //Texto
+        //Text
         this.titleText = this.add.text(width / 2, height / 2 - 80, 'Do you want to go back?', {
             fontSize: '28px',
             fill: '#ffffff',
             align: 'center'
         }).setOrigin(0.5);
 
+        //Yes botton
         this.yesBtn = this.add.text(width / 2 - 100, height / 2 + 60, 'Yes', {
             fontSize: '30px',
             fill: '#fff',
@@ -29,7 +34,7 @@ export class PauseMenuScene extends Phaser.Scene {
             padding: { x: 20, y: 10 }
         }).setOrigin(0.5).setInteractive();
 
-
+        //No botton
         this.noBtn = this.add.text(width / 2 + 100, height / 2 + 60, 'No', {
             fontSize: '30px',
             fill: '#fff',
@@ -37,14 +42,13 @@ export class PauseMenuScene extends Phaser.Scene {
             padding: { x: 20, y: 10 }
         }).setOrigin(0.5).setInteractive();
 
-
+        //events of the bottons
         this.yesBtn.on('pointerdown', () => {
         if (this.sceneToPause) {
-        this.scene.stop(this.sceneToPause);  // 🔥 destruye la escena en pausa
+        this.scene.stop(this.sceneToPause);
         }
         this.scene.stop('PauseMenu');
         this.scene.start('SelectionMenuScene');
-            this.scene.start('SelectionMenuScene', { fromScene: this.sceneToPause });
         });
 
         this.noBtn.on('pointerdown', () => {
@@ -60,6 +64,9 @@ export class PauseMenuScene extends Phaser.Scene {
         });
     }
 
+    /**
+     * Configure the name of the scene that is being paused
+     */
     setPausedScene(sceneName) {
         this.sceneToPause = sceneName;
     }

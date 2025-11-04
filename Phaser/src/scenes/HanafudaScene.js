@@ -13,7 +13,13 @@ export class HanafudaScene extends Phaser.Scene {
         this.backBtn = this.add.text(0, 0, 'Back', { fontSize: 64, fill: '#fff'})
         .setInteractive()
         .on('pointerover', () => this.backBtn.setStyle({fill: '#0f0'}))
-        .on('pointerdown', () => this.scene.start('SelectionMenuScene', { counterTxt: this.counterTxt }))
+        .on('pointerdown', () => {
+        if (this.scene.isActive('PauseMenu')) return;
+        this.scene.launch('PauseMenu');
+        const pauseMenu = this.scene.get('PauseMenu');
+        pauseMenu.setPausedScene(this.scene.key);
+        this.scene.pause();
+        })
         .on('pointerout', () => this.backBtn.setStyle({fill: '#fff'}));
     }
 }
