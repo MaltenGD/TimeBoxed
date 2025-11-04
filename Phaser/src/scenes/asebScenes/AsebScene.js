@@ -50,9 +50,11 @@ export class AsebScene extends Phaser.Scene {
         .on('pointerout', () => this.backBtn.setStyle({fill: '#fff'}))
         .on('pointerdown', () => {
         if (this.scene.isActive('PauseMenu')) return;
-        this.scene.launch('PauseMenu');
-        pauseMenu.setPausedScene(this.scene.key);
-        this.scene.pause();
+
+    this.scene.launch('PauseMenu');
+    const pauseMenu = this.scene.get('PauseMenu');
+    pauseMenu.setPausedScene(this.scene.key);
+    this.scene.pause();
         });
         
         console.log(this.playerFirst ? "Player starts the game." : "Anubis starts the game.");

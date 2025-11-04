@@ -44,6 +44,7 @@ export class PauseMenuScene extends Phaser.Scene {
         }
         this.scene.stop('PauseMenu');
         this.scene.start('SelectionMenuScene');
+            this.scene.start('SelectionMenuScene', { fromScene: this.sceneToPause });
         });
 
         this.noBtn.on('pointerdown', () => {

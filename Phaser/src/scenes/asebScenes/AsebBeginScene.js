@@ -81,8 +81,10 @@ export class AsebBeginScene extends Phaser.Scene {
         .on('pointerover', () => this.backBtn.setStyle({fill: '#0f0'}))
         .on('pointerout', () => this.backBtn.setStyle({fill: '#fff'}))
         .on('pointerdown', () => {
-        if (this.scene.isActive('PauseMenu')) return;
+       if (this.scene.isActive('PauseMenu')) return;
+
         this.scene.launch('PauseMenu');
+        const pauseMenu = this.scene.get('PauseMenu');
         pauseMenu.setPausedScene(this.scene.key);
         this.scene.pause();
         });
