@@ -38,11 +38,4 @@ export default class TaliPlayer {
             this.score.addScore(element.value);
         });
     }
-
-    printThrows() {
-        console.log("Throws so far: ")
-        this.throws.forEach(element => {
-            console.log(element.name);
-        });
-    }
 }

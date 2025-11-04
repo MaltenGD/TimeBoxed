@@ -26,6 +26,7 @@ export default class Tali {
     currentRoll;
     diceThrows;
     diceThrowIndex = 0;
+    diceRollIndex = 0;
     counter;
 
     playerFirst = true;
@@ -96,13 +97,11 @@ export default class Tali {
     playerRoll() {
         this.rollDice();
         this.identifyRoll(this.player);
-        this.player.printThrows();
     }
 
     enemyRoll() {
         this.rollDice();
         this.identifyRoll(this.enemy);
-        this.enemy.printThrows();
     }
 
     /**
@@ -119,6 +118,10 @@ export default class Tali {
         return arr;
     }
 
+    /**
+     * Identifies which rolls have been thrown.
+     * @param {TaliPlayer} taliPlayer 
+     */
     identifyRoll(taliPlayer) {
         this.counter = [0, 0, 0, 0];
         this.currentRoll.forEach(element => {
@@ -128,16 +131,26 @@ export default class Tali {
         
         this.diceThrows = [];
         this.diceThrowIndex = 0;
+
+        this.checkAddAllRolls();
+        
+        this.diceThrows.forEach(element => {
+            console.log(element);
+        });
+        
+        taliPlayer.addThrows(this.diceThrows);
+
+    }
+
+    /**
+     * Checks if the player has rolled any combination and which one.
+     */
+    checkAddAllRolls() {
         this.checkAddVenusRoll();
         this.checkAddMarteRoll();
         this.checkAddJupiterRoll();
         this.checkAddNeptunoRoll();
         this.checkLunaRoll();
-        this.diceThrows.forEach(element => {
-            console.log(element);
-        });
-        taliPlayer.addThrows(this.diceThrows);
-
     }
 
     /**
@@ -200,6 +213,10 @@ export default class Tali {
         }
     }
 
+    /**
+     * Checks if there are at least 3 dice with the number 3.
+     * Adds throw to array if true and emits 'Luna'.
+     */
     checkLunaRoll() {
         if (this.counter[1] >= 3) {
             this.diceThrows.push(TALI_THROWS.LUNA);
@@ -227,9 +244,11 @@ export default class Tali {
         })
         this.emitter.once('diceOut', () => {
             if (this.diceThrows.length !== 0) {
+                console.log('animating throws');
                 this.animateThrows();
             }
             else {
+                console.log('no throws');
                 this.emitter.emit('turnEnded');
             }
         })
@@ -264,21 +283,21 @@ export default class Tali {
             alpha: 0,
             duration: 500,
             ease: 'Sine.easeOut',
-            onComplete: () => { 
-                this.emitter.emit('diceOut');
+            onComplete: () => {
+                this.diceRollIndex++;
+                if (this.diceRollIndex === this.currentRoll.length) {
+                    this.emitter.emit('diceOut');
+                    console.log('emiting diceout');
+                    this.diceRollIndex = 0;
+                }
             }
         })
     }
 
     animateThrows() {
-        if (this.diceThrows !== 0) {
-            this.diceThrows.forEach(element => {
-                this.animateThrowIn(this.throwImages.find(img=> img.texture.key === element.name));
-            });
-        }
-        else {
-            this.emitter.emit('throwsEnded');
-        }
+        this.diceThrows.forEach(element => {
+            this.animateThrowIn(this.throwImages.find(img=> img.texture.key === element.name));
+        });
     }
 
     animateThrowIn(img) {
@@ -322,6 +341,10 @@ export default class Tali {
     // USED ONLY IN BEGIN SCENE
     // ====================================================================
     
+    /**
+     * The first roll. Rolls only one die.
+     * @returns the dice throw.
+     */
     firstRoll() {
         this.currentRoll = [];
         this.currentRoll.push(RandomNumber.get(0, Tali.NUMBER_OF_DICE));
@@ -329,6 +352,9 @@ export default class Tali {
         return this.currentRoll[0];
     }
 
+    /**
+     * Sets the die image.
+     */
     firstDiceImages() {
         this.diceImages = [];
         this.diceImages.push(this.scene.add.image(this.width/2, this.height/2, 'dice' + this.currentRoll[0]).setOrigin(0.5).setScale(0.3).setAlpha(0));
