@@ -321,6 +321,20 @@ export default class Tali {
     // ====================================================================
     // USED ONLY IN BEGIN SCENE
     // ====================================================================
+    
+    firstRoll() {
+        this.currentRoll = [];
+        this.currentRoll.push(RandomNumber.get(0, Tali.NUMBER_OF_DICE));
+        this.firstDiceImages();
+        return this.currentRoll[0];
+    }
+
+    firstDiceImages() {
+        this.diceImages = [];
+        this.diceImages.push(this.scene.add.image(this.width/2, this.height/2, 'dice' + this.currentRoll[0]).setOrigin(0.5).setScale(0.3).setAlpha(0));
+        this.animateDice();
+    }
+
     /**
      * The player's roll.
      * @returns The sum of the numbers on the dice.
@@ -344,12 +358,7 @@ export default class Tali {
      * @returns The sum of the numbers on the dice for the currrent roll.
      */
     #generalTurn() {
-        let roll = this.rollDice();
-        let sum = 0;
-        roll.forEach(element => {
-            sum+=this.diceNrs[element];
-            console.log(sum);
-        });
-        return sum;
+        let res = this.diceNrs[this.firstRoll()];
+        return res;
     }
 }
