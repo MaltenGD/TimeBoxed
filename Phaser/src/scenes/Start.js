@@ -66,7 +66,7 @@ export class Start extends Phaser.Scene {
 
         //accion click
         playButton.on('pointerup', () => { // This method will change to another scene (not created yet)
-            this.scene.start('Intro');
+            this.scene.start('LoadingScene');
         });
 
         //CREDITS BUTTON INTERACTIONS

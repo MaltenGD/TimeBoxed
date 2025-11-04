@@ -1,4 +1,5 @@
 import { Start } from './scenes/Start.js';
+import { LoadingScene } from './scenes/LoadingScene.js';
 import { SelectionMenuScene } from './scenes/SelectionMenuScene.js';
 import { GameScene } from './scenes/GameScene.js';
 import { TaliScene } from './scenes/taliScenes/TaliScene.js';
@@ -8,6 +9,9 @@ import { AsebScene } from './scenes/asebScenes/AsebScene.js';
 import { HanafudaScene } from './scenes/HanafudaScene.js';
 import { CreditsScene } from './scenes/CreditsScene.js';
 import { Intro } from './scenes/Intro.js';
+import { AsebVictoryScene } from './scenes/asebScenes/AsebVictoryScene.js';
+import { AsebDefeatScene } from './scenes/asebScenes/AsebDefeatScene.js';
+
 
 
 const config = {
@@ -22,11 +26,14 @@ const config = {
     scene: 
     [
         Start,
+        LoadingScene,
         Intro,
         CreditsScene,
         SelectionMenuScene,
         AsebScene,
         AsebBeginScene,
+        AsebVictoryScene,
+        AsebDefeatScene,
         TaliBeginScene,
         GameScene,
         TaliScene,
