@@ -36,7 +36,6 @@ export class AsebScene extends Phaser.Scene {
                 y: height/2
             }
             
-            this.loadImages();
         }
 
 
