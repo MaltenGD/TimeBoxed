@@ -15,17 +15,26 @@ export class CreditsScene extends Phaser.Scene {
 
         this.cameras.main.setBackgroundColor('#000000');
 
+        /**
+         * CREDITS text
+         */
         this.add.text(width / 2, 120, 'C R É D I T O S', {
             fontSize: '48px',
             fill: '#ffffff'
         }).setOrigin(0.5);
 
+        /**
+         * Team name
+         */
         this.add.text(width / 2, 180, 'POPCAT\nTimeboxed:', {
             fontSize:'28px',
             fill: '#ffffff',
             align:'center'
         } ).setOrigin(0.5);
 
+        /**
+         * Team member data
+         */
          const members = [
             { name: 'Oliver', title: 'Krono Lover', image: 'member1' },
             { name: 'Sarahi', title: 'Nr 1 Krono Hater', image: 'member2' },
@@ -60,6 +69,9 @@ export class CreditsScene extends Phaser.Scene {
             }).setOrigin(0.5);
         });
 
+        /**
+         * Back botton
+         */
         const backBtn = this.add.text(width / 2, height / 2 + 250, 'Volver al Inicio', {
             fontSize: '36px',
             fill: '#000000',
