@@ -229,7 +229,7 @@ export class TaliBeginScene extends Phaser.Scene {
      * @sends playerFirst: true if the player begins, false if the enemy begins.
      */
     endGame() {
-        this.rollBtn.setText('Continue').once('pointerdown', ()=> {
+        this.rollBtn.setText('Start Game!').once('pointerdown', ()=> {
             this.transitionController.startFadeOutTransition(1000, new RGBColor(0,0,0), () => {this.scene.start('TaliScene', {playerFirst: this.playerFirst})});
         });
     }
