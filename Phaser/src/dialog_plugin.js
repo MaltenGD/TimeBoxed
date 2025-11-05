@@ -12,6 +12,7 @@ export default class DialogBox{
 	constructor(scene, opts)
 	{
 		this.scene = scene;
+		this.scene.events.on('shutdown', this.shutdown, this);
 		this.init(opts);
 	}
 
@@ -48,6 +49,16 @@ export default class DialogBox{
 		
 		//Crea la ventana de dialogo
 		this._createWindow();
+	}
+
+	// Se llama cuando la escena se apaga. Limpia los recursos.
+	shutdown() {
+		if (this.timedEvent) {
+			this.timedEvent.remove();
+		}
+		if (this.text) {
+			this.text.destroy();
+		}
 	}
 
 	// Método que cierra y abre la ventana de diálogo
@@ -172,13 +183,19 @@ export default class DialogBox{
 		.setDepth(-1)
 		.on('pointerdown', ()=>
 		{
-			this.scene.events.emit('nextDialog');
+			if (this.isAnimating()) 
+			{
+				this.skipAnimation();
+			} else 
+			{
+				this.scene.events.emit('nextDialog');
+			}
 		});
 		
 		//Se crean las ventanas interior y exterior
 		this._createOuterWindow(dimensions.x, dimensions.y, dimensions.rectWidth, dimensions.rectHeight);
 		this._createInnerWindow(dimensions.x, dimensions.y, dimensions.rectWidth, dimensions.rectHeight);
-		
+
 		this._createCloseModalButton(); //se muestra el boton de cerrar en la ventana
 		this._createCloseModalButtonBorder(); // se muestra el borde del boton de cerrar
 	}

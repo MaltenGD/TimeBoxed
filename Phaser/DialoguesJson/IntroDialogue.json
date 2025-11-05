@@ -1,0 +1,250 @@
+{
+"IntroDialogue":
+{
+    "start": 
+    {
+        "speaker": "player",
+        "text": "*Yawn* Today is a fuc-",
+        "animation": "true",
+        "next": "ID2"
+    },
+    "ID2": 
+    {
+        "speaker": "player",
+        "text": "ehem, I mean, today is a great day to play.",
+        "animation": "true",
+        "next": "ID3"
+    },
+    "ID3": 
+    {
+        "speaker": "narrator",
+        "text": "You always start the morning with your yarn ball, it's ragged and old, but it's what makes the day awesome for you.",
+        "animation": "true",
+        "next": "ID4"
+    },
+    "ID4": 
+    {
+        "speaker": "narrator",
+        "text": "The sun is barely out and because you are such a wrecking ball of energy and noise and fluffy hair and cute ears (and whatever else you are), you wake up the whole neighborhood.",
+        "animation": "true",
+        "next": "ID5"
+    },
+    "ID5": 
+    {
+        "speaker": "narrator",
+        "text": "Humans yell at you from their windows, but you don't speak human, so you do not care at all.",
+        "animation": "true",
+        "next": "ID6"
+    },
+    "ID6": 
+    {
+        "speaker": "narrator",
+        "text": "This commotion and protagonist time of yours, catches the eye of a dark mysterious figure.",
+        "animation": "true",
+        "next": "ID7"
+    },
+    "ID7": 
+    {
+        "speaker": "narrator",
+        "text": "While you go crazy, time stops and a dark cat appears before you.\nYour instincs kick in and you stop playing to study the new creature before you.",
+        "animation": "true",
+        "next": "ID8"
+    },
+    "ID8": 
+    {
+        "speaker": "player",
+        "text": "mmm Excuse me, eh, good sir? Do you need something?",
+        "animation": "true",
+        "next": "ID9"
+    },
+    "ID9": 
+    {
+        "speaker": "kronos",
+        "text": "*stares into the distance* oh Yes, you see there's a buch of meat in the corner of this alley.\nI was thinking if I should go eat it",
+        "animation": "true",
+        "next": "ID10"
+    },
+    "ID10": 
+    {
+        "speaker": "narrator",
+        "text": "At the mention of food, your brain knows no better than your stomach, both empty. You turn around naively all excited for food but find nothing.",
+        "animation": "true",
+        "next": "ID11"
+    },
+    "ID11": 
+    {
+        "speaker": "player",
+        "text": "That's weird, I don't see anything, sir.",
+        "animation": "true",
+        "next": "ID12"
+    },
+    "ID12": 
+    {
+        "speaker": "kronos",
+        "text": "*smirks* oh yeah, sorry I was thinking of a different alley. Anyway I see you're sooo intelligent my friend, so let's do this: you see this thing?",
+        "animation": "true",
+        "next": "ID13"
+    },
+    "ID13": 
+    {
+        "speaker": "kronos",
+        "text": "He points to your yarn ball.\nIf you bring me that meat from the alley I was thinking of, I'll give you this thing in return.",
+        "animation": "true",
+        "next": "ID14"
+    },
+    "ID14": 
+    {
+        "speaker": "narrator",
+        "text": "kronos suddenly makes YOUR yarn ball appear next to him, while you were distracted he took the opportunity to stole it.",
+        "animation": "true",
+        "next": "ID15"
+    },
+    "ID15": 
+    {
+        "speaker": "player",
+        "text": "*in pure disbelief* YOU!! How do you have my yarn ball!?",
+        "animation": "true",
+        "next": "ID16"
+    },
+    "ID16": 
+    {
+        "speaker": "kronos",
+        "text": "Oh well the hows and whats aren't important here my friend, the thing is *pauses* I'm not giving it back to you MUAHAHA *evil laugh*.",
+        "animation": "true",
+        "next": "ID17"
+    },
+    "ID17": 
+    {
+        "speaker": "player",
+        "text": "you rat!... No, scratch that, you are even worse than a rat! \n give it back or else!",
+        "animation": "true",
+        "next": "ID18"
+    },
+    "ID18": 
+    {
+        "speaker": "kronos",
+        "text": "first, don't compare me to filthy rats. I'm above that AND above you too. But I'll let it slide this time. You see, I'm a really generous creature that means no harm.",
+        "animation": "true",
+        "next": "ID19"
+    },
+    "ID19": 
+    {
+        "speaker": "kronos",
+        "text": "so I guess if you insist, I have no other option but to offer you a deal. Everything goes back to last week, when I accidentally and tragically lost my most priced belongings.",
+        "animation": "true",
+        "next": "ID20"
+    },
+    "ID20": 
+    {
+        "speaker": "kronos",
+        "text": "the thing is, I need someone to recover them. Don't worry it's only three objects, no biggie for something as smart as you.",
+        "animation": "true",
+        "next": "ID21"
+    },
+    "ID21": 
+    {
+        "speaker": "player",
+        "text": "why can't you do it yourself, if you want them back soooo badly?",
+        "animation": "true",
+        "next": "ID22"
+    },
+    "ID22": 
+    {
+        "speaker": "kronos",
+        "text": "because I can't, it's more complicated than that you peasant!",
+        "animation": "true",
+        "next": "ID23"
+    },
+    "ID23": 
+    {
+        "speaker": "player",
+        "text": "ugh, alr so what do I have to do to recover them so I can get my yarn back?",
+        "animation": "true",
+        "next": "ID24"
+    },
+    "ID24": 
+    {
+        "speaker": "kronos",
+        "text": "Pretty easy! you only have to win three games.",
+        "animation": "true",
+        "next": "ID25"
+    },
+    "ID25": 
+    {
+        "speaker": "player",
+        "text": "against you? and can I choose the games?\n (with all his ego I guess he will be an easy opponent).",
+        "animation": "true",
+        "next": "ID26"
+    },
+    "ID26": 
+    {
+        "speaker": "kronos",
+        "text": "Oh no no, you? playing against the almighty kronos? no, no that can't be, I don't play with brats. Besides I don't have the objects duh if you win against me you would gain nothing.",
+        "animation": "true",
+        "next": "ID27"
+    },
+    "ID27": 
+    {
+        "speaker": "kronos",
+        "text": "*sighs* what you have to do is win against some of my *ehem* friends, who happened to recover them for me. However, for reasons you little brain won't understand I can't ask them to return them.",
+        "animation": "true",
+        "next": "ID28"
+    },
+    "ID28": 
+    {
+        "speaker": "kronos",
+        "text": "Anyway, win the games, I get my objects back and you get your beloved yarn. Do we have a deal?",
+        "animation": "true",
+        "next": "ID29"
+    },
+    "ID29": 
+    {
+        "speaker": "player",
+        "text": "(He seems shaddy, but I really want my yarn back ugh). Alr, we have a deal",
+        "animation": "true",
+        "next": "ID30"
+    },
+    "ID30": 
+    {
+        "speaker": "narrator",
+        "text": "kronos and you, paw with paw together and a there's a faint glow that goes away as fast as it came, this mean the deal has been sealed.",
+        "animation": "true",
+        "next": "ID31"
+    },
+    "ID31": 
+    {
+        "speaker": "kronos",
+        "text": "Well, it's done, but first you have to get with me in my box, this is how we will get around.",
+        "animation": "true",
+        "next": "ID32"
+    },
+    "ID32":
+    {
+        "speaker": "player",
+        "text": "The box? how are we supposed to get around in that junk?",
+        "animation": "true",
+        "next": "ID33"
+    },
+    "ID33":
+    {
+        "speaker": "kronos",
+        "text": "Oh, just shut it and get on!",
+        "animation": "true",
+        "next": "ID34"
+    },
+    "ID34":
+    {
+        "speaker": "narrator",
+        "text": "you get reluctantly in the box, and when you're inside, you're shocked to see it has a lot more space than it appeared to have from the outside.",
+        "animation": "true",
+        "next": "end"
+    },
+    "end":
+    {
+        "speaker": "kronos",
+        "text": "Well, welcome to my 'little' home haha. Now, because I'm the kindest cat around here, I'll let you choose where you wanna go first.",
+        "animation": "true",
+        "next": null
+    }
+}
+}

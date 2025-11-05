@@ -12,6 +12,7 @@ import { Intro } from './scenes/Intro.js';
 import { AsebVictoryScene } from './scenes/asebScenes/AsebVictoryScene.js';
 import { AsebDefeatScene } from './scenes/asebScenes/AsebDefeatScene.js';
 import { PauseMenuScene } from './scenes/PauseMenuScene.js';
+import { IntroAseb } from './scenes/asebScenes/IntroAseb.js';
 
 
 const config = {
@@ -30,6 +31,7 @@ const config = {
         Intro,
         CreditsScene,
         SelectionMenuScene,
+        IntroAseb,
         AsebScene,
         AsebBeginScene,
         AsebVictoryScene,

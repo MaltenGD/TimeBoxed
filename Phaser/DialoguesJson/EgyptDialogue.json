@@ -1,0 +1,180 @@
+{
+"EgyptDialogue":
+{
+    "start":
+    {
+        "speaker": "Narrator",
+        "text": "With a jolt, the box shudders and then stills. The air is thick with the scent of sand and ancient dust.",
+        "animation": "true",
+        "next": "ED2"
+    },
+    "ED2":
+    {
+        "speaker": "Narrator",
+        "text": "You tumble out, blinking in the harsh desert sun, to find yourselves in a land of towering pyramids and colossal statues.",
+        "animation": "true",
+        "next": "ED3"
+    },
+    "ED3":
+    {
+        "speaker": "Player",
+        "text": "Whoa! Where are we now? This isn't exactly my alley.",
+        "animation": "true",
+        "next": "ED4"
+    },
+    "ED4":
+    {
+        "speaker": "Kronos",
+        "text": "Ah, my dear naive companion, welcome to the land of the pharaohs, the cradle of civilization, the... well, you get the idea. This is Egypt.",
+        "animation": "true",
+        "next": "ED5"
+    },
+    "ED5":
+    {
+        "speaker": "Player",
+        "text": "Egypt? So, is this where one of your 'friends' lives huh?",
+        "animation": "true",
+        "next": "ED6"
+    },
+    "ED6":
+    {
+        "speaker": "Kronos",
+        "text": "Yeah, yeah, now, prepare yourself, we are about to meet Anubis, the esteemed guardian of the underworld. He's... particular.",
+        "animation": "true",
+        "next": "ED7"
+    },
+    "ED7":
+    {
+        "speaker": "Player",
+        "text": "'Particular'? What does that even mean?",
+        "animation": "true",
+        "next": "ED8"
+    },
+    "ED8":
+    {
+        "speaker": "Kronos",
+        "text": "It means he has a rather *unfortunate* habit of judging my life choices. But I'm sure he'll be absolutely delighted to see us *sigh*.",
+        "animation": "true",
+        "next": "ED9"
+    },
+    "ED9":
+    {
+        "speaker": "Narrator",
+        "text": "A deep, resonant voice echoes from behind a colossal statue of a jackal-headed deity. A figure emerges from the shadows, sleek and imposing, with eyes that seem to pierce through time itself.",
+        "animation": "true",
+        "next": "ED10"
+    },
+    "ED10":
+    {
+        "speaker": "Anubis",
+        "text": "Kronos. I had a feeling your... *unwise* endeavors would eventually lead you back to my domain.",
+        "animation": "true",
+        "next": "ED11"
+    },
+    "ED11":
+    {
+        "speaker": "Kronos",
+        "text": "Anubis, my old friend! Always a pleasure. And as sharp-tongued as ever, I see.",
+        "animation": "true",
+        "next": "ED12"
+    },
+    "ED12":
+    {
+        "speaker": "Anubis",
+        "text": "Pleasure is a concept lost on me when I witness such blatant disregard for valuable artifacts. You gambled away the Pin with Logo, dEid you not? A trinket of immense power, now reduced to a mere wager.",
+        "animation": "true",
+        "next": "ED13"
+    },
+    "ED13":
+    {
+        "speaker": "Player",
+        "text": "(A 'trinket of immense power'? What exactly did Kronos lose?)",
+        "animation": "true",
+        "next": "ED14"
+    },
+    "ED14":
+    {
+        "speaker": "Kronos",
+        "text": "Details, details, Anubis. It was a momentary lapse in judgment. A minor miscalculation. Nothing a quick game can't fix, eh?",
+        "animation": "true",
+        "next": "ED15"
+    },
+    "ED15":
+    {
+        "speaker": "Anubis",
+        "text": "Your 'miscalculations' are legendary, Kronos. And now you bring a... mortal stray to clean up your messes? How lame of you.",
+        "animation": "true",
+        "next": "ED16"
+    },
+    "ED16":
+    {
+        "speaker": "Player",
+        "text": "Hey! I'm not cleaning up his messes! I'm just trying to get my yarn ball back!",
+        "animation": "true",
+        "next": "ED17"
+    },
+    "ED17":
+    {
+        "speaker": "Anubis",
+        "text": "A yarn ball. How quaint. And you believe this... *deal* with Kronos will end favorably for you? He is the god of time, not of keeping promises.",
+        "animation": "true",
+        "next": "ED18"
+    },
+    "ED18":
+    {
+        "speaker": "Kronos",
+        "text": "Now, now, Anubis, let's not poison the well. The deal is sealed. And my young friend here is quite capable.",
+        "animation": "true",
+        "next": "ED19"
+    },
+    "ED19":
+    {
+        "speaker": "Anubis",
+        "text": "I see... , well luck smiles you today, your companion intrigues me and I get no joy to see you have nothing else to lose against me. So.. does your companion know what Aseb is?",
+        "animation": "true",
+        "next": "ED20"
+    },
+    "ED20":
+    {
+        "speaker": "Player",
+        "text": "Uhmm, what is A-",
+        "animation": "true",
+        "next": "ED21"
+    },
+    "ED21":
+    {
+        "speaker": "Kronos",
+        "text": "yeah Aseb! Aseb! we both played it yesterday, didnt we? *lies* of course we know.",
+        "animation": "true",
+        "next": "ED22"
+    },
+    "ED22":
+    {
+        "speaker": "Anubis",
+        "text": "Mmhh... Very well. If this mortal can best me, the Pin is yours. But do not expect me to go easy, little one. The scales of justice are always balanced, even for a yarn ball.",
+        "animation": "true",
+        "next": "ED23"
+    },
+    "ED23":
+    {
+        "speaker": "Player",
+        "text": "(Balanced scales? This guy is serious. I better focus.)",
+        "animation": "true",
+        "next": "ED24"
+    },
+    "ED24":
+    {
+        "speaker": "Kronos",
+        "text": "Excellent! See, I told you he was reasonable. Now, let's get this show on the road!",
+        "animation": "true",
+        "next": "end"
+    },
+    "end":
+    {
+        "speaker": "Narrator",
+        "text": "Anubis gestures towards a nearby stone table, where an Aseb board is intricately carved. The air crackles with anticipation as the stage is set for the next challenge.",
+        "animation": "true",
+        "next": null
+    }
+}
+}
