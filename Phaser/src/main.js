@@ -11,7 +11,7 @@ import { CreditsScene } from './scenes/CreditsScene.js';
 import { Intro } from './scenes/Intro.js';
 import { AsebVictoryScene } from './scenes/asebScenes/AsebVictoryScene.js';
 import { AsebDefeatScene } from './scenes/asebScenes/AsebDefeatScene.js';
-
+import { PauseMenuScene } from './scenes/PauseMenuScene.js';
 
 
 const config = {
@@ -37,7 +37,8 @@ const config = {
         TaliBeginScene,
         GameScene,
         TaliScene,
-        HanafudaScene
+        HanafudaScene,
+        PauseMenuScene
     ],
     scale: {
         mode: Phaser.Scale.FIT,

@@ -1,0 +1,22 @@
+Narrator: With a jolt, the box shudders and then stills. The air is thick with the scent of sand and ancient dust.
+Narrator: You tumble out, blinking in the harsh desert sun, to find yourselves in a land of towering pyramids and colossal statues.
+Player: Whoa! Where are we now? This isn't exactly my alley.
+Kronos: Ah, my dear naive companion, welcome to the land of the pharaohs, the cradle of civilization, the... well, you get the idea. This is Egypt.
+Player: Egypt? So, is this where one of your 'friends' lives?
+Kronos: Indeed. Prepare yourself, since we are about to meet Anubis, the esteemed guardian of the underworld. He's... particular.
+Player: 'Particular'? What does that even mean?
+Kronos: It means he has a rather *unfortunate* habit of judging my life choices. But I'm sure he'll be absolutely delighted to see us.
+Narrator: A deep, resonant voice echoes from behind a colossal statue of a jackal-headed deity. A figure emerges from the shadows, sleek and imposing, with eyes that seem to pierce through time itself.
+Anubis: Kronos. I had a feeling your... *unwise* endeavors would eventually lead you back to my domain.
+Kronos: Anubis, my old friend! Always a pleasure. And as sharp-tongued as ever, I see.
+Anubis: Pleasure is a concept lost on me when I witness such blatant disregard for valuable artifacts. You gambled away the Pin with Logo, did you not? A trinket of immense power, now reduced to a mere wager.
+Player: (A 'trinket of immense power'? What exactly did Kronos lose?)
+Kronos: Details, details, Anubis. It was a momentary lapse in judgment. A minor miscalculation. Nothing a quick game can't fix, eh?
+Anubis: Your 'miscalculations' are legendary, Kronos. And now you bring a... mortal cat to clean up your messes? How utterly predictable.
+Player: Hey! I'm not cleaning up his messes! I'm just trying to get my yarn ball back!
+Anubis: A yarn ball. How quaint. And you believe this... *deal* with Kronos will end favorably for you? He is the god of time, not of keeping promises.
+Kronos: Now, now, Anubis, let's not poison the well. The deal is sealed. And my young friend here is quite capable. He merely needs to win a game of Aseb to reclaim the Pin.
+Anubis: Aseb. A game of strategy, not reckless abandon. Very well. If this mortal can best me, the Pin is yours. But do not expect me to go easy, little one. The scales of justice are always balanced, even for a yarn ball.
+Player: (Balanced scales? This guy is serious. I better focus.)
+Kronos: Excellent! See, I told you he was reasonable. Now, let's get this show on the road!
+Narrator: Anubis gestures towards a nearby stone table, where an Aseb board is intricately carved. The air crackles with anticipation as the stage is set for the next challenge.

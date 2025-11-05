@@ -36,7 +36,6 @@ export class AsebScene extends Phaser.Scene {
                 y: height/2
             }
             
-            this.loadImages();
         }
 
 
@@ -49,7 +48,14 @@ export class AsebScene extends Phaser.Scene {
         .setInteractive()
         .on('pointerover', () => this.backBtn.setStyle({fill: '#0f0'}))
         .on('pointerout', () => this.backBtn.setStyle({fill: '#fff'}))
-        .on('pointerdown', () => this.scene.start('SelectionMenuScene'));
+        .on('pointerdown', () => {
+        if (this.scene.isActive('PauseMenu')) return;
+
+    this.scene.launch('PauseMenu');
+    const pauseMenu = this.scene.get('PauseMenu');
+    pauseMenu.setPausedScene(this.scene.key);
+    this.scene.pause();
+        });
         
         console.log(this.playerFirst ? "Player starts the game." : "Anubis starts the game.");
 

@@ -28,7 +28,7 @@ export default class DialogueController{
         const kronos = new Speaker('Kronos');
         const player = new Speaker('Player');
         const narrator = new Speaker('Narrator');
-        // const anubis = new Speaker('Anubis');
+        const anubis = new Speaker('Anubis');
         // const mercury = new Speaker('Mercury');
         // const benten = new Speaker('Benten');
 
@@ -72,9 +72,28 @@ export default class DialogueController{
         ];
         this.egyptDialogues = 
         [
-            new Dialogue(kronos, 'Wait, what?', true),
-            new Dialogue(kronos, "They've already learned how to use this system?", true),
-            new Dialogue(player, 'Yeah, they called the "start" method with "Egypt" as the parameter.', true)
+            new Dialogue(narrator, "With a jolt, the box shudders and then stills. The air is thick with the scent of sand and ancient dust.", true),
+            new Dialogue(narrator, "You tumble out, blinking in the harsh desert sun, to find yourselves in a land of towering pyramids and colossal statues.", true),
+            new Dialogue(player, "Whoa! Where are we now? This isn't exactly my alley.", true),
+            new Dialogue(kronos, "Ah, my dear naive companion, welcome to the land of the pharaohs, the cradle of civilization, the... well, you get the idea. This is Egypt.", true),
+            new Dialogue(player, "Egypt? So, is this where one of your 'friends' lives?", true),
+            new Dialogue(kronos, "Indeed. Prepare yourself, since we are about to meet Anubis, the esteemed guardian of the underworld. He's... particular.", true),
+            new Dialogue(player, "'Particular'? What does that even mean?", true),
+            new Dialogue(kronos, "It means he has a rather *unfortunate* habit of judging my life choices. But I'm sure he'll be absolutely delighted to see us.", true),
+            new Dialogue(narrator, "A deep, resonant voice echoes from behind a colossal statue of a jackal-headed deity. A figure emerges from the shadows, sleek and imposing, with eyes that seem to pierce through time itself.", true),
+            new Dialogue(anubis, "Kronos. I had a feeling your... *unwise* endeavors would eventually lead you back to my domain.", true),
+            new Dialogue(kronos, "Anubis, my old friend! Always a pleasure. And as sharp-tongued as ever, I see.", true),
+            new Dialogue(anubis, "Pleasure is a concept lost on me when I witness such blatant disregard for valuable artifacts. You gambled away the Pin with Logo, did you not? A trinket of immense power, now reduced to a mere wager.", true),
+            new Dialogue(player, "(A 'trinket of immense power'? What exactly did Kronos lose?)", true),
+            new Dialogue(kronos, "Details, details, Anubis. It was a momentary lapse in judgment. A minor miscalculation. Nothing a quick game can't fix, eh?", true),
+            new Dialogue(anubis, "Your 'miscalculations' are legendary, Kronos. And now you bring a... mortal cat to clean up your messes? How utterly predictable.", true),
+            new Dialogue(player, "Hey! I'm not cleaning up his messes! I'm just trying to get my yarn ball back!", true),
+            new Dialogue(anubis, "A yarn ball. How quaint. And you believe this... *deal* with Kronos will end favorably for you? He is the god of time, not of keeping promises.", true),
+            new Dialogue(kronos, "Now, now, Anubis, let's not poison the well. The deal is sealed. And my young friend here is quite capable. He merely needs to win a game of Aseb to reclaim the Pin.", true),
+            new Dialogue(anubis, "Aseb. A game of strategy, not reckless abandon. Very well. If this mortal can best me, the Pin is yours. But do not expect me to go easy, little one. The scales of justice are always balanced, even for a yarn ball.", true),
+            new Dialogue(player, "(Balanced scales? This guy is serious. I better focus.)", true),
+            new Dialogue(kronos, "Excellent! See, I told you he was reasonable. Now, let's get this show on the road!", true),
+            new Dialogue(narrator, "Anubis gestures towards a nearby stone table, where an Aseb board is intricately carved. The air crackles with anticipation as the stage is set for the next challenge.", true),
         ];
         this.romeDialogues = [
             new Dialogue(kronos, 'Okay, I get it.', true),

@@ -80,7 +80,15 @@ export class AsebBeginScene extends Phaser.Scene {
         .setInteractive()
         .on('pointerover', () => this.backBtn.setStyle({fill: '#0f0'}))
         .on('pointerout', () => this.backBtn.setStyle({fill: '#fff'}))
-        .on('pointerdown', () => this.scene.start('SelectionMenuScene'));
+        .on('pointerdown', () => {
+       if (this.scene.isActive('PauseMenu')) return;
+
+        this.scene.launch('PauseMenu');
+        const pauseMenu = this.scene.get('PauseMenu');
+        pauseMenu.setPausedScene(this.scene.key);
+        this.scene.pause();
+        });
+        
         /** @type {Phaser.GameObjects.Text} */
         this.throwBtn = this.add.text(this.width/2 -100, this.height -300, 'Throw', { fontSize: 64, fill: '#fff'})
         .setInteractive()

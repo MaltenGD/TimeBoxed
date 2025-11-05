@@ -30,7 +30,7 @@ export default class AsebBoard extends Phaser.GameObjects.Image
     this.createPositions();
     this.createPieces();
 
-    this.debugDrawPositions();
+    //this.debugDrawPositions();
   }
 
   /**
