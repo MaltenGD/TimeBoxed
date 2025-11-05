@@ -17,7 +17,6 @@ export class TaliScene extends Phaser.Scene {
 
     currentTurn = 0;
 
-
     constructor() {
         super('TaliScene');
     }
@@ -25,6 +24,8 @@ export class TaliScene extends Phaser.Scene {
     init(data) {
         if (data !== undefined) this.playerFirst = data.playerFirst;
         else this.playerFirst = true;
+
+        this.state = this.playerFirst ? GAME_STATE.PLAYER_TURN : GAME_STATE.ENEMY_TURN;
     }
 
     preload() {
@@ -44,13 +45,6 @@ export class TaliScene extends Phaser.Scene {
         this.createButtons();
         this.addText();
         this.addEventListeners(); 
-
-        // this.input.keyboard.on('keydown-ESC', () => 
-        // {
-        // this.scene.launch('PauseMenu');
-        // //this.scene.get('PauseMenu').setPausedScene(this.scene.key);
-        // this.scene.pause();
-        // });
         
         // Start the first turn.
         if (this.playerFirst) {
@@ -66,27 +60,27 @@ export class TaliScene extends Phaser.Scene {
      * Creates and places all the buttons for the scene.
      */
     createButtons() {
-        this.rollBtn = this.add.text(this.width/2, this.height/2, 'Roll!', { fontSize: 80, fill: '#000', backgroundColor: '#fff'}).setOrigin(0.5)
+        this.rollBtn = this.add.text(this.width/2, 2*this.height/3, 'Roll!', { fontSize: 80, fill: '#000', backgroundColor: '#fff'}).setOrigin(0.5)
         .setInteractive()
         .on('pointerover', () => this.rollBtn.setStyle({fill: 'rgba(116, 8, 9, 1)'}))
         .on('pointerdown', () => {
-            this.taliGame.playerRoll();
+            this.nextTurn();
             this.setObjectState(this.rollBtn, false);
         })
         .on('pointerout', () => this.rollBtn.setStyle({fill: '#000'}));
 
         this.backBtn = this.add.text(0, 0, 'Back', { fontSize: 64, fill: '#fff'})
-        .setInteractive()
-        .on('pointerover', () => this.backBtn.setStyle({fill: '#0f0'}))
-        .on('pointerdown', () => {
-        if (this.scene.isActive('PauseMenu')) return;
+            .setInteractive()
+            .on('pointerover', () => this.backBtn.setStyle({fill: '#0f0'}))
+            .on('pointerdown', () => {
+                if (this.scene.isActive('PauseMenu')) return;
 
-        this.scene.launch('PauseMenu');
-        const pauseMenu = this.scene.get('PauseMenu');
-        pauseMenu.setPausedScene(this.scene.key);
-        this.scene.pause();
-    })
-        .on('pointerout', () => this.backBtn.setStyle({fill: '#fff'}));
+                this.scene.launch('PauseMenu');
+                const pauseMenu = this.scene.get('PauseMenu');
+                pauseMenu.setPausedScene(this.scene.key);
+                this.scene.pause();
+            })
+            .on('pointerout', () => this.backBtn.setStyle({fill: '#fff'}));
     }
 
     /**
@@ -109,11 +103,15 @@ export class TaliScene extends Phaser.Scene {
     addEventListeners() {
         this.taliGame.emitter.on('turnEnded', () => {
             this.currentTurn++;
-            if (this.currentTurn <= Tali.TURNS * 2)
-                this.nextTurn();
-            else {
-                this.gameEnded();
-            }
+            this.setObjectState(this.rollBtn, true)
+            this.rollBtn.setText('Continue')
+            .on('pointerdown', () => {
+                if (this.currentTurn <= Tali.TURNS * 2)
+                    this.nextTurn();
+                else {
+                    this.gameEnded();
+                }
+            })
             this.updateScore();
         })
         this.taliGame.emitter.on('luna', () => this.lunaThrow());
@@ -124,6 +122,9 @@ export class TaliScene extends Phaser.Scene {
         console.log("Starting player turn.");
         this.turnText.setText("Your turn! Roll the dice.");
         this.setObjectState(this.rollBtn, true);
+        this.rollBtn.on('pointerdown', () => {
+            this.taliGame.playerRoll();
+        })
     }
 
     startEnemyTurn() {

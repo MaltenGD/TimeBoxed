@@ -48,7 +48,7 @@ export class TaliBeginScene extends Phaser.Scene {
      * Creates and places all the buttons for the scene.
      */
     createButtons() {
-        this.rollBtn = this.add.text(this.width/2, this.height/2, 'Roll!', { fontSize: 80, fill: '#000', backgroundColor: '#fff'}).setOrigin(0.5)
+        this.rollBtn = this.add.text(this.width/2, 3*this.height/4, 'Roll!', { fontSize: 80, fill: '#000', backgroundColor: '#fff'}).setOrigin(0.5)
         .setInteractive()
         .on('pointerover', () => this.rollBtn.setStyle({fill: 'rgba(116, 8, 9, 1)'}))
         .on('pointerout', () => this.rollBtn.setStyle({fill: '#000'}))
@@ -108,13 +108,6 @@ export class TaliBeginScene extends Phaser.Scene {
         this.resultText = this.add.text(this.width/2, this.height - this.height/3, ' ', { fontSize: 64, fill: '#000'}).setOrigin(0.5);
     }
 
-    /**
-     * Adds all the event listeners.
-     */
-    addEventListeners() {
-        this.taliGame.emitter.on('diceRolled', (arr) => {this.setDiceImages(arr)});
-    }
-
     animateHands() {
         // Mostrar brazos
         this.playerArm.setAlpha(1);
@@ -157,11 +150,10 @@ export class TaliBeginScene extends Phaser.Scene {
         this.turnText.setText('Your rolls: ');
         this.rollBtn.setAlpha(0);
         this.playerScore = this.taliGame.playerTurn();
-        this.taliGame.emitter.once('diceIn', () => this.resultText.setText('Your result: ' + this.playerScore));
-        this.taliGame.emitter.once('diceOut', () => { 
-            this.resultText.setText(' ');
+        this.taliGame.emitter.once('diceIn', () => {
+            this.resultText.setText("Your result: " + this.playerScore); 
             this.rollBtn.setText('Continue').setAlpha(1)
-                .once('pointerdown', () => this.continue(this.GAME_STATE.ENEMY_ROLL));
+                .once('pointerdown', () => { this.taliGame.hideDice(); this.continue(this.GAME_STATE.ENEMY_ROLL);});
         });
     }
 
@@ -174,11 +166,8 @@ export class TaliBeginScene extends Phaser.Scene {
         this.enemyScore = this.taliGame.enemyTurn();
         this.taliGame.emitter.once('diceIn', () => {
             this.resultText.setText("Mercury's result: " + this.enemyScore); 
-            this.taliGame.emitter.once('diceOut', () => {
-                this.resultText.setText(' ');
-                this.rollBtn.setText('Continue').setAlpha(1)
-                    .once('pointerdown', () => this.continue(this.GAME_STATE.DECISION));
-            });
+            this.rollBtn.setText('Continue').setAlpha(1)
+                .once('pointerdown', () => { this.taliGame.hideDice(); this.continue(this.GAME_STATE.DECISION);});
         });
     }
 
@@ -211,6 +200,7 @@ export class TaliBeginScene extends Phaser.Scene {
      * Calculates the beginner and shows it on the screen.
      */
     calculateBeginner() {
+        this.resultText.setText('');
         if (this.playerScore === this.enemyScore) {
             this.continue(this.GAME_STATE.TIE);
         }
@@ -225,19 +215,11 @@ export class TaliBeginScene extends Phaser.Scene {
             }
             this.continue(this.GAME_STATE.END);
         }
-
-        
     }
 
     tie() {
         this.turnText.setText("It's a tie!");
-        this.time.addEvent({
-            delay: 1000,
-            callback: () =>
-            {
-                this.scene.restart();
-            }
-        })
+        this.rollBtn.setText('Retry').on('pointerdown', () => this.scene.restart());
     }
 
     /**
@@ -248,85 +230,5 @@ export class TaliBeginScene extends Phaser.Scene {
         this.rollBtn.setText('Continue').on('pointerdown', ()=> {
             this.scene.start('TaliScene', {playerFirst: this.playerFirst});
         });
-    }
-
-    /**
-     * Rolls the dice.
-     */
-    setDiceImages(arr) {
-        this.currentRoll = arr;
-        for (let i = 0, j = -this.width/12; i < Tali.NUMBER_OF_DICE; i++, j+=this.width/12) { 
-            this.diceImages[i] = this.add.image(this.width/2 - j, this.height/2, 'dice' + this.currentRoll[i]).setOrigin(0, 0.5).setScale(0.3).setAlpha(0);
-        }
-        this.animateDice();
-    }
-
-    /**
-     * Animates the dice appearing and disappearing.
-     */
-    animateDice() {
-        this.diceImages.forEach((img) => {
-            this.animateDiceIn(img);
-        })
-    }
-
-    /**
-     * Animates the appearance of the dice.
-     */
-    // animateDiceIn(img) {
-    //     this.tweens.add({
-    //         targets: img,
-    //         alpha: 1,
-    //         duration: 1000,
-    //         ease: 'Sine.easeOut',
-    //         onComplete: () => {
-    //             this.events.emit('diceIn');
-    //             this.time.addEvent({
-    //                 delay: 2000, 
-    //                 callback: () => { this.animateDiceOut(img);},
-    //                 loop: false
-    //             });
-    //         }
-    //     })
-    // }
-    animateDiceIn(img) {
-    let rollInterval = this.time.addEvent({
-        delay: 100,
-        callback: () => {
-            const randomFace = Phaser.Math.Between(0, Tali.NUMBER_OF_DICE - 1);
-            img.setTexture('dice' + randomFace);
-        },
-        loop: true
-    });
-
-    this.tweens.add({
-        targets: img,
-        alpha: 1,
-        duration: 1000,
-        ease: 'Sine.easeOut',
-        onComplete: () => {
-            rollInterval.remove(); // para el “giro”
-            img.setTexture('dice' + this.currentRoll[this.diceImages.indexOf(img)]); // cara real
-            this.events.emit('diceIn');
-            this.time.addEvent({
-                delay: 2000,
-                callback: () => { this.animateDiceOut(img); },
-                loop: false
-            });
-        }
-    });
-}
-
-    /**
-     * Animates the disappearance of the dice. 
-     */
-    animateDiceOut(img) {
-        this.tweens.add({
-            targets: img,
-            alpha: 0,
-            duration: 500,
-            ease: 'Sine.easeOut',
-            onComplete: () => this.events.emit('diceOut')
-        })
     }
 }

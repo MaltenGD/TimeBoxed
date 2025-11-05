@@ -2,7 +2,8 @@ import TaliPlayer, { TALI_THROWS } from './taliplayer.js';
 import RandomNumber from '../randomnumber.js';
 
 /**
- * The states of the game.
+ * @readonly
+ * @enum {string} The states of the game.
  */
 export const GAME_STATE = {
     PLAYER_TURN: 'PLAYER_TURN',
@@ -52,7 +53,6 @@ export default class Tali {
         this.emitter = new Phaser.Events.EventEmitter();
         
         this.playerFirst = playerFirst;
-        this.state = playerFirst ? GAME_STATE.PLAYER_TURN : GAME_STATE.ENEMY_TURN;
 
         this.player = new TaliPlayer();
         this.enemy = new TaliPlayer();
@@ -295,6 +295,12 @@ export default class Tali {
         })
     }
 
+    hideDice() {
+        this.diceImages.forEach(element => {
+            element.setAlpha(0);
+        });
+    }
+
     animateThrows() {
         this.diceThrows.forEach(element => {
             this.animateThrowIn(this.throwImages.find(img=> img.texture.key === element.name));
@@ -359,7 +365,7 @@ export default class Tali {
     firstDiceImages() {
         this.diceImages = [];
         this.diceImages.push(this.scene.add.image(this.width/2, this.height/2, 'dice' + this.currentRoll[0]).setOrigin(0.5).setScale(0.3).setAlpha(0));
-        this.animateDice();
+        this.animateDiceIn(this.diceImages[0]);
     }
 
     /**
