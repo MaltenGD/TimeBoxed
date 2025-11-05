@@ -56,12 +56,12 @@ export class PauseMenuScene extends Phaser.Scene {
             this.scene.stop('PauseMenu');
         });
 
-        this.tweens.add({
-            targets: [this.box, this.titleText, this.yesBtn, this.noBtn],
-            alpha: { from: 0, to: 1 },
-            duration: 400,
-            ease: 'Sine.easeInOut'
-        });
+        // this.tweens.add({
+        //     targets: [this.box, this.titleText, this.yesBtn, this.noBtn],
+        //     alpha: { from: 0, to: 1 },
+        //     duration: 400,
+        //     ease: 'Sine.easeInOut'
+        // });
     }
 
     /**

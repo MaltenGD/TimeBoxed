@@ -45,12 +45,12 @@ export class TaliScene extends Phaser.Scene {
         this.addText();
         this.addEventListeners(); 
 
-        this.input.keyboard.on('keydown-ESC', () => 
-        {
-        this.scene.launch('PauseMenu');
-        //this.scene.get('PauseMenu').setPausedScene(this.scene.key);
-        this.scene.pause();
-        });
+        // this.input.keyboard.on('keydown-ESC', () => 
+        // {
+        // this.scene.launch('PauseMenu');
+        // //this.scene.get('PauseMenu').setPausedScene(this.scene.key);
+        // this.scene.pause();
+        // });
         
         // Start the first turn.
         if (this.playerFirst) {
@@ -82,7 +82,7 @@ export class TaliScene extends Phaser.Scene {
         if (this.scene.isActive('PauseMenu')) return;
 
         this.scene.launch('PauseMenu');
-        pauseMenu = this.scene.get('PauseMenu');
+        const pauseMenu = this.scene.get('PauseMenu');
         pauseMenu.setPausedScene(this.scene.key);
         this.scene.pause();
     })
