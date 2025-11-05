@@ -91,13 +91,6 @@ export class TaliScene extends Phaser.Scene {
                 const pauseMenu = this.scene.get('PauseMenu');
                 pauseMenu.setPausedScene(this.scene.key);
                 this.scene.pause();
-                if (this.scene.isActive('PauseMenu')) return;                
-                this.transitionController.startFadeOutTransition(500, new RGBColor(0,0,0), () => {
-                    this.scene.launch('PauseMenu');
-                    const pauseMenu = this.scene.get('PauseMenu');
-                    pauseMenu.setPausedScene(this.scene.key);
-                    this.scene.pause();
-                });
             })
             .on('pointerout', () => this.backBtn.setStyle({fill: '#fff'}));
     }
