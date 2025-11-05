@@ -241,7 +241,7 @@
     },
     "end":
     {
-        "speaker": "player",
+        "speaker": "kronos",
         "text": "Well, welcome to my 'little' home haha. Now, because I'm the kindest cat around here, I'll let you choose where you wanna go first.",
         "animation": "true",
         "next": null

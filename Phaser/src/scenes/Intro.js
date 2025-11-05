@@ -16,6 +16,12 @@ export class Intro extends Phaser.Scene
     {
         // loads the background
         this.load.image('IntroBackgroundPlaceholder', 'Phaser/assets/Intro/IntroBackgroundPlaceholder.jpeg');
+
+        /** Load the json file for the Intro Dialogue 
+        * @param {string} key - The key to reference the loaded JSON data.
+        * @param {string} url - The URL of the JSON file to load.
+        */
+        this.load.json('IntroDialogue', 'Phaser/DialoguesJson/IntroDialogue.json');
     }
     
     create() 
@@ -42,9 +48,9 @@ export class Intro extends Phaser.Scene
         });
 
         //dialogues
-       
-        this.dialogueController = new DialogueController(this, "Intro");
-        this.dialogueController.create();
+        const introData = this.cache.json.get('IntroDialogue');
+        this.dialogueController = new DialogueController(this, "Intro", introData);
+        this.dialogueController.iniDialogue();
         
         this.events.on('nextDialog',()=>
         {

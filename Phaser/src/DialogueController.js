@@ -8,55 +8,31 @@ import DialogBox from './dialog_plugin.js';
  */
 export default class DialogueController
 {
-    constructor(scene, era) 
+    constructor(scene, era, dialogueData) 
     {
-        // this.currentDialogueIndex = 0;
-        // this.introDialogues = [];
-        // this.egyptDialogues = [];
-        // this.romeDialogues = [];
-        // this.japanDialogues = [];
-        // this.dialogues = [];
-
         this.dialogBox = null;
         this.scene = scene;
         this.era = era;
         this.dialogueGroup = null;
         this.nextID = null;
         this.currentDialogue = null;
-    }
-
-    preload()
-    {   
-        /** Load the json file for the Intro Dialogue 
-        * @param {string} key - The key to reference the loaded JSON data.
-        * @param {string} url - The URL of the JSON file to load.
-        */
-        this.load.json('IntroDialogue', '../DialoguesJson/IntroDialogue.json');
+        this.dialogueData = dialogueData;
     }
    
-    create()
-    {
-        const introData = this.cache.json.get('IntroDialogue');
-        this.dialogueGroup = introData.introDialogues;
-        //this.dialogues = this.introDialogues;
-
-        this.dialogues = this.egyptDialogues;
-
-        this.dialogues = this.romeDialogues;
-
-        this.dialogues = this.japanDialogues;
-
-        this.dialogues = this.wipDialogues;
-
-        this.dialogues = this.errorDialogues;
+    iniDialogue()
+    {   
+        if(this.era == 'Intro')
+        {
+            this.dialogueGroup = this.dialogueData.IntroDialogue;
+        }
 
         this.dialogBox = new DialogBox(this.scene,
         {
             borderThickness: 4,
 			borderColor: 0xcb3234,
 			borderAlpha: 1,
-			windowAlpha: 0.6,
-			windowColor: 0xff6961,
+			windowAlpha: 0.8,
+			windowColor: 0x000000,
 			windowHeight: 150,
 			padding: 32,
 			closeBtnColor: 'darkgoldenrod',
@@ -112,35 +88,15 @@ export default class DialogueController
         {
             this.dialogBox.skipAnimation();
         } 
-
-        //When the player clicks and the text is not animating, go to the next dialogue
-        if(this.nextID != null)
+        // When the player clicks and the text is not animating, go to the next dialogue
+        else if(this.nextID != null)
         {
             this.startDialogueBlock(this.nextID);
         }
         else 
         {
-            console.log('block finished');
+            this.endDialogueBlock();
         }
-        
-        // else {
-        //     ++this.currentDialogueIndex;
-        //     if (this.currentDialogueIndex < this.dialogues.length)
-        //     {
-        //         this.showCurrentDialogue();
-        //     } 
-        //     else 
-        //     {
-        //         if (this.dialogBox.visible) 
-        //         {
-        //             this.dialogBox.toggleWindow();
-        //         }
-                
-        //         this.endDialogueBlock();
-               
-        //         console.log('Final del bloque de dialogo.');
-        //     }
-        // }
     }
 
     skipToEnd()
@@ -163,11 +119,6 @@ export default class DialogueController
         const displayText = dialogue.speaker.name + ":\n" + dialogue.text;
         this.dialogBox.setText(displayText, dialogue.animated);
     }
-
-    //inside init was 
-    // const anubis = new Speaker('Anubis');
-    // const mercury = new Speaker('Mercury');
-    // const benten = new Speaker('Benten');
 
     // this.introDialogues = 
     // [
