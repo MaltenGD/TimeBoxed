@@ -1,0 +1,22 @@
+Narrador: Con una sacudida, la caja se estremece y luego se detiene. El aire está cargado con el aroma de la arena y el polvo antiguo.
+Narrador: Sales de la caja, parpadeando bajo el duro sol del desierto, para encontrarte en una tierra de pirámides imponentes y estatuas colosales.
+Jugador: ¡Guau! ¿Dónde estamos ahora? Esto no es exactamente mi callejón.
+Kronos: Ah, mi querido e ingenuo compañero, bienvenido a la tierra de los faraones, la cuna de la civilización, la... bueno, ya te haces una idea. Esto es Egipto.
+Jugador: ¿Egipto? Entonces, ¿aquí es donde vive uno de tus 'amigos'?
+Kronos: En efecto. Prepárate, porque estamos a punto de conocer a Anubis, el estimado guardián del inframundo. Es... particular.
+Jugador: ¿'Particular'? ¿Qué significa eso?
+Kronos: Significa que tiene la *desafortunada* costumbre de juzgar mis decisiones de vida. Pero estoy seguro de que estará absolutamente encantado de vernos.
+Narrador: Una voz profunda y resonante resuena detrás de una colosal estatua de una deidad con cabeza de chacal. Una figura emerge de las sombras, elegante e imponente, con ojos que parecen atravesar el tiempo mismo.
+Anubis: Kronos. Tenía la sensación de que tus... *insensatas* hazañas te traerían de vuelta a mi dominio.
+Kronos: ¡Anubis, mi viejo amigo! Siempre es un placer. Y tan mordaz como siempre, ya veo.
+Anubis: El placer es un concepto que se me escapa cuando presencio tal desprecio por los artefactos valiosos. Apostaste el Pin con el Logo, ¿no es así? Una baratija de inmenso poder, ahora reducida a una mera apuesta.
+Jugador: (¿Una 'baratija de inmenso poder'? ¿Qué perdió exactamente Kronos?)
+Kronos: Detalles, detalles, Anubis. Fue un lapso momentáneo de juicio. Un pequeño error de cálculo. Nada que un juego rápido no pueda arreglar, ¿eh?
+Anubis: Tus 'errores de cálculo' son legendarios, Kronos. ¿Y ahora traes a un... gato mortal para que limpie tus desastres? Qué absolutamente predecible.
+Jugador: ¡Oye! ¡No estoy limpiando sus desastres! ¡Solo estoy tratando de recuperar mi ovillo de lana!
+Anubis: Un ovillo de lana. Qué pintoresco. ¿Y crees que este... *trato* con Kronos terminará favorablemente para ti? Él es el dios del tiempo, no de cumplir promesas.
+Kronos: Vamos, vamos, Anubis, no envenenemos el pozo. El trato está sellado. Y mi joven amigo aquí es bastante capaz. Simplemente necesita ganar una partida de Aseb para reclamar el Pin.
+Anubis: Aseb. Un juego de estrategia, no de abandono imprudente. Muy bien. Si este mortal puede vencerme, el Pin es tuyo. Pero no esperes que te lo ponga fácil, pequeño. La balanza de la justicia siempre está equilibrada, incluso para un ovillo de lana.
+Jugador: (¿Balanza equilibrada? Este tipo va en serio. Será mejor que me concentre.)
+Kronos: ¡Excelente! Ves, te dije que era razonable. ¡Ahora, que comience el espectáculo!
+Narrador: Anubis gesticula hacia una mesa de piedra cercana, donde un tablero de Aseb está intrincadamente tallado. El aire crepita con anticipación mientras el escenario está listo para el próximo desafío.
