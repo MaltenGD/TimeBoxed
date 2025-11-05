@@ -39,15 +39,17 @@ export class AsebScene extends Phaser.Scene {
         }
 
 
-    /**
+    /*
      * Creates the game objects and sets up the scene.
      */
     create(){
 
-        this.backBtn = this.add.text(0, 0, 'Back', { fontSize: 64, fill: '#fff'})
+        this.background = this.add.image(this.width / 2, this.height / 2, 'asebBackgroundPlaceholder').setDisplaySize(this.width, this.height);
+
+        this.backBtn = this.add.text(0, 0, 'Back', { fontSize: 64, fill: '#ffffffff'})
         .setInteractive()
         .on('pointerover', () => this.backBtn.setStyle({fill: '#0f0'}))
-        .on('pointerout', () => this.backBtn.setStyle({fill: '#fff'}))
+        .on('pointerout', () => this.backBtn.setStyle({fill: '#ffffffff'}))
         .on('pointerdown', () => {
         if (this.scene.isActive('PauseMenu')) return;
 

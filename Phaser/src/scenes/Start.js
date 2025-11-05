@@ -34,9 +34,6 @@ export class Start extends Phaser.Scene {
      * @param {object} data 
      */
     create(data) {
-        
-       
-
         let { width, height } = this.sys.game.canvas;
         this.background = this.add.image(width / 2, height / 2, 'background').setDisplaySize(width, height);
 

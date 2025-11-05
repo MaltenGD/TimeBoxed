@@ -50,9 +50,9 @@ export class AsebBeginScene extends Phaser.Scene {
         
         //The text that guides the player
         /** @type {Phaser.GameObjects.Text} */
-        this.infoText = this.add.text(this.width/2,250, "Lets decide who goes first!", {fontSize: 64, color: '#ffffffff'}).setOrigin(0.5);
+        this.infoText = this.add.text(this.width/2,250, "Lets decide who goes first!", {fontSize: 64, color: '#000000ff'}).setOrigin(0.5);
         /** @type {Phaser.GameObjects.Text} */
-        this.scoreText = this.add.text(this.width/2,350, "*", {fontSize: 64, color: '#ffffffff'}).setOrigin(0.5);
+        this.scoreText = this.add.text(this.width/2,350, "*", {fontSize: 64, color: '#000000ff'}).setOrigin(0.5);
         
     }
 
@@ -63,10 +63,10 @@ export class AsebBeginScene extends Phaser.Scene {
 
  
         /** @type {Phaser.GameObjects.Text} */
-        this.backBtn = this.add.text(0, 0, 'Back', { fontSize: 64, fill: '#fff'})
+        this.backBtn = this.add.text(0, 0, 'Back', { fontSize: 64, fill: '#000000ff'})
         .setInteractive()
         .on('pointerover', () => this.backBtn.setStyle({fill: '#0f0'}))
-        .on('pointerout', () => this.backBtn.setStyle({fill: '#fff'}))
+        .on('pointerout', () => this.backBtn.setStyle({fill: '#000000ff'}))
         .on('pointerdown', () => {
        if (this.scene.isActive('PauseMenu')) return;
 
@@ -77,10 +77,10 @@ export class AsebBeginScene extends Phaser.Scene {
         });
         
         /** @type {Phaser.GameObjects.Text} */
-        this.throwBtn = this.add.text(this.width/2 -100, this.height -300, 'Throw', { fontSize: 64, fill: '#fff'})
+        this.throwBtn = this.add.text(this.width/2 -100, this.height -300, 'Throw', { fontSize: 64, fill: '#000000ff'})
         .setInteractive()
         .on('pointerover', () => this.throwBtn.setStyle({fill: '#0f0'}))
-        .on('pointerout', () => this.throwBtn.setStyle({fill: '#fff'}))
+        .on('pointerout', () => this.throwBtn.setStyle({fill: '#000000ff'}))
         .on('pointerdown', () => this.continue(this.GAME_STATE.PLAYER_THROWS));
 
        
@@ -111,7 +111,7 @@ export class AsebBeginScene extends Phaser.Scene {
      */
     create() 
     {
-
+        this.background = this.add.image(this.width/ 2, this.height / 2, 'asebBackgroundPlaceholder').setDisplaySize(this.width, this.height);
         /** @type {AsebGame} */
         this.asebGame = new AsebGame(this);
         this.createGameObjects();
