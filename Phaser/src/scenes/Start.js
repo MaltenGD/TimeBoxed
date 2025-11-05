@@ -20,9 +20,12 @@ export class Start extends Phaser.Scene {
      */
     preload() {
         this.load.image('background', 'Phaser/assets/StartMenu/MainBackgroundPlaceholder.png');
+        this.load.image('StartMenuKronos', 'Phaser/assets/StartMenu/kittykronos.png')
+        this.load.image('StartMenuBox', 'Phaser/assets/StartMenu/cardboardbox.png')
         this.load.image('logo', 'Phaser/assets/titlelogo.png');
         this.load.image('teamLogo', 'Phaser/assets/teamLogo.png');
         this.load.spritesheet('playButton', 'Phaser/assets/playButton.png', { frameWidth: 186, frameHeight: 92 });
+
     }
 
     /**
@@ -36,11 +39,24 @@ export class Start extends Phaser.Scene {
 
         let { width, height } = this.sys.game.canvas;
         this.background = this.add.image(width / 2, height / 2, 'background').setDisplaySize(width, height);
-        const logo = this.add.image(width / 2, 150, 'logo').setOrigin(0.5);
-        const playButton = this.add.sprite(width / 2, 500, 'playButton', 0).setInteractive().setOrigin(0.5);
+
+        const box = this.add.image(400, 950, 'StartMenuBox').setOrigin(0.5).setScale(1.5);
+        const kitty = this.add.image(500, 450, 'StartMenuKronos').setOrigin(0.5).setScale(0.9);
+
+        this.tweens.add({
+            targets: kitty,
+            y: 500,
+            duration: 3000,
+            ease: 'Sine.easeInOut',
+            yoyo: true,
+            loop: -1
+        });
+
+        const logo = this.add.image(1300, 150, 'logo').setOrigin(0.5);
+        const playButton = this.add.sprite(1300, 900, 'playButton', 0).setInteractive().setOrigin(0.5);
 
         //boton de creditos
-        const creditsButton = this.add.text(width / 2, 600, 'CREDITS',
+        const creditsButton = this.add.text(1300, 800, 'CREDITS',
             {
                 fontsize: '36px',
                 fill: '#000000',
