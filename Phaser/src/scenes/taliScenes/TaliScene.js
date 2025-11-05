@@ -23,10 +23,7 @@ export class TaliScene extends Phaser.Scene {
     }
 
     init(data) {
-        if (data !== undefined) this.playerFirst = data.playerFirst;
-        else this.playerFirst = true;
 
-        this.state = this.playerFirst ? GAME_STATE.PLAYER_TURN : GAME_STATE.ENEMY_TURN;
     }
 
     preload() {
@@ -35,14 +32,14 @@ export class TaliScene extends Phaser.Scene {
         this.height = height;
     }
 
-    create() {
-        this.transitionController = new TransitionController(this);
-        this.transitionController.startFadeInTransition();
-        console.log('starting transition');
-        this.transitionController.emitter.once('fadeInComplete', () => this.startGame());
-    }
+    create(data) {
+        if (data !== undefined) this.playerFirst = data.playerFirst;
+        else this.playerFirst = true;
 
-    startGame() {
+        this.state = this.playerFirst ? GAME_STATE.PLAYER_TURN : GAME_STATE.ENEMY_TURN;
+
+        this.transitionController = new TransitionController(this);
+
         console.log(this.playerFirst ? "Player starts." : "Mercury starts.");
 
         this.addImages();
@@ -52,15 +49,21 @@ export class TaliScene extends Phaser.Scene {
         
         this.createButtons();
         this.addText();
-        this.addEventListeners(); 
-        
+        this.addEventListeners();
+
+        this.transitionController.startFadeInTransition(1000, new RGBColor(0,0,0), () => this.startGame(this.playerFirst));
+    }
+
+    /**
+     * Starts the game.
+     */
+    startGame(playerFirst) { 
         // Start the first turn.
-        if (this.playerFirst) {
+        if (playerFirst) {
             this.startPlayerTurn();
         }
         else {
-            this.startEnemyTurn();
-            
+            this.startEnemyTurn(); 
         }
     }
 
@@ -68,13 +71,9 @@ export class TaliScene extends Phaser.Scene {
      * Creates and places all the buttons for the scene.
      */
     createButtons() {
-        this.rollBtn = this.add.text(this.width/2, 2*this.height/3, 'Roll!', { fontSize: 80, fill: '#000', backgroundColor: '#fff'}).setOrigin(0.5)
+        this.rollBtn = this.add.text(this.width/2, 2*this.height/3, 'Roll', { fontSize: 80, fill: '#000', backgroundColor: '#fff'}).setOrigin(0.5)
         .setInteractive()
         .on('pointerover', () => this.rollBtn.setStyle({fill: 'rgba(116, 8, 9, 1)'}))
-        .on('pointerdown', () => {
-            this.nextTurn();
-            this.setObjectState(this.rollBtn, false);
-        })
         .on('pointerout', () => this.rollBtn.setStyle({fill: '#000'}));
 
         this.backBtn = this.add.text(0, 0, 'Back', { fontSize: 64, fill: '#fff'})
@@ -110,37 +109,12 @@ export class TaliScene extends Phaser.Scene {
 
     addEventListeners() {
         this.taliGame.emitter.on('turnEnded', () => {
+            console.log('turn ended');
             this.currentTurn++;
-            this.setObjectState(this.rollBtn, true)
-            this.rollBtn.setText('Continue')
-            .on('pointerdown', () => {
-                if (this.currentTurn <= Tali.TURNS * 2)
-                    this.nextTurn();
-                else {
-                    this.gameEnded();
-                }
-            })
+            this.nextTurn();
             this.updateScore();
         })
         this.taliGame.emitter.on('luna', () => this.lunaThrow());
-    }
-
-    startPlayerTurn() {
-        this.taliGame.state = GAME_STATE.PLAYER_TURN;
-        console.log("Starting player turn.");
-        this.turnText.setText("Your turn! Roll the dice.");
-        this.setObjectState(this.rollBtn, true);
-        this.rollBtn.on('pointerdown', () => {
-            this.taliGame.playerRoll();
-        })
-    }
-
-    startEnemyTurn() {
-        this.taliGame.state = GAME_STATE.ENEMY_TURN;
-        console.log("Starting enemy turn.");
-        this.turnText.setText("Mercury's turn!");
-        this.setObjectState(this.rollBtn, false);
-        this.taliGame.enemyRoll();
     }
 
     /**
@@ -151,8 +125,32 @@ export class TaliScene extends Phaser.Scene {
             this.startEnemyTurn();
         }
         else if (this.taliGame.state === GAME_STATE.ENEMY_TURN) {
-            this.startPlayerTurn();
+            this.setObjectState(this.rollBtn, true);
+            this.rollBtn.setText('Continue');       
+            this.rollBtn.once('pointerdown', () => {
+                this.startPlayerTurn();
+            })
         }
+    }
+
+    startPlayerTurn() {
+        this.taliGame.state = GAME_STATE.PLAYER_TURN;
+        console.log("Starting player turn.");
+        this.turnText.setText("Your turn! Roll the dice.");
+        this.setObjectState(this.rollBtn, true);
+        this.rollBtn.setText('Roll')
+            .once('pointerdown', () => {
+                this.taliGame.playerRoll();
+                this.setObjectState(this.rollBtn, false);
+            })
+    }
+
+    startEnemyTurn() {
+        this.taliGame.state = GAME_STATE.ENEMY_TURN;
+        console.log("Starting enemy turn.");
+        this.turnText.setText("Mercury's turn! Mercury is rolling the dice.");
+        this.setObjectState(this.rollBtn, false);
+        this.taliGame.enemyRoll();
     }
 
     lunaThrow() {

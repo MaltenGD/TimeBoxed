@@ -7,8 +7,12 @@ import RandomNumber from '../misc/randomnumber.js';
  */
 export const GAME_STATE = {
     PLAYER_TURN: 'PLAYER_TURN',
-    ENEMY_TURN: 'ENEMY_TURN',
+    PLAYER_ROLL: 'PLAYER_ROLL',
+    PLAYER_THROWS: 'PLAYER_THROWS',
     PLAYER_VICTORY: 'PLAYER_VICTORY',
+    ENEMY_TURN: 'ENEMY_TURN',
+    ENEMY_ROLL: 'ENEMY_ROLL',
+    ENEMY_THROWS: 'ENEMY_THROWS',
     ENEMY_VICTORY: 'ENEMY_VICTORY'
 };
 
