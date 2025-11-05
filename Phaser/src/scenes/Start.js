@@ -20,6 +20,7 @@ export class Start extends Phaser.Scene {
      */
     preload() {
         this.load.image('background', 'Phaser/assets/StartMenu/MainBackgroundPlaceholder.png');
+        this.load.image('taliBackgroundPlaceholder', 'Phaser/assets/tali/taliBackgroundPlaceholder.png');
         this.load.image('StartMenuKronos', 'Phaser/assets/StartMenu/kittykronos.png')
         this.load.image('StartMenuBox', 'Phaser/assets/StartMenu/cardboardbox.png')
         this.load.image('logo', 'Phaser/assets/titlelogo.png');

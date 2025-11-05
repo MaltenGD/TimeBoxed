@@ -38,7 +38,10 @@ export class TaliBeginScene extends Phaser.Scene {
     }
 
     create() {
+
+        this.background = this.add.image(this.width / 2, this.height / 2, 'taliBackgroundPlaceholder').setDisplaySize(this.width, this.height);
         this.taliGame = new Tali(this, this.width, this.height);
+
         this.transitionController = new TransitionController(this);
         this.addImages();
         // this.addHands();
