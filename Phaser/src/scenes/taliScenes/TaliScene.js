@@ -33,6 +33,9 @@ export class TaliScene extends Phaser.Scene {
     }
 
     create(data) {
+
+        this.background = this.add.image(this.width / 2, this.height / 2, 'taliBackgroundPlaceholder').setDisplaySize(this.width, this.height);
+        
         if (data !== undefined) this.playerFirst = data.playerFirst;
         else this.playerFirst = true;
 

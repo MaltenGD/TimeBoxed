@@ -39,15 +39,17 @@ export class AsebScene extends Phaser.Scene {
         }
 
 
-    /**
+    /*
      * Creates the game objects and sets up the scene.
      */
     create(){
 
-        this.backBtn = this.add.text(0, 0, 'Back', { fontSize: 64, fill: '#fff'})
+        this.background = this.add.image(this.width / 2, this.height / 2, 'asebBackgroundPlaceholder').setDisplaySize(this.width, this.height);
+
+        this.backBtn = this.add.text(0, 0, 'Back', { fontSize: 64, fill: '#000000ff'})
         .setInteractive()
         .on('pointerover', () => this.backBtn.setStyle({fill: '#0f0'}))
-        .on('pointerout', () => this.backBtn.setStyle({fill: '#fff'}))
+        .on('pointerout', () => this.backBtn.setStyle({fill: '#000000ff'}))
         .on('pointerdown', () => {
         if (this.scene.isActive('PauseMenu')) return;
 
@@ -105,14 +107,14 @@ export class AsebScene extends Phaser.Scene {
             this.pieceReachesEnd(piece);
         });
 
-        // --- UI Elements ---
+        // --- UI Elements ---  
 
-        this.infoText = this.add.text(this.width/2, 100, '*', {fontSize: 55}).setOrigin(0.5);
+        this.infoText = this.add.text(this.width/2, 100, '*', {fontSize: 55, fill: 0x000000ff}).setOrigin(0.5);
 
         this.eventsText = this.add.text(200, this.height/2, '*', {fontSize: 35}).setOrigin(0.5);
 
         /** @type {Phaser.GameObjects.Text} The button for the player to throw the sticks. */
-        this.throwBtn = this.add.text(this.width/2 , this.height - 100, 'Throw', {fontSize: 55}).setOrigin(0.5)
+        this.throwBtn = this.add.text(this.width/2 , this.height - 100, 'Throw', {fontSize: 55, fill:0x000000ff}).setOrigin(0.5)
         .setInteractive()
         .on('pointerdown', () => {
 

@@ -21,7 +21,7 @@ export class PauseMenuScene extends Phaser.Scene {
         
         //Text
         this.titleText = this.add.text(width / 2, height / 2 - 80, 'Do you want to go back?', {
-            fontSize: '28px',
+            fontSize: '34px',
             fill: '#ffffff',
             align: 'center'
         }).setOrigin(0.5);
