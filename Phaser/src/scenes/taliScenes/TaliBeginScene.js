@@ -5,6 +5,14 @@ import Tali from '../../tali/tali.js';
  * The scene for the initial rolls for Tali.
  */
 export class TaliBeginScene extends Phaser.Scene {
+    GAME_STATE = {
+        PLAYER_ROLL: 'PLAYER_ROLL',
+        ENEMY_ROLL: 'ENEMY_ROLL',
+        DECISION: 'DECISION',
+        TIE: 'TIE',
+        END: 'END'
+    }
+
     turnText;
     resultText;
     
@@ -26,38 +34,14 @@ export class TaliBeginScene extends Phaser.Scene {
         let {width, height} = this.sys.game.canvas;
         this.width = width;
         this.height = height;
-        
-        this.loadImages();
-    }
-
-    /**
-     * Loads all the images.
-     */
-    loadImages() {
-        this.load.image('taliBoard', 'Phaser/assets/tali/temporary_board.png');
-        for (let i = 0; i < Tali.NUMBER_OF_DICE; i++) { 
-            this.load.image('dice' + i, 'Phaser/assets/tali/temporary_dice' + i + '.png');
-        }
-        this.load.image('VENUS', 'Phaser/assets/tali/temporary_throw0.png')
-        this.load.image('MARTE', 'Phaser/assets/tali/temporary_throw1.png')
-        this.load.image('JUPITER', 'Phaser/assets/tali/temporary_throw2.png')
-        this.load.image('NEPTUNO', 'Phaser/assets/tali/temporary_throw3.png')
-        this.load.image('LUNA', 'Phaser/assets/tali/temporary_throw4.png')
     }
 
     create() {
         this.taliGame = new Tali(this, this.width, this.height);
         this.addImages();
-        this.addHands();
+        // this.addHands();
         this.createButtons();
         this.addText();
-
-    //     this.input.keyboard.on('keydown-ESC', () => {
-    //     // Pausa la escena actual
-    //     this.scene.launch('PauseMenu');
-    //     this.scene.get('PauseMenu').setPausedScene(this.scene.key);
-    //     this.scene.pause();
-    // });
     }
 
     /**
@@ -68,19 +52,19 @@ export class TaliBeginScene extends Phaser.Scene {
         .setInteractive()
         .on('pointerover', () => this.rollBtn.setStyle({fill: 'rgba(116, 8, 9, 1)'}))
         .on('pointerout', () => this.rollBtn.setStyle({fill: '#000'}))
-        .once('pointerdown', () => this.startGame());
+        .once('pointerdown', () => this.continue(this.GAME_STATE.PLAYER_ROLL));
 
         this.backBtn = this.add.text(0, 0, 'Back', { fontSize: 64, fill: '#fff'})
         .setInteractive()
         .on('pointerover', () => this.backBtn.setStyle({fill: '#0f0'}))
         .on('pointerdown', () => {
-    if (this.scene.isActive('PauseMenu')) return;
+            if (this.scene.isActive('PauseMenu')) return;
 
-    this.scene.launch('PauseMenu');
-    const pauseMenu = this.scene.get('PauseMenu');
-    pauseMenu.setPausedScene(this.scene.key);
-    this.scene.pause();
-})
+            this.scene.launch('PauseMenu');
+            const pauseMenu = this.scene.get('PauseMenu');
+            pauseMenu.setPausedScene(this.scene.key);
+            this.scene.pause();
+        })
         .on('pointerout', () => this.backBtn.setStyle({fill: '#fff'}));
     }
 
@@ -92,27 +76,27 @@ export class TaliBeginScene extends Phaser.Scene {
     }
 
     addHands() {
-    // Brazo del jugador que viene desde abajo
-    this.playerArm = this.add.rectangle(
-        this.width / 2,
-        this.height + 700,  // empieza fuera de la pantalla
-        120,                // ancho del brazo
-        500,                // largo del brazo
-        0xff5555            // color rojizo
-    ).setOrigin(0.5, 1);
+        // Brazo del jugador que viene desde abajo
+        this.playerArm = this.add.rectangle(
+            this.width / 2,
+            this.height + 700,  // empieza fuera de la pantalla
+            120,                // ancho del brazo
+            500,                // largo del brazo
+            0xff5555            // color rojizo
+        ).setOrigin(0.5, 1);
 
-    // Brazo del enemigo: viene desde arriba
-    this.enemyArm = this.add.rectangle(
-        this.width / 2,
-        -700,               // empieza fuera de la pantalla
-        120,
-        500,
-        0x5555ff            // color azulado
-    ).setOrigin(0.5, 0);
+        // Brazo del enemigo: viene desde arriba
+        this.enemyArm = this.add.rectangle(
+            this.width / 2,
+            -700,               // empieza fuera de la pantalla
+            120,
+            500,
+            0x5555ff            // color azulado
+        ).setOrigin(0.5, 0);
 
-    this.playerArm.setAlpha(0);
-    this.enemyArm.setAlpha(0);
-}
+        this.playerArm.setAlpha(0);
+        this.enemyArm.setAlpha(0);
+    }
 
     /**
      * Adds all the text to the scene.
@@ -131,96 +115,129 @@ export class TaliBeginScene extends Phaser.Scene {
         this.taliGame.emitter.on('diceRolled', (arr) => {this.setDiceImages(arr)});
     }
 
-    animateThrow() {
-    // Mostrar brazos
-    this.playerArm.setAlpha(1);
-    this.enemyArm.setAlpha(1);
+    animateHands() {
+        // Mostrar brazos
+        this.playerArm.setAlpha(1);
+        this.enemyArm.setAlpha(1);
 
-    const enterDepth = 10;
+        const enterDepth = 10;
 
-    // Animacion del brazo del jugador (sube y baja)
-    this.tweens.add({
-        targets: this.playerArm,
-        y: this.height - enterDepth,  // entra hasta el centro
-        duration: 190,
-        ease: 'Sine.easeInOut',
-        yoyo: true,
-        hold: 80,
-        onYoyo: () => {
-            this.playerArm.setAlpha(0); // desaparece al volver
-        }
-    });
+        // Animacion del brazo del jugador (sube y baja)
+        this.tweens.add({
+            targets: this.playerArm,
+            y: this.height - enterDepth,  // entra hasta el centro
+            duration: 190,
+            ease: 'Sine.easeInOut',
+            yoyo: true,
+            hold: 80,
+            onYoyo: () => {
+                this.playerArm.setAlpha(0); // desaparece al volver
+            }
+        });
 
-    // Animacion del brazo del enemigo (baja y sube)
-    this.tweens.add({
-        targets: this.enemyArm,
-        y: enterDepth,
-        duration: 190,
-        ease: 'Sine.easeInOut',
-        yoyo: true,
-        hold: 80,
-        onYoyo: () => {
-            this.enemyArm.setAlpha(0);
-        }
-    });
-}
-
-    /**
-     * Begin the rolls.
-     */
-    startGame() {
-        this.playerRolls();
-        this.events.once('playerRollDone', () => this.enemyRolls());
-        this.events.once('enemyRollDone', () => this.calculateBeginner());
-        this.events.once('beginnerAnnounced', () => this.endGame());
+        // Animacion del brazo del enemigo (baja y sube)
+        this.tweens.add({
+            targets: this.enemyArm,
+            y: enterDepth,
+            duration: 190,
+            ease: 'Sine.easeInOut',
+            yoyo: true,
+            hold: 80,
+            onYoyo: () => {
+                this.enemyArm.setAlpha(0);
+            }
+        });
     }
-    
 
     /**
      * The player's first roll.
      */
     playerRolls() {
-        this.animateThrow();
+        // this.animateHands();
         this.turnText.setText('Your rolls: ');
         this.rollBtn.setAlpha(0);
         this.playerScore = this.taliGame.playerTurn();
         this.taliGame.emitter.once('diceIn', () => this.resultText.setText('Your result: ' + this.playerScore));
-        this.taliGame.emitter.once('diceOut', () => { this.resultText.setText(' '); this.events.emit('playerRollDone'); });
+        this.taliGame.emitter.once('diceOut', () => { 
+            this.resultText.setText(' ');
+            this.rollBtn.setText('Continue').setAlpha(1)
+                .once('pointerdown', () => this.continue(this.GAME_STATE.ENEMY_ROLL));
+        });
     }
 
     /**
      * The enemy's first roll.
      */
     enemyRolls() {
-        this.animateThrow();
+        this.rollBtn.setAlpha(0);
         this.turnText.setText("Mercury's rolls: ");
         this.enemyScore = this.taliGame.enemyTurn();
         this.taliGame.emitter.once('diceIn', () => {
             this.resultText.setText("Mercury's result: " + this.enemyScore); 
             this.taliGame.emitter.once('diceOut', () => {
-                this.events.emit('enemyRollDone');
-                this.resultText.setText('');
+                this.resultText.setText(' ');
+                this.rollBtn.setText('Continue').setAlpha(1)
+                    .once('pointerdown', () => this.continue(this.GAME_STATE.DECISION));
             });
         });
+    }
+
+    /**
+     * Advances the scene's state machine.
+     * @param {string} state - the state to transition to.
+     */
+    continue(state) {
+        this.gameState = state;
+        console.log(this.gameState);
+        if (this.gameState === this.GAME_STATE.PLAYER_ROLL) {
+            this.playerRolls();
+        }
+        else if (this.gameState === this.GAME_STATE.ENEMY_ROLL) {
+            this.enemyRolls();
+        }
+        else if (this.gameState === this.GAME_STATE.DECISION) 
+        {
+            this.calculateBeginner();
+        }
+        else if (this.gameState === this.GAME_STATE.TIE) {
+            this.tie();
+        }
+        else if (this.gameState === this.GAME_STATE.END) {
+            this.endGame();
+        }
     }
 
     /**
      * Calculates the beginner and shows it on the screen.
      */
     calculateBeginner() {
-        if (this.playerScore > this.enemyScore) {
-            this.playerFirst = true;
-            this.turnText.setText('You begin!');
+        if (this.playerScore === this.enemyScore) {
+            this.continue(this.GAME_STATE.TIE);
         }
-        else if (this.playerScore < this.enemyScore) {
-            this.playerFirst = false;
-            this.turnText.setText("Mercury begins!");
+            else {
+            if (this.playerScore > this.enemyScore) {
+                this.playerFirst = true;
+                this.turnText.setText('You begin!');
+            }
+            else if (this.playerScore < this.enemyScore) {
+                this.playerFirst = false;
+                this.turnText.setText("Mercury begins!");
+            }
+            this.continue(this.GAME_STATE.END);
         }
-        else {
-            this.playerFirst = true;
-            this.turnText.setText("It's a tie! Mercury lets you begin.");
-        }
-        this.events.emit('beginnerAnnounced');
+
+        
+    }
+
+    tie() {
+        this.turnText.setText("It's a tie!");
+        this.time.addEvent({
+            delay: 1000,
+            callback: () =>
+            {
+                this.scene.restart();
+            }
+        })
     }
 
     /**
@@ -228,14 +245,9 @@ export class TaliBeginScene extends Phaser.Scene {
      * @sends playerFirst: true if the player begins, false if the enemy begins.
      */
     endGame() {
-        console.log("switching scenes: " + this.playerFirst);
-        this.time.addEvent(
-            {
-                delay: 2000,
-                loop: false,
-                callback: () => this.scene.start('TaliScene', {playerFirst: this.playerFirst})
-            }
-        );
+        this.rollBtn.setText('Continue').on('pointerdown', ()=> {
+            this.scene.start('TaliScene', {playerFirst: this.playerFirst});
+        });
     }
 
     /**
