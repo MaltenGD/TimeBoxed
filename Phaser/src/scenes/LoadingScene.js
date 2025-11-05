@@ -1,3 +1,5 @@
+import Tali from "../tali/tali.js";
+
 export class LoadingScene extends Phaser.Scene 
 {
     constructor() 
@@ -30,34 +32,10 @@ export class LoadingScene extends Phaser.Scene
         let loadingText = this.add.text(progressBoxPosX + progressBoxWidth/2, progressBoxPosY - 40, "Loading...", {fontSize:55}).setOrigin(0.5);
         let loadingInfo = this.add.text(progressBoxPosX + progressBoxWidth/2, progressBoxPosY + progressBoxHeight + 40 , "Starting game...", {fontSize:35}).setOrigin(0.5);
 
-        //INTRO ASSETS
-        this.load.image('IntroBackgroundPlaceholder', 'Phaser/assets/Intro/IntroBackgroundPlaceholder.jpeg');
-
-        //ASEB ASSETS
-
-        //ASEB BEGIN
-        this.load.image('StickBoard', 'Phaser/assets/aseb/stickBoard.png');
-        this.load.image('StickLight', 'Phaser/assets/aseb/AsebStickLight.png');
-        this.load.image('StickDark', 'Phaser/assets/aseb/AsebStickDark.png');
-
-        //ASEB ACTUAL GAME
-        this.load.image('asebBoard', 'Phaser/assets/aseb/AsebBoard.png');
-        this.load.image('redPiece', 'Phaser/assets/aseb/redPiece.png');
-        this.load.image('bluePiece', 'Phaser/assets/aseb/bluePiece.png');
-
-        //TALI ASSETS
-        this.load.image('taliBoard', 'Phaser/assets/tali/temporary_board.png');
-                for (let i = 0; i < /*Tali.NUMBER_OF_DICE*/ 4; i++) { // de momento pongo 4 por que number of dice es 4 pero
-                    //seria mas profesinal traer el valor de number of dice sin tener que importar todo el tali 
-                    this.load.image('dice' + i, 'Phaser/assets/tali/temporary_dice' + i + '.png');
-                }
-
-                //Este for loop está para comprobar el funcionamiento de la barra de carga
-                // No aporta nada al juego, mas bien, lo relentiza.
-                //Si esto sigue existiendo es por que el tonto de Oliver se le olvidó borrarlo
-                for (let i = 0; i < 500; i++) {
-                    this.load.image('loadingTest' + i, 'Phaser/assets/tali/temporary_board.png')
-                }
+        this.loadIntroAssets();
+        this.loadAsebAssets();
+        this.loadTaliAssets();
+        this.loadTestAssets();
         
 
 
@@ -87,5 +65,47 @@ export class LoadingScene extends Phaser.Scene
     });
     }
 
+    /**
+     * Loads all intro assets.
+     */
+    loadIntroAssets() {
+        this.load.image('IntroBackgroundPlaceholder', 'Phaser/assets/Intro/IntroBackgroundPlaceholder.jpeg');
+    }
 
+    /**
+     * Loads all aseb assets.
+     */
+    loadAsebAssets() {
+        this.load.image('StickBoard', 'Phaser/assets/aseb/stickBoard.png');
+        this.load.image('StickLight', 'Phaser/assets/aseb/AsebStickLight.png');
+        this.load.image('StickDark', 'Phaser/assets/aseb/AsebStickDark.png');
+
+        this.load.image('asebBoard', 'Phaser/assets/aseb/AsebBoard.png');
+        this.load.image('redPiece', 'Phaser/assets/aseb/redPiece.png');
+        this.load.image('bluePiece', 'Phaser/assets/aseb/bluePiece.png');
+    }
+
+    /**
+     * Loads all tali assets.
+     */
+    loadTaliAssets() {
+        this.load.image('taliBoard', 'Phaser/assets/tali/temporary_board.png');
+        for (let i = 0; i < Tali.NUMBER_OF_DICE; i++) { // de momento pongo 4 por que number of dice es 4 pero
+            //seria mas profesinal traer el valor de number of dice sin tener que importar todo el tali 
+            this.load.image('dice' + i, 'Phaser/assets/tali/temporary_dice' + i + '.png');
+        }
+        for (let i = 0; i < Tali.DICE_THROW_NAMES; i++) {
+            this.load.image(Tali.DICE_THROW_NAMES[0], 'Phaser/assets/tali/temporary_throw' + i);
+        }
+    }
+
+    /**
+     * Loads test assets.
+     * Only exists to make loading slower, otherwise we wouldn't be able to see the loading screen.
+     */
+    loadTestAssets() {
+        for (let i = 0; i < 500; i++) {
+            this.load.image('loadingTest' + i, 'Phaser/assets/tali/temporary_board.png')
+        }
+    }
 }

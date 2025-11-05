@@ -38,20 +38,7 @@ export class AsebBeginScene extends Phaser.Scene {
         let {width, height} = this.sys.game.canvas;
         this.width = width;
         this.height = height;
-        
-        this.loadImages();
     }
-
-    /**
-     * Loads all the Aseb images for the stick throwing sequence.
-     */
-            
-    loadImages() {
-            this.load.image('StickBoard', 'Phaser/assets/aseb/stickBoard.png');
-            this.load.image('StickLight', 'Phaser/assets/aseb/AsebStickLight.png');
-            this.load.image('StickDark', 'Phaser/assets/aseb/AsebStickDark.png');     
-    }
-
 
     /**
      * Creates the UI elements for the scene.
