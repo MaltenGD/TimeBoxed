@@ -7,12 +7,14 @@ import RandomNumber from '../misc/randomnumber.js';
  */
 export const GAME_STATE = {
     PLAYER_TURN: 'PLAYER_TURN',
-    PLAYER_ROLL: 'PLAYER_ROLL',
-    PLAYER_THROWS: 'PLAYER_THROWS',
+    PLAYER_LUNA: 'PLAYER_LUNA',
+    PLAYER_ROLLING: 'PLAYER_ROLLING',
+    PLAYER_THROWING: 'PLAYER_THROWING',
     PLAYER_VICTORY: 'PLAYER_VICTORY',
     ENEMY_TURN: 'ENEMY_TURN',
-    ENEMY_ROLL: 'ENEMY_ROLL',
-    ENEMY_THROWS: 'ENEMY_THROWS',
+    ENEMY_LUNA: 'ENEMY_LUNA',
+    ENEMY_ROLLING: 'ENEMY_ROLLING',
+    ENEMY_THROWING: 'ENEMY_THROWING',
     ENEMY_VICTORY: 'ENEMY_VICTORY'
 };
 
@@ -226,6 +228,7 @@ export default class Tali {
         if (this.counter[1] >= 3) {
             this.diceThrows.push(TALI_THROWS.LUNA);
             this.emitter.emit('luna');
+            this.state = this.state === GAME_STATE.PLAYER_ROLLING ? GAME_STATE.PLAYER_LUNA : GAME_STATE.ENEMY_LUNA;
             console.log('luna');
         }
     }
@@ -247,16 +250,7 @@ export default class Tali {
         this.diceImages.forEach((img) => {
             this.animateDiceIn(img);
         })
-        this.emitter.once('diceOut', () => {
-            if (this.diceThrows.length !== 0) {
-                console.log('animating throws');
-                this.animateThrows();
-            }
-            else {
-                console.log('no throws');
-                this.emitter.emit('turnEnded');
-            }
-        })
+        this.state = this.state === GAME_STATE.PLAYER_TURN ? GAME_STATE.PLAYER_ROLLING : GAME_STATE.ENEMY_ROLLING;
     }
 
     /**
@@ -269,12 +263,11 @@ export default class Tali {
             duration: 1000,
             ease: 'Sine.easeOut',
             onComplete: () => {
-                this.emitter.emit('diceIn');
-                this.scene.time.addEvent({
-                    delay: 2000, 
-                    callback: () => { this.animateDiceOut(img);},
-                    loop: false
-                });
+                this.diceRollIndex++;
+                if (this.diceRollIndex === this.currentRoll.length) {
+                    this.emitter.emit('diceIn');
+                    this.diceRollIndex = 0;
+                }
             }
         })
     }
@@ -288,14 +281,6 @@ export default class Tali {
             alpha: 0,
             duration: 500,
             ease: 'Sine.easeOut',
-            onComplete: () => {
-                this.diceRollIndex++;
-                if (this.diceRollIndex === this.currentRoll.length) {
-                    this.emitter.emit('diceOut');
-                    console.log('emiting diceout');
-                    this.diceRollIndex = 0;
-                }
-            }
         })
     }
 
@@ -306,9 +291,15 @@ export default class Tali {
     }
 
     animateThrows() {
-        this.diceThrows.forEach(element => {
-            this.animateThrowIn(this.throwImages.find(img=> img.texture.key === element.name));
-        });
+        if (this.diceThrows.length === 0) {
+            this.emitter.emit('throwsDone');
+        }
+        else {
+            this.diceThrows.forEach(element => {
+                this.animateThrowIn(this.throwImages.find(img=> img.texture.key === element.name));
+            });
+        }
+        this.state = this.state === GAME_STATE.PLAYER_ROLLING ? GAME_STATE.PLAYER_THROWING : GAME_STATE.ENEMY_THROWING;
     }
 
     animateThrowIn(img) {
@@ -318,12 +309,12 @@ export default class Tali {
             duration: 1000,
             ease: 'Sine.easeOut',
             onComplete: () => {
-                this.emitter.emit('throwIn');
-                this.scene.time.addEvent({
-                    delay: 2000, 
-                    callback: () => { this.animateThrowOut(img);},
-                    loop: false
-                });
+                this.diceThrowIndex++;
+                if (this.diceThrows.length === this.diceThrowIndex) {
+                    this.emitter.emit('throwsDone');
+                    this.emitter.emit('throwIn');
+                    this.diceThrowIndex = 0;
+                }
             }
         })
     }
@@ -342,6 +333,12 @@ export default class Tali {
                 }
             }
         })
+    }
+
+    hideThrows() {
+        this.diceThrows.forEach(element => {
+            this.throwImages.find(img=> img.texture.key === element.name).setAlpha(0);
+        });
     }
 
     playerWon() {

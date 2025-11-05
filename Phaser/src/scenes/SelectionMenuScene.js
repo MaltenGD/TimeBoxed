@@ -10,8 +10,11 @@ export class SelectionMenuScene extends Phaser.Scene {
 
     /** Create the elements of the scene */
     create() {
-        const { width, height } = this.sys.game.canvas;  //width and height of the canvas
+
         
+        const { width, height } = this.sys.game.canvas;  //width and height of the canvas
+        this.background = this.add.image(width / 2, height / 2, 'background').setDisplaySize(width, height);
+
         const centerX = width / 2;
         const centerY = height / 2;
         
@@ -50,7 +53,7 @@ export class SelectionMenuScene extends Phaser.Scene {
         // Position of the buttons when they're out of the box
 
         /**Space between buttons */
-        const buttonGap = 380; 
+        const buttonGap = 650; 
 
         /**Final positions of the buttons
          * @param x X position of each button
@@ -105,7 +108,7 @@ export class SelectionMenuScene extends Phaser.Scene {
             fontSize: '35px',
             fill: 'rgba(0, 0, 0, 1)',
             backgroundColor: '#ffffff',
-            padding: { top: 20, bottom: 400, x: 90 }
+            padding: { top: 20, bottom: 700, x: 200 }
         })
         .setOrigin(0.5)
         .setAlpha(0)
@@ -173,7 +176,7 @@ export class SelectionMenuScene extends Phaser.Scene {
                 targets: [box, boxText],
                 scale: 0.5,
                 x: centerX, 
-                y: centerY + 250,
+                y: centerY + 400,
                 duration: 1600,
                 ease: 'Back.easeOut'
             });
