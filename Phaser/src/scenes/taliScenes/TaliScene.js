@@ -1,4 +1,5 @@
 import Tali, { GAME_STATE } from '../../tali/tali.js';
+import TransitionController, {RGBColor} from '../../misc/transitioncontroller.js';
 /**
  * @class TaliScene
  * The scene for the Tali game (Rome).
@@ -35,6 +36,13 @@ export class TaliScene extends Phaser.Scene {
     }
 
     create() {
+        this.transitionController = new TransitionController(this);
+        this.transitionController.startFadeInTransition();
+        console.log('starting transition');
+        this.transitionController.emitter.once('fadeInComplete', () => this.startGame());
+    }
+
+    startGame() {
         console.log(this.playerFirst ? "Player starts." : "Mercury starts.");
 
         this.addImages();

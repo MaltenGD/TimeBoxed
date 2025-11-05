@@ -1,4 +1,5 @@
 import Tali from '../../tali/tali.js';
+import TransitionController, {RGBColor} from '../../misc/transitioncontroller.js';
 
 /**
  * @class TaliBeginScene
@@ -38,6 +39,7 @@ export class TaliBeginScene extends Phaser.Scene {
 
     create() {
         this.taliGame = new Tali(this, this.width, this.height);
+        this.transitionController = new TransitionController(this);
         this.addImages();
         // this.addHands();
         this.createButtons();
@@ -228,7 +230,9 @@ export class TaliBeginScene extends Phaser.Scene {
      */
     endGame() {
         this.rollBtn.setText('Continue').on('pointerdown', ()=> {
-            this.scene.start('TaliScene', {playerFirst: this.playerFirst});
+            this.transitionController.startFadeOutTransition();
+            this.transitionController.emitter.on('fadeOutComplete', () => this.scene.start('TaliScene', {playerFirst: this.playerFirst}))
+            // this.scene.start('TaliScene', {playerFirst: this.playerFirst});
         });
     }
 }

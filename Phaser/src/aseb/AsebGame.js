@@ -1,7 +1,7 @@
 import AsebPlayer from "./AsebPlayer.js"
 import AsebMachine from "./AsebMachine.js"
 import AsebPiece, { PIECE_TYPE } from "./AsebPiece.js";
-import RandomNumber from '../randomnumber.js';
+import RandomNumber from '../misc/randomnumber.js';
 
 /**
  * @readonly

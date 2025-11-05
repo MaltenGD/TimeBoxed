@@ -1,5 +1,5 @@
 import TaliPlayer, { TALI_THROWS } from './taliplayer.js';
-import RandomNumber from '../randomnumber.js';
+import RandomNumber from '../misc/randomnumber.js';
 
 /**
  * @readonly
