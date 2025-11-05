@@ -79,7 +79,7 @@ export class AsebScene extends Phaser.Scene {
 
                 this.infoText.setText("You Landed on a special position,\nyou've been blessed with another turn")
                 this.time.addEvent({
-                    delay: this.pauseTime,
+                    delay: this.pauseTime + 1000,
                     callback: () => {
                         this.startPlayerTurn();
                     },
@@ -89,7 +89,7 @@ export class AsebScene extends Phaser.Scene {
             else {
                 this.infoText.setText("Anubis Landed on a special position,\nHe has been blessed with another turn")
                 this.time.addEvent({
-                    delay: this.pauseTime,
+                    delay: this.pauseTime + 1000,
                     callback: () => {
                         this.startEnemyTurn();
                     },
