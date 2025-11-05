@@ -43,15 +43,8 @@ export class Intro extends Phaser.Scene
 
         //dialogues
        
-        this.dialogueController = new DialogueController();
-
-        this.dialogueController.init(); // Este metodo carga todos los dialogos del juego
-
-        // En futuro sería conveniente que cargaramos la instancia de esta clase
-        // (DialogueController) y el metodo init desde una escena para carga de assets
-
-        this.dialogueController.start(this,"Intro"); // Establece la escena donde se va a mostrar el dialogo
-        // y el bloque de dialogo en cuestión
+        this.dialogueController = new DialogueController(this, "Intro");
+        this.dialogueController.create();
         
         this.events.on('nextDialog',()=>
         {
