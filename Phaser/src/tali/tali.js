@@ -18,15 +18,18 @@ export const GAME_STATE = {
 export default class Tali {
     static NUMBER_OF_DICE = 4;
     static TURNS = 3;
+    static DICE_THROW_NAMES = ['VENUS', 'MARTE', 'JUPITER', 'NEPTUNO', 'LUNA'];
 
     diceNrs = [1, 3, 4, 6]
     diceImages = [0, 0, 0, 0];
     throwImages = [0, 0, 0, 0, 0];
 
     currentRoll;
-    diceThrows;
-    diceThrowIndex = 0;
     diceRollIndex = 0;
+    diceThrows;
+    
+    diceThrowIndex = 0;
+
     counter;
 
     playerFirst = true;
@@ -55,18 +58,16 @@ export default class Tali {
         this.enemy = new TaliPlayer();
 
         this.diceThrows = [];
-
+        
         this.addImages();
         
         this.emitter.on('throwsDone', () => this.emitter.emit('turnEnded'));
     }
 
     addImages() {
-        this.throwImages[0] = this.scene.add.image(this.width/5, this.height/2, 'VENUS').setOrigin(0.5).setAlpha(0);
-        this.throwImages[1] = this.scene.add.image(2*this.width/5, this.height/2, 'MARTE').setOrigin(0.5).setAlpha(0);
-        this.throwImages[2] = this.scene.add.image(3*this.width/5, this.height/2, 'JUPITER').setOrigin(0.5).setAlpha(0);
-        this.throwImages[3] = this.scene.add.image(4*this.width/5, this.height/2, 'NEPTUNO').setOrigin(0.5).setAlpha(0);
-        this.throwImages[4] = this.scene.add.image(5*this.width/5, this.height/2, 'LUNA').setOrigin(0.5).setAlpha(0);
+        for (let i = 0, j = 1; i < Tali.DICE_THROW_NAMES.length; i++, j++) {
+            this.throwImages[i] = this.scene.add.image(j*this.width/5, this.height/2, Tali.DICE_THROW_NAMES[i]).setOrigin(0.5).setAlpha(0).setScale(0.9);
+        }
     }
     /**
      * @returns The player's current score.
