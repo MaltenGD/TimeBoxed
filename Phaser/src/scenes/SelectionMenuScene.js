@@ -1,3 +1,5 @@
+import TransitionController, {RGBColor} from "../misc/transitioncontroller.js";
+
 /**
  * @class SelectionMenuScene
  * shows in the different levels of the game, so the player can choose
@@ -11,6 +13,9 @@ export class SelectionMenuScene extends Phaser.Scene {
     /** Create the elements of the scene */
     create() {
 
+        this.transitionController = new TransitionController(this);
+
+        this.transitionController.startFadeInTransition(500, new RGBColor(0,0,0), () => {});
         
         const { width, height } = this.sys.game.canvas;  //width and height of the canvas
         this.background = this.add.image(width / 2, height / 2, 'background').setDisplaySize(width, height);

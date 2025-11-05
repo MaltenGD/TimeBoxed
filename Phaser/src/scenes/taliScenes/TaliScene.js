@@ -91,6 +91,13 @@ export class TaliScene extends Phaser.Scene {
                 const pauseMenu = this.scene.get('PauseMenu');
                 pauseMenu.setPausedScene(this.scene.key);
                 this.scene.pause();
+                if (this.scene.isActive('PauseMenu')) return;                
+                this.transitionController.startFadeOutTransition(500, new RGBColor(0,0,0), () => {
+                    this.scene.launch('PauseMenu');
+                    const pauseMenu = this.scene.get('PauseMenu');
+                    pauseMenu.setPausedScene(this.scene.key);
+                    this.scene.pause();
+                });
             })
             .on('pointerout', () => this.backBtn.setStyle({fill: '#fff'}));
     }
@@ -225,6 +232,9 @@ export class TaliScene extends Phaser.Scene {
         let winText = this.playerWon ? "YOU!" : "MERCURY!";
         this.turnText.setText('GAME ENDED! WINNER: ' + winText);
         this.setObjectState(this.rollBtn, false);
+        this.setObjectState(this.rollBtn, true);
+        this.rollBtn.setText('Continue');
+        this.rollBtn.once('pointerdown', () => this.transitionController.startFadeOutTransition(1000, new RGBColor(0,0,0), () => this.scene.start('TaliEndScene', { playerWon: this.playerWon })));
     }
 
     /**
