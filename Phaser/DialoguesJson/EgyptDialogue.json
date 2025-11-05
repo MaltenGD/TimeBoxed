@@ -11,7 +11,7 @@
     "ED2":
     {
         "speaker": "Narrator",
-        "text": "You tumble out, blinking in the harsh desert sun, to find yourselves in a land of towering pyramEDs and colossal statues.",
+        "text": "You tumble out, blinking in the harsh desert sun, to find yourselves in a land of towering pyramids and colossal statues.",
         "animation": "true",
         "next": "ED3"
     },
@@ -25,7 +25,7 @@
     "ED4":
     {
         "speaker": "Kronos",
-        "text": "Ah, my dear naive companion, welcome to the land of the pharaohs, the cradle of civilization, the... well, you get the EDea. This is Egypt.",
+        "text": "Ah, my dear naive companion, welcome to the land of the pharaohs, the cradle of civilization, the... well, you get the idea. This is Egypt.",
         "animation": "true",
         "next": "ED5"
     },
@@ -39,7 +39,7 @@
     "ED6":
     {
         "speaker": "Kronos",
-        "text": "Yeah, yeah, now, prepare yourself, we are about to meet Anubis, the esteemED guardian of the underworld. He's... particular.",
+        "text": "Yeah, yeah, now, prepare yourself, we are about to meet Anubis, the esteemed guardian of the underworld. He's... particular.",
         "animation": "true",
         "next": "ED7"
     },
@@ -53,14 +53,14 @@
     "ED8":
     {
         "speaker": "Kronos",
-        "text": "It means he has a rather *unfortunate* habit of judging my life choices. But I'm sure he'll be absolutely delightED to see us *sigh*.",
+        "text": "It means he has a rather *unfortunate* habit of judging my life choices. But I'm sure he'll be absolutely delighted to see us *sigh*.",
         "animation": "true",
         "next": "ED9"
     },
     "ED9":
     {
         "speaker": "Narrator",
-        "text": "A deep, resonant voice echoes from behind a colossal statue of a jackal-headED deity. A figure emerges from the shadows, sleek and imposing, with eyes that seem to pierce through time itself.",
+        "text": "A deep, resonant voice echoes from behind a colossal statue of a jackal-headed deity. A figure emerges from the shadows, sleek and imposing, with eyes that seem to pierce through time itself.",
         "animation": "true",
         "next": "ED10"
     },
@@ -74,21 +74,21 @@
     "ED11":
     {
         "speaker": "Kronos",
-        "text": "Anubis, my old friend! Always a pleasure. And as sharp-tonguED as ever, I see.",
+        "text": "Anubis, my old friend! Always a pleasure. And as sharp-tongued as ever, I see.",
         "animation": "true",
         "next": "ED12"
     },
     "ED12":
     {
         "speaker": "Anubis",
-        "text": "Pleasure is a concept lost on me when I witness such blatant disregard for valuable artifacts. You gamblED away the Pin with Logo, dED you not? A trinket of immense power, now rEDucED to a mere wager.",
+        "text": "Pleasure is a concept lost on me when I witness such blatant disregard for valuable artifacts. You gambled away the Pin with Logo, dEid you not? A trinket of immense power, now reduced to a mere wager.",
         "animation": "true",
         "next": "ED13"
     },
     "ED13":
     {
         "speaker": "Player",
-        "text": "(A 'trinket of immense power'? What exactly dED Kronos lose?)",
+        "text": "(A 'trinket of immense power'? What exactly did Kronos lose?)",
         "animation": "true",
         "next": "ED14"
     },
@@ -123,7 +123,7 @@
     "ED18":
     {
         "speaker": "Kronos",
-        "text": "Now, now, Anubis, let's not poison the well. The deal is sealED. And my young friend here is quite capable.",
+        "text": "Now, now, Anubis, let's not poison the well. The deal is sealed. And my young friend here is quite capable.",
         "animation": "true",
         "next": "ED19"
     },
@@ -144,21 +144,21 @@
     "ED21":
     {
         "speaker": "Kronos",
-        "text": "yeah Aseb! Aseb! we both playED it yesterday, dEDnt we? *lies* of course we know.",
+        "text": "yeah Aseb! Aseb! we both played it yesterday, didnt we? *lies* of course we know.",
         "animation": "true",
         "next": "ED22"
     },
     "ED22":
     {
         "speaker": "Anubis",
-        "text": "Mmhh... Very well. If this mortal can best me, the Pin is yours. But do not expect me to go easy, little one. The scales of justice are always balancED, even for a yarn ball.",
+        "text": "Mmhh... Very well. If this mortal can best me, the Pin is yours. But do not expect me to go easy, little one. The scales of justice are always balanced, even for a yarn ball.",
         "animation": "true",
         "next": "ED23"
     },
     "ED23":
     {
         "speaker": "Player",
-        "text": "(BalancED scales? This guy is serious. I better focus.)",
+        "text": "(Balanced scales? This guy is serious. I better focus.)",
         "animation": "true",
         "next": "ED24"
     },
@@ -172,7 +172,7 @@
     "end":
     {
         "speaker": "Narrator",
-        "text": "Anubis gestures towards a nearby stone table, where an Aseb board is intricately carvED. The air crackles with anticipation as the stage is set for the next challenge.",
+        "text": "Anubis gestures towards a nearby stone table, where an Aseb board is intricately carved. The air crackles with anticipation as the stage is set for the next challenge.",
         "animation": "true",
         "next": null
     }
