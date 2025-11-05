@@ -77,7 +77,7 @@ export default class DialogueController{
             new Dialogue(player, "Whoa! Where are we now? This isn't exactly my alley.", true),
             new Dialogue(kronos, "Ah, my dear naive companion, welcome to the land of the pharaohs, the cradle of civilization, the... well, you get the idea. This is Egypt.", true),
             new Dialogue(player, "Egypt? So, is this where one of your 'friends' lives?", true),
-            new Dialogue(kronos, "Indeed. Prepare yourself, since are about to meet Anubis, the esteemed guardian of the underworld. He's... particular.", true),
+            new Dialogue(kronos, "Indeed. Prepare yourself, since we are about to meet Anubis, the esteemed guardian of the underworld. He's... particular.", true),
             new Dialogue(player, "'Particular'? What does that even mean?", true),
             new Dialogue(kronos, "It means he has a rather *unfortunate* habit of judging my life choices. But I'm sure he'll be absolutely delighted to see us.", true),
             new Dialogue(narrator, "A deep, resonant voice echoes from behind a colossal statue of a jackal-headed deity. A figure emerges from the shadows, sleek and imposing, with eyes that seem to pierce through time itself.", true),
