@@ -33,149 +33,83 @@ export class TaliScene extends Phaser.Scene {
     }
 
     create(data) {
-        if (data !== undefined) this.playerFirst = data.playerFirst;
-        else this.playerFirst = true;
-
-        this.state = this.playerFirst ? GAME_STATE.PLAYER_TURN : GAME_STATE.ENEMY_TURN;
+        this.playerFirst = data?.playerFirst ?? true;
 
         this.transitionController = new TransitionController(this);
 
         console.log(this.playerFirst ? "Player starts." : "Mercury starts.");
 
-        this.addImages();
         this.taliGame = new Tali(this, this.width, this.height, this.playerFirst);
 
         this.currentTurn = 1;
         
+        this.createUI();
+        this.registerEvents();
+
+        this.transitionController.startFadeInTransition(
+            1000, 
+            new RGBColor(0,0,0), 
+            () => this.startGame());
+    }
+
+    createUI() {
+        this.addImages();
         this.createButtons();
         this.addText();
-        this.addEventListeners();
-
-        this.transitionController.startFadeInTransition(1000, new RGBColor(0,0,0), () => this.startGame(this.playerFirst));
-    }
-
-    /**
-     * Starts the game.
-     */
-    startGame(playerFirst) { 
-        // Start the first turn.
-        if (playerFirst) {
-            this.startPlayerTurn();
-        }
-        else {
-            this.startEnemyTurn(); 
-        }
-    }
-
-    /**
-     * Creates and places all the buttons for the scene.
-     */
-    createButtons() {
-        this.rollBtn = this.add.text(this.width/2, 2*this.height/3, 'Roll', { fontSize: 80, fill: '#000', backgroundColor: '#fff'}).setOrigin(0.5)
-        .setInteractive()
-        .on('pointerover', () => this.rollBtn.setStyle({fill: 'rgba(116, 8, 9, 1)'}))
-        .on('pointerout', () => this.rollBtn.setStyle({fill: '#000'}));
-
-        this.backBtn = this.add.text(0, 0, 'Back', { fontSize: 64, fill: '#fff'})
-            .setInteractive()
-            .on('pointerover', () => this.backBtn.setStyle({fill: '#0f0'}))
-            .on('pointerdown', () => {
-                if (this.scene.isActive('PauseMenu')) return;
-
-                this.scene.launch('PauseMenu');
-                const pauseMenu = this.scene.get('PauseMenu');
-                pauseMenu.setPausedScene(this.scene.key);
-                this.scene.pause();
-            })
-            .on('pointerout', () => this.backBtn.setStyle({fill: '#fff'}));
     }
 
     /**
      * Adds all the images to the scene.
      */
     addImages() {
-        this.boardImg = this.add.image(this.width/2, this.height/2, 'taliBoard').setOrigin(0.5).setScale(0.6);
+        this.boardImg = this.add.image(this.width/2, this.height/2, 'taliBoard').setOrigin(0.5).setScale(0.5);
     }
 
     /**
-     * Adds all the text to the scene.
+     * Creates and places all the buttons for the scene.
      */
-    addText() {
-        this.enemyScore = this.add.text(this.width - 20, 20, "Mercury's Score: " + this.taliGame.playerScore, {fontSize: 32}).setOrigin(1, 0);
-        this.playerScore = this.add.text(20, this.height - 20, 'Your Score: ' + this.taliGame.enemyScore, {fontSize: 32}).setOrigin(0, 1);
-        this.turnText = this.add.text(this.width/2, this.height/3, '', { fontSize: 64, fill: '#000'}).setOrigin(0.5);
-        this.resultText = this.add.text(this.width/2, this.height - this.height/3, '', { fontSize: 64, fill: '#000'}).setOrigin(0.5);
+    createButtons() {
+        this.rollBtn = this.createButton(this.width/2, 2*this.height/3, '', () => {});
+        this.backBtn = this.createButton(100, 50, 'Back', () => this.openPauseMenu(), {fontSize: 64});
     }
 
-    addEventListeners() {
-        this.taliGame.emitter.on('turnEnded', () => {
-            console.log('turn ended');
-            this.currentTurn++;
-            this.nextTurn();
-            this.updateScore();
+    /**
+     * Creates a button with the given specifications.
+     * @param {number} x X position
+     * @param {number} y Y position
+     * @param {string} label The text inside the button
+     * @param {() => void} [onClick=() => {}] The event run on click
+     * @param {*} style The style (fontSize, fill...)
+     * @param {*} pointeroverStyle Style when hovering over the button
+     * @returns 
+     */
+    createButton(x, y, label, onClick = () => {}, style = {backgroundColor: '#fff', fill: '#000', fontSize: 80}, pointeroverStyle = {fill: 'rgba(116, 8, 9, 1)'}) {
+        const btn = this.add.text(x, y, label, {
+            fontSize: style.fontSize,
+            fill: style.fill,
+            backgroundColor: style.backgroundColor
         })
-        this.taliGame.emitter.on('luna', () => this.lunaThrow());
+        .setOrigin(0.5)
+        .setInteractive()
+        .on('pointerover', () => btn.setStyle({ fill: pointeroverStyle.fill }))
+        .on('pointerout', () => btn.setStyle({ fill: style.fill }))
+        .on('pointerdown', onClick);
+
+        return btn;
     }
 
     /**
-     * Establishes the next turn.
+     * Removes the listeners and resets the text of the given button.
+     * @param {button} btn the button to reset
+     * @param {string} label the new text
+     * @param {*} onClick the new event on click
      */
-    nextTurn() {
-        if (this.taliGame.state === GAME_STATE.PLAYER_TURN) {
-            this.startEnemyTurn();
-        }
-        else if (this.taliGame.state === GAME_STATE.ENEMY_TURN) {
-            this.setObjectState(this.rollBtn, true);
-            this.rollBtn.setText('Continue');       
-            this.rollBtn.once('pointerdown', () => {
-                this.startPlayerTurn();
-            })
-        }
-    }
-
-    startPlayerTurn() {
-        this.taliGame.state = GAME_STATE.PLAYER_TURN;
-        console.log("Starting player turn.");
-        this.turnText.setText("Your turn! Roll the dice.");
-        this.setObjectState(this.rollBtn, true);
-        this.rollBtn.setText('Roll')
-            .once('pointerdown', () => {
-                this.taliGame.playerRoll();
-                this.setObjectState(this.rollBtn, false);
-            })
-    }
-
-    startEnemyTurn() {
-        this.taliGame.state = GAME_STATE.ENEMY_TURN;
-        console.log("Starting enemy turn.");
-        this.turnText.setText("Mercury's turn! Mercury is rolling the dice.");
-        this.setObjectState(this.rollBtn, false);
-        this.taliGame.enemyRoll();
-    }
-
-    lunaThrow() {
-        if (this.taliGame.state === GAME_STATE.PLAYER_TURN) {
-            this.turnText.setText("LUNA! Roll again!");
-            this.startPlayerTurn();
-        }
-        else if (this.taliGame.state === GAME_STATE.ENEMY_TURN) {
-            this.turnText.setText("LUNA! Mercury rolls again.");
-            this.startEnemyTurn();
-        }
-    }
-
-    updateScore() {
-        this.playerScore.setText('Your Score: ' + this.taliGame.playerScore);
-        this.enemyScore.setText("Mercury's Score: " + this.taliGame.enemyScore);
-    }
-
-    /**
-     * Ends the game and announces the winner.
-     */
-    gameEnded() {
-        this.playerWon = this.taliGame.playerWon();
-        let winText = this.playerWon ? "YOU!" : "MERCURY!";
-        this.turnText.setText('GAME ENDED! WINNER: ' + winText);
+    resetButton(btn, label, onClick) {
+        btn.removeAllListeners('pointerdown')
+            .setText(label)
+            .setInteractive()
+            .once('pointerdown', onClick);
+        this.setObjectState(btn, true);
     }
 
     /**
@@ -183,10 +117,142 @@ export class TaliScene extends Phaser.Scene {
      * @param object The object to change the state of.
      * @param {boolean} state The state.
      */
-    setObjectState(object,state)
+    setObjectState(object, state)
     {
-        object.setActive(state);
-        object.setVisible(state);
+        object.setVisible(state).setActive(state).setAlpha(state ? 1 : 0);
+    }
+
+    /**
+     * Opens the pause menu.
+     */
+    openPauseMenu() {
+        if (this.scene.isActive('PauseMenu')) return;
+        this.scene.launch('PauseMenu');
+        const pauseMenu = this.scene.get('PauseMenu');
+        pauseMenu.setPausedScene(this.scene.key);
+        this.scene.pause();
+    }
+    
+    /**
+     * Adds all the text to the scene.
+     */
+    addText() {
+        this.enemyScoreText = this.add.text(this.width - 20, 20, "Mercury's Score: 0", {fontSize: 32}).setOrigin(1, 0);
+        this.playerScoreText = this.add.text(20, this.height - 20, 'Your Score: 0', {fontSize: 32}).setOrigin(0, 1);
+        this.turnText = this.add.text(this.width/2, this.height/3, '', { fontSize: 64, fill: '#000'}).setOrigin(0.5);
+        this.resultText = this.add.text(this.width/2, this.height - this.height/3, '', { fontSize: 64, fill: '#000'}).setOrigin(0.5);
+    }
+
+    /**
+     * Starts the game.
+     */
+    startGame() { 
+        this.turnText.setText(this.playerFirst ? "Your turn! Roll the dice." : "Mercury starts!");
+        this.taliGame.startGame();
+        this.updateState();
+    }
+
+    /**
+     * Updates the roll button depending on the state:
+     * Player's turn: shows roll and waits for player to click to roll
+     * Enemy state: hides button and enemy rolls
+     */
+    updateState() {
+        const state = this.taliGame.state;
+
+        switch (state) {
+            case GAME_STATE.PLAYER_TURN:
+                this.resetButton(this.rollBtn, 'Roll', () => {
+                    this.setObjectState(this.rollBtn, false);
+                    this.taliGame.playerRoll();
+                });
+                break;
+            case GAME_STATE.PLAYER_ROLLING:
+                this.resetButton('')
+                break;
+            
+            case GAME_STATE.ENEMY_TURN:
+                this.setObjectState(this.rollBtn, false);
+                this.turnText.setText("Mercury is rolling...");
+                this.taliGame.enemyRoll();
+                break;
+            default:
+                this.setObjectState(this.rollBtn, false);
+        }
+    }
+
+    /**
+     * Registers all the existing events.
+     */
+    registerEvents() {
+        const game = this.taliGame;
+
+        game.emitter.on('stateChange', (state) => {
+            console.log('State changed to: ', state);
+        })
+
+        // Dice events
+        game.emitter.on('diceIn', () => this.onDiceShown());
+        game.emitter.on('throwsIn', () => this.onThrowsShown());
+        game.emitter.on('luna', () => this.onLuna());
+
+        // End of turn
+        this.events.on('turnEnded', () =>
+        {
+            this.updateScore();
+            this.currentTurn++;
+            if (this.currentTurn > Tali.TURNS) this.endGame();
+            else this.nextTurn();
+        })
+    }
+
+    onDiceShown() {
+        this.resetButton(this.rollBtn, 'Continue', () => {
+            this.taliGame.hideDice();
+            this.taliGame.animateThrows();
+            this.turnText.setText('Combinations: ');
+        });
+    }
+
+    onThrowsShown() {
+        this.resetButton(this.rollBtn, 'Continue', () => {
+            this.taliGame.hideThrows();
+            this.events.emit('turnEnded');
+        });
+    }
+
+    onLuna() {
+        this.turnText.setText('LUNA! Roll again!');
+        this.updateState();
+    }
+
+    /**
+     * Plays the next turn.
+     */
+    nextTurn() {
+        if (this.taliGame.state === GAME_STATE.PLAYER_TURN) {
+            this.taliGame.state = GAME_STATE.ENEMY_TURN;
+        } else {
+            this.taliGame.state = GAME_STATE.PLAYER_TURN;
+        }
+        this.updateState();
+    }
+
+    /**
+     * Updates scores on the screen.
+     */
+    updateScore() {
+        this.playerScoreText.setText('Your Score: ' + this.taliGame.playerScore);
+        this.enemyScoreText.setText("Mercury's Score: " + this.taliGame.enemyScore);
+    }
+
+    /**
+     * Ends the game and announces the winner.
+     */
+    endGame() {
+        const playerWon = this.taliGame.playerWon();
+        this.turnText.setText(`Game Over! Winner: ${playerWon ? 'YOU' : 'MERCURY'}`);
+        this.setObjectState(this.rollBtn, false);
     }
 
 }

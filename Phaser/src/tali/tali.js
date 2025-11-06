@@ -7,13 +7,14 @@ import RandomNumber from '../misc/randomnumber.js';
  */
 export const GAME_STATE = {
     PLAYER_TURN: 'PLAYER_TURN',
-    PLAYER_ROLL: 'PLAYER_ROLL',
-    PLAYER_THROWS: 'PLAYER_THROWS',
-    PLAYER_VICTORY: 'PLAYER_VICTORY',
+    PLAYER_ROLLING: 'PLAYER_ROLLING',
+    PLAYER_THROWING: 'PLAYER_THROWING',
+    PLAYER_END: 'PLAYER_END',
     ENEMY_TURN: 'ENEMY_TURN',
-    ENEMY_ROLL: 'ENEMY_ROLL',
-    ENEMY_THROWS: 'ENEMY_THROWS',
-    ENEMY_VICTORY: 'ENEMY_VICTORY'
+    ENEMY_ROLLING: 'ENEMY_ROLLING',
+    ENEMY_THROWING: 'ENEMY_THROWING',
+    ENEMY_END: 'ENEMY_END',
+    GAME_OVER: 'GAME_OVER'
 };
 
 /**
@@ -22,24 +23,9 @@ export const GAME_STATE = {
  */
 export default class Tali {
     static NUMBER_OF_DICE = 4;
-    static TURNS = 3;
+    static TURNS = 6;
     static DICE_THROW_NAMES = ['VENUS', 'MARTE', 'JUPITER', 'NEPTUNO', 'LUNA'];
 
-    diceNrs = [1, 3, 4, 6]
-    diceImages = [0, 0, 0, 0];
-    throwImages = [0, 0, 0, 0, 0];
-
-    currentRoll;
-    diceRollIndex = 0;
-    diceThrows;
-    
-    diceThrowIndex = 0;
-
-    counter;
-
-    playerFirst = true;
-
-    emitter;
 
     /**
      * @constructor Creates new player and enemy objects.
@@ -50,29 +36,31 @@ export default class Tali {
      */
     constructor(scene, canvasWidth, canvasHeight, playerFirst = true) {
         this.scene = scene;
-        this.scene.add.existing(this);
         this.width = canvasWidth;
         this.height = canvasHeight;
-
         this.emitter = new Phaser.Events.EventEmitter();
-        
+
+        this.turnCount = 1;
         this.playerFirst = playerFirst;
 
         this.player = new TaliPlayer();
         this.enemy = new TaliPlayer();
+        this.state = GAME_STATE.PLAYER_TURN;
 
         this.diceThrows = [];
+        this.diceImages = [];
+        this.throwImages = [];
+
+        this.currentRoll = [];
+        this.diceNrs = [1, 3, 4, 6]
+
+        this.diceRollIndex = 0;
+        this.diceThrowIndex = 0;
+        this.counter = 0;
         
         this.addImages();
-        
-        this.emitter.on('throwsDone', () => this.emitter.emit('turnEnded'));
     }
 
-    addImages() {
-        for (let i = 0, j = 1; i < Tali.DICE_THROW_NAMES.length; i++, j++) {
-            this.throwImages[i] = this.scene.add.image(j*this.width/5, this.height/2, Tali.DICE_THROW_NAMES[i]).setOrigin(0.5).setAlpha(0).setScale(0.9);
-        }
-    }
     /**
      * @returns The player's current score.
      */
@@ -87,20 +75,50 @@ export default class Tali {
         return this.enemy.score.score;
     }
 
-    get emitter() {
-        return this.emitter;
+    addImages() {
+        for (let i = 0, j = 1; i < Tali.DICE_THROW_NAMES.length; i++, j++) {
+            this.throwImages[i] = this.scene.add.image(j*this.width/5, this.height/2, Tali.DICE_THROW_NAMES[i]).setOrigin(0.5).setAlpha(0).setScale(0.9);
+        }
     }
+    
 
     /**
      * Starts the new game.
      */
     startGame() {
-        this.player.resetScore();
-        this.enemy.resetScore();
+        this.state = this.playerFirst ? GAME_STATE.PLAYER_TURN : GAME_STATE.ENEMY_TURN;
+        this.emitState();
     }
 
+    nextTurn() {
+        this.turnCount++;
+        if (this.turnCount > Tali.TURNS) {
+            this.state = GAME_STATE.GAME_OVER;
+            this.emitState();
+            return;
+        }
+
+        if (this.state === GAME_STATE.PLAYER_TURN) {
+            this.state = GAME_STATE.ENEMY_TURN;
+        }
+        else {
+            this.state === GAME_STATE.PLAYER_TURN;
+        }
+
+        this.emitState();
+    }
+
+    emitState() {
+        this.emitter.emit('stateChange', this.state);
+    }
+
+
     playerRoll() {
-        this.rollDice();
+        this.state = GAME_STATE.PLAYER_ROLLING;
+        this.emitState();
+
+        const roll = this.rollDice();
+        this.setDiceImages();
         this.identifyRoll(this.player);
     }
 
@@ -247,16 +265,6 @@ export default class Tali {
         this.diceImages.forEach((img) => {
             this.animateDiceIn(img);
         })
-        this.emitter.once('diceOut', () => {
-            if (this.diceThrows.length !== 0) {
-                console.log('animating throws');
-                this.animateThrows();
-            }
-            else {
-                console.log('no throws');
-                this.emitter.emit('turnEnded');
-            }
-        })
     }
 
     /**
@@ -269,31 +277,10 @@ export default class Tali {
             duration: 1000,
             ease: 'Sine.easeOut',
             onComplete: () => {
-                this.emitter.emit('diceIn');
-                this.scene.time.addEvent({
-                    delay: 2000, 
-                    callback: () => { this.animateDiceOut(img);},
-                    loop: false
-                });
-            }
-        })
-    }
-
-    /**
-     * Animates the disappearance of the dice. 
-     */
-    animateDiceOut(img) {
-        this.scene.tweens.add({
-            targets: img,
-            alpha: 0,
-            duration: 500,
-            ease: 'Sine.easeOut',
-            onComplete: () => {
                 this.diceRollIndex++;
-                if (this.diceRollIndex === this.currentRoll.length) {
-                    this.emitter.emit('diceOut');
-                    console.log('emiting diceout');
+                if (this.diceRollIndex >= this.currentRoll.length) {
                     this.diceRollIndex = 0;
+                    this.emitter.emit('diceIn');
                 }
             }
         })
@@ -306,6 +293,10 @@ export default class Tali {
     }
 
     animateThrows() {
+        if (this.diceThrows.length === 0) {
+            this.emitter.emit('throwsIn');
+            return;
+        }
         this.diceThrows.forEach(element => {
             this.animateThrowIn(this.throwImages.find(img=> img.texture.key === element.name));
         });
@@ -318,30 +309,20 @@ export default class Tali {
             duration: 1000,
             ease: 'Sine.easeOut',
             onComplete: () => {
-                this.emitter.emit('throwIn');
-                this.scene.time.addEvent({
-                    delay: 2000, 
-                    callback: () => { this.animateThrowOut(img);},
-                    loop: false
-                });
-            }
-        })
-    }
-
-    animateThrowOut(img) {
-        this.scene.tweens.add({
-            targets: img,
-            alpha: 0,
-            duration: 500,
-            ease: 'Sine.easeOut',
-            onComplete: () => { 
-                this.emitter.emit('throwOut');
                 this.diceThrowIndex++;
                 if (this.diceThrows.length === this.diceThrowIndex) {
-                    this.emitter.emit('throwsDone');
+                    this.emitter.emit('throwsIn');
                 }
             }
-        })
+        }
+        )
+    }
+
+    hideThrows() {
+        this.diceThrows.forEach(element => {
+            this.throwImages.find(img=> img.texture.key === element.name).setAlpha(0);
+        }
+        )
     }
 
     playerWon() {
