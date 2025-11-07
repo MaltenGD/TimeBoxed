@@ -6,7 +6,7 @@ import TransitionController, {RGBColor} from '../../misc/transitioncontroller.js
  */
 export class TaliEndScene extends Phaser.Scene {
     constructor() {
-        super('TaliScene');
+        super('TaliEndScene');
     }
 
     preload() {
@@ -113,6 +113,6 @@ export class TaliEndScene extends Phaser.Scene {
      * Adds all the text to the scene.
      */
     addText() {
-        this.victoryText = this.add.text(this.width/2, this.height/5, 'Game ended! Winner: ' + this.playerWon ? 'YOU!' : 'MERCURY!', { fontSize: 64, fill: '#000'}).setOrigin(0.5);
+        this.victoryText = this.add.text(this.width/2, this.height/5, this.playerWon ? 'You won!' : 'You lost!', { fontSize: 64, fill: '#000'}).setOrigin(0.5);
     }
 }
