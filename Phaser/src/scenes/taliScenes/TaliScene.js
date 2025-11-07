@@ -1,6 +1,5 @@
 import Tali, { GAME_STATE } from '../../tali/tali.js';
 import TransitionController, {RGBColor} from '../../misc/transitioncontroller.js';
-import { SAT } from 'matter';
 
 const STATES = {
     PLAYER_TURN: 'PLAYER_TURN',
@@ -169,20 +168,8 @@ export class TaliScene extends Phaser.Scene {
         game.emitter.on('stateChange', (state) => {
             this.onStateChange(state);
         })
-
-        // Dice events
-        // game.emitter.on('diceIn', () => this.onDiceShown());
-        // game.emitter.on('throwsIn', () => this.onThrowsShown());
+        
         game.emitter.on('luna', () => this.onLuna());
-
-        // End of turn
-        // this.events.on('turnEnded', () =>
-        // {
-        //     this.updateScore();
-        //     this.currentTurn++;
-        //     if (this.currentTurn > Tali.TURNS) this.endGame();
-        //     else this.nextTurn();
-        // })
     }
 
     onStateChange(state) {
@@ -233,9 +220,34 @@ export class TaliScene extends Phaser.Scene {
     onPlayerThrown() {
         this.resetButton(this.rollBtn, 'Done', () => {
             this.setObjectState(this.rollBtn, false);
-            this.turnText.setText('Turn over!');
+            this.updateScore();
             this.taliGame.nextTurn();
         })
+    }
+
+    onEnemyTurn() {
+        this.turnText.setText('Mercury is rolling...');
+        this.resetButton(this.rollBtn, 'Reveal rolls', () => {
+            this.setObjectState(this.rollBtn, false);
+            this.taliGame.nextTurn();
+            this.turnText.setText("Mercury's rolls:");
+        })
+    }
+
+    onEnemyRolled() {
+        this.resetButton(this.rollBtn, 'Show combinations', () => {
+            this.setObjectState(this.rollBtn, false);
+            this.turnText.setText("Mercury's combinations:");
+            this.taliGame.nextTurn();
+        })
+    }
+
+    onEnemyThrown() {
+        this.resetButton(this.rollBtn, 'Done', () => {
+            this.setObjectState(this.rollBtn, false);
+            this.updateScore();
+            this.taliGame.nextTurn();
+        });
     }
 
     onLuna() {

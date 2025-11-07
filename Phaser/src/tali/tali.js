@@ -38,7 +38,7 @@ export default class Tali {
         this.height = canvasHeight;
         this.emitter = new Phaser.Events.EventEmitter();
 
-        this.turnCount = 1;
+        this.turnCount = 0;
         this.playerFirst = playerFirst;
 
         this.player = new TaliPlayer();
@@ -100,6 +100,7 @@ export default class Tali {
         else {
             switch(this.state) {
                 case GAME_STATE.PLAYER_START:
+                    this.turnCount++;
                     this.emitState();
                     this.state = GAME_STATE.PLAYER_ROLLED;
                     break; 
@@ -115,15 +116,28 @@ export default class Tali {
                     this.animateThrows();
                     this.emitter.once('throwsIn', () => {
                         this.emitState();
-                        this.state = GAME_STATE.PLAYER_END;
+                        this.state = GAME_STATE.ENEMY_START;
                     })
                     break;
                 case GAME_STATE.ENEMY_START:
-                    this.enemyRoll();
+                    this.turnCount++;
+                    this.emitState();
+                    this.state = GAME_STATE.ENEMY_ROLLED;
                     break;
                 case GAME_STATE.ENEMY_ROLLED:
+                    this.generalRoll(this.enemy);
+                    this.emitter.once('diceIn', () => {
+                        this.emitState();
+                        this.state = GAME_STATE.ENEMY_THROWN;
+                    })
                     break;
                 case GAME_STATE.ENEMY_THROWN:
+                    this.hideDice();
+                    this.animateThrows();
+                    this.emitter.once('throwsIn', () => {
+                        this.emitState();
+                        this.state = GAME_STATE.PLAYER_START;
+                    })
                     break;
             }
         }
@@ -134,6 +148,7 @@ export default class Tali {
      * Emits the current state.
      */
     emitState() {
+        console.log("Emiting state: " + this.state);
         this.emitter.emit('stateChange', this.state);
     }
 
@@ -312,7 +327,7 @@ export default class Tali {
 
     animateThrows() {
         if (this.diceThrows.length === 0) {
-            this.animeteThrowIn(this.noComboText);
+            this.animateThrowIn(this.noComboText);
             return;
         }
         this.diceThrows.forEach(element => {
