@@ -1,11 +1,6 @@
 import Tali, { GAME_STATE } from '../../tali/tali.js';
 import TransitionController, {RGBColor} from '../../misc/transitioncontroller.js';
 
-const STATES = {
-    PLAYER_TURN: 'PLAYER_TURN',
-    ENEMY_TURN: 'ENEMY_TURN'
-}
-
 /**
  * @class TaliScene
  * The scene for the Tali game (Rome).
@@ -28,10 +23,6 @@ export class TaliScene extends Phaser.Scene {
         super('TaliScene');
     }
 
-    init(data) {
-
-    }
-
     preload() {
         let {width, height} = this.sys.game.canvas;
         this.width = width;
@@ -46,8 +37,6 @@ export class TaliScene extends Phaser.Scene {
         console.log(this.playerFirst ? "Player starts." : "Mercury starts.");
 
         this.taliGame = new Tali(this, this.width, this.height, this.playerFirst);
-
-        this.state = this.playerFirst ? STATES.PLAYER_TURN : STATES.ENEMY_TURN;
 
         this.currentTurn = 1;
         
@@ -193,7 +182,6 @@ export class TaliScene extends Phaser.Scene {
                 break;
             case GAME_STATE.GAME_OVER:
                 this.endGame();
-                console.log('game over');
                 break;
         }
     }
@@ -260,8 +248,6 @@ export class TaliScene extends Phaser.Scene {
      * Ends the game and announces the winner.
      */
     endGame() {
-        const playerWon = this.taliGame.playerWon();
-        this.turnText.setText('Game Over! Winner: ', playerWon ? 'YOU' : 'MERCURY');
-        this.setObjectState(this.rollBtn, false);
+        this.transitionController.startFadeOutTransition(600, new RGBColor(0,0,0), () => this.scene.start('TaliEndScene', {playerWon: this.taliGame.playerWon()}));
     }
 }

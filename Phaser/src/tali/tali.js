@@ -383,8 +383,9 @@ export default class Tali {
 
     hideThrows() {
         this.diceThrows.forEach(element => {
-            this.throwImages.find(img=> img.texture.key === element.name).setAlpha(0);
+            this.throwImages.find(img=> img.texture.key === element.name)?.setAlpha(0);
         });
+        this.noComboText.setAlpha(0);
     }
 
     playerWon() {
