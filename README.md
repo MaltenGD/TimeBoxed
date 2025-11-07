@@ -7,7 +7,7 @@
 **TimeBoxed** es una aventura única con gatos que combina la profundidad estratégica de los juegos de mesa con la emoción de los viajes en el tiempo. En este viaje, atravesarás diferentes épocas y lucharás contra diferentes dioses mitológicos.
 
 ## Versión jugable
-**https://github.com/MaltenGD/TimeBoxed**
+**https://maltengd.github.io/TimeBoxed/**
 
 ## Detalles técnicos
 **Motor :** Phaser 3 (JavaScript)

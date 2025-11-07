@@ -6,16 +6,13 @@ import RandomNumber from '../misc/randomnumber.js';
  * @enum {string} The states of the game.
  */
 export const GAME_STATE = {
-    PLAYER_TURN: 'PLAYER_TURN',
-    PLAYER_LUNA: 'PLAYER_LUNA',
-    PLAYER_ROLLING: 'PLAYER_ROLLING',
-    PLAYER_THROWING: 'PLAYER_THROWING',
-    PLAYER_VICTORY: 'PLAYER_VICTORY',
-    ENEMY_TURN: 'ENEMY_TURN',
-    ENEMY_LUNA: 'ENEMY_LUNA',
-    ENEMY_ROLLING: 'ENEMY_ROLLING',
-    ENEMY_THROWING: 'ENEMY_THROWING',
-    ENEMY_VICTORY: 'ENEMY_VICTORY'
+    PLAYER_START: 'PLAYER_START',
+    PLAYER_ROLLED: 'PLAYER_ROLLED',
+    PLAYER_THROWN: 'PLAYER_THROWN',
+    ENEMY_START: 'ENEMY_START',
+    ENEMY_ROLLED: 'ENEMY_ROLLED',
+    ENEMY_THROWN: 'ENEMY_THROWN',
+    GAME_OVER: 'GAME_OVER'
 };
 
 /**
@@ -24,24 +21,9 @@ export const GAME_STATE = {
  */
 export default class Tali {
     static NUMBER_OF_DICE = 4;
-    static TURNS = 3;
+    static TURNS = 6;
     static DICE_THROW_NAMES = ['VENUS', 'MARTE', 'JUPITER', 'NEPTUNO', 'LUNA'];
 
-    diceNrs = [1, 3, 4, 6]
-    diceImages = [0, 0, 0, 0];
-    throwImages = [0, 0, 0, 0, 0];
-
-    currentRoll;
-    diceRollIndex = 0;
-    diceThrows;
-    
-    diceThrowIndex = 0;
-
-    counter;
-
-    playerFirst = true;
-
-    emitter;
 
     /**
      * @constructor Creates new player and enemy objects.
@@ -52,29 +34,36 @@ export default class Tali {
      */
     constructor(scene, canvasWidth, canvasHeight, playerFirst = true) {
         this.scene = scene;
-        this.scene.add.existing(this);
         this.width = canvasWidth;
         this.height = canvasHeight;
-
         this.emitter = new Phaser.Events.EventEmitter();
-        
+
+        this.turnCount = 0;
         this.playerFirst = playerFirst;
 
         this.player = new TaliPlayer();
         this.enemy = new TaliPlayer();
+        this.state = GAME_STATE.PLAYER_TURN;
 
         this.diceThrows = [];
-        
+        this.diceImages = [];
+        this.throwImages = [];
+
+        this.currentRoll = [];
+        this.diceNrs = [1, 3, 4, 6]
+
+        this.diceRollIndex = 0;
+        this.diceThrowIndex = 0;
+        this.counter = 0;
+
+        this.lunaThrow = false;
+         
         this.addImages();
-        
-        this.emitter.on('throwsDone', () => this.emitter.emit('turnEnded'));
+
+        this.noComboText = this.scene.add.text(this.width/2, this.height/2, 'No combinations!', {fontSize: 80}).setOrigin(0.5).setAlpha(0);
+        this.noComboText.depth = 1;
     }
 
-    addImages() {
-        for (let i = 0, j = 1; i < Tali.DICE_THROW_NAMES.length; i++, j++) {
-            this.throwImages[i] = this.scene.add.image(j*this.width/5, this.height/2, Tali.DICE_THROW_NAMES[i]).setOrigin(0.5).setAlpha(0).setScale(0.9);
-        }
-    }
     /**
      * @returns The player's current score.
      */
@@ -89,26 +78,104 @@ export default class Tali {
         return this.enemy.score.score;
     }
 
-    get emitter() {
-        return this.emitter;
+    /**
+     * Adds all the images.
+     */
+    addImages() {
+        for (let i = 0, j = 1; i < Tali.DICE_THROW_NAMES.length; i++, j++) {
+            this.throwImages[i] = this.scene.add.image(j*this.width/5, this.height/2, Tali.DICE_THROW_NAMES[i]).setOrigin(0.5).setAlpha(0).setScale(0.9);
+            this.throwImages[i].depth = 1;
+        }
     }
+    
 
     /**
      * Starts the new game.
      */
     startGame() {
-        this.player.resetScore();
-        this.enemy.resetScore();
+        this.state = this.playerFirst ? GAME_STATE.PLAYER_START : GAME_STATE.ENEMY_START;
+        this.nextTurn();
     }
 
-    playerRoll() {
-        this.rollDice();
-        this.identifyRoll(this.player);
+    nextTurn() {
+        if (this.turnCount > Tali.TURNS) {
+            this.state = GAME_STATE.GAME_OVER;
+            this.emitState();
+        }
+        else {
+            switch(this.state) {
+                case GAME_STATE.PLAYER_START:
+                    this.hideThrows();
+                    this.turnCount++;
+                    this.emitState();
+                    this.state = GAME_STATE.PLAYER_ROLLED;
+                    break; 
+                case GAME_STATE.PLAYER_ROLLED:
+                    this.generalRoll(this.player);
+                    this.emitter.once('diceIn', () => {
+                        this.emitState();
+                        this.state = GAME_STATE.PLAYER_THROWN;
+                    });
+                    break;
+                case GAME_STATE.PLAYER_THROWN:
+                    this.hideDice();
+                    this.animateThrows();
+                    this.emitter.once('throwsIn', () => {
+                        this.emitState();
+                        if (this.lunaThrow) {
+                            this.state = GAME_STATE.PLAYER_START;
+                            this.lunaThrow = false;
+                        }
+                        else {
+                            this.state = GAME_STATE.ENEMY_START;
+                        }
+                    })
+                    break;
+                case GAME_STATE.ENEMY_START:
+                    this.hideThrows();
+                    this.turnCount++;
+                    this.emitState();
+                    this.state = GAME_STATE.ENEMY_ROLLED;
+                    break;
+                case GAME_STATE.ENEMY_ROLLED:
+                    this.generalRoll(this.enemy);
+                    this.emitter.once('diceIn', () => {
+                        this.emitState();
+                        this.state = GAME_STATE.ENEMY_THROWN;
+                    })
+                    break;
+                case GAME_STATE.ENEMY_THROWN:
+                    this.hideDice();
+                    this.animateThrows();
+                    this.emitter.once('throwsIn', () => {
+                        this.emitState();
+                        if (this.lunaThrow) {
+                            this.state = GAME_STATE.ENEMY_START;
+                            this.lunaThrow = false;
+                        }
+                        else {
+                            this.state = GAME_STATE.PLAYER_START;
+                        }
+                    })
+                    break;
+            }
+        }
     }
 
-    enemyRoll() {
+    /**
+     * Emits the current state.
+     */
+    emitState() {
+        this.emitter.emit('stateChange', this.state);
+    }
+
+
+    generalRoll(player) {
         this.rollDice();
-        this.identifyRoll(this.enemy);
+
+        this.setDiceImages();
+        
+        this.identifyRoll(player);
     }
 
     /**
@@ -121,7 +188,6 @@ export default class Tali {
             arr.push(RandomNumber.get(0, Tali.NUMBER_OF_DICE));
         }
         this.currentRoll = arr;
-        this.setDiceImages();
         return arr;
     }
 
@@ -227,9 +293,7 @@ export default class Tali {
     checkLunaRoll() {
         if (this.counter[1] >= 3) {
             this.diceThrows.push(TALI_THROWS.LUNA);
-            this.emitter.emit('luna');
-            this.state = this.state === GAME_STATE.PLAYER_ROLLING ? GAME_STATE.PLAYER_LUNA : GAME_STATE.ENEMY_LUNA;
-            console.log('luna');
+            this.lunaThrow = true;
         }
     }
 
@@ -250,7 +314,6 @@ export default class Tali {
         this.diceImages.forEach((img) => {
             this.animateDiceIn(img);
         })
-        this.state = this.state === GAME_STATE.PLAYER_TURN ? GAME_STATE.PLAYER_ROLLING : GAME_STATE.ENEMY_ROLLING;
     }
 
     /**
@@ -260,27 +323,15 @@ export default class Tali {
         this.scene.tweens.add({
             targets: img,
             alpha: 1,
-            duration: 1000,
+            duration: 700,
             ease: 'Sine.easeOut',
             onComplete: () => {
                 this.diceRollIndex++;
-                if (this.diceRollIndex === this.currentRoll.length) {
-                    this.emitter.emit('diceIn');
+                if (this.diceRollIndex >= this.currentRoll.length) {
                     this.diceRollIndex = 0;
+                    this.emitter.emit('diceIn');
                 }
             }
-        })
-    }
-
-    /**
-     * Animates the disappearance of the dice. 
-     */
-    animateDiceOut(img) {
-        this.scene.tweens.add({
-            targets: img,
-            alpha: 0,
-            duration: 500,
-            ease: 'Sine.easeOut',
         })
     }
 
@@ -291,54 +342,50 @@ export default class Tali {
     }
 
     animateThrows() {
+        console.log('length: ', this.diceThrows.length);
         if (this.diceThrows.length === 0) {
-            this.emitter.emit('throwsDone');
+            this.diceThrows.push(this.noComboText);
+            this.animateThrowIn(this.noComboText);
         }
         else {
             this.diceThrows.forEach(element => {
                 this.animateThrowIn(this.throwImages.find(img=> img.texture.key === element.name));
             });
         }
-        this.state = this.state === GAME_STATE.PLAYER_ROLLING ? GAME_STATE.PLAYER_THROWING : GAME_STATE.ENEMY_THROWING;
     }
 
     animateThrowIn(img) {
         this.scene.tweens.add({
             targets: img,
             alpha: 1,
-            duration: 1000,
+            duration: 800,
             ease: 'Sine.easeOut',
             onComplete: () => {
-                this.diceThrowIndex++;
-                if (this.diceThrows.length === this.diceThrowIndex) {
-                    this.emitter.emit('throwsDone');
-                    this.emitter.emit('throwIn');
+                if ((this.diceThrows.length - 1) === this.diceThrowIndex) {
+                    this.emitter.emit('throwsIn');
                     this.diceThrowIndex = 0;
                 }
-            }
-        })
-    }
-
-    animateThrowOut(img) {
-        this.scene.tweens.add({
-            targets: img,
-            alpha: 0,
-            duration: 500,
-            ease: 'Sine.easeOut',
-            onComplete: () => { 
-                this.emitter.emit('throwOut');
-                this.diceThrowIndex++;
-                if (this.diceThrows.length === this.diceThrowIndex) {
-                    this.emitter.emit('throwsDone');
+                else {
+                    this.diceThrowIndex++;
                 }
             }
-        })
+        }
+        )
+    }
+
+    hideThrows() {
+        this.throwImages.forEach(element => {
+            element.setAlpha(0);
+        });
+        this.noComboText.setAlpha(0);
+        console.log('hiding throws');
     }
 
     hideThrows() {
         this.diceThrows.forEach(element => {
-            this.throwImages.find(img=> img.texture.key === element.name).setAlpha(0);
+            this.throwImages.find(img=> img.texture.key === element.name)?.setAlpha(0);
         });
+        this.noComboText.setAlpha(0);
     }
 
     playerWon() {
