@@ -6,14 +6,12 @@ import RandomNumber from '../misc/randomnumber.js';
  * @enum {string} The states of the game.
  */
 export const GAME_STATE = {
-    PLAYER_TURN: 'PLAYER_TURN',
-    PLAYER_ROLLING: 'PLAYER_ROLLING',
-    PLAYER_THROWING: 'PLAYER_THROWING',
-    PLAYER_END: 'PLAYER_END',
-    ENEMY_TURN: 'ENEMY_TURN',
-    ENEMY_ROLLING: 'ENEMY_ROLLING',
-    ENEMY_THROWING: 'ENEMY_THROWING',
-    ENEMY_END: 'ENEMY_END',
+    PLAYER_START: 'PLAYER_START',
+    PLAYER_ROLLED: 'PLAYER_ROLLED',
+    PLAYER_THROWN: 'PLAYER_THROWN',
+    ENEMY_START: 'ENEMY_START',
+    ENEMY_ROLLED: 'ENEMY_ROLLED',
+    ENEMY_THROWN: 'ENEMY_THROWN',
     GAME_OVER: 'GAME_OVER'
 };
 
@@ -59,6 +57,8 @@ export default class Tali {
         this.counter = 0;
         
         this.addImages();
+
+        this.noComboText = this.scene.add.text(this.width/2, this.height/2, 'No combinations!', {fontSize: 80});
     }
 
     /**
@@ -75,6 +75,9 @@ export default class Tali {
         return this.enemy.score.score;
     }
 
+    /**
+     * Adds all the images.
+     */
     addImages() {
         for (let i = 0, j = 1; i < Tali.DICE_THROW_NAMES.length; i++, j++) {
             this.throwImages[i] = this.scene.add.image(j*this.width/5, this.height/2, Tali.DICE_THROW_NAMES[i]).setOrigin(0.5).setAlpha(0).setScale(0.9);
@@ -86,45 +89,61 @@ export default class Tali {
      * Starts the new game.
      */
     startGame() {
-        this.state = this.playerFirst ? GAME_STATE.PLAYER_TURN : GAME_STATE.ENEMY_TURN;
-        this.emitState();
+        this.state = this.playerFirst ? GAME_STATE.PLAYER_START : GAME_STATE.ENEMY_START;
+        this.nextTurn();
     }
 
     nextTurn() {
-        this.turnCount++;
         if (this.turnCount > Tali.TURNS) {
             this.state = GAME_STATE.GAME_OVER;
-            this.emitState();
-            return;
-        }
-
-        if (this.state === GAME_STATE.PLAYER_TURN) {
-            this.state = GAME_STATE.ENEMY_TURN;
         }
         else {
-            this.state === GAME_STATE.PLAYER_TURN;
+            switch(this.state) {
+                case GAME_STATE.PLAYER_START:
+                    this.emitState();
+                    this.state = GAME_STATE.PLAYER_ROLLED;
+                    break; 
+                case GAME_STATE.PLAYER_ROLLED:
+                    this.generalRoll(this.player);
+                    this.emitter.once('diceIn', () => {
+                        this.emitState();
+                        this.state = GAME_STATE.PLAYER_THROWN;
+                    });
+                    break;
+                case GAME_STATE.PLAYER_THROWN:
+                    this.hideDice();
+                    this.animateThrows();
+                    this.emitter.once('throwsIn', () => {
+                        this.emitState();
+                        this.state = GAME_STATE.PLAYER_END;
+                    })
+                    break;
+                case GAME_STATE.ENEMY_START:
+                    this.enemyRoll();
+                    break;
+                case GAME_STATE.ENEMY_ROLLED:
+                    break;
+                case GAME_STATE.ENEMY_THROWN:
+                    break;
+            }
         }
-
         this.emitState();
     }
 
+    /**
+     * Emits the current state.
+     */
     emitState() {
         this.emitter.emit('stateChange', this.state);
     }
 
 
-    playerRoll() {
-        this.state = GAME_STATE.PLAYER_ROLLING;
-        this.emitState();
-
-        const roll = this.rollDice();
-        this.setDiceImages();
-        this.identifyRoll(this.player);
-    }
-
-    enemyRoll() {
+    generalRoll(player) {
         this.rollDice();
-        this.identifyRoll(this.enemy);
+
+        this.setDiceImages();
+        
+        this.identifyRoll(player);
     }
 
     /**
@@ -137,7 +156,6 @@ export default class Tali {
             arr.push(RandomNumber.get(0, Tali.NUMBER_OF_DICE));
         }
         this.currentRoll = arr;
-        this.setDiceImages();
         return arr;
     }
 
@@ -274,7 +292,7 @@ export default class Tali {
         this.scene.tweens.add({
             targets: img,
             alpha: 1,
-            duration: 1000,
+            duration: 700,
             ease: 'Sine.easeOut',
             onComplete: () => {
                 this.diceRollIndex++;
@@ -294,7 +312,7 @@ export default class Tali {
 
     animateThrows() {
         if (this.diceThrows.length === 0) {
-            this.emitter.emit('throwsIn');
+            this.animeteThrowIn(this.noComboText);
             return;
         }
         this.diceThrows.forEach(element => {
@@ -309,9 +327,12 @@ export default class Tali {
             duration: 1000,
             ease: 'Sine.easeOut',
             onComplete: () => {
-                this.diceThrowIndex++;
-                if (this.diceThrows.length === this.diceThrowIndex) {
+                if ((this.diceThrows.length - 1) === this.diceThrowIndex) {
                     this.emitter.emit('throwsIn');
+                    this.diceThrowIndex = 0;
+                }
+                else {
+                    this.diceThrowIndex++;
                 }
             }
         }
