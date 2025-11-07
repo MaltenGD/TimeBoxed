@@ -248,6 +248,6 @@ export class TaliScene extends Phaser.Scene {
      * Ends the game and announces the winner.
      */
     endGame() {
-        this.transitionController.startFadeOutTransition(600, new RGBColor(0,0,0), () => this.scene.start('TaliEndScene', {playerWon: this.taliGame.playerWon()}));
+        this.scene.start('TaliEndScene', {playerWon: this.taliGame.playerWon()});
     }
 }

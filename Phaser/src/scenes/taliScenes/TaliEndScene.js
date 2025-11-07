@@ -21,11 +21,6 @@ export class TaliEndScene extends Phaser.Scene {
         this.transitionController = new TransitionController(this);
         
         this.createUI();
-
-        this.transitionController.startFadeInTransition(
-            1000, 
-            new RGBColor(0,0,0), 
-            () => this.startGame());
     }
 
     createUI() {
