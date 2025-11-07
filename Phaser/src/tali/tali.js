@@ -381,6 +381,12 @@ export default class Tali {
         console.log('hiding throws');
     }
 
+    hideThrows() {
+        this.diceThrows.forEach(element => {
+            this.throwImages.find(img=> img.texture.key === element.name).setAlpha(0);
+        });
+    }
+
     playerWon() {
         return this.player.score.score >= this.enemy.score.score;
     }

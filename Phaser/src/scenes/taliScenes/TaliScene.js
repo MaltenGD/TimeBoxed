@@ -40,7 +40,7 @@ export class TaliScene extends Phaser.Scene {
 
     create(data) {
         this.playerFirst = data?.playerFirst ?? true;
-
+        
         this.transitionController = new TransitionController(this);
 
         console.log(this.playerFirst ? "Player starts." : "Mercury starts.");
@@ -70,6 +70,7 @@ export class TaliScene extends Phaser.Scene {
      * Adds all the images to the scene.
      */
     addImages() {
+        this.background = this.add.image(this.width / 2, this.height / 2, 'taliBackgroundPlaceholder').setDisplaySize(this.width, this.height);
         this.boardImg = this.add.image(this.width/2, this.height/2, 'taliBoard').setOrigin(0.5).setScale(0.5);
     }
 

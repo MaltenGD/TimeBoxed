@@ -85,10 +85,10 @@ export default class AsebBoard extends Phaser.GameObjects.Image
         
         const pieceOffsetX = (i - 2.5) * 81.5;
 
-        let enemyPiece = new AsebPiece(this.scene, this.x + pieceOffsetX, this.y - 140, 'redPiece', PIECE_TYPE.ENEMY).setOrigin(0.5).setScale(0.1);
+        let enemyPiece = new AsebPiece(this.scene, this.x + pieceOffsetX, this.y - 140, 'redPiece', this,  PIECE_TYPE.ENEMY).setOrigin(0.5).setScale(0.1);
         this.enemyPieces.push(enemyPiece);
 
-        let playerPiece = new AsebPiece(this.scene, this.x + pieceOffsetX, this.y + 125, 'bluePiece', PIECE_TYPE.PLAYER).setOrigin(0.5).setScale(0.1);
+        let playerPiece = new AsebPiece(this.scene, this.x + pieceOffsetX, this.y + 125, 'bluePiece', this, PIECE_TYPE.PLAYER).setOrigin(0.5).setScale(0.1);
         this.playerPieces.push(playerPiece);
 
       }
@@ -101,7 +101,10 @@ export default class AsebBoard extends Phaser.GameObjects.Image
     setPlayerPieceInteractable(state)
     {
       this.playerPieces.forEach(piece => {
-        piece.setInteractable(state);
+        piece.setInteractable(state, this.asebGame.player.actualStickResult);
+
+        piece.setIdleAnimation(piece.movable);
+
       });
     }
 
