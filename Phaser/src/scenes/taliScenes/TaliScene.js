@@ -77,8 +77,8 @@ export class TaliScene extends Phaser.Scene {
      * Creates and places all the buttons for the scene.
      */
     createButtons() {
-        this.rollBtn = this.createButton(this.width/2, 2*this.height/3, '', () => {});
-        this.backBtn = this.createButton(100, 50, 'Back', () => this.openPauseMenu(), {fontSize: 64});
+        this.rollBtn = this.createButton(this.width/2, 4*this.height/5, '', () => {});
+        this.backBtn = this.createButton(100, 50, 'Back', () => this.openPauseMenu(), {fontSize: 64, fill: '#fff'});
     }
 
     /**
@@ -147,7 +147,7 @@ export class TaliScene extends Phaser.Scene {
     addText() {
         this.enemyScoreText = this.add.text(this.width - 20, 20, "Mercury's Score: 0", {fontSize: 32}).setOrigin(1, 0);
         this.playerScoreText = this.add.text(20, this.height - 20, 'Your Score: 0', {fontSize: 32}).setOrigin(0, 1);
-        this.turnText = this.add.text(this.width/2, this.height/3, '', { fontSize: 64, fill: '#000'}).setOrigin(0.5);
+        this.turnText = this.add.text(this.width/2, this.height/5, '', { fontSize: 64, fill: '#000'}).setOrigin(0.5);
         this.resultText = this.add.text(this.width/2, this.height - this.height/3, '', { fontSize: 64, fill: '#000'}).setOrigin(0.5);
     }
 
@@ -163,13 +163,9 @@ export class TaliScene extends Phaser.Scene {
      * Registers all the existing events.
      */
     registerEvents() {
-        const game = this.taliGame;
-
-        game.emitter.on('stateChange', (state) => {
+        this.taliGame.emitter.on('stateChange', (state) => {
             this.onStateChange(state);
         })
-        
-        game.emitter.on('luna', () => this.onLuna());
     }
 
     onStateChange(state) {
@@ -196,6 +192,7 @@ export class TaliScene extends Phaser.Scene {
                 break;
             case GAME_STATE.GAME_OVER:
                 this.endGame();
+                console.log('game over');
                 break;
         }
     }
@@ -250,12 +247,6 @@ export class TaliScene extends Phaser.Scene {
         });
     }
 
-    onLuna() {
-        this.turnText.setText('LUNA! Roll again!');
-        this.updateState();
-    }
-
-
     /**
      * Updates scores on the screen.
      */
@@ -269,8 +260,7 @@ export class TaliScene extends Phaser.Scene {
      */
     endGame() {
         const playerWon = this.taliGame.playerWon();
-        this.turnText.setText(`Game Over! Winner: ${playerWon ? 'YOU' : 'MERCURY'}`);
+        this.turnText.setText('Game Over! Winner: ', playerWon ? 'YOU' : 'MERCURY');
         this.setObjectState(this.rollBtn, false);
     }
-
 }

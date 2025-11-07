@@ -55,10 +55,13 @@ export default class Tali {
         this.diceRollIndex = 0;
         this.diceThrowIndex = 0;
         this.counter = 0;
-        
+
+        this.lunaThrow = false;
+         
         this.addImages();
 
-        this.noComboText = this.scene.add.text(this.width/2, this.height/2, 'No combinations!', {fontSize: 80});
+        this.noComboText = this.scene.add.text(this.width/2, this.height/2, 'No combinations!', {fontSize: 80}).setOrigin(0.5).setAlpha(0);
+        this.noComboText.depth = 1;
     }
 
     /**
@@ -81,6 +84,7 @@ export default class Tali {
     addImages() {
         for (let i = 0, j = 1; i < Tali.DICE_THROW_NAMES.length; i++, j++) {
             this.throwImages[i] = this.scene.add.image(j*this.width/5, this.height/2, Tali.DICE_THROW_NAMES[i]).setOrigin(0.5).setAlpha(0).setScale(0.9);
+            this.throwImages[i].depth = 1;
         }
     }
     
@@ -96,10 +100,12 @@ export default class Tali {
     nextTurn() {
         if (this.turnCount > Tali.TURNS) {
             this.state = GAME_STATE.GAME_OVER;
+            this.emitState();
         }
         else {
             switch(this.state) {
                 case GAME_STATE.PLAYER_START:
+                    this.hideThrows();
                     this.turnCount++;
                     this.emitState();
                     this.state = GAME_STATE.PLAYER_ROLLED;
@@ -116,10 +122,17 @@ export default class Tali {
                     this.animateThrows();
                     this.emitter.once('throwsIn', () => {
                         this.emitState();
-                        this.state = GAME_STATE.ENEMY_START;
+                        if (this.lunaThrow) {
+                            this.state = GAME_STATE.PLAYER_START;
+                            this.lunaThrow = false;
+                        }
+                        else {
+                            this.state = GAME_STATE.ENEMY_START;
+                        }
                     })
                     break;
                 case GAME_STATE.ENEMY_START:
+                    this.hideThrows();
                     this.turnCount++;
                     this.emitState();
                     this.state = GAME_STATE.ENEMY_ROLLED;
@@ -136,19 +149,23 @@ export default class Tali {
                     this.animateThrows();
                     this.emitter.once('throwsIn', () => {
                         this.emitState();
-                        this.state = GAME_STATE.PLAYER_START;
+                        if (this.lunaThrow) {
+                            this.state = GAME_STATE.ENEMY_START;
+                            this.lunaThrow = false;
+                        }
+                        else {
+                            this.state = GAME_STATE.PLAYER_START;
+                        }
                     })
                     break;
             }
         }
-        this.emitState();
     }
 
     /**
      * Emits the current state.
      */
     emitState() {
-        console.log("Emiting state: " + this.state);
         this.emitter.emit('stateChange', this.state);
     }
 
@@ -276,8 +293,7 @@ export default class Tali {
     checkLunaRoll() {
         if (this.counter[1] >= 3) {
             this.diceThrows.push(TALI_THROWS.LUNA);
-            this.emitter.emit('luna');
-            console.log('luna');
+            this.lunaThrow = true;
         }
     }
 
@@ -326,20 +342,23 @@ export default class Tali {
     }
 
     animateThrows() {
+        console.log('length: ', this.diceThrows.length);
         if (this.diceThrows.length === 0) {
+            this.diceThrows.push(this.noComboText);
             this.animateThrowIn(this.noComboText);
-            return;
         }
-        this.diceThrows.forEach(element => {
-            this.animateThrowIn(this.throwImages.find(img=> img.texture.key === element.name));
-        });
+        else {
+            this.diceThrows.forEach(element => {
+                this.animateThrowIn(this.throwImages.find(img=> img.texture.key === element.name));
+            });
+        }
     }
 
     animateThrowIn(img) {
         this.scene.tweens.add({
             targets: img,
             alpha: 1,
-            duration: 1000,
+            duration: 800,
             ease: 'Sine.easeOut',
             onComplete: () => {
                 if ((this.diceThrows.length - 1) === this.diceThrowIndex) {
@@ -355,10 +374,11 @@ export default class Tali {
     }
 
     hideThrows() {
-        this.diceThrows.forEach(element => {
-            this.throwImages.find(img=> img.texture.key === element.name).setAlpha(0);
-        }
-        )
+        this.throwImages.forEach(element => {
+            element.setAlpha(0);
+        });
+        this.noComboText.setAlpha(0);
+        console.log('hiding throws');
     }
 
     playerWon() {
