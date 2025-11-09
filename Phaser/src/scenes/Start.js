@@ -19,7 +19,7 @@ export class Start extends Phaser.Scene {
      * @method preload
      */
     preload() {
-        this.load.image('background', 'Phaser/assets/StartMenu/MainBackgroundPlaceholder.png');
+        this.load.image('background', 'Phaser/assets/StartMenu/MainBackground.png');
         this.load.image('taliBackgroundPlaceholder', 'Phaser/assets/tali/taliBackgroundPlaceholder.png');
         this.load.image('StartMenuKronos', 'Phaser/assets/StartMenu/kittykronos.png')
         this.load.image('StartMenuBox', 'Phaser/assets/StartMenu/cardboardbox.png')
@@ -38,12 +38,12 @@ export class Start extends Phaser.Scene {
         let { width, height } = this.sys.game.canvas;
         this.background = this.add.image(width / 2, height / 2, 'background').setDisplaySize(width, height);
 
-        const box = this.add.image(400, 950, 'StartMenuBox').setOrigin(0.5).setScale(1.5);
-        const kitty = this.add.image(500, 450, 'StartMenuKronos').setOrigin(0.5).setScale(0.9);
+        const box = this.add.image(280, 980, 'StartMenuBox').setOrigin(0.5).setScale(1.2);
+        const kitty = this.add.image(430, 550, 'StartMenuKronos').setOrigin(0.5).setScale(0.8);
 
         this.tweens.add({
             targets: kitty,
-            y: 500,
+            y: 620,
             duration: 3000,
             ease: 'Sine.easeInOut',
             yoyo: true,
@@ -51,10 +51,10 @@ export class Start extends Phaser.Scene {
         });
 
         const logo = this.add.image(1300, 150, 'logo').setOrigin(0.5);
-        const playButton = this.add.sprite(1300, 900, 'playButton', 0).setInteractive().setOrigin(0.5);
+        const playButton = this.add.sprite(1150, 900, 'playButton', 0).setInteractive().setOrigin(0.5).setScale(1.4);
 
         //boton de creditos
-        const creditsButton = this.add.text(1300, 800, 'CREDITS',
+        const creditsButton = this.add.text(1150, 750, 'CREDITS',
             {
                 fontsize: '36px',
                 fill: '#000000',
@@ -108,9 +108,9 @@ export class Start extends Phaser.Scene {
         });
 
         //Logo del equipo en la esquina
-        const teamLogo = this.add.image(width - 20, height - 20, 'teamLogo')
-            .setOrigin(1, 1)
-            .setScale(0.1)
+        const teamLogo = this.add.image(width - 100, height - 100, 'teamLogo')
+            .setOrigin(0.5)
+            .setScale(0.15)
         //.setAlpha(0.9);
         //.setTint(0xffffffff);
 
