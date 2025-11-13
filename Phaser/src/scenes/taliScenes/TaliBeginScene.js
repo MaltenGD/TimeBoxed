@@ -1,4 +1,5 @@
 import Tali from '../../tali/tali.js';
+import { OptionMenuScene } from '../OptionMenuScene.js';
 import TransitionController, {RGBColor} from '../../misc/transitioncontroller.js';
 
 /**
@@ -49,6 +50,14 @@ export class TaliBeginScene extends Phaser.Scene {
         this.addText();
     }
 
+    init() {
+        this.input.keyboard.on('keydown-ESC', () => {
+            if (this.scene.isActive('OptionMenu')) return;
+            this.scene.pause();
+            this.scene.launch('OptionMenu', { sceneToPause: this.scene.key });
+        });
+    }
+
     /**
      * Creates and places all the buttons for the scene.
      */
@@ -64,11 +73,21 @@ export class TaliBeginScene extends Phaser.Scene {
         .on('pointerover', () => this.backBtn.setStyle({fill: '#0f0'}))
         .on('pointerdown', () => {
             if (this.scene.isActive('PauseMenu')) return;
-
-            this.scene.launch('PauseMenu');
-            const pauseMenu = this.scene.get('PauseMenu');
-            pauseMenu.setPausedScene(this.scene.key);
+ 
             this.scene.pause();
+            this.scene.launch('PauseMenu', {
+                text: 'Do you want to go back to the menu?',
+                sceneToPause: this.scene.key,
+                onYes: () => {
+                    this.scene.stop(this.scene.key);
+                    this.scene.stop('PauseMenu');
+                    this.scene.start('SelectionMenuScene');
+                },
+                onNo: () => {
+                    this.scene.resume(this.scene.key);
+                    this.scene.stop('PauseMenu');
+                }
+            });
         })
         .on('pointerout', () => this.backBtn.setStyle({fill: '#fff'}));
     }

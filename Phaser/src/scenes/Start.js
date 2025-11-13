@@ -22,7 +22,7 @@ export class Start extends Phaser.Scene {
         this.load.image('background', 'Phaser/assets/StartMenu/MainBackgroundPlaceholder.png');
         this.load.image('taliBackgroundPlaceholder', 'Phaser/assets/tali/taliBackgroundPlaceholder.png');
         this.load.image('StartMenuKronos', 'Phaser/assets/StartMenu/kittykronos.png')
-        this.load.image('StartMenuBox', 'Phaser/assets/StartMenu/cardboardbox.png')
+        this.load.image('BoxOpen', 'Phaser/assets/StartMenu/cardboardbox.png')
         this.load.image('logo', 'Phaser/assets/titlelogo.png');
         this.load.image('teamLogo', 'Phaser/assets/teamLogo.png');
         this.load.spritesheet('playButton', 'Phaser/assets/playButton.png', { frameWidth: 186, frameHeight: 92 });
@@ -38,7 +38,7 @@ export class Start extends Phaser.Scene {
         let { width, height } = this.sys.game.canvas;
         this.background = this.add.image(width / 2, height / 2, 'background').setDisplaySize(width, height);
 
-        const box = this.add.image(400, 950, 'StartMenuBox').setOrigin(0.5).setScale(1.5);
+        const box = this.add.image(400, 950, 'BoxOpen').setOrigin(0.5).setScale(1.5);
         const kitty = this.add.image(500, 450, 'StartMenuKronos').setOrigin(0.5).setScale(0.9);
 
         this.tweens.add({

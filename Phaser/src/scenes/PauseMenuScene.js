@@ -9,7 +9,15 @@ export class PauseMenuScene extends Phaser.Scene {
         super('PauseMenu');
     }
 
-    create() {
+    /**
+     * Creates the scene.
+     * @param {object} data - The data object passed from the calling scene.
+     * @param {string} [data.text='Do you want to go back?'] - The text to display in the menu.
+     * @param {function} data.onYes - The function to call when the 'Yes' button is pressed.
+     * @param {function} data.onNo - The function to call when the 'No' button is pressed.
+     * @param {string} [data.PausedScene] - The key of the scene that is being paused.
+     */
+    create(data) {
         const { width, height } = this.scale;
         this.transitionController = new TransitionController(this);
 
@@ -29,7 +37,10 @@ export class PauseMenuScene extends Phaser.Scene {
         /**
          * Text
          */
-        this.titleText = this.add.text(width / 2, height / 2 - 80, 'Do you want to go back?', {
+        const titleText = (data && data.text) ? data.text : 'Do you want to go back?';
+        this.sceneToPause = data ? data.PausedScene : undefined;
+
+        this.titleText = this.add.text(width / 2, height / 2 - 80, titleText, {
             fontSize: '34px',
             fill: '#ffffff',
             align: 'center'
@@ -58,20 +69,20 @@ export class PauseMenuScene extends Phaser.Scene {
         /**
          * Evets of the bottons
          */
-        this.yesBtn.on('pointerdown', () => {
-
-        this.transitionController.startFadeOutTransition(800, new RGBColor(0,0,0), () => {
-
-        if (this.sceneToPause) {
-        this.scene.stop(this.sceneToPause);
-        }
-        this.scene.stop('PauseMenu');
-        this.scene.start('SelectionMenuScene');
-        })
+        this.yesBtn.on('pointerdown', (data && data.onYes) ? data.onYes : () => {
+            this.transitionController.startFadeOutTransition(800, new RGBColor(0,0,0), () => {
+                if (this.sceneToPause) {
+                    this.scene.stop(this.sceneToPause);
+                }
+                this.scene.stop('PauseMenu');
+                this.scene.start('SelectionMenuScene');
+            });
         });
 
-        this.noBtn.on('pointerdown', () => {
-            this.scene.resume(this.sceneToPause);
+        this.noBtn.on('pointerdown', (data && data.onNo) ? data.onNo : () => {
+            if (this.sceneToPause) {
+                this.scene.resume(this.sceneToPause);
+            }
             this.scene.stop('PauseMenu');
         });
 

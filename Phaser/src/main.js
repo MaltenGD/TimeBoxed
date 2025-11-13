@@ -13,6 +13,7 @@ import { AsebVictoryScene } from './scenes/asebScenes/AsebVictoryScene.js';
 import { AsebDefeatScene } from './scenes/asebScenes/AsebDefeatScene.js';
 import { PauseMenuScene } from './scenes/PauseMenuScene.js';
 import { IntroAseb } from './scenes/asebScenes/IntroAseb.js';
+import { OptionMenuScene } from './scenes/OptionMenuScene.js';
 
 
 const config = {
@@ -26,6 +27,7 @@ const config = {
     pixelArt: false,
     scene: 
     [
+        OptionMenuScene,
         Start,
         LoadingScene,
         Intro,
