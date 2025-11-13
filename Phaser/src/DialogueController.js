@@ -49,7 +49,7 @@ export default class DialogueController
         /**creates the dialog box */
         this.dialogBox = new DialogBox(this.scene,
         {
-            borderThickness: 4,
+            borderThickness: 6,
 			borderColor: 0xcb3234,
 			borderAlpha: 1,
 			windowAlpha: 0.8,
@@ -59,7 +59,8 @@ export default class DialogueController
 			closeBtnColor: 'darkgoldenrod',
 			dialogSpeed: 3,
 			fontSize: 34,
-            fontFamily: 'rimouski'
+            fontFamily: 'rimouski',
+            radius: 20
         });
 
         /**Initially hide the dialog box */
