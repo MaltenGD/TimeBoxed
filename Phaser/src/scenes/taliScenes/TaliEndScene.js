@@ -1,4 +1,5 @@
 import TransitionController, {RGBColor} from '../../misc/transitioncontroller.js';
+import { OptionMenuScene } from '../OptionMenuScene.js';
 
 /**
  * @class TaliEndScene
@@ -21,6 +22,12 @@ export class TaliEndScene extends Phaser.Scene {
         this.transitionController = new TransitionController(this);
         
         this.createUI();
+
+        this.input.keyboard.on('keydown-ESC', () => {
+            if (this.scene.isActive('OptionMenu')) return;
+            this.scene.pause();
+            this.scene.launch('OptionMenu', { sceneToPause: this.scene.key });
+        });
     }
 
     createUI() {
@@ -98,10 +105,20 @@ export class TaliEndScene extends Phaser.Scene {
      */
     openPauseMenu() {
         if (this.scene.isActive('PauseMenu')) return;
-        this.scene.launch('PauseMenu');
-        const pauseMenu = this.scene.get('PauseMenu');
-        pauseMenu.setPausedScene(this.scene.key);
         this.scene.pause();
+        this.scene.launch('PauseMenu', {
+            text: 'Do you want to go back to the menu?',
+            sceneToPause: this.scene.key,
+            onYes: () => {
+                this.scene.stop(this.scene.key);
+                this.scene.stop('PauseMenu');
+                this.scene.start('SelectionMenuScene');
+            },
+            onNo: () => {
+                this.scene.resume(this.scene.key);
+                this.scene.stop('PauseMenu');
+            }
+        });
     }
     
     /**

@@ -6,7 +6,6 @@ export class IntroAseb extends Phaser.Scene
 
     preload()
     {
-        this.load.image('asebBackgroundPlaceholder', 'Phaser/assets/aseb/Egipcio.png');
 
         /** Load the json file for the Intro Dialogue 
         * @param {string} key - The key to reference the loaded JSON data.

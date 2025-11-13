@@ -33,6 +33,7 @@ export class LoadingScene extends Phaser.Scene
         let loadingInfo = this.add.text(progressBoxPosX + progressBoxWidth/2, progressBoxPosY + progressBoxHeight + 40 , "Starting game...", {fontSize:35}).setOrigin(0.5);
 
         this.loadIntroAssets();
+        this.loadSelectionMenuAssets();
         this.loadAsebAssets();
         this.loadTaliAssets();
         this.loadTestAssets();
@@ -65,17 +66,47 @@ export class LoadingScene extends Phaser.Scene
     });
     }
 
+
+    /**
+     * Loads all option menu assets.
+     */
+    loadOptionMenuAssets()
+    {
+        this.load.image
+    }
+
     /**
      * Loads all intro assets.
      */
     loadIntroAssets() {
-        this.load.image('IntroBackgroundPlaceholder', 'Phaser/assets/Intro/IntroBackgroundPlaceholder.jpeg');
+        this.load.image('OptionMenuBase', 'Phaser/assets/OptionMenu/OptionMenuBase.png');
+        this.load.image('ResumeButtonNormal', 'Phaser/assets/OptionMenu/ResumeNormal.png');
+        this.load.image('ResumeButtonHovered', 'Phaser/assets/OptionMenu/ResumeHovered.png');
+        this.load.image('HelpButtonNormal', 'Phaser/assets/OptionMenu/HelpNormal.png');
+        this.load.image('HelpButtonHovered', 'Phaser/assets/OptionMenu/HelpHovered.png');
+        this.load.image('ItemsButtonNormal', 'Phaser/assets/OptionMenu/ItemsNormal.png');
+        this.load.image('ItemsButtonHovered', 'Phaser/assets/OptionMenu/ItemsHovered.png');
+        this.load.image('ExitButtonNormal', 'Phaser/assets/OptionMenu/ExitNormal.png');
+        this.load.image('ExitButtonHovered', 'Phaser/assets/OptionMenu/ExitHovered.png');
+    }
+
+    loadSelectionMenuAssets()
+    {
+
+        this.load.image('BoxClosed', 'Phaser/assets/SelectionMenu/BoxClosed.png');
+
     }
 
     /**
      * Loads all aseb assets.
      */
     loadAsebAssets() {
+        this.load.image('asebVerticalBackground', 'Phaser/assets/SelectionMenu/EgyptVertical.png');
+
+        this.load.image('asebBackgroundPlaceholder', 'Phaser/assets/aseb/Egipcio.png');
+
+        
+
         this.load.image('StickBoard', 'Phaser/assets/aseb/stickBoard.png');
         this.load.image('StickLight', 'Phaser/assets/aseb/AsebStickLight.png');
         this.load.image('StickDark', 'Phaser/assets/aseb/AsebStickDark.png');
@@ -89,6 +120,8 @@ export class LoadingScene extends Phaser.Scene
      * Loads all tali assets.
      */
     loadTaliAssets() {
+        this.load.image('taliVerticalBackground', 'Phaser/assets/SelectionMenu/RomeVertical.png');
+
         this.load.image('taliBoard', 'Phaser/assets/tali/temporary_board.png');
         for (let i = 0; i < Tali.NUMBER_OF_DICE; i++) {
             this.load.image('dice' + i, 'Phaser/assets/tali/temporary_dice' + i + '.png');
