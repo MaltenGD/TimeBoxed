@@ -11,7 +11,7 @@ import { CreditsScene } from './scenes/CreditsScene.js';
 import { Intro } from './scenes/Intro.js';
 import { AsebVictoryScene } from './scenes/asebScenes/AsebVictoryScene.js';
 import { AsebDefeatScene } from './scenes/asebScenes/AsebDefeatScene.js';
-import { PauseMenuScene } from './scenes/PauseMenuScene.js';
+import { ConfirmMenuScene } from './scenes/ConfirmMenuScene.js';
 import { IntroAseb } from './scenes/asebScenes/IntroAseb.js';
 import { OptionMenuScene } from './scenes/OptionMenuScene.js';
 
@@ -28,7 +28,6 @@ const config = {
     scene: 
     [
         Start,
-        OptionMenuScene,
         LoadingScene,
         Intro,
         CreditsScene,
@@ -42,7 +41,8 @@ const config = {
         TaliBeginScene,
         TaliEndScene,
         HanafudaScene,
-        PauseMenuScene
+        OptionMenuScene,
+        ConfirmMenuScene
     ],
     scale: {
         mode: Phaser.Scale.FIT,

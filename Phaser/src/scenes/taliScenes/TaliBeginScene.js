@@ -41,6 +41,13 @@ export class TaliBeginScene extends Phaser.Scene {
     create() {
 
         this.background = this.add.image(this.width / 2, this.height / 2, 'taliBackgroundPlaceholder').setDisplaySize(this.width, this.height);
+
+        this.input.keyboard.on('keydown-ESC', () => {
+            if (this.scene.isActive('OptionMenu')) return;
+            this.scene.pause();
+            this.scene.launch('OptionMenu', { sceneToPause: this.scene.key });
+        });
+        
         this.taliGame = new Tali(this, this.width, this.height);
 
         this.transitionController = new TransitionController(this);

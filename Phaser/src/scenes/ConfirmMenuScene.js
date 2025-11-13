@@ -1,12 +1,12 @@
 import TransitionController, {RGBColor} from "../misc/transitioncontroller.js";
 
 /**
- * @file PauseMenuScene.js
+ * @file ConfirmMenuScene.js
  * @description Scene to pause the game and show options to the player
  */
-export class PauseMenuScene extends Phaser.Scene {
+export class ConfirmMenuScene extends Phaser.Scene {
     constructor() {
-        super('PauseMenu');
+        super('ConfirmMenu');
     }
 
     /**
@@ -74,7 +74,7 @@ export class PauseMenuScene extends Phaser.Scene {
                 if (this.sceneToPause) {
                     this.scene.stop(this.sceneToPause);
                 }
-                this.scene.stop('PauseMenu');
+                this.scene.stop('ConfirmMenu');
                 this.scene.start('SelectionMenuScene');
             });
         });
@@ -83,7 +83,7 @@ export class PauseMenuScene extends Phaser.Scene {
             if (this.sceneToPause) {
                 this.scene.resume(this.sceneToPause);
             }
-            this.scene.stop('PauseMenu');
+            this.scene.stop('ConfirmMenu');
         });
 
         // this.tweens.add({

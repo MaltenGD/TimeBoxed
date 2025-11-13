@@ -11,18 +11,11 @@ export class OptionMenuScene extends Phaser.Scene {
 
 
     preload() {
-        this.load.image('OptionMenuBase', 'Phaser/assets/OptionMenu/OptionMenuBase.png');
-        this.load.image('ResumeButtonNormal', 'Phaser/assets/OptionMenu/ResumeNormal.png');
-        this.load.image('ResumeButtonHovered', 'Phaser/assets/OptionMenu/ResumeHovered.png');
-        this.load.image('HelpButtonNormal', 'Phaser/assets/OptionMenu/HelpNormal.png');
-        this.load.image('HelpButtonHovered', 'Phaser/assets/OptionMenu/HelpHovered.png');
-        this.load.image('ItemsButtonNormal', 'Phaser/assets/OptionMenu/ItemsNormal.png');
-        this.load.image('ItemsButtonHovered', 'Phaser/assets/OptionMenu/ItemsHovered.png');
-        this.load.image('ExitButtonNormal', 'Phaser/assets/OptionMenu/ExitNormal.png');
-        this.load.image('ExitButtonHovered', 'Phaser/assets/OptionMenu/ExitHovered.png');
+        
     }
     create(data) {
 
+        this.data = data;
         const { width, height } = this.scale;
 
         let resumeBtnCoords = {
@@ -92,32 +85,64 @@ export class OptionMenuScene extends Phaser.Scene {
 
 
         resumeBtn.on('pointerdown', () => {
-            this.scene.resume(data.sceneToPause);
-            this.scene.stop('OptionMenu');
+            this.close();
         })
 
-        exitBtn.on('pointerdown', () => {
-            if (this.scene.isActive('PauseMenu')) return;
+        helpBtn.on('pointerdown', () => {
+            if (this.scene.isActive('ConfirmMenu')) return;
 
             this.scene.pause();
-            this.scene.launch('PauseMenu',{
+            this.scene.launch('ConfirmMenu',{
+                sceneToPause: this.scene.key,
+                text: "Do you want to go to the help lobby? \n your changes will not be saved",
+                onYes: () => {
+                    // Assuming the main game scene that was paused should also be stopped.
+                    this.scene.stop(data.sceneToPause);
+                    this.scene.stop('ConfirmMenu');
+                    this.scene.stop('OptionMenu');
+                    this.scene.start('Start');
+                },
+                onNo: () => {
+                    this.scene.stop('ConfirmMenu');
+                    this.scene.resume('OptionMenu');
+                }
+            });
+        });
+
+
+        exitBtn.on('pointerdown', () => {
+            if (this.scene.isActive('ConfirmMenu')) return;
+
+            this.scene.pause();
+            this.scene.launch('ConfirmMenu',{
                 sceneToPause: this.scene.key,
                 text: "Do you want to go to the main menu?",
                 onYes: () => {
                     // Assuming the main game scene that was paused should also be stopped.
                     this.scene.stop(data.sceneToPause);
-                    this.scene.stop('PauseMenu');
+                    this.scene.stop('ConfirmMenu');
                     this.scene.stop('OptionMenu');
                     this.scene.start('Start');
                 },
                 onNo: () => {
-                    this.scene.stop('PauseMenu');
+                    this.scene.stop('ConfirmMenu');
                     this.scene.resume('OptionMenu');
                 }
             });
         });
         
+
+        /** Keyboard listeners */
+
+         this.input.keyboard.on('keydown-ESC', () => {
+            this.close();
+        });
         
+    }
+    close()
+    {
+    this.scene.resume(this.data.sceneToPause);
+    this.scene.stop('OptionMenu');
     }
 
 }
