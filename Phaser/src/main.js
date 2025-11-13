@@ -27,8 +27,8 @@ const config = {
     pixelArt: false,
     scene: 
     [
-        OptionMenuScene,
         Start,
+        OptionMenuScene,
         LoadingScene,
         Intro,
         CreditsScene,
