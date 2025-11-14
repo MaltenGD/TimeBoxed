@@ -47,7 +47,7 @@ export class TaliBeginScene extends Phaser.Scene {
             this.scene.pause();
             this.scene.launch('OptionMenu', { sceneToPause: this.scene.key });
         });
-        
+
         this.taliGame = new Tali(this, this.width, this.height);
 
         this.transitionController = new TransitionController(this);
@@ -79,20 +79,20 @@ export class TaliBeginScene extends Phaser.Scene {
         .setInteractive()
         .on('pointerover', () => this.backBtn.setStyle({fill: '#0f0'}))
         .on('pointerdown', () => {
-            if (this.scene.isActive('PauseMenu')) return;
+            if (this.scene.isActive('ConfirmMenu')) return;
  
             this.scene.pause();
-            this.scene.launch('PauseMenu', {
+            this.scene.launch('ConfirmMenu', {
                 text: 'Do you want to go back to the menu?',
                 sceneToPause: this.scene.key,
                 onYes: () => {
                     this.scene.stop(this.scene.key);
-                    this.scene.stop('PauseMenu');
+                    this.scene.stop('ConfirmMenu');
                     this.scene.start('SelectionMenuScene');
                 },
                 onNo: () => {
                     this.scene.resume(this.scene.key);
-                    this.scene.stop('PauseMenu');
+                    this.scene.stop('ConfirmMenu');
                 }
             });
         })
