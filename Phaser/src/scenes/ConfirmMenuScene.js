@@ -80,10 +80,12 @@ export class ConfirmMenuScene extends Phaser.Scene {
         });
 
         this.noBtn.on('pointerdown', (data && data.onNo) ? data.onNo : () => {
-            if (this.sceneToPause) {
-                this.scene.resume(this.sceneToPause);
-            }
-            this.scene.stop('ConfirmMenu');
+            this.closeMenu();
+        });
+
+        const onNoCallback = (data && data.onNo) ? data.onNo : () => this.closeMenu();
+        this.input.keyboard.once('keydown-ESC', () => {
+            onNoCallback();
         });
 
         // this.tweens.add({
@@ -92,7 +94,17 @@ export class ConfirmMenuScene extends Phaser.Scene {
         //     duration: 400,
         //     ease: 'Sine.easeInOut'
         // });
+        
     }
+
+
+    /** Default behaviour when clicking No or pressing ESCAPE */
+    closeMenu() {
+        if (this.sceneToPause) {
+                this.scene.resume(this.sceneToPause);
+            }
+            this.scene.stop('ConfirmMenu');
+        }
 
     /**
      * Configure the name of the scene that is being paused

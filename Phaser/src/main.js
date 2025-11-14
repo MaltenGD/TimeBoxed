@@ -14,6 +14,9 @@ import { AsebDefeatScene } from './scenes/asebScenes/AsebDefeatScene.js';
 import { ConfirmMenuScene } from './scenes/ConfirmMenuScene.js';
 import { IntroAseb } from './scenes/asebScenes/IntroAseb.js';
 import { OptionMenuScene } from './scenes/OptionMenuScene.js';
+import { HelpLobbyScene } from './scenes/HelpLobbyScene.js';
+import { ItemsScene } from './scenes/ItemsScene.js';
+
 
 
 const config = {
@@ -42,7 +45,9 @@ const config = {
         TaliEndScene,
         HanafudaScene,
         OptionMenuScene,
-        ConfirmMenuScene
+        ConfirmMenuScene,
+        ItemsScene,
+        HelpLobbyScene
     ],
     scale: {
         mode: Phaser.Scale.FIT,

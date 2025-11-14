@@ -94,13 +94,10 @@ export class OptionMenuScene extends Phaser.Scene {
             this.scene.pause();
             this.scene.launch('ConfirmMenu',{
                 sceneToPause: this.scene.key,
-                text: "Do you want to go to the help lobby? \n your changes will not be saved",
+                text: "Do you want to go to the help lobby?",
                 onYes: () => {
-                    // Assuming the main game scene that was paused should also be stopped.
-                    this.scene.stop(data.sceneToPause);
                     this.scene.stop('ConfirmMenu');
-                    this.scene.stop('OptionMenu');
-                    this.scene.start('Start');
+                    this.scene.launch('HelpLobbyScene', { sceneToResume: 'OptionMenu' });
                 },
                 onNo: () => {
                     this.scene.stop('ConfirmMenu');
@@ -108,6 +105,14 @@ export class OptionMenuScene extends Phaser.Scene {
                 }
             });
         });
+
+        itemsBtn.on('pointerdown', () => {
+
+            this.scene.pause();
+            this.scene.launch('ItemsScene', { sceneToResume: 'OptionMenu' });
+            
+        })
+
 
 
         exitBtn.on('pointerdown', () => {
@@ -118,7 +123,6 @@ export class OptionMenuScene extends Phaser.Scene {
                 sceneToPause: this.scene.key,
                 text: "Do you want to go to the main menu?",
                 onYes: () => {
-                    // Assuming the main game scene that was paused should also be stopped.
                     this.scene.stop(data.sceneToPause);
                     this.scene.stop('ConfirmMenu');
                     this.scene.stop('OptionMenu');
