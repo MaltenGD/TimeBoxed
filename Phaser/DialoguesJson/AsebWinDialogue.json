@@ -1,0 +1,89 @@
+{
+"AsebWinDialogue":
+{
+    "start":
+    {
+        "speaker": "Narrator",
+        "text": "The final piece slides into place. A profound silence hangs over the stone table, broken only by the distant desert wind.",
+        "animation": "true",
+        "next": "AWD2"
+    },
+    "AWD2":
+    {
+        "speaker": "Anubis",
+        "text": "The scales have tipped... in your favor, mortal. A victory, earned and absolute. I am a god of my word.",
+        "animation": "true",
+        "next": "AWD3"
+    },
+    "AWD3":
+    {
+        "speaker": "Player",
+        "text": "Yes! So, about that pin... and my yarn ball?",
+        "animation": "true",
+        "next": "AWD4"
+    },
+    "AWD4":
+    {
+        "speaker": "Kronos",
+        "text": "Hah! Did you see that, Anubis? The student becomes the master! I taught them everything they know, of course. A natural, wouldn't you agree?",
+        "animation": "true",
+        "next": "AWD5"
+    },
+    "AWD5":
+    {
+        "speaker": "Anubis",
+        "text": "Your boasting is as tiresome as your gambling habits, Kronos. The mortal won through their own merit, not your... 'tutelage'.",
+        "animation": "true",
+        "next": "AWD6"
+    },
+    "AWD6":
+    {
+        "speaker": "Narrator",
+        "text": "Anubis raises a hand, and the 'Pin with the Logo' materializes from the shadows, hovering above the table before gently floating towards you.",
+        "animation": "true",
+        "next": "AWD7"
+    },
+    "AWD7":
+    {
+        "speaker": "Anubis",
+        "text": "A deal is a deal. The trinket is yours. Use its power more wisely than its previous owner.",
+        "animation": "true",
+        "next": "AWD8"
+    },
+    "AWD8":
+    {
+        "speaker": "Kronos",
+        "text": "Splendid! We'll take that! One down, a few more to go. No time to waste, my friend, the cosmos awaits!",
+        "animation": "true",
+        "next": "AWD9"
+    },
+    "AWD9":
+    {
+        "speaker": "Player",
+        "text": "Wait, what power? What does this pin even do?",
+        "animation": "true",
+        "next": "AWD10"
+    },
+    "AWD10":
+    {
+        "speaker": "Anubis",
+        "text": "Be wary, little one. The path you walk with him is fraught with peril. Not all debts can be settled with a game.",
+        "animation": "true",
+        "next": "AWD11"
+    },
+    "AWD11":
+    {
+        "speaker": "Kronos",
+        "text": "Oh, don't be such a downer, Anubis! We're on a grand adventure! Come on, into the box, let's not keep destiny waiting!",
+        "animation": "true",
+        "next": "end"
+    },
+    "end":
+    {
+        "speaker": "Narrator",
+        "text": "Before you can ask more questions, Kronos hastily shoves you towards the strange, pulsating box. The last thing you see is Anubis's stoic, jackal-headed form, a silent statue against the Egyptian sun.",
+        "animation": "true",
+        "next": null
+    }
+}
+}
