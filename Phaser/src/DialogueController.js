@@ -45,6 +45,15 @@ export default class DialogueController
         {
             this.dialogueGroup = this.dialogueData.EgyptDialogue;
         }
+        else if (this.era == 'AsebWin')
+        {
+            this.dialogueGroup = this.dialogueData.AsebWinDialogue;
+        }
+        else if (this.era == 'AsebDefeat')
+        {
+            this.dialogueGroup = this.dialogueData.AsebDefeatDialogue;
+        }
+        
 
         /**creates the dialog box */
         this.dialogBox = new DialogBox(this.scene,

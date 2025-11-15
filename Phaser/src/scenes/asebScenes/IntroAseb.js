@@ -6,7 +6,6 @@ export class IntroAseb extends Phaser.Scene
 
     preload()
     {
-        this.load.image('asebBackgroundPlaceholder', 'Phaser/assets/aseb/Egipcio.png');
 
         /** Load the json file for the Intro Dialogue 
         * @param {string} key - The key to reference the loaded JSON data.
@@ -19,6 +18,12 @@ export class IntroAseb extends Phaser.Scene
     {
         // Get the canvas width and height to use when giving a position to an object
         let { width, height } = this.sys.game.canvas;
+
+        this.input.keyboard.on('keydown-ESC', () => {
+            if (this.scene.isActive('OptionMenu')) return;
+            this.scene.pause();
+            this.scene.launch('OptionMenu', { sceneToPause: this.scene.key });
+        });
 
         //creating the background
         this.background = this.add.image(width / 2, height / 2, 'asebBackgroundPlaceholder').setDisplaySize(width, height);

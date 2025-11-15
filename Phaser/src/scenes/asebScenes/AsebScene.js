@@ -1,5 +1,6 @@
 import AsebGame, { GAME_STATE } from '../../aseb/AsebGame.js';
 import AsebBoard from '../../aseb/AsebBoard.js';
+import { OptionMenuScene } from '../OptionMenuScene.js';
 import { PIECE_TYPE } from '../../aseb/AsebPiece.js';
 
 
@@ -33,7 +34,7 @@ export class AsebScene extends Phaser.Scene {
 
             this.boardAnchor = {
                 x: width/2,
-                y: height/2
+                y: height/2 + 50
             }
             
         }
@@ -45,20 +46,53 @@ export class AsebScene extends Phaser.Scene {
     create(){
 
         this.background = this.add.image(this.width / 2, this.height / 2, 'asebBackgroundPlaceholder').setDisplaySize(this.width, this.height);
+        this.infoBoard = this.add.image(this.width/2, this.height/2, 'StickBoard').setOrigin(0.5).setScale(0.55);
+
+        this.input.keyboard.on('keydown-ESC', () => {
+            if (this.scene.isActive('OptionMenu')) return;
+            this.scene.pause();
+            this.scene.launch('OptionMenu', { sceneToPause: this.scene.key });
+        });
 
         this.backBtn = this.add.text(0, 0, 'Back', { fontSize: 64, fill: '#000000ff'})
         .setInteractive()
         .on('pointerover', () => this.backBtn.setStyle({fill: '#0f0'}))
         .on('pointerout', () => this.backBtn.setStyle({fill: '#000000ff'}))
         .on('pointerdown', () => {
-        if (this.scene.isActive('PauseMenu')) return;
-
-    this.scene.launch('PauseMenu');
-    const pauseMenu = this.scene.get('PauseMenu');
-    pauseMenu.setPausedScene(this.scene.key);
-    this.scene.pause();
+            if (this.scene.isActive('ConfirmMenu')) return;
+    
+            this.scene.pause();
+            this.scene.launch('ConfirmMenu', {
+                text: 'Do you want to go back to the menu?',
+                sceneToPause: this.scene.key,
+                onYes: () => {
+                    this.scene.stop(this.scene.key);
+                    this.scene.stop('ConfirmMenu');
+                    this.scene.start('SelectionMenuScene');
+                },
+                onNo: () => {
+                    this.scene.resume(this.scene.key);
+                    this.scene.stop('ConfirmMenu');
+                }
+            });
         });
         
+        this.winBtn = this.add.text(0, 70, 'Win Game', { fontSize: 64, fill: '#000000ff'})
+        .setInteractive()
+        .on('pointerover', () => this.winBtn.setStyle({fill: '#0f0'}))
+        .on('pointerout', () => this.winBtn.setStyle({fill: '#000000ff'}))
+        .on('pointerdown', () => {
+            this.scene.start('AsebVictoryScene');
+        });
+
+        this.loseBtn = this.add.text(350, 70, 'Lose Game', { fontSize: 64, fill: '#000000ff'})
+        .setInteractive()
+        .on('pointerover', () => this.loseBtn.setStyle({fill: '#f00'}))
+        .on('pointerout', () => this.loseBtn.setStyle({fill: '#000000ff'}))
+        .on('pointerdown', () => {
+            this.scene.start('AsebDefeatScene');
+        });
+
         console.log(this.playerFirst ? "Player starts the game." : "Anubis starts the game.");
 
         this.asebGame = new AsebGame(this, this.playerFirst);
@@ -109,12 +143,12 @@ export class AsebScene extends Phaser.Scene {
 
         // --- UI Elements ---  
 
-        this.infoText = this.add.text(this.width/2, 100, '*', {fontSize: 55, fill: 0x000000ff}).setOrigin(0.5);
+        this.infoText = this.add.text(this.boardAnchor.x, this.boardAnchor.y -400, '*', {fontSize: 55, fill: 0x000000ff}).setOrigin(0.5);
 
-        this.eventsText = this.add.text(200, this.height/2, '*', {fontSize: 35}).setOrigin(0.5);
+        this.eventsText = this.add.text(this.boardAnchor.x-675, this.boardAnchor.y, '*', {fontSize: 35}).setOrigin(0.5);
 
         /** @type {Phaser.GameObjects.Text} The button for the player to throw the sticks. */
-        this.throwBtn = this.add.text(this.width/2 , this.height - 100, 'Throw', {fontSize: 55, fill:0x000000ff}).setOrigin(0.5)
+        this.throwBtn = this.add.text(this.boardAnchor.x, this.boardAnchor.y +300, 'Throw', {fontSize: 55, fill:0x000000ff}).setOrigin(0.5)
         .setInteractive()
         .on('pointerdown', () => {
 
@@ -129,6 +163,12 @@ export class AsebScene extends Phaser.Scene {
         } else {
             this.startEnemyTurn();
         }
+
+        this.input.keyboard.on('keydown-ESC', () => {
+            if (this.scene.isActive('OptionMenu')) return;
+            this.scene.pause();
+            this.scene.launch('OptionMenu', { sceneToPause: this.scene.key });
+        });
     }
 
     /**

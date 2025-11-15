@@ -1,5 +1,14 @@
 import TransitionController, {RGBColor} from "../misc/transitioncontroller.js";
 
+
+const IMAGE_KEYS = {
+    'Egypt': 'asebVerticalBackground', 
+    'Rome': 'taliVerticalBackground', 
+    'Japan': 'BoxClosed'  
+};
+
+
+
 /**
  * @class SelectionMenuScene
  * shows in the different levels of the game, so the player can choose
@@ -34,27 +43,10 @@ export class SelectionMenuScene extends Phaser.Scene {
          * .setInteractive({ cursor: 'pointer' }) makes the box clickable and changes the cursor to pointer when hovering
          * .setOrigin(0.5) centers the box
         */
-        const box = this.add.rectangle(centerX, centerY, 200, 200, 0xffffff)
-            .setStrokeStyle(4, 0x000000)
+        const box = this.add.image(centerX, centerY, 'BoxClosed')
             .setInteractive({ cursor: 'pointer' })
             .setOrigin(0.5);
         
-        /**
-         * Text inside the box 
-         * @param centerX X position of the center of the canvas
-         * @param centerY Y position of the center of the canvas
-         * @param 'BOX' text inside the box
-         * @param fontSize size of the font
-         * @param fill color of the font
-         * @param fontStyle style of the font
-         * .setOrigin(0.5) centers the text
-        */
-        const boxText = this.add.text(centerX, centerY, 'BOX', {
-            fontSize: '40px',
-            fill: '#000000',
-            fontStyle: 'bold'
-        }).setOrigin(0.5);
-
         // Position of the buttons when they're out of the box
 
         /**Space between buttons */
@@ -64,11 +56,23 @@ export class SelectionMenuScene extends Phaser.Scene {
          * @param x X position of each button
          * @param y Y position of each button
         */
+       const initialPositions = [
+            { x: centerX, y: centerY +250 },  // Egypt
+            { x: centerX, y: centerY +250},   // Rome
+            { x: centerX, y: centerY +250 }   // Japan
+        ];
         const finalPositions = [
             { x: centerX - buttonGap, y: centerY-100 },  // Egypt
             { x: centerX, y: centerY -100},              // Rome
             { x: centerX + buttonGap, y: centerY -100 }   // Japan
         ];
+
+        const backgroundCrops = [
+            { x: 0, y: 0, width: 1280, height: 1440 },  // Egypt  2560 x 1440
+            { x: 0, y: 0, width: 1280, height: 1440 },   // Rome   1880 x 1048
+            { x: 0, y: 0, width: 0, height: 0 }   // Japan
+
+        ]
 
         /** array of string for the levels 
          * Egypt for egipcian level
@@ -109,15 +113,24 @@ export class SelectionMenuScene extends Phaser.Scene {
         * .setAlpha(0) makes the button invisible at the beginning
         * .setScale(0.1) makes the button small at the beginning
         */
-        const btn = this.add.text(centerX, centerY+150 , opcion, {
-            fontSize: '35px',
-            fill: 'rgba(0, 0, 0, 1)',
-            backgroundColor: '#ffffff',
-            padding: { top: 20, bottom: 700, x: 200 }
-        })
+        // const btn = this.add.text(centerX, centerY+150 , opcion, {
+        //     fontSize: '35px',
+        //     fill: 'rgba(0, 0, 0, 1)',
+        //     backgroundColor: '#ffffff',
+        //     padding: { top: 20, bottom: 700, x: 200 }
+        // })
+        // .setOrigin(0.5)
+        // .setAlpha(0)
+        // .setScale(0.1);
+
+        const btn = this.add.image(initialPositions[index].x, initialPositions[index].y, IMAGE_KEYS[opcion])
         .setOrigin(0.5)
         .setAlpha(0)
         .setScale(0.1);
+        
+        
+
+
         
         /**Inserts each of the buttons for the array 
          * @param btn each button created
@@ -139,7 +152,7 @@ export class SelectionMenuScene extends Phaser.Scene {
          * .on('pointerout', ...) changes the background color of the button when not hovering
          * .on('pointerdown', ...) starts the Start scene when the button is clicked
         */
-        const backBtn = this.add.text(200, height - 100, 'Volver al inicio', {
+        const backBtn = this.add.text(200, height - 100, 'Return to main menu', {
             fontSize: '30px',
             fill: '#000000',
             backgroundColor: '#f7f7f7',
@@ -168,9 +181,11 @@ export class SelectionMenuScene extends Phaser.Scene {
             if (deployed) return;
             deployed = true;
 
+            box.setTexture('BoxOpen');
+
             /**
              * Box going down animation
-             * @param targets targets to animate (box and boxText)
+             * @param targets targets to animate (box)
              * @param scale scale of the box and text
              * @param x final X position of the box
              * @param y final Y position of the box
@@ -178,7 +193,7 @@ export class SelectionMenuScene extends Phaser.Scene {
              * @param ease easing function of the animation
              */
             this.tweens.add({
-                targets: [box, boxText],
+                targets: box,
                 scale: 0.5,
                 x: centerX, 
                 y: centerY + 400,
@@ -220,8 +235,6 @@ export class SelectionMenuScene extends Phaser.Scene {
                          * @on pointerdown starts the corresponding level scene when the button is clicked
                          */
                         btn.setInteractive({ cursor: 'pointer' })
-                            .on('pointerover', () => btn.setStyle({ fill: 'rgba(92, 163, 255, 1)' }))
-                            .on('pointerout', () => btn.setStyle({ fill: 'rgba(0, 0, 0, 1)' }))
                             .on('pointerdown', () => {
                                 this.scene.start(scenes[index]);
                             });
@@ -237,8 +250,8 @@ export class SelectionMenuScene extends Phaser.Scene {
                  */
                 this.tweens.add({ 
                     targets: btn,
-                    scale: 1,
-                    duration: 2500,
+                    scale: 0.4,
+                    duration: 1700,
                     ease: 'Sine.easeOut',
                     
                 });
@@ -254,13 +267,13 @@ export class SelectionMenuScene extends Phaser.Scene {
 
                 /**
                  * Box scaling effect when hovering
-                 * @param targets targets to animate (box and boxText)
+                 * @param targets targets to animate (box)
                  * @param scale final scale of the box and text
                  * @param duration duration of the animation
                  * @param ease easing function of the animation
                  */
                 this.tweens.add({
-                    targets: [box, boxText],
+                    targets: box,
                     scale: 1.1,
                     duration: 200,
                     ease: 'Sine.easeOut'
@@ -276,13 +289,13 @@ export class SelectionMenuScene extends Phaser.Scene {
 
                 /**
                  * Box scaling effect when not hovering
-                 * @param targets targets to animate (box and boxText)
+                 * @param targets targets to animate (box)
                  * @param scale final scale of the box and text
                  * @param duration duration of the animation
                  * @param ease easing function of the animation
                  */
                 this.tweens.add({
-                    targets: [box, boxText],
+                    targets: box,
                     scale: 1,
                     duration: 200,
                     ease: 'Sine.easeIn'

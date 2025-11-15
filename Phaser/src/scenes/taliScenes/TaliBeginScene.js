@@ -1,4 +1,5 @@
 import Tali from '../../tali/tali.js';
+import { OptionMenuScene } from '../OptionMenuScene.js';
 import TransitionController, {RGBColor} from '../../misc/transitioncontroller.js';
 
 /**
@@ -40,6 +41,13 @@ export class TaliBeginScene extends Phaser.Scene {
     create() {
 
         this.background = this.add.image(this.width / 2, this.height / 2, 'taliBackgroundPlaceholder').setDisplaySize(this.width, this.height);
+
+        this.input.keyboard.on('keydown-ESC', () => {
+            if (this.scene.isActive('OptionMenu')) return;
+            this.scene.pause();
+            this.scene.launch('OptionMenu', { sceneToPause: this.scene.key });
+        });
+
         this.taliGame = new Tali(this, this.width, this.height);
 
         this.transitionController = new TransitionController(this);
@@ -47,6 +55,14 @@ export class TaliBeginScene extends Phaser.Scene {
         // this.addHands();
         this.createButtons();
         this.addText();
+    }
+
+    init() {
+        this.input.keyboard.on('keydown-ESC', () => {
+            if (this.scene.isActive('OptionMenu')) return;
+            this.scene.pause();
+            this.scene.launch('OptionMenu', { sceneToPause: this.scene.key });
+        });
     }
 
     /**
@@ -63,12 +79,22 @@ export class TaliBeginScene extends Phaser.Scene {
         .setInteractive()
         .on('pointerover', () => this.backBtn.setStyle({fill: '#0f0'}))
         .on('pointerdown', () => {
-            if (this.scene.isActive('PauseMenu')) return;
-
-            this.scene.launch('PauseMenu');
-            const pauseMenu = this.scene.get('PauseMenu');
-            pauseMenu.setPausedScene(this.scene.key);
+            if (this.scene.isActive('ConfirmMenu')) return;
+ 
             this.scene.pause();
+            this.scene.launch('ConfirmMenu', {
+                text: 'Do you want to go back to the menu?',
+                sceneToPause: this.scene.key,
+                onYes: () => {
+                    this.scene.stop(this.scene.key);
+                    this.scene.stop('ConfirmMenu');
+                    this.scene.start('SelectionMenuScene');
+                },
+                onNo: () => {
+                    this.scene.resume(this.scene.key);
+                    this.scene.stop('ConfirmMenu');
+                }
+            });
         })
         .on('pointerout', () => this.backBtn.setStyle({fill: '#fff'}));
     }

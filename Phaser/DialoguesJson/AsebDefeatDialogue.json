@@ -1,0 +1,76 @@
+{
+"AsebDefeatDialogue":
+{
+    "start":
+    {
+        "speaker": "Narrator",
+        "text": "Your final piece is swept from the board. The game is over. Anubis's gaze, heavy as a pyramid stone, falls upon you.",
+        "animation": "true",
+        "next": "ADD2"
+    },
+    "ADD2":
+    {
+        "speaker": "Anubis",
+        "text": "The scales have tipped... against you, mortal. A life is forfeit. A deal is a deal.",
+        "animation": "true",
+        "next": "ADD3"
+    },
+    "ADD3":
+    {
+        "speaker": "Player",
+        "text": "No... wait! There has to be another way! Please!",
+        "animation": "true",
+        "next": "ADD4"
+    },
+    "ADD4":
+    {
+        "speaker": "Kronos",
+        "text": "Whoa, whoa, hold on, Anubis! Let's not be hasty! A life? We didn't *really* agree to that, did we? It was more of a... a gentleman's wager!",
+        "animation": "true",
+        "next": "ADD5"
+    },
+    "ADD5":
+    {
+        "speaker": "Anubis",
+        "text": "Your memory is as fleeting as the mortals you toy with, Kronos. The wager was clear. The soul is mine.",
+        "animation": "true",
+        "next": "ADD6"
+    },
+    "ADD6":
+    {
+        "speaker": "Narrator",
+        "text": "Anubis raises a hand, and shadows begin to coalesce around you, cold and suffocating. Your vision begins to fade.",
+        "animation": "true",
+        "next": "ADD7"
+    },
+    "ADD7":
+    {
+        "speaker": "Kronos",
+        "text": "Not on my watch! I can't lose my star player! Think, Kronos, think... time... of course! Time!",
+        "animation": "true",
+        "next": "ADD8"
+    },
+    "ADD8":
+    {
+        "speaker": "Anubis",
+        "text": "What trickery is this? You would dare interfere with the sacred balance?",
+        "animation": "true",
+        "next": "ADD9"
+    },
+    "ADD9":
+    {
+        "speaker": "Kronos",
+        "text": "It's not a trick, it's a do-over! A mulligan! A... temporal adjustment! Hold on tight, my friend, this might feel a bit strange!",
+        "animation": "true",
+        "next": "ADD10"
+    },
+    "end":
+    {
+        "speaker": "Narrator",
+        "text": "The world dissolves into a dizzying swirl of colors and sounds. The cold grip of the shadows recedes as you feel yourself pulled backwards, through moments, until everything snaps back into focus...",
+        "animation": "true",
+        "next": null
+    }
+
+}
+}
