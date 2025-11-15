@@ -14,7 +14,12 @@ export default class AchievementManager {
      * @param {string} jsonFile The json file to load achievements from.
      */
     loadAchievements(jsonFile) {
-        
+        let temp, img;
+        for (let key in jsonFile.Achievements) {
+            temp = new Achievement(key, key.name, key.description, key.image)
+            this.achievementMap.set(key, temp);
+            console.log("ACHIEVEMENT " + key + " " + key.name);
+        }
     }
 
     /**

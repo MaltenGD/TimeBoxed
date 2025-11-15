@@ -1,4 +1,5 @@
 import Tali from "../tali/tali.js";
+import AchievementManager from "../achievements/achievementManager.js";
 
 export class LoadingScene extends Phaser.Scene 
 {
@@ -38,32 +39,32 @@ export class LoadingScene extends Phaser.Scene
         this.loadTaliAssets();
         this.loadTestAssets();
         
+        this.load.json('achievements', 'Phaser/assets/achievements.json');
 
 
 
+        this.load.on('progress', (value) => {
+        console.log(value);
+        progressBar.clear();
+        progressBar.fillStyle(0xFFFFFF, 1);
+        progressBar.fillRect(progressBoxPosX + 10, progressBoxPosY + 10, progressBarWidth * value, progressBarHeight);
+        // the progress bar has to be 10 pixels to the right and down to be centered in side the progressBox
 
-    this.load.on('progress', (value) => {
-    console.log(value);
-    progressBar.clear();
-    progressBar.fillStyle(0xFFFFFF, 1);
-    progressBar.fillRect(progressBoxPosX + 10, progressBoxPosY + 10, progressBarWidth * value, progressBarHeight);
-    // the progress bar has to be 10 pixels to the right and down to be centered in side the progressBox
+        percentageText.setText(Math.trunc(value * 100) + "%");
+        });
+                
+        this.load.on('fileprogress', (file) => {
+            console.log(file.src);
+            loadingInfo.setText("Loading: " + file.key +"\nFrom: " + file.src);
+        });
+        this.load.on('complete', () => {
+            console.log('complete');
 
-    percentageText.setText(Math.trunc(value * 100) + "%");
-    });
+            progressBar.destroy();
+            progressBox.destroy();
             
-    this.load.on('fileprogress', (file) => {
-        console.log(file.src);
-        loadingInfo.setText("Loading: " + file.key +"\nFrom: " + file.src);
-    });
-    this.load.on('complete', () => {
-        console.log('complete');
-
-        progressBar.destroy();
-        progressBox.destroy();
-        
-        this.scene.start("Intro");  
-    });
+            this.scene.start("Intro");  
+        });
     }
 
 
@@ -105,8 +106,6 @@ export class LoadingScene extends Phaser.Scene
 
         this.load.image('asebBackgroundPlaceholder', 'Phaser/assets/aseb/Egipcio.png');
 
-        
-
         this.load.image('StickBoard', 'Phaser/assets/aseb/stickBoard.png');
         this.load.image('StickLight', 'Phaser/assets/aseb/AsebStickLight.png');
         this.load.image('StickDark', 'Phaser/assets/aseb/AsebStickDark.png');
@@ -140,5 +139,21 @@ export class LoadingScene extends Phaser.Scene
         for (let i = 0; i < 350; i++) {
             this.load.image('loadingTest' + i, 'Phaser/assets/tali/temporary_board.png')
         }
+    }
+
+    create() {
+        this.createAchievementManager();
+    }
+
+    /**
+     * Creates the achievement manager and loads the achievements from the json file into it.
+     */
+    createAchievementManager() {
+        // Create the achievement manager and load achievements into it.
+        this.achievementManager = new AchievementManager();
+        this.achievementManager.loadAchievements(this.cache.json.get('achievements'));
+
+        // Save the achievement manager into the registry.
+        this.registry.set('AchievementManager', this.achievementManager);
     }
 }

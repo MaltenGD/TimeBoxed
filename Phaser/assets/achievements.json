@@ -5,14 +5,14 @@
         {
             "name": "Stick King",
             "description": "Won once in Aseb.",
-            "image": "./alienCat.jpg"
+            "image": "alienCat"
         },
 
         "TA1":
         {
             "name": "Dice Ruler",
             "description": "Won once in Tali.",
-            "image": "./awkwarCat.jpg"
+            "image": "awkwarCat"
         }
     }
 }

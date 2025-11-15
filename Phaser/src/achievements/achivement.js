@@ -10,8 +10,4 @@ export default class Achievement {
     awardAchievement() {
         this.awarded = true;
     }
-
-    get awarded() {
-        return this.awarded;
-    }
 }
