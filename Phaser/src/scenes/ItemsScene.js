@@ -89,10 +89,10 @@ export class ItemsScene extends Phaser.Scene {
             wordWrap: { width: this.width - 100 }
         }).setOrigin(0.5);
 
-        const achievements = this.achManager.achievementMap;
+        const achievements = Array.from(this.achManager.achievementMap.values());
         const maxAchPerRow = 6;
-        const distance = 200;
-        const startY = this.height/3;
+        const distance = 120;
+        const startY = this.height/3 + distance;
 
         achievements.forEach((ach, index) => {
             const row = Math.floor(index / maxAchPerRow);
@@ -100,7 +100,7 @@ export class ItemsScene extends Phaser.Scene {
 
             const itemsInRow = Math.min(
                 maxAchPerRow,
-                achievements.size - row * maxAchPerRow
+                achievements.length - row * maxAchPerRow
             );
 
             const rowWidth = (itemsInRow - 1) * distance;
