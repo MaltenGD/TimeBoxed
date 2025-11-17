@@ -259,7 +259,7 @@ export class TaliBeginScene extends Phaser.Scene {
      */
     endGame() {
         this.rollBtn.setText('Start Game!').once('pointerdown', ()=> {
-            this.transitionController.startFadeOutTransition(1000, new RGBColor(0,0,0), () => {this.scene.start('TaliScene', {playerFirst: this.playerFirst})});
+            this.transitionController.startFadeOutTransition(() => {this.scene.start('TaliScene', {playerFirst: this.playerFirst})});
         });
     }
 }

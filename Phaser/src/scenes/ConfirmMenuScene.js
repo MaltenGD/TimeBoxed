@@ -70,13 +70,13 @@ export class ConfirmMenuScene extends Phaser.Scene {
          * Evets of the bottons
          */
         this.yesBtn.on('pointerdown', (data && data.onYes) ? data.onYes : () => {
-            this.transitionController.startFadeOutTransition(800, new RGBColor(0,0,0), () => {
+            this.transitionController.startFadeOutTransition(() => {
                 if (this.sceneToPause) {
                     this.scene.stop(this.sceneToPause);
                 }
                 this.scene.stop('ConfirmMenu');
                 this.scene.start('SelectionMenuScene');
-            });
+            }, 800);
         });
 
         this.noBtn.on('pointerdown', (data && data.onNo) ? data.onNo : () => {

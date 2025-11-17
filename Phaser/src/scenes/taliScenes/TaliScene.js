@@ -44,10 +44,7 @@ export class TaliScene extends Phaser.Scene {
         this.createUI();
         this.registerEvents();
 
-        this.transitionController.startFadeInTransition(
-            1000, 
-            new RGBColor(0,0,0), 
-            () => this.startGame());
+        this.transitionController.startFadeInTransition(() => this.startGame());
 
         this.input.keyboard.on('keydown-ESC', () => {
             if (this.scene.isActive('OptionMenu')) return;

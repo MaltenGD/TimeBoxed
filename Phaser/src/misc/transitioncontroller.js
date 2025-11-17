@@ -19,7 +19,7 @@ export default class TransitionController {
      * @param {number} time - time it takes for the transition to occur. Default: 1000 ms
      * @param {RGBColor} color - color to fade to.
      */
-    startFadeOutTransition(time = 1000, color = new RGBColor(0, 0, 0), callback = () => {}) {
+    startFadeOutTransition(callback = () => {}, time = 1000, color = new RGBColor(0, 0, 0)) {
         this.camera.fadeOut(time, color.red, color.green, color.blue, (camera, progress) => {
             if (progress === 1) {
                 callback();
@@ -33,7 +33,7 @@ export default class TransitionController {
      * @param {RGBColor} color - color to fade in from. Default: (0, 0, 0) - black 
      * @param {() => void} [callback=() => {}] The function to be called when the transition is finished.
      */
-    startFadeInTransition(time = 1000, color = new RGBColor(0, 0, 0), callback = () => {}) {
+    startFadeInTransition(callback = () => {}, time = 1000, color = new RGBColor(0, 0, 0)) {
         this.camera.fadeIn(time, color.red, color.green, color.blue, (camera, progress) => {
             if (progress === 1) {
                 callback();

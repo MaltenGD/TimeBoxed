@@ -1,9 +1,10 @@
+import TransitionController from "../misc/transitioncontroller.js";
+
 /**
  * @file Start.js
  * @description Escena inicial del juego. Desde aqui el jugador puede incial la partida 
  * y ver los creditos
  */
-
 export class Start extends Phaser.Scene {
 
     /**
@@ -12,6 +13,7 @@ export class Start extends Phaser.Scene {
      */
     constructor() {
         super('Start');
+        this.firstAccess = true;
     }
 
     /**
@@ -37,6 +39,8 @@ export class Start extends Phaser.Scene {
     create(data) {
         let { width, height } = this.sys.game.canvas;
         this.background = this.add.image(width / 2, height / 2, 'background').setDisplaySize(width, height);
+
+        this.tController = new TransitionController(this);
 
         const box = this.add.image(400, 950, 'BoxOpen').setOrigin(0.5).setScale(1.5);
         const kitty = this.add.image(500, 450, 'StartMenuKronos').setOrigin(0.5).setScale(0.9);
@@ -79,8 +83,14 @@ export class Start extends Phaser.Scene {
         });
 
         //accion click
-        playButton.on('pointerup', () => { // This method will change to another scene (not created yet)
-            this.scene.start('LoadingScene');
+        playButton.on('pointerup', () => {
+            this.tController.startFadeOutTransition(() => {
+                if (this.firstAccess) {
+                this.scene.start('LoadingScene');
+                this.firstAccess = false;
+            }
+            else this.scene.start('SelectionMenuScene');
+            }, 500)
         });
 
         //CREDITS BUTTON INTERACTIONS

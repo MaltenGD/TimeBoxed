@@ -43,8 +43,6 @@ export class LoadingScene extends Phaser.Scene
         
         this.load.json('achievements', 'Phaser/assets/achievements.json');
 
-
-
         this.load.on('progress', (value) => {
         console.log(value);
         progressBar.clear();

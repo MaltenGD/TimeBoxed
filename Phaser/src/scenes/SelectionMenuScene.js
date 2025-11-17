@@ -24,7 +24,7 @@ export class SelectionMenuScene extends Phaser.Scene {
 
         this.transitionController = new TransitionController(this);
 
-        this.transitionController.startFadeInTransition(500, new RGBColor(0,0,0), () => {});
+        this.transitionController.startFadeInTransition();
         
         const { width, height } = this.sys.game.canvas;  //width and height of the canvas
         this.background = this.add.image(width / 2, height / 2, 'background').setDisplaySize(width, height);

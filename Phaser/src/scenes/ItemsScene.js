@@ -113,6 +113,8 @@ export class ItemsScene extends Phaser.Scene {
             if (ach.awarded) {
                 this.add.text(x + 5, y + 80, 'Awarded!', {fontSize: '24px'}).setOrigin(0.5);
             }
+
+            console.log("Achievements shown.");
         })
     }
 }
