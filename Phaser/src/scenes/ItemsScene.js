@@ -110,6 +110,9 @@ export class ItemsScene extends Phaser.Scene {
             const y = startY + row * distance;
 
             this.add.image(x, y, ach.image).setScale(0.5).setOrigin(0.5);
+            if (ach.awarded) {
+                this.add.text(x + 5, y + 80, 'Awarded!', {fontSize: '24px'}).setOrigin(0.5);
+            }
         })
     }
 }

@@ -30,7 +30,7 @@ export default class AchievementManager {
         for (let key in achievementsObj) {
             temp = new Achievement(key, achievementsObj[key]['name'], achievementsObj[key]['description'], achievementsObj[key]['image'])
             this.achievementMap.set(key, temp);
-            console.log("ACHIEVEMENT " + key + " " + achievementsObj[key]['name']);
+            console.log("LOADED ACHIEVEMENT " + key + " " + achievementsObj[key]['name']);
         }
     }
 
@@ -40,7 +40,7 @@ export default class AchievementManager {
      * @returns The achievement matching the given key.
      */
     getAchievementByKey(key) {
-        return map.get(key);
+        return this.achievementMap.get(key);
     }
 
     /**
@@ -48,7 +48,7 @@ export default class AchievementManager {
      * @param {string} key The key which identifies the achievement object.
      */
     awardAchievement(key) {
-        map.get(key).awardAchievement();
+        this.achievementMap.get(key).awardAchievement();
         this.awardedAchievements++
     }
 }

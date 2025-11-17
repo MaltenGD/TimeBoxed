@@ -15,9 +15,11 @@ export class AsebVictoryScene extends Phaser.Scene
     }
 
     create() 
-    {
+    {   
         // Get the canvas width and height to use when giving a position to an object
         let { width, height } = this.sys.game.canvas;
+
+        this.awardAch();
 
         this.input.keyboard.on('keydown-ESC', () => {
             if (this.scene.isActive('OptionMenu')) return;
@@ -58,6 +60,13 @@ export class AsebVictoryScene extends Phaser.Scene
             console.log("cambia de escena");
         });
     
+    }
+
+    awardAch() {
+        this.achManager = this.registry.get('AchievementManager');
+        this.achManager.awardAchievement('TA1');
+        console.log("AS1 awarded!");
+        this.registry.set('AchievementManager', this.achManager);
     }
             
 }

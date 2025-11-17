@@ -20,6 +20,13 @@ export class TaliEndScene extends Phaser.Scene {
 
 
         this.playerWon = data?.playerWon ?? true;
+
+        this.achManager = this.registry.get('AchievementManager');
+        if (this.playerWon) {
+            this.achManager.awardAchievement('TA1');
+            console.log("TA1 awarded!");
+        }
+        this.registry.set('AchievementManager', this.achManager);
         
         this.transitionController = new TransitionController(this);
         
