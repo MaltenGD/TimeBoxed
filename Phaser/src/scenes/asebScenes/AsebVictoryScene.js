@@ -1,4 +1,5 @@
 import DialogueController from "../../DialogueController.js";
+import TransitionController, {RGBColor} from "../../misc/transitioncontroller.js";
 
 export class AsebVictoryScene extends Phaser.Scene
 {
@@ -19,6 +20,11 @@ export class AsebVictoryScene extends Phaser.Scene
 
         this.playerData = playerData;
         console.log(this.playerData)
+
+        this.playerData.AsebCompleted = true;
+
+        this.transitionController = new TransitionController(this);
+        this.transitionController.startFadeInTransition();
 
         // Get the canvas width and height to use when giving a position to an object
         let { width, height } = this.sys.game.canvas;
@@ -51,7 +57,11 @@ export class AsebVictoryScene extends Phaser.Scene
         .on('pointerover', () => skipBtn.setStyle({ backgroundColor: '#bbbaba' }))
         .on('pointerout', () => skipBtn.setStyle({ backgroundColor: '#f7f7f7' }))
         .on('pointerdown', () => {
-            this.dialogueController.skipToEnd();
+            this.transitionController.startFadeOutTransition(() => {
+                
+                 this.dialogueController.skipToEnd();
+            
+            }, 400);
         });
 
         /** variable json*/

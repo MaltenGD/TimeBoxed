@@ -52,6 +52,7 @@ export class TaliBeginScene extends Phaser.Scene {
         this.taliGame = new Tali(this, this.width, this.height);
 
         this.transitionController = new TransitionController(this);
+        this.transitionController.startFadeInTransition();
         this.addImages();
         // this.addHands();
         this.createButtons();
@@ -237,7 +238,16 @@ export class TaliBeginScene extends Phaser.Scene {
 
     tie() {
         this.turnText.setText("It's a tie!");
-        this.rollBtn.setText('Retry').on('pointerdown', () => this.scene.restart());
+        this.rollBtn.setText('Retry').on('pointerdown', () =>{
+            
+            this.transitionController.startFadeOutTransition(() => {
+                
+                 this.scene.restart();
+            
+            }, 400);
+
+
+        } );
     }
 
     /**

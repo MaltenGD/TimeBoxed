@@ -82,25 +82,35 @@ export class ConfirmMenuScene extends Phaser.Scene {
         }).setOrigin(0.5).setInteractive();
 
         /**
-         * Evets of the bottons
+         * Events of the buttons
          */
-        this.yesBtn.on('pointerdown', (data && data.onYes) ? data.onYes : () => {
+        // Prepare yes and no callbacks, ensuring we always run a fade-out before executing the yes action.
+        const defaultYes = () => {
+            if (this.sceneToPause) {
+                this.scene.stop(this.sceneToPause);
+            }
+            this.scene.stop('ConfirmMenu');
+            this.scene.start('SelectionMenuScene');
+        };
+
+        const yesAction = (data && data.onYes) ? data.onYes : defaultYes;
+        const noAction = (data && data.onNo) ? data.onNo : () => this.closeMenu();
+
+        this.yesBtn.on('pointerdown', () => {
+            // Always perform a fade-out transition before running the yesAction.
             this.transitionController.startFadeOutTransition(() => {
-                if (this.sceneToPause) {
-                    this.scene.stop(this.sceneToPause);
-                }
-                this.scene.stop('ConfirmMenu');
-                this.scene.start('SelectionMenuScene');
-            }, 800);
+                yesAction();
+               
+            }, 400);
         });
 
-        this.noBtn.on('pointerdown', (data && data.onNo) ? data.onNo : () => {
-            this.closeMenu();
+        this.noBtn.on('pointerdown', () => {
+            noAction();
         });
 
-        const onNoCallback = (data && data.onNo) ? data.onNo : () => this.closeMenu();
+        // Wire ESC key to the computed noAction
         this.input.keyboard.once('keydown-ESC', () => {
-            onNoCallback();
+            noAction();
         });
 
         // this.tweens.add({

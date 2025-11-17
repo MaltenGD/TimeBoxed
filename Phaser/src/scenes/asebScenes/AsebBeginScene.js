@@ -1,6 +1,7 @@
 import AsebGame from '../../aseb/AsebGame.js';
 import AsebBoard from '../../aseb/AsebBoard.js';
 import { OptionMenuScene } from '../OptionMenuScene.js';
+import TransitionController, {RGBColor} from "../../misc/transitioncontroller.js";
 
 
 
@@ -110,6 +111,11 @@ export class AsebBeginScene extends Phaser.Scene {
 
         this.playerData = playerData;
         console.log(this.playerData)
+
+        this.playerData.EgyptIntroCompleted = true;
+
+        this.transitionController = new TransitionController(this);
+        this.transitionController.startFadeInTransition();
 
         this.background = this.add.image(this.width/ 2, this.height / 2, 'asebBackgroundPlaceholder').setDisplaySize(this.width, this.height);
         /** @type {AsebGame} */

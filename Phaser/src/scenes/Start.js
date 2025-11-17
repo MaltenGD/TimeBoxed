@@ -35,6 +35,8 @@ export class Start extends Phaser.Scene {
         }
         else this.playerData = playerData
 
+        this.transitionController = new TransitionController(this);
+        this.transitionController.startFadeInTransition();
        
         
 
@@ -45,7 +47,6 @@ export class Start extends Phaser.Scene {
         if (this.playerData.TimeboxedMode) this.background = this.add.image(width / 2, height / 2, 'backgroundTB').setDisplaySize(width, height);
         else this.background = this.add.image(width / 2, height / 2, 'background').setDisplaySize(width, height);
 
-        this.tController = new TransitionController(this);
 
         const box = this.add.image(400, 950, 'BoxOpen').setOrigin(0.5).setScale(1.5);
         const kitty = this.add.image(500, 450, 'StartMenuKronos').setOrigin(0.5).setScale(0.9);
@@ -98,7 +99,12 @@ export class Start extends Phaser.Scene {
 
         //accion click
         playButton.on('pointerup', () => {
-            this.tController.startFadeOutTransition(() => this.scene.start('Intro', this.playerData), 400);
+            this.transitionController.startFadeOutTransition(() => {
+                
+                if (this.playerData.IntroCompleted) this.scene.start('SelectionMenuScene', this.playerData)
+                else this.scene.start('Intro', this.playerData)
+            
+            }, 400);
         });
 
         //CREDITS BUTTON INTERACTIONS
@@ -114,7 +120,12 @@ export class Start extends Phaser.Scene {
         //accion click
         creditsButton.on('pointerdown', () => {
 
-            this.scene.start('CreditsScene');
+             this.transitionController.startFadeOutTransition(() => {
+                
+               this.scene.start('CreditsScene');
+            
+            }, 200);
+            
         });
         
         this.TimeboxedButton.on('pointerdown', () => {

@@ -111,11 +111,13 @@ export class OptionMenuScene extends Phaser.Scene {
             this.scene.launch('ConfirmMenu',{
                 sceneToPause: this.scene.key,
                 text: "Do you want to go to the main menu?",
-                onYes: () => {
+                onYes: () => {         
                     this.scene.stop(this.playerData.SceneToResume);
                     this.scene.stop('ConfirmMenu');
                     this.scene.stop('OptionMenu');
                     this.scene.start('Start');
+
+                    
                 },
                 onNo: () => {
                     this.scene.stop('ConfirmMenu');

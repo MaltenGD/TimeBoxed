@@ -166,7 +166,12 @@ export class SelectionMenuScene extends Phaser.Scene {
         .on('pointerover', () => backBtn.setStyle({ backgroundColor: '#bbbaba' }))
         .on('pointerout', () => backBtn.setStyle({ backgroundColor: '#f7f7f7' }))
         .on('pointerdown', () => {
-            this.scene.start('Start', this.playerData);
+            this.transitionController.startFadeOutTransition(() => {
+                
+                this.scene.start('Start', this.playerData)
+
+            
+            }, 400);
         });
 
         /** It controls if the buttons are showing/deployed in screen so their animation doesn't reapeat again (it's used only 1 time)*/
@@ -239,7 +244,12 @@ export class SelectionMenuScene extends Phaser.Scene {
                          */
                         btn.setInteractive({ cursor: 'pointer' })
                             .on('pointerdown', () => {
-                                this.scene.start(scenes[index], this.playerData);
+                                this.transitionController.startFadeOutTransition(() => {
+                                    
+                                    this.scene.start(scenes[index], this.playerData);
+                                
+                                }, 400);
+                                
                             });
                     }
                 });

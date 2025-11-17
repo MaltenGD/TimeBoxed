@@ -2,6 +2,8 @@ import AsebGame, { GAME_STATE } from '../../aseb/AsebGame.js';
 import AsebBoard from '../../aseb/AsebBoard.js';
 import { OptionMenuScene } from '../OptionMenuScene.js';
 import { PIECE_TYPE } from '../../aseb/AsebPiece.js';
+import TransitionController, {RGBColor} from "../../misc/transitioncontroller.js";
+
 
 
 
@@ -48,6 +50,9 @@ export class AsebScene extends Phaser.Scene {
         this.playerData = playerData;
         console.log(this.playerData)
 
+        this.transitionController = new TransitionController(this);
+        this.transitionController.startFadeInTransition();
+
         this.background = this.add.image(this.width / 2, this.height / 2, 'asebBackgroundPlaceholder').setDisplaySize(this.width, this.height);
         this.infoBoard = this.add.image(this.width/2, this.height/2, 'StickBoard').setOrigin(0.5).setScale(0.55);
 
@@ -86,7 +91,7 @@ export class AsebScene extends Phaser.Scene {
         this.board = new AsebBoard(this,this.boardAnchor.x,this.boardAnchor.y,'asebBoard');
 
         /** @type {number} The pause time in milliseconds for showing information to the player. */
-        this.pauseTime = 1000        // 1000 miliseconds
+        this.pauseTime = 0        // 1000 miliseconds
 
         // --- Board Event Listeners ---
 
@@ -163,11 +168,20 @@ export class AsebScene extends Phaser.Scene {
             this.startPlayerTurn();
         }
         if (this.asebGame.state === GAME_STATE.PLAYER_VICTORY) {
-            this.scene.start('AsebVictoryScene', this.playerData);
+            this.transitionController.startFadeOutTransition(() => {
+                
+                 this.scene.start('AsebVictoryScene', this.playerData);
+            
+            }, 400);
+           
 
         } 
         else if (this.asebGame.state === GAME_STATE.ENEMY_VICTORY) {
-            this.scene.start('AsebDefeatScene', this.playerData);
+           this.transitionController.startFadeOutTransition(() => {
+                
+                 this.scene.start('AsebDefeatScene', this.playerData);
+            
+            }, 400);
 
         }
     }
