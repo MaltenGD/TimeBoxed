@@ -19,9 +19,8 @@ export class TaliEndScene extends Phaser.Scene {
     create(playerData) {
 
         this.playerData = playerData;
-        console.log(this.playerData)
-
-        this.playerWon = data?.playerWon ?? true;
+        console.log(this.playerData);
+        this.playerWon = this.playerData.TaliPlayerWon;
 
         this.achManager = this.registry.get('AchievementManager');
         if (this.playerWon) {

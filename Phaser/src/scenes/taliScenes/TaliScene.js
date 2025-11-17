@@ -254,6 +254,7 @@ export class TaliScene extends Phaser.Scene {
         this.playerData.TaliPlayerWon = this.taliGame.playerWon()
         this.scene.start('TaliEndScene', this.playerData);
     }
+    
     openOptionMenu()
     {
         if (this.scene.isActive('OptionMenu')) return;
