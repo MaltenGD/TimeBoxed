@@ -4,10 +4,7 @@ export class CreditsScene extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('member1', 'Phaser/assets/mewingCat.jpg');
-        this.load.image('member2', 'Phaser/assets/oreoCat.jpg');
-        this.load.image('member3', 'Phaser/assets/alienCat.jpg');
-        this.load.image('member4', 'Phaser/assets/awkwarCat.jpg');
+
     }
 
     create() {

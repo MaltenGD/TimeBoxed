@@ -37,6 +37,8 @@ export class LoadingScene extends Phaser.Scene
         this.loadSelectionMenuAssets();
         this.loadAsebAssets();
         this.loadTaliAssets();
+        this.loadCreditsAssets();
+        this.loadInisgniaAssets();
         this.loadTestAssets();
         
         this.load.json('achievements', 'Phaser/assets/achievements.json');
@@ -129,6 +131,18 @@ export class LoadingScene extends Phaser.Scene
             console.log(Tali.DICE_THROW_NAMES[i]);
             this.load.image(Tali.DICE_THROW_NAMES[i], 'Phaser/assets/tali/temporary_throw' + i + '.png');
         }
+    }
+
+    loadCreditsAssets() {
+        this.load.image('member1', 'Phaser/assets/mewingCat.jpg');
+        this.load.image('member2', 'Phaser/assets/oreoCat.jpg');
+        this.load.image('member3', 'Phaser/assets/alienCat.jpg');
+        this.load.image('member4', 'Phaser/assets/awkwarCat.jpg');
+    }
+
+    loadInisgniaAssets() {
+        this.load.image('tempInsignia1', 'Phaser/assets/insignias/tempInsignia1.png');
+        this.load.image('tempInsignia2', 'Phaser/assets/insignias/tempInsignia2.png');
     }
 
     /**
