@@ -30,7 +30,7 @@ export class ConfirmMenuScene extends Phaser.Scene {
         /**
          * Central box
          */
-        this.box = this.add.rectangle(width / 2, height / 2, 700, 500, 0x111111, 1)
+        this.box = this.add.rectangle(width / 2, height / 2, 800, 500, 0x111111, 1)
             .setStrokeStyle(4, 0xAA0000)
             .setOrigin(0.5);
         

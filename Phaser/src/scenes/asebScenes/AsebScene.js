@@ -49,32 +49,15 @@ export class AsebScene extends Phaser.Scene {
         this.infoBoard = this.add.image(this.width/2, this.height/2, 'StickBoard').setOrigin(0.5).setScale(0.55);
 
         this.input.keyboard.on('keydown-ESC', () => {
-            if (this.scene.isActive('OptionMenu')) return;
-            this.scene.pause();
-            this.scene.launch('OptionMenu', { sceneToPause: this.scene.key });
+           this.openOptionMenu();
         });
 
         this.backBtn = this.add.text(0, 0, 'Back', { fontSize: 64, fill: '#000000ff'})
         .setInteractive()
-        .on('pointerover', () => this.backBtn.setStyle({fill: '#0f0'}))
+        .on('pointerover', () => this.backBtn.setStyle({fill: 'rgba(104, 35, 35, 1)'}))
         .on('pointerout', () => this.backBtn.setStyle({fill: '#000000ff'}))
         .on('pointerdown', () => {
-            if (this.scene.isActive('ConfirmMenu')) return;
-    
-            this.scene.pause();
-            this.scene.launch('ConfirmMenu', {
-                text: 'Do you want to go back to the menu?',
-                sceneToPause: this.scene.key,
-                onYes: () => {
-                    this.scene.stop(this.scene.key);
-                    this.scene.stop('ConfirmMenu');
-                    this.scene.start('SelectionMenuScene');
-                },
-                onNo: () => {
-                    this.scene.resume(this.scene.key);
-                    this.scene.stop('ConfirmMenu');
-                }
-            });
+            this.openOptionMenu();
         });
         
         this.winBtn = this.add.text(0, 70, 'Win Game', { fontSize: 64, fill: '#000000ff'})
@@ -299,5 +282,11 @@ export class AsebScene extends Phaser.Scene {
     {
         object.setActive(state);
         object.setVisible(state);
+    }
+    openOptionMenu()
+    {
+        if (this.scene.isActive('OptionMenu')) return;
+            this.scene.pause();
+            this.scene.launch('OptionMenu', { sceneToPause: this.scene.key });
     }
 }

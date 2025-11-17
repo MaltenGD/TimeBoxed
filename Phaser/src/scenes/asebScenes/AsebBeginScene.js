@@ -66,25 +66,10 @@ export class AsebBeginScene extends Phaser.Scene {
         /** @type {Phaser.GameObjects.Text} */
         this.backBtn = this.add.text(0, 0, 'Back', { fontSize: 64, fill: '#000000ff'})
         .setInteractive()
-        .on('pointerover', () => this.backBtn.setStyle({fill: '#0f0'}))
+        .on('pointerover', () => this.backBtn.setStyle({fill: 'rgba(104, 35, 35, 1)'}))
         .on('pointerout', () => this.backBtn.setStyle({fill: '#000000ff'}))
         .on('pointerdown', () => {
-            if (this.scene.isActive('ConfirmMenu')) return;
-
-            this.scene.pause();
-            this.scene.launch('ConfirmMenu', {
-                text: 'Do you want to go back to the menu?',
-                sceneToPause: this.scene.key,
-                onYes: () => {
-                    this.scene.stop(this.scene.key);
-                    this.scene.stop('ConfirmMenu');
-                    this.scene.start('SelectionMenuScene');
-                },
-                onNo: () => {
-                    this.scene.resume(this.scene.key);
-                    this.scene.stop('ConfirmMenu');
-                }
-            });
+            this.openOptionMenu();
         });
         
         /** @type {Phaser.GameObjects.Text} */
@@ -130,9 +115,7 @@ export class AsebBeginScene extends Phaser.Scene {
         this.createButtons();
 
         this.input.keyboard.on('keydown-ESC', () => {
-            if (this.scene.isActive('OptionMenu')) return;
-            this.scene.pause();
-            this.scene.launch('OptionMenu', { sceneToPause: this.scene.key });
+           this.openOptionMenu();
         });
             
     }
@@ -303,6 +286,13 @@ export class AsebBeginScene extends Phaser.Scene {
         object.setInteractive(state);
         object.setActive(state);
 
+    }
+
+    openOptionMenu()
+    {
+        if (this.scene.isActive('OptionMenu')) return;
+            this.scene.pause();
+            this.scene.launch('OptionMenu', { sceneToPause: this.scene.key });
     }
 
 }

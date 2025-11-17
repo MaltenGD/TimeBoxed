@@ -26,9 +26,7 @@ export class TaliEndScene extends Phaser.Scene {
         this.createUI();
 
         this.input.keyboard.on('keydown-ESC', () => {
-            if (this.scene.isActive('OptionMenu')) return;
-            this.scene.pause();
-            this.scene.launch('OptionMenu', { sceneToPause: this.scene.key });
+            this.openOptionMenu();
         });
     }
 
@@ -50,7 +48,13 @@ export class TaliEndScene extends Phaser.Scene {
      * Creates and places all the buttons for the scene.
      */
     createButtons() {
-        this.backBtn = this.createButton(100, 50, 'Back', () => this.openPauseMenu(), {fontSize: 64, fill: '#fff'});
+       this.backBtn = this.add.text(0, 0, 'Back', { fontSize: 64, fill: '#000000ff'})
+        .setInteractive()
+        .on('pointerover', () => this.backBtn.setStyle({fill: 'rgba(104, 35, 35, 1)'}))
+        .on('pointerout', () => this.backBtn.setStyle({fill: '#000000ff'}))
+        .on('pointerdown', () => {
+            this.openOptionMenu();
+        });
     }
 
     /**
@@ -128,5 +132,11 @@ export class TaliEndScene extends Phaser.Scene {
      */
     addText() {
         this.victoryText = this.add.text(this.width/2, this.height/5, this.playerWon ? 'You won!' : 'You lost!', { fontSize: 64, fill: '#000'}).setOrigin(0.5);
+    }
+    openOptionMenu()
+    {
+        if (this.scene.isActive('OptionMenu')) return;
+            this.scene.pause();
+            this.scene.launch('OptionMenu', { sceneToPause: this.scene.key });
     }
 }
