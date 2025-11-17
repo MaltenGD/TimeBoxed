@@ -4,7 +4,9 @@
     "IntroCompleted": false,
     "EgyptIntroCompleted": false,
     "AsebPlayerFirst" : false,
+    "TaliPlayerFirst" : false,
     "AsebCompleted": false,
     "TaliCompleted": false,
-    "HanafudaCompleted": false
+    "HanafudaCompleted": false,
+    "SceneToResume" : null
 }

@@ -5,22 +5,19 @@
 export class HelpLobbyScene extends Phaser.Scene {
     constructor() {
         super('HelpLobbyScene');
-        this.sceneToResume = null; // To store the key of the scene to resume
+       
     }
 
-    /**
-     * Initializes the scene and receives data from the launching scene.
-     * @param {object} data - The data object passed from the launching scene.
-     * @param {string} data.sceneToResume - The key of the scene to resume upon exiting.
-     */
-    init(data) {
-        this.sceneToResume = data.sceneToResume;
-    }
+
 
     preload() {
     }
 
-    create() {
+    create(playerData) {
+
+         this.playerData = playerData;
+        console.log(this.playerData)
+        
         const { width, height } = this.scale;
 
         if (this.playerData.TimeboxedMode) this.background = this.add.image(width / 2, height / 2, 'backgroundTB').setDisplaySize(width, height);
@@ -64,8 +61,6 @@ export class HelpLobbyScene extends Phaser.Scene {
         // Stop the current scene
         this.scene.stop('HelpLobbyScene');
         // Resume the scene that launched this one
-        if (this.sceneToResume) {
-            this.scene.resume(this.sceneToResume);
-        }
+        this.scene.resume('OptionMenu');
     }
 }

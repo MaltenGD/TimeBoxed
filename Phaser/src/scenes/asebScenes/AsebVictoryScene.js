@@ -19,7 +19,7 @@ export class AsebVictoryScene extends Phaser.Scene
 
         this.playerData = playerData;
         console.log(this.playerData)
-        
+
         // Get the canvas width and height to use when giving a position to an object
         let { width, height } = this.sys.game.canvas;
 
@@ -82,7 +82,8 @@ export class AsebVictoryScene extends Phaser.Scene
     {
         if (this.scene.isActive('OptionMenu')) return;
             this.scene.pause();
-            this.scene.launch('OptionMenu', { sceneToPause: this.scene.key });
+            this.playerData.SceneToResume = this.scene.key;
+            this.scene.launch('OptionMenu', this.playerData);
     }
             
 }

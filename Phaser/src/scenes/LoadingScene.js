@@ -180,9 +180,7 @@ export class LoadingScene extends Phaser.Scene
      * Only exists to make loading slower, otherwise we wouldn't be able to see the loading screen.
      */
     loadTestAssets() {
-        for (let i = 0; i < 350; i++) {
-            this.load.image('loadingTest' + i, 'Phaser/assets/tali/temporary_board.png')
-        }
+        
     }
 
     create() {

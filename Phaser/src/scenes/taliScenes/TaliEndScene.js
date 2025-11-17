@@ -16,8 +16,10 @@ export class TaliEndScene extends Phaser.Scene {
         this.height = height;
     }
 
-    create(data) {
+    create(playerData) {
 
+        this.playerData = playerData;
+        console.log(this.playerData)
 
         this.playerWon = data?.playerWon ?? true;
 
@@ -144,6 +146,7 @@ export class TaliEndScene extends Phaser.Scene {
     {
         if (this.scene.isActive('OptionMenu')) return;
             this.scene.pause();
-            this.scene.launch('OptionMenu', { sceneToPause: this.scene.key });
+            this.playerData.SceneToResume = this.scene.key;
+            this.scene.launch('OptionMenu', this.playerData);
     }
 }

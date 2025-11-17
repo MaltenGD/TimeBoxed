@@ -13,9 +13,9 @@ export class OptionMenuScene extends Phaser.Scene {
     preload() {
         
     }
-    create(data) {
+    create(playerData) {
 
-        this.data = data;
+        this.playerData = playerData;
         const { width, height } = this.scale;
 
         let resumeBtnCoords = {
@@ -91,14 +91,14 @@ export class OptionMenuScene extends Phaser.Scene {
         helpBtn.on('pointerdown', () => {
            
             this.scene.pause();
-            this.scene.launch('HelpLobbyScene', { sceneToResume: 'OptionMenu' });
+            this.scene.launch('HelpLobbyScene', this.playerData);
 
         });
 
         itemsBtn.on('pointerdown', () => {
 
             this.scene.pause();
-            this.scene.launch('ItemsScene', { sceneToResume: 'OptionMenu' });
+            this.scene.launch('ItemsScene', this.playerData);
             
         })
 
@@ -112,7 +112,7 @@ export class OptionMenuScene extends Phaser.Scene {
                 sceneToPause: this.scene.key,
                 text: "Do you want to go to the main menu?",
                 onYes: () => {
-                    this.scene.stop(data.sceneToPause);
+                    this.scene.stop(this.playerData.SceneToResume);
                     this.scene.stop('ConfirmMenu');
                     this.scene.stop('OptionMenu');
                     this.scene.start('Start');
@@ -134,7 +134,7 @@ export class OptionMenuScene extends Phaser.Scene {
     }
     close()
     {
-    this.scene.resume(this.data.sceneToPause);
+    this.scene.resume(this.playerData.SceneToResume);
     this.scene.stop('OptionMenu');
     }
 

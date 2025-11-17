@@ -22,9 +22,7 @@ export class Intro extends Phaser.Scene
         let { width, height } = this.sys.game.canvas;
 
         this.input.keyboard.on('keydown-ESC', () => {
-            if (this.scene.isActive('OptionMenu')) return;
-            this.scene.pause();
-            this.scene.launch('OptionMenu', { sceneToPause: this.scene.key });
+             this.openOptionMenu()
         });
 
         //creating the background
@@ -64,6 +62,7 @@ export class Intro extends Phaser.Scene
         });
 
         this.events.on('Finished', () => {
+            this.playerData.IntroCompleted = true
             this.scene.start('SelectionMenuScene', this.playerData);
             console.log("cambia de escena");
         });
@@ -73,7 +72,8 @@ export class Intro extends Phaser.Scene
     {
         if (this.scene.isActive('OptionMenu')) return;
             this.scene.pause();
-            this.scene.launch('OptionMenu', { sceneToPause: this.scene.key });
+            this.playerData.SceneToResume = this.scene.key;
+            this.scene.launch('OptionMenu', this.playerData);
     }
         
 }
