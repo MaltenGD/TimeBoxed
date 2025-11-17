@@ -38,7 +38,10 @@ export class TaliBeginScene extends Phaser.Scene {
         this.height = height;
     }
 
-    create() {
+    create(playerData) {
+
+        this.playerData = playerData;
+        console.log(this.playerData)
 
         this.background = this.add.image(this.width / 2, this.height / 2, 'taliBackgroundPlaceholder').setDisplaySize(this.width, this.height);
 
@@ -243,13 +246,15 @@ export class TaliBeginScene extends Phaser.Scene {
      */
     endGame() {
         this.rollBtn.setText('Start Game!').once('pointerdown', ()=> {
-            this.transitionController.startFadeOutTransition(1000, new RGBColor(0,0,0), () => {this.scene.start('TaliScene', {playerFirst: this.playerFirst})});
+            this.playerData.TaliPlayerFirst = this.playerFirst;
+            this.transitionController.startFadeOutTransition(1000, new RGBColor(0,0,0), () => {this.scene.start('TaliScene', this.playerData)});
         });
     }
     openOptionMenu()
     {
         if (this.scene.isActive('OptionMenu')) return;
             this.scene.pause();
-            this.scene.launch('OptionMenu', { sceneToPause: this.scene.key });
+            this.playerData.SceneToResume = this.scene.key;
+            this.scene.launch('OptionMenu', this.playerData);
     }
 }

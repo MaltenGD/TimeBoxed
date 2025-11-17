@@ -30,8 +30,12 @@ export class TaliScene extends Phaser.Scene {
         this.height = height;
     }
 
-    create(data) {
-        this.playerFirst = data?.playerFirst ?? true;
+    create(playerData) {
+
+        this.playerData = playerData;
+        console.log(this.playerData)
+
+        this.playerFirst = this.playerData.TaliPlayerFirst
         
         this.transitionController = new TransitionController(this);
 
@@ -131,26 +135,7 @@ export class TaliScene extends Phaser.Scene {
         object.setVisible(state).setActive(state).setAlpha(state ? 1 : 0);
     }
 
-    /**
-     * Opens the pause menu.
-     */
-    openPauseMenu() {
-        if (this.scene.isActive('ConfirmMenu')) return;
-        this.scene.pause();
-        this.scene.launch('ConfirmMenu', {
-            text: 'Do you want to go back to the menu?',
-            sceneToPause: this.scene.key,
-            onYes: () => {
-                this.scene.stop(this.scene.key);
-                this.scene.stop('ConfirmMenu');
-                this.scene.start('SelectionMenuScene');
-            },
-            onNo: () => {
-                this.scene.resume(this.scene.key);
-                this.scene.stop('ConfirmMenu');
-            }
-        });
-    }
+
     
     /**
      * Adds all the text to the scene.
@@ -269,12 +254,14 @@ export class TaliScene extends Phaser.Scene {
      * Ends the game and announces the winner.
      */
     endGame() {
-        this.scene.start('TaliEndScene', {playerWon: this.taliGame.playerWon()});
+        this.playerData.TaliPlayerWon = this.taliGame.playerWon()
+        this.scene.start('TaliEndScene', this.playerData);
     }
     openOptionMenu()
     {
         if (this.scene.isActive('OptionMenu')) return;
             this.scene.pause();
-            this.scene.launch('OptionMenu', { sceneToPause: this.scene.key });
-    }
+            this.playerData.SceneToResume = this.scene.key;
+            this.scene.launch('OptionMenu', this.playerData);
+    }   
 }

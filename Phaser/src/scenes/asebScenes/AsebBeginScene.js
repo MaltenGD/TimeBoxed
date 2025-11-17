@@ -296,7 +296,8 @@ export class AsebBeginScene extends Phaser.Scene {
     {
         if (this.scene.isActive('OptionMenu')) return;
             this.scene.pause();
-            this.scene.launch('OptionMenu', { sceneToPause: this.scene.key });
+            this.playerData.SceneToResume = this.scene.key;
+            this.scene.launch('OptionMenu', this.playerData);
     }
 
 }

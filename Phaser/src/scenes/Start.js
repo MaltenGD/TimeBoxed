@@ -94,8 +94,10 @@ export class Start extends Phaser.Scene {
         });
 
         //accion click
-        playButton.on('pointerup', () => { // This method will change to another scene (not created yet)
-            this.scene.start('Intro', this.playerData);
+        playButton.on('pointerup', () => { 
+
+            if (this.playerData.IntroCompleted) this.scene.start('SelectionMenuScene', this.playerData);
+            else this.scene.start('Intro', this.playerData);
         });
 
         //CREDITS BUTTON INTERACTIONS
