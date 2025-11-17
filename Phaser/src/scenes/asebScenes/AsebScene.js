@@ -150,11 +150,6 @@ export class AsebScene extends Phaser.Scene {
             this.startEnemyTurn();
         }
 
-        this.input.keyboard.on('keydown-ESC', () => {
-            if (this.scene.isActive('OptionMenu')) return;
-            this.scene.pause();
-            this.scene.launch('OptionMenu', { sceneToPause: this.scene.key });
-        });
     }
 
     /**

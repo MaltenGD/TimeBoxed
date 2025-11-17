@@ -73,7 +73,7 @@ export class AsebVictoryScene extends Phaser.Scene
 
     awardAch() {
         this.achManager = this.registry.get('AchievementManager');
-        this.achManager.awardAchievement('TA1');
+        this.achManager.awardAchievement('AS1');
         console.log("AS1 awarded!");
         this.registry.set('AchievementManager', this.achManager);
     }
