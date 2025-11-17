@@ -14,8 +14,12 @@ export class IntroAseb extends Phaser.Scene
         this.load.json('AsebIntroDialogue', 'Phaser/DialoguesJson/EgyptDialogue.json');
     }
 
-    create() 
+    create(playerData) 
     {
+
+        this.playerData = playerData;
+        console.log(this.playerData)
+
         // Get the canvas width and height to use when giving a position to an object
         let { width, height } = this.sys.game.canvas;
 
@@ -59,7 +63,7 @@ export class IntroAseb extends Phaser.Scene
         });
 
         this.events.on('Finished', () => {
-            this.scene.start('AsebBeginScene');
+            this.scene.start('AsebBeginScene', this.playerData);
             console.log("cambia de escena");
         });
     

@@ -30,8 +30,8 @@ const config = {
     pixelArt: false,
     scene: 
     [
-        Start,
         LoadingScene,
+        Start,
         Intro,
         CreditsScene,
         SelectionMenuScene,

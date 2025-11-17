@@ -21,9 +21,9 @@ export class AsebScene extends Phaser.Scene {
          * @param {object} data - Data passed from the previous scene.
          * @param {boolean} [data.playerFirst=true] - Determines if the player takes the first turn.
          */
-        init(data) {
+        init(playerData) {
             // Default to player going first if no data is passed.
-            if (data !== undefined) this.playerFirst = data.playerFirst
+            if (playerData !== undefined) this.playerFirst = playerData.AsebPlayerFirst
             else this.playerFirst = true;
         }
 
@@ -43,7 +43,10 @@ export class AsebScene extends Phaser.Scene {
     /*
      * Creates the game objects and sets up the scene.
      */
-    create(){
+    create(playerData){
+
+        this.playerData = playerData;
+        console.log(this.playerData)
 
         this.background = this.add.image(this.width / 2, this.height / 2, 'asebBackgroundPlaceholder').setDisplaySize(this.width, this.height);
         this.infoBoard = this.add.image(this.width/2, this.height/2, 'StickBoard').setOrigin(0.5).setScale(0.55);
@@ -65,7 +68,7 @@ export class AsebScene extends Phaser.Scene {
         .on('pointerover', () => this.winBtn.setStyle({fill: '#0f0'}))
         .on('pointerout', () => this.winBtn.setStyle({fill: '#000000ff'}))
         .on('pointerdown', () => {
-            this.scene.start('AsebVictoryScene');
+            this.scene.start('AsebVictoryScene', this.playerData);
         });
 
         this.loseBtn = this.add.text(350, 70, 'Lose Game', { fontSize: 64, fill: '#000000ff'})
@@ -73,7 +76,7 @@ export class AsebScene extends Phaser.Scene {
         .on('pointerover', () => this.loseBtn.setStyle({fill: '#f00'}))
         .on('pointerout', () => this.loseBtn.setStyle({fill: '#000000ff'}))
         .on('pointerdown', () => {
-            this.scene.start('AsebDefeatScene');
+            this.scene.start('AsebDefeatScene', this.playerData);
         });
 
         console.log(this.playerFirst ? "Player starts the game." : "Anubis starts the game.");
@@ -165,11 +168,11 @@ export class AsebScene extends Phaser.Scene {
             this.startPlayerTurn();
         }
         if (this.asebGame.state === GAME_STATE.PLAYER_VICTORY) {
-            this.scene.start('AsebVictoryScene');
+            this.scene.start('AsebVictoryScene', this.playerData);
 
         } 
         else if (this.asebGame.state === GAME_STATE.ENEMY_VICTORY) {
-            this.scene.start('AsebDefeatScene');
+            this.scene.start('AsebDefeatScene', this.playerData);
 
         }
     }

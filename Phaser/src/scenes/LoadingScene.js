@@ -32,6 +32,7 @@ export class LoadingScene extends Phaser.Scene
         let loadingText = this.add.text(progressBoxPosX + progressBoxWidth/2, progressBoxPosY - 40, "Loading...", {fontSize:55}).setOrigin(0.5);
         let loadingInfo = this.add.text(progressBoxPosX + progressBoxWidth/2, progressBoxPosY + progressBoxHeight + 40 , "Starting game...", {fontSize:35}).setOrigin(0.5);
 
+        this.loadMainMenuAssets();
         this.loadIntroAssets();
         this.loadSelectionMenuAssets();
         this.loadAsebAssets();
@@ -62,23 +63,37 @@ export class LoadingScene extends Phaser.Scene
         progressBar.destroy();
         progressBox.destroy();
         
-        this.scene.start("Intro");  
+        this.scene.start("Start");  
     });
     }
 
+    loadMainMenuAssets()
+    {
+        this.load.image('background', 'Phaser/assets/StartMenu/MainBackground.png');
+        this.load.image('taliBackgroundPlaceholder', 'Phaser/assets/tali/taliBackgroundPlaceholder.png');
+        this.load.image('StartMenuKronos', 'Phaser/assets/StartMenu/kittykronos.png')
+        this.load.image('BoxOpen', 'Phaser/assets/StartMenu/cardboardbox.png')
+        this.load.image('logo', 'Phaser/assets/titlelogo.png');
+        this.load.image('teamLogo', 'Phaser/assets/teamLogo.png');
+        this.load.spritesheet('playButton', 'Phaser/assets/playButton.png', { frameWidth: 186, frameHeight: 92 });
+        this.load.json('playerData', 'Phaser/src/playerData.json');
+    }
 
     /**
      * Loads all option menu assets.
      */
     loadOptionMenuAssets()
     {
-        this.load.image
     }
 
     /**
      * Loads all intro assets.
      */
     loadIntroAssets() {
+
+         // loads the background
+        this.load.image('IntroBackgroundPlaceholder', 'Phaser/assets/Intro/IntroBackgroundPlaceholder.jpeg');
+        
         this.load.image('OptionMenuBase', 'Phaser/assets/OptionMenu/OptionMenuBase.png');
         this.load.image('ResumeButtonNormal', 'Phaser/assets/OptionMenu/ResumeNormal.png');
         this.load.image('ResumeButtonHovered', 'Phaser/assets/OptionMenu/ResumeHovered.png');
@@ -88,6 +103,12 @@ export class LoadingScene extends Phaser.Scene
         this.load.image('ItemsButtonHovered', 'Phaser/assets/OptionMenu/ItemsHovered.png');
         this.load.image('ExitButtonNormal', 'Phaser/assets/OptionMenu/ExitNormal.png');
         this.load.image('ExitButtonHovered', 'Phaser/assets/OptionMenu/ExitHovered.png');
+
+        /** Load the json file for the Intro Dialogue 
+        * @param {string} key - The key to reference the loaded JSON data.
+        * @param {string} url - The URL of the JSON file to load.
+        */
+        this.load.json('IntroDialogue', 'Phaser/DialoguesJson/IntroDialogue.json');
     }
 
     loadSelectionMenuAssets()

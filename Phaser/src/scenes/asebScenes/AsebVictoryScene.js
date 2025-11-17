@@ -14,8 +14,12 @@ export class AsebVictoryScene extends Phaser.Scene
         this.load.json('AsebWinDialogue', 'Phaser/DialoguesJson/AsebWinDialogue.json');
     }
 
-    create() 
+    create(playerData) 
     {
+
+        this.playerData = playerData;
+        console.log(this.playerData)
+        
         // Get the canvas width and height to use when giving a position to an object
         let { width, height } = this.sys.game.canvas;
 

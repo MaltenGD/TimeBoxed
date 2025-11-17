@@ -105,8 +105,12 @@ export class AsebBeginScene extends Phaser.Scene {
     /**
      * The main creation function for the scene. Sets up game objects and buttons.
      */
-    create() 
+    create(playerData) 
     {
+
+        this.playerData = playerData;
+        console.log(this.playerData)
+
         this.background = this.add.image(this.width/ 2, this.height / 2, 'asebBackgroundPlaceholder').setDisplaySize(this.width, this.height);
         /** @type {AsebGame} */
         this.asebGame = new AsebGame(this);
@@ -184,13 +188,13 @@ export class AsebBeginScene extends Phaser.Scene {
 
         if (this.playerStickResult.Sum > this.enemyStickResult.Sum) {
             this.infoText.setText('You begin!');
-            this.playerFirst = true;
+            this.playerData.AsebPlayerFirst = true;
         } else if (this.enemyStickResult.Sum > this.playerStickResult.Sum) {
             this.infoText.setText('Anubis begins!');
-            this.playerFirst = false;
+            this.playerData.AsebPlayerFirst = false;
         } else {
             this.infoText.setText("It's a tie! You start anyways.");
-            this.playerFirst = true;
+            this.playerData.AsebPlayerFirst = true;
         }
 
         this.time.addEvent({
@@ -207,7 +211,7 @@ export class AsebBeginScene extends Phaser.Scene {
      */
     startActualGame() {
         // Changes the Scene
-        this.scene.start('AsebScene', {playerFirst: this.playerFirst});
+        this.scene.start('AsebScene', this.playerData);
     }
 
     /**

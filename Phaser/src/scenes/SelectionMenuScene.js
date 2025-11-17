@@ -20,7 +20,10 @@ export class SelectionMenuScene extends Phaser.Scene {
     }
 
     /** Create the elements of the scene */
-    create() {
+    create(playerData) {
+
+        this.playerData = playerData;
+        console.log(this.playerData)
 
         this.transitionController = new TransitionController(this);
 
@@ -163,7 +166,7 @@ export class SelectionMenuScene extends Phaser.Scene {
         .on('pointerover', () => backBtn.setStyle({ backgroundColor: '#bbbaba' }))
         .on('pointerout', () => backBtn.setStyle({ backgroundColor: '#f7f7f7' }))
         .on('pointerdown', () => {
-            this.scene.start('Start');
+            this.scene.start('Start', this.playerData);
         });
 
         /** It controls if the buttons are showing/deployed in screen so their animation doesn't reapeat again (it's used only 1 time)*/
@@ -236,7 +239,7 @@ export class SelectionMenuScene extends Phaser.Scene {
                          */
                         btn.setInteractive({ cursor: 'pointer' })
                             .on('pointerdown', () => {
-                                this.scene.start(scenes[index]);
+                                this.scene.start(scenes[index], this.playerData);
                             });
                     }
                 });

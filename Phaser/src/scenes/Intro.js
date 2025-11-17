@@ -11,21 +11,13 @@ export class Intro extends Phaser.Scene
         super('Intro');
     }
 
-    // Here we will load the assets for dialogues, fonts, etc...
-    preload()
-    {
-        // loads the background
-        this.load.image('IntroBackgroundPlaceholder', 'Phaser/assets/Intro/IntroBackgroundPlaceholder.jpeg');
-
-        /** Load the json file for the Intro Dialogue 
-        * @param {string} key - The key to reference the loaded JSON data.
-        * @param {string} url - The URL of the JSON file to load.
-        */
-        this.load.json('IntroDialogue', 'Phaser/DialoguesJson/IntroDialogue.json');
-    }
     
-    create() 
+    create(playerData) 
     {
+
+        this.playerData = playerData;
+        console.log(this.playerData)
+
         // Get the canvas width and height to use when giving a position to an object
         let { width, height } = this.sys.game.canvas;
 
@@ -72,7 +64,7 @@ export class Intro extends Phaser.Scene
         });
 
         this.events.on('Finished', () => {
-            this.scene.start('SelectionMenuScene');
+            this.scene.start('SelectionMenuScene', this.playerData);
             console.log("cambia de escena");
         });
 

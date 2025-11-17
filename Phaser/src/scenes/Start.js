@@ -1,3 +1,5 @@
+import { ConfirmMenuScene } from "./ConfirmMenuScene.js";
+
 /**
  * @file Start.js
  * @description Escena inicial del juego. Desde aqui el jugador puede incial la partida 
@@ -14,29 +16,31 @@ export class Start extends Phaser.Scene {
         super('Start');
     }
 
-    /**
-     * Carga imagenes y logos utilizados en la pantalla inicial
-     * @method preload
-     */
-    preload() {
-        this.load.image('background', 'Phaser/assets/StartMenu/MainBackground.png');
-        this.load.image('taliBackgroundPlaceholder', 'Phaser/assets/tali/taliBackgroundPlaceholder.png');
-        this.load.image('StartMenuKronos', 'Phaser/assets/StartMenu/kittykronos.png')
-        this.load.image('BoxOpen', 'Phaser/assets/StartMenu/cardboardbox.png')
-        this.load.image('logo', 'Phaser/assets/titlelogo.png');
-        this.load.image('teamLogo', 'Phaser/assets/teamLogo.png');
-        this.load.spritesheet('playButton', 'Phaser/assets/playButton.png', { frameWidth: 186, frameHeight: 92 });
 
-    }
 
     /**
      * Crea los elemnetos visuales e interactivos de la escena
      * @method create
-     * @param {object} data 
+     * @param {object} playerData 
      */
-    create(data) {
+    create(playerData) {
+
+        console.log('playerData:', Object.keys(playerData).length);
+
+        if (Object.keys(playerData).length == 0) // La primera vez que se inicia el juego (PlayerData es vacío)
+        {
+            const cached = this.cache.json.get('playerData');
+            this.playerData = cached;
+        }
+        else this.playerData = playerData
+
+       
+        
+
+        console.log('playerData:', this.playerData);
+
         let { width, height } = this.sys.game.canvas;
-        this.background = this.add.image(width / 2, height / 2, 'background').setDisplaySize(width, height);
+        this.background = this.add.image(width / 2, height / 2, 'background').setDisplaySize(width, height).setDepth(-2);
 
         const box = this.add.image(400, 950, 'BoxOpen').setOrigin(0.5).setScale(1.5);
         const kitty = this.add.image(500, 450, 'StartMenuKronos').setOrigin(0.5).setScale(0.9);
@@ -60,13 +64,22 @@ export class Start extends Phaser.Scene {
                 fill: '#000000',
                 backgroundColor: '#ffffffff',
                 padding: { x: 40, y: 20 }
-            })
-
-            .setOrigin(0.5)
+            }).setOrigin(0.5)
             .setInteractive();
 
-        // let counterValue = data.counterTxt !== undefined ? data.counterTxt : 0;
-        // this.counterDisplay = this.add.text(width / 2, height / 2, `Counter: ${counterValue}`, { fontSize: 64 }).setOrigin(0.5);
+        this.TimeboxedButton = this.add.text(1500, 900, '   ENABLE\nTIMEBOXED MODE',
+            {
+                fontSize: '30px',
+                fill: '#000000',
+                backgroundColor: '#ffffffff',
+                padding: { x: 40, y: 40 },
+                
+            }).setOrigin(0.5)
+            .setInteractive();
+
+            
+
+        
 
         //PLAY BUTTON INTERACTIONS
 
@@ -80,7 +93,7 @@ export class Start extends Phaser.Scene {
 
         //accion click
         playButton.on('pointerup', () => { // This method will change to another scene (not created yet)
-            this.scene.start('LoadingScene');
+            this.scene.start('Intro', this.playerData);
         });
 
         //CREDITS BUTTON INTERACTIONS
@@ -89,11 +102,52 @@ export class Start extends Phaser.Scene {
         creditsButton.on('pointerover', () => creditsButton.setStyle({ fill: '#62a6ffff' }));
         creditsButton.on('pointerout', () => creditsButton.setStyle({ fill: '#000000ff' }));
 
+        //efecto hover del boton Timeboxed
+        this.TimeboxedButton.on('pointerover', () => this.TimeboxedButton.setStyle({ fill: '#62a6ffff' }));
+        this.TimeboxedButton.on('pointerout', () => this.TimeboxedButton.setStyle({ fill: '#000000ff' }));
+
         //accion click
         creditsButton.on('pointerdown', () => {
 
             this.scene.start('CreditsScene');
         });
+        
+        this.TimeboxedButton.on('pointerdown', () => {
+
+            if (this.playerData.showedTBwarn == true)
+            {
+                this.changeTimeboxedMode(!this.playerData.TimeboxedMode);
+            }
+            else{
+
+            
+
+            if (this.scene.isActive('ConfirmMenu')) return;
+
+            this.scene.pause();
+            this.scene.launch('ConfirmMenu',{
+                sceneToPause: this.scene.key,
+                text: "Are you sure you want to activate TimeBoxed mode?\n\n When playing with this enabled, if you lose any game, the entire game will restart. \nCompleting the entire game in this mode will grant an exclusive achievement",
+                onYes: () => {
+                    this.scene.resume(this);
+                    this.scene.stop('ConfirmMenu');
+                    // Se tinta el fondo de rojo
+                    this.changeTimeboxedMode(true);
+                    this.playerData.showedTBwarn = true;
+                },
+                onNo: () => {
+                    this.scene.resume(this);
+                    this.scene.stop('ConfirmMenu');
+                }
+            });
+
+            }
+
+          
+        });
+
+
+         
 
         logo.setScale(0.5);
 
@@ -114,6 +168,16 @@ export class Start extends Phaser.Scene {
         //.setAlpha(0.9);
         //.setTint(0xffffffff);
 
+
+    }
+
+    changeTimeboxedMode(state)
+    {
+
+        this.playerData.TimeboxedMode = state;
+        console.log(this.playerData)
+        if (state)  this.TimeboxedButton.setText("   DISABLE\nTIMEBOXED MODE");
+        else this.TimeboxedButton.setText("   ENABLE\nTIMEBOXED MODE");
 
     }
 

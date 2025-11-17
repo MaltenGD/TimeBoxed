@@ -40,16 +40,31 @@ export class ConfirmMenuScene extends Phaser.Scene {
         const titleText = (data && data.text) ? data.text : 'Do you want to go back?';
         this.sceneToPause = data ? data.PausedScene : undefined;
 
-        this.titleText = this.add.text(width / 2, height / 2 - 80, titleText, {
+        // Ensure the title text stays inside the central box with padding and wraps if necessary
+        const padding = 40;
+        const maxTextWidth = this.box.width - padding * 2;
+        const maxTextHeight = this.box.height; // leave space for buttons etc.
+
+        this.titleText = this.add.text(width / 2, height / 2 - 100, titleText, {
             fontSize: '34px',
             fill: '#ffffff',
-            align: 'center'
+            align: 'center',
+            wordWrap: { width: maxTextWidth, useAdvancedWrap: true }
         }).setOrigin(0.5);
+
+        // If the wrapped text is still taller than the available area, reduce font size to fit
+        if (this.titleText.height > maxTextHeight) {
+            const baseSize = 34;
+            const scale = maxTextHeight / this.titleText.height;
+            const newSize = Math.max(14, Math.floor(baseSize * scale)); // don't go below 14px
+            this.titleText.setStyle({ fontSize: newSize + 'px', wordWrap: { width: maxTextWidth, useAdvancedWrap: true } });
+            this.titleText.setOrigin(0.5);
+        }
 
         /**
          * Yes botton
          */
-        this.yesBtn = this.add.text(width / 2 - 100, height / 2 + 60, 'Yes', {
+        this.yesBtn = this.add.text(width / 2 - 100, height / 2 + 120, 'Yes', {
             fontSize: '30px',
             fill: '#fff',
             backgroundColor: '#8B0000',
@@ -59,7 +74,7 @@ export class ConfirmMenuScene extends Phaser.Scene {
         /**
          * No botton
          */
-        this.noBtn = this.add.text(width / 2 + 100, height / 2 + 60, 'No', {
+        this.noBtn = this.add.text(width / 2 + 100, height / 2 + 120, 'No', {
             fontSize: '30px',
             fill: '#fff',
             backgroundColor: '#107310',
