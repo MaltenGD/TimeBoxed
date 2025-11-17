@@ -62,7 +62,7 @@
         "speaker": "Kronos",
         "text": "It's not a trick, it's a do-over! A mulligan! A... temporal adjustment! Hold on tight, my friend, this might feel a bit strange!",
         "animation": "true",
-        "next": "ADD10"
+        "next": "end"
     },
     "end":
     {

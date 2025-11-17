@@ -23,8 +23,8 @@ export class HelpLobbyScene extends Phaser.Scene {
     create() {
         const { width, height } = this.scale;
 
-        this.background = this.add.image(width / 2, height / 2, 'background').setDisplaySize(width, height);
-
+        if (this.playerData.TimeboxedMode) this.background = this.add.image(width / 2, height / 2, 'backgroundTB').setDisplaySize(width, height);
+        else this.background = this.add.image(width / 2, height / 2, 'background').setDisplaySize(width, height);
 
         // Add some placeholder help text
         this.add.text(width / 2, height / 2 - 350, 'Help Lobby', {

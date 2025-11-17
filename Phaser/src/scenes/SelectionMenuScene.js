@@ -30,8 +30,8 @@ export class SelectionMenuScene extends Phaser.Scene {
         this.transitionController.startFadeInTransition(500, new RGBColor(0,0,0), () => {});
         
         const { width, height } = this.sys.game.canvas;  //width and height of the canvas
-        this.background = this.add.image(width / 2, height / 2, 'background').setDisplaySize(width, height);
-
+        if (this.playerData.TimeboxedMode) this.background = this.add.image(width / 2, height / 2, 'backgroundTB').setDisplaySize(width, height);
+        else this.background = this.add.image(width / 2, height / 2, 'background').setDisplaySize(width, height);
         const centerX = width / 2;
         const centerY = height / 2;
         

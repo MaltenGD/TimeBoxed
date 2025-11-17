@@ -1,8 +1,8 @@
-import DialogueController from "../../DialogueController.js";
+import DialogueController from "../DialogueController.js";
 
-export class AsebDefeatScene extends Phaser.Scene
+export class TimeBoxedDefeat extends Phaser.Scene
 {
-    constructor(){super('AsebDefeatScene');}
+    constructor(){super('TimeBoxedDefeat');}
 
     preload()
     {
@@ -11,7 +11,7 @@ export class AsebDefeatScene extends Phaser.Scene
         * @param {string} key - The key to reference the loaded JSON data.
         * @param {string} url - The URL of the JSON file to load.
         */
-        this.load.json('AsebDefeatDialogue', 'Phaser/DialoguesJson/AsebDefeatDialogue.json');
+        this.load.json('TimeBoxedDefeatDialogue', 'Phaser/DialoguesJson/TimeBoxedDefeatDialogue.json');
     }
 
     create(playerData) 
@@ -22,9 +22,8 @@ export class AsebDefeatScene extends Phaser.Scene
         let { width, height } = this.sys.game.canvas;
 
 
-
         //creating the background
-        this.background = this.add.image(width / 2, height / 2, 'asebBackgroundPlaceholder').setDisplaySize(width, height);
+      this.background = this.add.image(width / 2, height / 2, 'backgroundTB').setDisplaySize(width, height);
 
         /**Skip button */
         const skipBtn = this.add.text(width - 100, height - 1000 , 'SKIP', {
@@ -42,8 +41,8 @@ export class AsebDefeatScene extends Phaser.Scene
         });
 
         /** variable json*/
-        const introAsebData = this.cache.json.get('AsebDefeatDialogue');
-        this.dialogueController = new DialogueController(this, "AsebDefeat", introAsebData);
+        const TBdefeatDialogue = this.cache.json.get('TimeBoxedDefeatDialogue');
+        this.dialogueController = new DialogueController(this, "TimeBoxedDefeat", TBdefeatDialogue);
         this.dialogueController.iniDialogue();
         
         this.events.on('nextDialog',()=>
@@ -53,9 +52,8 @@ export class AsebDefeatScene extends Phaser.Scene
 
         this.events.on('Finished', () => {
 
-            if (this.playerData.TimeboxedMode) this.scene.start('TimeBoxedDefeat', this.playerData);
-            else this.scene.start('AsebBeginScene', this.playerData)
-            
+            this.resetPlayerData();
+            this.scene.start('Start', this.playerData);
             console.log("cambia de escena");
         });
     
@@ -65,6 +63,15 @@ export class AsebDefeatScene extends Phaser.Scene
         if (this.scene.isActive('OptionMenu')) return;
             this.scene.pause();
             this.scene.launch('OptionMenu', { sceneToPause: this.scene.key });
+    }
+
+    resetPlayerData()
+    {
+        this.playerData.IntroCompleted = false;
+        this.playerData.EgyptIntroCompleted = false;
+        this.playerData.AsebCompleted = false;
+        this.playerData.TaliCompleted = false;
+        this.playerData.HanafudaCompleted = false;
     }
             
 }

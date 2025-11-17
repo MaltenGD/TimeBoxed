@@ -16,6 +16,7 @@ import { IntroAseb } from './scenes/asebScenes/IntroAseb.js';
 import { OptionMenuScene } from './scenes/OptionMenuScene.js';
 import { HelpLobbyScene } from './scenes/HelpLobbyScene.js';
 import { ItemsScene } from './scenes/ItemsScene.js';
+import { TimeBoxedDefeat } from './scenes/TimeBoxedDefeat.js'
 
 
 
@@ -44,6 +45,7 @@ const config = {
         TaliBeginScene,
         TaliEndScene,
         HanafudaScene,
+        TimeBoxedDefeat,
         OptionMenuScene,
         ConfirmMenuScene,
         ItemsScene,

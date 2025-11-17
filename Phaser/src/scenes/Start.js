@@ -40,7 +40,9 @@ export class Start extends Phaser.Scene {
         console.log('playerData:', this.playerData);
 
         let { width, height } = this.sys.game.canvas;
-        this.background = this.add.image(width / 2, height / 2, 'background').setDisplaySize(width, height).setDepth(-2);
+
+        if (this.playerData.TimeboxedMode) this.background = this.add.image(width / 2, height / 2, 'backgroundTB').setDisplaySize(width, height);
+        else this.background = this.add.image(width / 2, height / 2, 'background').setDisplaySize(width, height);
 
         const box = this.add.image(400, 950, 'BoxOpen').setOrigin(0.5).setScale(1.5);
         const kitty = this.add.image(500, 450, 'StartMenuKronos').setOrigin(0.5).setScale(0.9);
@@ -67,7 +69,7 @@ export class Start extends Phaser.Scene {
             }).setOrigin(0.5)
             .setInteractive();
 
-        this.TimeboxedButton = this.add.text(1500, 900, '   ENABLE\nTIMEBOXED MODE',
+        this.TimeboxedButton = this.add.text(1500, 900, '',
             {
                 fontSize: '30px',
                 fill: '#000000',
@@ -76,8 +78,8 @@ export class Start extends Phaser.Scene {
                 
             }).setOrigin(0.5)
             .setInteractive();
-
-            
+        if (this.playerData.TimeboxedMode) this.TimeboxedButton.setText('   DISABLE\nTIMEBOXED MODE')
+        else this.TimeboxedButton.setText('   ENABLE\nTIMEBOXED MODE')
 
         
 
@@ -131,7 +133,7 @@ export class Start extends Phaser.Scene {
                 onYes: () => {
                     this.scene.resume(this);
                     this.scene.stop('ConfirmMenu');
-                    // Se tinta el fondo de rojo
+                
                     this.changeTimeboxedMode(true);
                     this.playerData.showedTBwarn = true;
                 },
@@ -176,8 +178,16 @@ export class Start extends Phaser.Scene {
 
         this.playerData.TimeboxedMode = state;
         console.log(this.playerData)
-        if (state)  this.TimeboxedButton.setText("   DISABLE\nTIMEBOXED MODE");
-        else this.TimeboxedButton.setText("   ENABLE\nTIMEBOXED MODE");
+        if (state)  
+        {
+            this.TimeboxedButton.setText("   DISABLE\nTIMEBOXED MODE");
+            this.background.setTexture("backgroundTB")
+        }
+        else 
+        {
+            this.TimeboxedButton.setText("   ENABLE\nTIMEBOXED MODE");
+            this.background.setTexture("background")
+        }
 
     }
 

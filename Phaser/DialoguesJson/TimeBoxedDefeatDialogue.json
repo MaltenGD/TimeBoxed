@@ -1,0 +1,40 @@
+{
+    "TimeBoxedDefeatDialogue": {
+        "start": {
+            "speaker": "Narrator",
+            "text": "At first it is a whisper—an almost imperceptible rasp along the edges of the world. The air tightens, and clocks in the distance bow like exhausted watchers.",
+            "animation": "true",
+            "next": "TBD2"
+        },
+        "TBD2": {
+            "speaker": "Narrator",
+            "text": "Moments peel away quietly: laughter thins into static, footsteps skip like broken recordings, and the sky drains until only a humming emptiness remains.",
+            "animation": "true",
+            "next": "TBD3"
+        },
+        "TBD3": {
+            "speaker": "Narrator",
+            "text": "You feel the weight of a tiny choice—a toggled setting called TimeBoxed mode—and understand, too late, how brittle the seam between then and now was. Under the strain it unstitched.",
+            "animation": "true",
+            "next": "TBD4"
+        },
+        "TBD4": {
+            "speaker": "Narrator",
+            "text": "Light folds into hollow shapes. The box that bore you hums like a hollow bone. Memories slacken; promises fray. A soft, dreadful cracking echoes where the world once held together.",
+            "animation": "true",
+            "next": "TBD5"
+        },
+        "TBD5": {
+            "speaker": "Narrator",
+            "text": "No thunder, no accusations—only the mechanic logic of collapse. TimeBoxed mode gnawed at the weave until it gave. The universe does not scold; it simply empties.",
+            "animation": "true",
+            "next": "end"
+        },
+        "end": {
+            "speaker": "Narrator",
+            "text": "Silence arrives like a room bereft of furniture. The sky is a blank; the stars are pinpricks of teeth. There is no comfort here—only a hollow that looks back at you. The game will restart. You will begin again.",
+            "animation": "true",
+            "next": null
+        }
+    }
+}
