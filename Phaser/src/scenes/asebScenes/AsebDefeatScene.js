@@ -14,16 +14,14 @@ export class AsebDefeatScene extends Phaser.Scene
         this.load.json('AsebDefeatDialogue', 'Phaser/DialoguesJson/AsebDefeatDialogue.json');
     }
 
-    create() 
+    create(playerData) 
     {
+        this.playerData = playerData;
+        console.log(this.playerData)
         // Get the canvas width and height to use when giving a position to an object
         let { width, height } = this.sys.game.canvas;
 
-        this.input.keyboard.on('keydown-ESC', () => {
-            if (this.scene.isActive('OptionMenu')) return;
-            this.scene.pause();
-            this.scene.launch('OptionMenu', { sceneToPause: this.scene.key });
-        });
+
 
         //creating the background
         this.background = this.add.image(width / 2, height / 2, 'asebBackgroundPlaceholder').setDisplaySize(width, height);
@@ -54,10 +52,19 @@ export class AsebDefeatScene extends Phaser.Scene
         });
 
         this.events.on('Finished', () => {
-            this.scene.start('AsebBeginScene');
+
+            if (this.playerData.TimeboxedMode) this.scene.start('TimeBoxedDefeat', this.playerData);
+            else this.scene.start('AsebBeginScene', this.playerData)
+            
             console.log("cambia de escena");
         });
     
+    }
+    openOptionMenu()
+    {
+        if (this.scene.isActive('OptionMenu')) return;
+            this.scene.pause();
+            this.scene.launch('OptionMenu', { sceneToPause: this.scene.key });
     }
             
 }

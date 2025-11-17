@@ -1,8 +1,8 @@
-import DialogueController from "../../DialogueController.js";
+import DialogueController from "../DialogueController.js";
 
-export class AsebVictoryScene extends Phaser.Scene
+export class TimeBoxedDefeat extends Phaser.Scene
 {
-    constructor(){super('AsebVictoryScene');}
+    constructor(){super('TimeBoxedDefeat');}
 
     preload()
     {
@@ -11,34 +11,20 @@ export class AsebVictoryScene extends Phaser.Scene
         * @param {string} key - The key to reference the loaded JSON data.
         * @param {string} url - The URL of the JSON file to load.
         */
-        this.load.json('AsebWinDialogue', 'Phaser/DialoguesJson/AsebWinDialogue.json');
+        this.load.json('TimeBoxedDefeatDialogue', 'Phaser/DialoguesJson/TimeBoxedDefeatDialogue.json');
     }
 
     create(playerData) 
     {
-
         this.playerData = playerData;
         console.log(this.playerData)
-        
         // Get the canvas width and height to use when giving a position to an object
         let { width, height } = this.sys.game.canvas;
 
-        this.awardAch();
-
-        this.input.keyboard.on('keydown-ESC', () => {
-           this.openOptionMenu();
-        });
 
         //creating the background
-        this.background = this.add.image(width / 2, height / 2, 'asebBackgroundPlaceholder').setDisplaySize(width, height);
+      this.background = this.add.image(width / 2, height / 2, 'backgroundTB').setDisplaySize(width, height);
 
-        this.backBtn = this.add.text(0, 0, 'Back', { fontSize: 64, fill: '#000000ff'})
-        .setInteractive()
-        .on('pointerover', () => this.backBtn.setStyle({fill: 'rgba(104, 35, 35, 1)'}))
-        .on('pointerout', () => this.backBtn.setStyle({fill: '#000000ff'}))
-        .on('pointerdown', () => {
-            this.openOptionMenu();
-        });
         /**Skip button */
         const skipBtn = this.add.text(width - 100, height - 1000 , 'SKIP', {
             fontSize: '30px',
@@ -55,8 +41,8 @@ export class AsebVictoryScene extends Phaser.Scene
         });
 
         /** variable json*/
-        const introAsebData = this.cache.json.get('AsebWinDialogue');
-        this.dialogueController = new DialogueController(this, "AsebWin", introAsebData);
+        const TBdefeatDialogue = this.cache.json.get('TimeBoxedDefeatDialogue');
+        this.dialogueController = new DialogueController(this, "TimeBoxedDefeat", TBdefeatDialogue);
         this.dialogueController.iniDialogue();
         
         this.events.on('nextDialog',()=>
@@ -65,24 +51,27 @@ export class AsebVictoryScene extends Phaser.Scene
         });
 
         this.events.on('Finished', () => {
-            this.scene.start('SelectionMenuScene');
+
+            this.resetPlayerData();
+            this.scene.start('Start', this.playerData);
             console.log("cambia de escena");
         });
     
     }
-
-    awardAch() {
-        this.achManager = this.registry.get('AchievementManager');
-        this.achManager.awardAchievement('TA1');
-        console.log("AS1 awarded!");
-        this.registry.set('AchievementManager', this.achManager);
-    }
-    
     openOptionMenu()
     {
         if (this.scene.isActive('OptionMenu')) return;
             this.scene.pause();
             this.scene.launch('OptionMenu', { sceneToPause: this.scene.key });
+    }
+
+    resetPlayerData()
+    {
+        this.playerData.IntroCompleted = false;
+        this.playerData.EgyptIntroCompleted = false;
+        this.playerData.AsebCompleted = false;
+        this.playerData.TaliCompleted = false;
+        this.playerData.HanafudaCompleted = false;
     }
             
 }

@@ -7,7 +7,11 @@ export class CreditsScene extends Phaser.Scene {
 
     }
 
-    create() {
+    create(playerData) {
+
+        this.playerData = playerData;
+        console.log(this.playerData)
+
         const { width, height } = this.sys.game.canvas;
 
         this.cameras.main.setBackgroundColor('#000000');
@@ -81,7 +85,7 @@ export class CreditsScene extends Phaser.Scene {
         .on('pointerover', () => backBtn.setStyle({ backgroundColor: '#e6e6e6' }))
         .on('pointerout', () => backBtn.setStyle({ backgroundColor: '#FFFFFF' }))
         .on('pointerdown', () => {
-            this.scene.start('Start');
+            this.scene.start('Start', this.playerData);
         });
     }
 }

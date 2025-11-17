@@ -20,15 +20,18 @@ export class SelectionMenuScene extends Phaser.Scene {
     }
 
     /** Create the elements of the scene */
-    create() {
+    create(playerData) {
+
+        this.playerData = playerData;
+        console.log(this.playerData)
 
         this.transitionController = new TransitionController(this);
 
         this.transitionController.startFadeInTransition();
         
         const { width, height } = this.sys.game.canvas;  //width and height of the canvas
-        this.background = this.add.image(width / 2, height / 2, 'background').setDisplaySize(width, height);
-
+        if (this.playerData.TimeboxedMode) this.background = this.add.image(width / 2, height / 2, 'backgroundTB').setDisplaySize(width, height);
+        else this.background = this.add.image(width / 2, height / 2, 'background').setDisplaySize(width, height);
         const centerX = width / 2;
         const centerY = height / 2;
         
@@ -163,7 +166,7 @@ export class SelectionMenuScene extends Phaser.Scene {
         .on('pointerover', () => backBtn.setStyle({ backgroundColor: '#bbbaba' }))
         .on('pointerout', () => backBtn.setStyle({ backgroundColor: '#f7f7f7' }))
         .on('pointerdown', () => {
-            this.scene.start('Start');
+            this.scene.start('Start', this.playerData);
         });
 
         /** It controls if the buttons are showing/deployed in screen so their animation doesn't reapeat again (it's used only 1 time)*/
@@ -236,7 +239,7 @@ export class SelectionMenuScene extends Phaser.Scene {
                          */
                         btn.setInteractive({ cursor: 'pointer' })
                             .on('pointerdown', () => {
-                                this.scene.start(scenes[index]);
+                                this.scene.start(scenes[index], this.playerData);
                             });
                     }
                 });

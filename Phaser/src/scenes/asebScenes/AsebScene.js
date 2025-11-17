@@ -21,9 +21,9 @@ export class AsebScene extends Phaser.Scene {
          * @param {object} data - Data passed from the previous scene.
          * @param {boolean} [data.playerFirst=true] - Determines if the player takes the first turn.
          */
-        init(data) {
+        init(playerData) {
             // Default to player going first if no data is passed.
-            if (data !== undefined) this.playerFirst = data.playerFirst
+            if (playerData !== undefined) this.playerFirst = playerData.AsebPlayerFirst
             else this.playerFirst = true;
         }
 
@@ -43,38 +43,24 @@ export class AsebScene extends Phaser.Scene {
     /*
      * Creates the game objects and sets up the scene.
      */
-    create(){
+    create(playerData){
+
+        this.playerData = playerData;
+        console.log(this.playerData)
 
         this.background = this.add.image(this.width / 2, this.height / 2, 'asebBackgroundPlaceholder').setDisplaySize(this.width, this.height);
         this.infoBoard = this.add.image(this.width/2, this.height/2, 'StickBoard').setOrigin(0.5).setScale(0.55);
 
         this.input.keyboard.on('keydown-ESC', () => {
-            if (this.scene.isActive('OptionMenu')) return;
-            this.scene.pause();
-            this.scene.launch('OptionMenu', { sceneToPause: this.scene.key });
+           this.openOptionMenu();
         });
 
         this.backBtn = this.add.text(0, 0, 'Back', { fontSize: 64, fill: '#000000ff'})
         .setInteractive()
-        .on('pointerover', () => this.backBtn.setStyle({fill: '#0f0'}))
+        .on('pointerover', () => this.backBtn.setStyle({fill: 'rgba(104, 35, 35, 1)'}))
         .on('pointerout', () => this.backBtn.setStyle({fill: '#000000ff'}))
         .on('pointerdown', () => {
-            if (this.scene.isActive('ConfirmMenu')) return;
-    
-            this.scene.pause();
-            this.scene.launch('ConfirmMenu', {
-                text: 'Do you want to go back to the menu?',
-                sceneToPause: this.scene.key,
-                onYes: () => {
-                    this.scene.stop(this.scene.key);
-                    this.scene.stop('ConfirmMenu');
-                    this.scene.start('SelectionMenuScene');
-                },
-                onNo: () => {
-                    this.scene.resume(this.scene.key);
-                    this.scene.stop('ConfirmMenu');
-                }
-            });
+            this.openOptionMenu();
         });
         
         this.winBtn = this.add.text(0, 70, 'Win Game', { fontSize: 64, fill: '#000000ff'})
@@ -82,7 +68,7 @@ export class AsebScene extends Phaser.Scene {
         .on('pointerover', () => this.winBtn.setStyle({fill: '#0f0'}))
         .on('pointerout', () => this.winBtn.setStyle({fill: '#000000ff'}))
         .on('pointerdown', () => {
-            this.scene.start('AsebVictoryScene');
+            this.scene.start('AsebVictoryScene', this.playerData);
         });
 
         this.loseBtn = this.add.text(350, 70, 'Lose Game', { fontSize: 64, fill: '#000000ff'})
@@ -90,7 +76,7 @@ export class AsebScene extends Phaser.Scene {
         .on('pointerover', () => this.loseBtn.setStyle({fill: '#f00'}))
         .on('pointerout', () => this.loseBtn.setStyle({fill: '#000000ff'}))
         .on('pointerdown', () => {
-            this.scene.start('AsebDefeatScene');
+            this.scene.start('AsebDefeatScene', this.playerData);
         });
 
         console.log(this.playerFirst ? "Player starts the game." : "Anubis starts the game.");
@@ -182,11 +168,11 @@ export class AsebScene extends Phaser.Scene {
             this.startPlayerTurn();
         }
         if (this.asebGame.state === GAME_STATE.PLAYER_VICTORY) {
-            this.scene.start('AsebVictoryScene');
+            this.scene.start('AsebVictoryScene', this.playerData);
 
         } 
         else if (this.asebGame.state === GAME_STATE.ENEMY_VICTORY) {
-            this.scene.start('AsebDefeatScene');
+            this.scene.start('AsebDefeatScene', this.playerData);
 
         }
     }
@@ -299,5 +285,11 @@ export class AsebScene extends Phaser.Scene {
     {
         object.setActive(state);
         object.setVisible(state);
+    }
+    openOptionMenu()
+    {
+        if (this.scene.isActive('OptionMenu')) return;
+            this.scene.pause();
+            this.scene.launch('OptionMenu', { sceneToPause: this.scene.key });
     }
 }

@@ -25,9 +25,10 @@ export class ItemsScene extends Phaser.Scene {
         this.width = width;
         this.height = height;
 
-        this.background = this.add.image(width / 2, height / 2, 'background').setDisplaySize(width, height);
-
-        this.add.text(width / 2, height / 5, 'Items', {
+        if (this.playerData.TimeboxedMode) this.background = this.add.image(width / 2, height / 2, 'backgroundTB').setDisplaySize(width, height);
+        else this.background = this.add.image(width / 2, height / 2, 'background').setDisplaySize(width, height);
+        
+        this.add.text(width / 2, height / 2 - 350, 'Items', {
             fontSize: '48px',
             fill: '#ffffff',
             fontStyle: 'bold'

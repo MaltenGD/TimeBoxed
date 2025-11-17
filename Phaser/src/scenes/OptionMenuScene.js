@@ -89,21 +89,10 @@ export class OptionMenuScene extends Phaser.Scene {
         })
 
         helpBtn.on('pointerdown', () => {
-            if (this.scene.isActive('ConfirmMenu')) return;
-
+           
             this.scene.pause();
-            this.scene.launch('ConfirmMenu',{
-                sceneToPause: this.scene.key,
-                text: "Do you want to go to the help lobby?",
-                onYes: () => {
-                    this.scene.stop('ConfirmMenu');
-                    this.scene.launch('HelpLobbyScene', { sceneToResume: 'OptionMenu' });
-                },
-                onNo: () => {
-                    this.scene.stop('ConfirmMenu');
-                    this.scene.resume('OptionMenu');
-                }
-            });
+            this.scene.launch('HelpLobbyScene', { sceneToResume: 'OptionMenu' });
+
         });
 
         itemsBtn.on('pointerdown', () => {
