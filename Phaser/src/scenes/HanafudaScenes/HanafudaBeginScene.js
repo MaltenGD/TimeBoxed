@@ -8,6 +8,7 @@ export class HanafudaBeginScene extends Phaser.Scene
         this.playerCard = null;
         this.oponentcard = null;
         this.mazo = [];
+        this.infoText; 
     }
 
     preload() {
@@ -66,6 +67,12 @@ export class HanafudaBeginScene extends Phaser.Scene
         {
             this.createCards(finalPositions[i].x, finalPositions[i].y, `${this.mazo[i].number}`, this.mazo[i]);
         }
+
+        this.infoText = this.add.text(this.width / 2, this.height / 2 - 200, "Choose a card", {
+            fontSize: '30px', fill: '#ffffff'
+        }).setOrigin(0.5);
+
+        this.events.on("cardSelected", this.onCardSelected, this);
     }
 
     createCards(x, y, textContent, card) 
@@ -90,15 +97,28 @@ export class HanafudaBeginScene extends Phaser.Scene
         .on('pointerover', () => backgroundCard.setFillStyle(0xbbbaba))
         .on('pointerout', () => backgroundCard.setFillStyle(0xffffff))
         .on('pointerdown', () => {
-            this.events.emit("selected");
-            this.playerCard = card;
-            console.log("Player selected:", this.playerCard);
+            this.events.emit("cardSelected", card); // Emit an event with the specific card
+        });
+
+        return container;
+    }
+
+    onCardSelected(card) {
+        this.playerCard = card;
+        console.log("Player selected:", this.playerCard);
+
+        // Create a new Text object. You cannot call .setText() on a string.
+        this.infoText.setText("Player has selected a card");
+
+        this.time.delayedCall(1000, () => {
+            this.infoText.setText("Oponent is selecting a card");
+        });
+
+        this.time.delayedCall(1000, () => {
             this.handleOpponentTurn();
         });
 
-        this.events.on("selected", ()=>{container.disableInteractive();})
-
-        return container;
+        this.events.off("cardSelected"); // Prevent this from being called again.
     }
 
     handleOpponentTurn()
@@ -110,18 +130,30 @@ export class HanafudaBeginScene extends Phaser.Scene
         } while (this.oponentcard === this.playerCard);
 
         console.log("Oponent selected:", this.oponentcard);
+        this.time.delayedCall(1000, () => {
+            this.infoText.setText("Oponent has selected a card");
+        });
+        
 
         if(this.oponentcard.number < this.playerCard.number)
         {
             this.playerBegins = false;
             console.log("Opponent starts");
-            this.scene.start('HanafudaGame', this.playerBegins);
+            this.time.delayedCall(1000, () => {
+                this.infoText.setText("Oponent Starts");
+            });
         }
         else
         {
             this.playerBegins = true;
             console.log("Player starts");
-            this.scene.start('HanafudaGame',{begins: this.playerBegins});
+            this.time.delayedCall(1000, () => {
+                this.infoText.setText("Player Starts");
+            });
         }
+
+        this.time.delayedCall(2000, () => {
+            this.scene.start('HanafudaGame', { begins: this.playerBegins });
+        });
     }
 }
