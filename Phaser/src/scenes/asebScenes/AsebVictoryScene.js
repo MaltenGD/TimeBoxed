@@ -85,6 +85,7 @@ export class AsebVictoryScene extends Phaser.Scene
         this.achManager = this.registry.get('AchievementManager');
         this.achManager.awardAchievement('AS1');
         console.log("AS1 awarded!");
+        this.achManager.checkGameCompletion(this.playerData);
         this.registry.set('AchievementManager', this.achManager);
     }
     
