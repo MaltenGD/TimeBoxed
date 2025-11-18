@@ -51,4 +51,11 @@ export default class AchievementManager {
         this.achievementMap.get(key).awardAchievement();
         this.awardedAchievements++
     }
+
+    /**
+     * Checks if the player has completed all the games.
+     */
+    checkGameCompletion() {
+
+    }
 }
