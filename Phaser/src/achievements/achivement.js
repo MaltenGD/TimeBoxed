@@ -10,4 +10,8 @@ export default class Achievement {
     awardAchievement() {
         this.awarded = true;
     }
+
+    revokeAchievement() {
+        this.awarded = false;
+    }
 }

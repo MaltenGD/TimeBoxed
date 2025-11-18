@@ -53,9 +53,22 @@ export default class AchievementManager {
     }
 
     /**
-     * Checks if the player has completed all the games.
+     * Revokes the given achievement.
+     * @param {string} key The key which identifies the achievement object.
      */
-    checkGameCompletion() {
+    revokeAchievement(key) {
+        this.achievementMap.get(key).revokeAchievement();
+    }
 
+    /**
+     * Checks if the player has completed all the games and awards the G1 achievement.
+     */
+    checkGameCompletion(playerData) {
+        if (this.achievementMap.get('TA1').awarded && this.achievementMap.get('AS1').awarded && this.achievementMap.get('HA1').awarded) {
+            this.awardAchievement('G1');
+            if (playerData.TimeboxedMode) {
+                this.awardAchievement('G2');
+            }
+        }
     }
 }
