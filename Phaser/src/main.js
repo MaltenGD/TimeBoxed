@@ -6,7 +6,6 @@ import { TaliBeginScene } from './scenes/taliScenes/TaliBeginScene.js';
 import { TaliEndScene } from './scenes/taliScenes/TaliEndScene.js';
 import { AsebBeginScene } from './scenes/asebScenes/AsebBeginScene.js';
 import { AsebScene } from './scenes/asebScenes/AsebScene.js';
-import { HanafudaScene } from './scenes/HanafudaScene.js';
 import { CreditsScene } from './scenes/CreditsScene.js';
 import { Intro } from './scenes/Intro.js';
 import { AsebVictoryScene } from './scenes/asebScenes/AsebVictoryScene.js';
@@ -17,6 +16,8 @@ import { OptionMenuScene } from './scenes/OptionMenuScene.js';
 import { HelpLobbyScene } from './scenes/HelpLobbyScene.js';
 import { ItemsScene } from './scenes/ItemsScene.js';
 import { TimeBoxedDefeat } from './scenes/TimeBoxedDefeat.js'
+import { HanafudaBeginScene} from './scenes/HanafudaScenes/HanafudaBeginScene.js'
+import { HanafudaGame} from './scenes/HanafudaScenes/HanafudaGame.js'
 
 
 
@@ -44,7 +45,8 @@ const config = {
         TaliScene,
         TaliBeginScene,
         TaliEndScene,
-        HanafudaScene,
+        HanafudaBeginScene,
+        HanafudaGame,
         TimeBoxedDefeat,
         OptionMenuScene,
         ConfirmMenuScene,
