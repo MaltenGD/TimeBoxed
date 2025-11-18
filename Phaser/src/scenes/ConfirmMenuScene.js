@@ -84,7 +84,7 @@ export class ConfirmMenuScene extends Phaser.Scene {
         /**
          * Events of the buttons
          */
-        // Prepare yes and no callbacks, ensuring we always run a fade-out before executing the yes action.
+        
         const defaultYes = () => {
             if (this.sceneToPause) {
                 this.scene.stop(this.sceneToPause);
@@ -97,7 +97,7 @@ export class ConfirmMenuScene extends Phaser.Scene {
         const noAction = (data && data.onNo) ? data.onNo : () => this.closeMenu();
 
         this.yesBtn.on('pointerdown', () => {
-            // Always perform a fade-out transition before running the yesAction.
+           
             this.transitionController.startFadeOutTransition(() => {
                 yesAction();
                
@@ -108,7 +108,6 @@ export class ConfirmMenuScene extends Phaser.Scene {
             noAction();
         });
 
-        // Wire ESC key to the computed noAction
         this.input.keyboard.once('keydown-ESC', () => {
             noAction();
         });
