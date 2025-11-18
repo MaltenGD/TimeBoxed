@@ -1,3 +1,5 @@
+import TransitionController, {RGBColor} from "../../misc/transitioncontroller.js";
+
 
 export class HanafudaBeginScene extends Phaser.Scene 
 {
@@ -8,22 +10,37 @@ export class HanafudaBeginScene extends Phaser.Scene
         this.playerCard = null;
         this.oponentcard = null;
         this.mazo = [];
-        this.cardContainers = [];
+        this.cardsContainers = [];
         this.infoText; 
+        this.cardContainer = null;
+
     }
 
     preload() {
         /** @type {number} */
-        let {width, height} = this.sys.game.canvas;
+        const {width, height} = this.scale;
         this.width = width;
         this.height = height;
     }
 
+
+    init()
+    {
+        this.playerBegins = false;
+        this.playerCard = null;
+        this.oponentcard = null;
+        this.mazo = [];
+        this.cardsContainers = [];
+        this.infoText = null;
+        this.cardContainer = null;
+    }
     create(playerData)
     {   
-
         this.playerData = playerData;
         console.log(this.playerData)
+
+        this.transitionController = new TransitionController(this);
+        this.transitionController.startFadeInTransition();
 
         this.input.keyboard.on('keydown-ESC', () => {
              this.openOptionMenu()
@@ -84,15 +101,15 @@ export class HanafudaBeginScene extends Phaser.Scene
 
         for(let i = 0; i < 8; ++i)
         {
-            const cardContainer = this.createCards(finalPositions[i].x, finalPositions[i].y, `${this.mazo[i].number}`, this.mazo[i]);
-            this.cardContainers.push(cardContainer);
+            this.cardContainer = this.createCards(finalPositions[i].x, finalPositions[i].y, `${this.mazo[i].number}`, this.mazo[i]);
+            this.cardsContainers.push(this.cardContainer);
         }
 
         this.infoText = this.add.text(this.width / 2, this.height / 2 - 200, "Choose a card", {
             fontSize: '30px', fill: '#000000'
         }).setOrigin(0.5);
 
-        this.events.on("cardSelected", this.onCardSelected, this);
+        //this.events.on("cardSelected", (card) => this.onCardSelected(card, this);
     }
 
     createCards(x, y, textContent, card) 
@@ -117,7 +134,8 @@ export class HanafudaBeginScene extends Phaser.Scene
         .on('pointerover', () => backgroundCard.setFillStyle(0xbbbaba))
         .on('pointerout', () => backgroundCard.setFillStyle(0xffffff))
         .on('pointerdown', () => {
-            this.events.emit("cardSelected", card); 
+            // this.events.emit("cardSelected", card); 
+            this.onCardSelected(card);
         });
 
         return container;
@@ -127,7 +145,7 @@ export class HanafudaBeginScene extends Phaser.Scene
         this.playerCard = card;
         console.log("Player selected:", this.playerCard);
 
-        this.cardContainers.forEach(container => container.disableInteractive());
+        this.cardsContainers.forEach(container => container.disableInteractive());
 
         this.infoText.setText("Player has selected a card");
 
@@ -178,7 +196,12 @@ export class HanafudaBeginScene extends Phaser.Scene
         }
 
         this.time.delayedCall(2000, () => {
-            this.scene.start('HanafudaGame', { begins: this.playerBegins });
+            this.transitionController.startFadeOutTransition(() => {
+                
+                 this.scene.start('HanafudaGame', { begins: this.playerBegins});
+            
+            }, 400);
+            
         });
     }
 
@@ -188,5 +211,10 @@ export class HanafudaBeginScene extends Phaser.Scene
             this.scene.pause();
             this.playerData.SceneToResume = this.scene.key;
             this.scene.launch('OptionMenu', this.playerData);
+    }
+
+    shutdown() {
+        console.log('HanafudaBeginScene shutting down, removing keyboard listeners.');
+        this.input.keyboard.off('keydown-ESC');
     }
 }

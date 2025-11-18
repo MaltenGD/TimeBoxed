@@ -1,3 +1,5 @@
+import TransitionController, {RGBColor} from "../../misc/transitioncontroller.js";
+
 export class HanafudaGame extends Phaser.Scene{
     constructor()
     {
@@ -11,10 +13,13 @@ export class HanafudaGame extends Phaser.Scene{
         this.playerFirst = data.begins;
     }
 
-    create() {
+    create(playerData) {
         this.playerData = playerData;
         console.log(this.playerData)
 
+        this.transitionController = new TransitionController(this);
+        this.transitionController.startFadeInTransition();
+        
         this.input.keyboard.on('keydown-ESC', () => {
             this.openOptionMenu();
         });
