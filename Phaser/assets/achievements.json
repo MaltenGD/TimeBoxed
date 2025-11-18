@@ -13,6 +13,27 @@
             "name": "Dice Ruler",
             "description": "Won once in Tali.",
             "image": "tempInsignia2"
+        },
+
+        "HA1":
+        {
+            "name": "Card God",
+            "description": "Won once in Hanafuda.",
+            "image": "tempInsignia3"
+        },
+
+        "G1":
+        {
+            "name": "Master of Time",
+            "description": "Completed the entire game.",
+            "image": "tempInsignia4"
+        },
+
+        "G2":
+        {
+            "name": "God of Time",
+            "description": "Completed the entire game in Timeboxed mode.",
+            "image": "tempInsignia5"
         }
     }
 }

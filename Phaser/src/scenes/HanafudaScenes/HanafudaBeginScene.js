@@ -8,6 +8,7 @@ export class HanafudaBeginScene extends Phaser.Scene
         this.playerCard = null;
         this.oponentcard = null;
         this.mazo = [];
+        this.cardContainers = [];
         this.infoText; 
     }
 
@@ -18,8 +19,26 @@ export class HanafudaBeginScene extends Phaser.Scene
         this.height = height;
     }
 
-    create()
+    create(playerData)
     {   
+
+        this.playerData = playerData;
+        console.log(this.playerData)
+
+        this.input.keyboard.on('keydown-ESC', () => {
+             this.openOptionMenu()
+        });
+
+        this.background = this.add.image(this.width/2, this.height/2, 'HanafudaBackgroundPlaceholder');
+
+        this.backBtn = this.add.text(0, 0, 'Back', { fontSize: 64, fill: '#000000ff'})
+        .setInteractive()
+        .on('pointerover', () => this.backBtn.setStyle({fill: 'rgba(104, 35, 35, 1)'}))
+        .on('pointerout', () => this.backBtn.setStyle({fill: '#000000ff'}))
+        .on('pointerdown', () => {
+            this.openOptionMenu();
+        });
+
         const totalCards = 48;
         const months = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
         let monthCount = 0;
@@ -65,11 +84,12 @@ export class HanafudaBeginScene extends Phaser.Scene
 
         for(let i = 0; i < 8; ++i)
         {
-            this.createCards(finalPositions[i].x, finalPositions[i].y, `${this.mazo[i].number}`, this.mazo[i]);
+            const cardContainer = this.createCards(finalPositions[i].x, finalPositions[i].y, `${this.mazo[i].number}`, this.mazo[i]);
+            this.cardContainers.push(cardContainer);
         }
 
         this.infoText = this.add.text(this.width / 2, this.height / 2 - 200, "Choose a card", {
-            fontSize: '30px', fill: '#ffffff'
+            fontSize: '30px', fill: '#000000'
         }).setOrigin(0.5);
 
         this.events.on("cardSelected", this.onCardSelected, this);
@@ -93,11 +113,11 @@ export class HanafudaBeginScene extends Phaser.Scene
         const container = this.add.container(x, y, [backgroundCard, text]);
 
         // Define a hit area for the container to make it interactive
-        container.setInteractive(new Phaser.Geom.Rectangle(0, 0, BOX_WIDTH, BOX_HEIGHT), Phaser.Geom.Rectangle.Contains)
+        container.setInteractive(new Phaser.Geom.Rectangle(-BOX_WIDTH / 2, -BOX_HEIGHT / 2, BOX_WIDTH, BOX_HEIGHT), Phaser.Geom.Rectangle.Contains)
         .on('pointerover', () => backgroundCard.setFillStyle(0xbbbaba))
         .on('pointerout', () => backgroundCard.setFillStyle(0xffffff))
         .on('pointerdown', () => {
-            this.events.emit("cardSelected", card); // Emit an event with the specific card
+            this.events.emit("cardSelected", card); 
         });
 
         return container;
@@ -107,8 +127,11 @@ export class HanafudaBeginScene extends Phaser.Scene
         this.playerCard = card;
         console.log("Player selected:", this.playerCard);
 
-        // Create a new Text object. You cannot call .setText() on a string.
+        this.cardContainers.forEach(container => container.disableInteractive());
+
         this.infoText.setText("Player has selected a card");
+
+        const playerChosenCard = this.createCards(this.width/2 + 500, this.height/2 + 400,`${card.number}`, card).disableInteractive();
 
         this.time.delayedCall(1000, () => {
             this.infoText.setText("Oponent is selecting a card");
@@ -133,6 +156,8 @@ export class HanafudaBeginScene extends Phaser.Scene
         this.time.delayedCall(1000, () => {
             this.infoText.setText("Oponent has selected a card");
         });
+
+        const oponentChosenCard = this.createCards(this.width/2 - 500, this.height/2 + 400,`${this.oponentcard.number}`, this.oponentcard).disableInteractive();
         
 
         if(this.oponentcard.number < this.playerCard.number)
@@ -155,5 +180,13 @@ export class HanafudaBeginScene extends Phaser.Scene
         this.time.delayedCall(2000, () => {
             this.scene.start('HanafudaGame', { begins: this.playerBegins });
         });
+    }
+
+     openOptionMenu()
+    {
+        if (this.scene.isActive('OptionMenu')) return;
+            this.scene.pause();
+            this.playerData.SceneToResume = this.scene.key;
+            this.scene.launch('OptionMenu', this.playerData);
     }
 }
