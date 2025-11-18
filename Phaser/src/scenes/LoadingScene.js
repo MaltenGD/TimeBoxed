@@ -38,6 +38,7 @@ export class LoadingScene extends Phaser.Scene
         this.loadSelectionMenuAssets();
         this.loadAsebAssets();
         this.loadTaliAssets();
+        this.loadHanafudaAssets();
         this.loadCreditsAssets();
         this.loadInisgniaAssets();
         this.loadTestAssets();
@@ -161,6 +162,11 @@ export class LoadingScene extends Phaser.Scene
             console.log(Tali.DICE_THROW_NAMES[i]);
             this.load.image(Tali.DICE_THROW_NAMES[i], 'Phaser/assets/tali/temporary_throw' + i + '.png');
         }
+    }
+
+    loadHanafudaAssets()
+    {
+        this.load.image('HanafudaBackgroundPlaceholder', 'Phaser/assets/Hanafuda/HanafudaBackgroundPlaceholder.png');
     }
 
     loadCreditsAssets() {
