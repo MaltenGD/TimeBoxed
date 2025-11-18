@@ -28,7 +28,7 @@ export class HanafudaGame extends Phaser.Scene{
         .on('pointerdown', () => {
             this.openOptionMenu();
         });
-        
+
         this.width = this.scale.width;
         this.height = this.scale.height;
 
@@ -40,6 +40,13 @@ export class HanafudaGame extends Phaser.Scene{
         this.playerTurn = this.playerFirst === true; 
         console.log("Jugador empieza:", this.playerTurn);
         this.renderAllCards();
+    }
+        preload()
+    {
+        /** @type {number} */
+        let {width, height} = this.sys.game.canvas;
+        this.width = width;
+        this.height = height;
     }
 
     createDeck() {
@@ -122,13 +129,6 @@ export class HanafudaGame extends Phaser.Scene{
         this.playerCards.splice(index, 1);
 
         this.playerTurn = false;
-    }
-    preload()
-    {
-        /** @type {number} */
-        let {width, height} = this.sys.game.canvas;
-        this.width = width;
-        this.height = height;
     }
 
 
