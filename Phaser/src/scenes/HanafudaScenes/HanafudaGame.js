@@ -6,6 +6,8 @@ export class HanafudaGame extends Phaser.Scene{
         super('HanafudaGame')
 
         this.playerFirst = null;
+
+         this.round = 1;
     }
 
     init(data)
@@ -31,11 +33,20 @@ export class HanafudaGame extends Phaser.Scene{
         .on('pointerover', () => this.backBtn.setStyle({fill: 'rgba(104, 35, 35, 1)'}))
         .on('pointerout', () => this.backBtn.setStyle({fill: '#000000ff'}))
         .on('pointerdown', () => {
-            this.openOptionMenu();
+        this.openOptionMenu();
         });
 
         this.width = this.scale.width;
         this.height = this.scale.height;
+
+    this.roundText = this.add.text(50, 20, "Round:1", {
+        fontSize: "48px",
+        color: "#ffffff"
+    });
+    this.turnText = this.add.text(50, 80, "Turno:", {
+        fontSize: "48px",
+        color: "#ffffff"
+    });
 
         this.createDeck();
         this.shuffleDeck();
@@ -43,6 +54,7 @@ export class HanafudaGame extends Phaser.Scene{
         this.playerPairs = [];
         this.enemyPairs = [];
         this.playerTurn = this.playerFirst === true; 
+        this.updateTurnText();
         console.log("Jugador empieza:", this.playerTurn);
         this.renderAllCards();
     }
@@ -83,8 +95,7 @@ export class HanafudaGame extends Phaser.Scene{
 
         // Mesa no puede ser todo un mes
         const allSameMonth = this.tableCards.every(c => c.month === this.tableCards[0].month);
-        if (allSameMonth) {
-            this.deck.push(...this.playerCards, ...this.enemyCards, ...this.tableCards);
+        if (allSameMonth) { this.deck.push(...this.playerCards, ...this.enemyCards, ...this.tableCards);
             this.shuffleDeck();
             this.dealCards();
         }
@@ -109,7 +120,6 @@ export class HanafudaGame extends Phaser.Scene{
         // Mesa
         this.tableCards.forEach((card, i) => {
             const rect = this.add.rectangle(200 + i * 120, this.height / 2, 100, 150, 0xaa3333);
-
             this.add.text(rect.x, rect.y, `${card.number}`, {
                 fontSize: "28px",
                 color: "#ffffff"
@@ -119,7 +129,6 @@ export class HanafudaGame extends Phaser.Scene{
         // Enemigo
         this.enemyCards.forEach((card, i) => {
             const rect = this.add.rectangle(200 + i * 120, 150, 100, 150, 0x444444);
-
             this.add.text(rect.x, rect.y, "??", {
                 fontSize: "28px",
                 color: "#ffffff"
@@ -132,8 +141,10 @@ export class HanafudaGame extends Phaser.Scene{
 
         // eliminar carta del array del jugador
         this.playerCards.splice(index, 1);
-
         this.playerTurn = false;
+        this.updateTurnText();
+         this.round++;
+        this.roundText.setText("Round: " + this.round);
     }
 
 
