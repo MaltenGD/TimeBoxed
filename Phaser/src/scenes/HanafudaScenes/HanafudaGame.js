@@ -9,6 +9,7 @@ export class HanafudaGame extends Phaser.Scene{
 
         this.round = 1;
         this.playerContainer = [];
+        this.playerChosenCard = null;
     }
 
     init(data)
@@ -63,7 +64,7 @@ export class HanafudaGame extends Phaser.Scene{
         this.playerPairs = [];
         this.enemyPairs = [];
         this.playerTurn = this.playerFirst === true; 
-        this.updateTurnText();
+        //this.updateTurnText();
         console.log("Jugador empieza:", this.playerTurn);
         this.renderAllCards();
     }
@@ -99,11 +100,11 @@ export class HanafudaGame extends Phaser.Scene{
         console.log(this.deck);
 
         // Mesa no puede ser todo un mes
-        const allSameMonth = this.tableCards.every(c => c.month === this.tableCards[0].month);
-        if (allSameMonth) { this.deck.push(...this.playerCards, ...this.enemyCards, ...this.tableCards);
-            this.shuffleDeck();
-            this.dealCards();
-        }
+        //const allSameMonth = this.tableCards.every(c => c.month === this.tableCards[0].month);
+        // if (allSameMonth) { this.deck.push(...this.playerCards, ...this.enemyCards, ...this.tableCards);
+        //     this.shuffleDeck();
+        //     this.dealCards();
+        // }
     }
 
     renderAllCards() {
@@ -147,16 +148,16 @@ export class HanafudaGame extends Phaser.Scene{
     updateTurnText() {
     this.turnText.setText(this.playerTurn ? "Turn: you" : "Turn: oponent");
     }
-        handlePlayerCard(card, index) {
-        console.log("Jugador eligió:", card);
+        // handlePlayerCard(card, index) {
+        // console.log("Jugador eligió:", card);
 
-        // Eliminar carta del array del jugador
-        this.playerCards.splice(index, 1);
-        this.playerTurn = false;
-        this.updateTurnText();
-            this.round++;
-        this.roundText.setText("Round: " + this.round);
-    }
+        // // Eliminar carta del array del jugador
+        // this.playerCards.splice(index, 1);
+        // this.playerTurn = false;
+        // this.updateTurnText();
+        //     this.round++;
+        // this.roundText.setText("Round: " + this.round);
+    //}
 
     createCards(x, y, textContent, card) 
     {
@@ -186,21 +187,20 @@ export class HanafudaGame extends Phaser.Scene{
         return container;
     }
 
-    onCardSelected(card) {
-        console.log("Player selected:", this.playerCard);
+    onCardSelected(card) 
+    {
+        console.log("Player selected:", card);
 
         this.playerContainer.forEach(container => container.disableInteractive());
 
         if(this.playerTurn == true)
         {   
-            this.playerCards.forEach(cardArray, index => {
-                if(card == cardArray)
-                {
-                    cardpos = index;
-                }   
-            });
-            
-            this.searchesPair(card, cardpos);
+            const cardChosenPos= this.playerCards.findIndex(playerCard => playerCard === card);
+            if (cardChosenPos !== -1){
+                this.searchesPair(card, cardChosenPos);
+            } else {
+                console.error("Selected card not found in player's hand.", card);
+            }
         }
         
         // this.time.delayedCall(1000, () => {
@@ -220,21 +220,41 @@ export class HanafudaGame extends Phaser.Scene{
             {
                 numberOfPairs++;
                 console.log("Pair found", card, tableCard);
-                this.foundPair(card, tableCard, cardpos, index);
+            
+                this.foundPair(cardpos, index);
+
+                console.log("table cards", this.tableCards);
             }
             else 
             {
-                this.pairNotFound(card, cardpos);
+                //this.pairNotFound(card, cardpos);
             }
+
         })
+
+        // if(numberOfPairs >= 1)
+        // {
+            
+        // }
+
+        this.tableCards.push(this.deck.splice(0,1)[0]);
+        console.log("table cards", this.tableCards);
     }
 
     foundPair(card1pos, card2pos)
     {
         // add the pair to the player pairs, and remove from playerCards and tableCards
         if(this.playerTurn == true)
-        {
-            this.playerPairs.push([this.playerCards.splice(card1pos, 1), this.tableCards.splice(card2pos, 1)]);
+        {   
+            this.tableDeletedCard = [];
+            this.playerPairs.push(this.playerCards.splice(card1pos, 1)[0]);
+
+            console.log("tablee",this.tableCards);
+
+            this.tableDeletedCard = this.tableCards.splice(card2pos, 1);
+            this.playerPairs.push(this.tableDeletedCard[0]);
+
+            console.log("TABLEEEEPAIR",this.tableCards);
         }
         else 
         {
@@ -244,8 +264,8 @@ export class HanafudaGame extends Phaser.Scene{
         console.log(this.playerPairs);
         console.log(this.playerCards);
         console.log(this.tableCards);
-        console.log(this.enemyCards);
-        console.log(this.enemyPairs);
+        //console.log(this.enemyCards);
+        //console.log(this.enemyPairs);
     }
 
     pairNotFound(card, cardpos)
@@ -263,7 +283,6 @@ export class HanafudaGame extends Phaser.Scene{
         console.log(this.enemyCards);
         console.log(this.tableCards);
 
-        this.tableCards.push(this.deck.splice(0,1));
         this.searchesPair(this.tableCards[this.tableCards.length -1], this.tableCards.length -1);
     }
 
