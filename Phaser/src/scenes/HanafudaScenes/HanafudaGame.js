@@ -136,6 +136,10 @@ export class HanafudaGame extends Phaser.Scene{
         });
     }
 
+    updateTurnText() {
+    this.turnText.setText(this.playerTurn ? "Turno: Tú" : "Turno: Enemigo");
+}
+
     handlePlayerCard(card, index) {
         console.log("Jugador eligió:", card);
 
