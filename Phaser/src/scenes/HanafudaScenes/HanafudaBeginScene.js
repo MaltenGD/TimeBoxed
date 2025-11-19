@@ -87,21 +87,10 @@ export class HanafudaBeginScene extends Phaser.Scene
         let cardGap = 110;
         let centerX = this.width/2;
         let centerY = this.height/2;
-        const finalPositions = 
-        [
-            { x: centerX - cardGap* 3, y: centerY -100},
-            { x: centerX - cardGap*2, y: centerY -100 },
-            { x: centerX - cardGap, y: centerY -100 },
-            { x: centerX, y: centerY -100 },
-            { x: centerX + cardGap, y: centerY -100 },
-            { x: centerX + cardGap * 2, y: centerY -100 },
-            { x: centerX + cardGap * 3, y: centerY -100 },
-            { x: centerX + cardGap * 4, y: centerY-100 },
-        ];
 
         for(let i = 0; i < 8; ++i)
         {
-            this.cardContainer = this.createCards(finalPositions[i].x, finalPositions[i].y, `${this.mazo[i].number}`, this.mazo[i]);
+            this.cardContainer = this.createCards(500 + i * 120, this.height - 600  , `${this.mazo[i].number}`, this.mazo[i]);
             this.cardsContainers.push(this.cardContainer);
         }
 
@@ -109,7 +98,6 @@ export class HanafudaBeginScene extends Phaser.Scene
             fontSize: '30px', fill: '#000000'
         }).setOrigin(0.5);
 
-        //this.events.on("cardSelected", (card) => this.onCardSelected(card, this);
     }
 
     createCards(x, y, textContent, card) 
@@ -133,8 +121,7 @@ export class HanafudaBeginScene extends Phaser.Scene
         container.setInteractive(new Phaser.Geom.Rectangle(-BOX_WIDTH / 2, -BOX_HEIGHT / 2, BOX_WIDTH, BOX_HEIGHT), Phaser.Geom.Rectangle.Contains)
         .on('pointerover', () => backgroundCard.setFillStyle(0xbbbaba))
         .on('pointerout', () => backgroundCard.setFillStyle(0xffffff))
-        .on('pointerdown', () => {
-            // this.events.emit("cardSelected", card); 
+        .on('pointerdown', () => { 
             this.onCardSelected(card);
         });
 
