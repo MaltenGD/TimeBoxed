@@ -5,15 +5,6 @@ export class IntroAseb extends Phaser.Scene
 {
     constructor(){super('IntroAseb');}
 
-    preload()
-    {
-
-        /** Load the json file for the Intro Dialogue 
-        * @param {string} key - The key to reference the loaded JSON data.
-        * @param {string} url - The URL of the JSON file to load.
-        */
-        this.load.json('AsebIntroDialogue', 'Phaser/DialoguesJson/EgyptDialogue.json');
-    }
 
     create(playerData) 
     {
@@ -71,8 +62,25 @@ export class IntroAseb extends Phaser.Scene
         });
 
         this.events.on('Finished', () => {
-            this.scene.start('AsebBeginScene', this.playerData);
-            console.log("cambia de escena");
+
+            this.scene.launch('ConfirmMenu',{
+                sceneToPause: this.scene.key,
+                text: "Is your first time playing Aseb?\n Do you want to go through an explanation?",
+                onYes: () => {         
+                    this.scene.stop(this.playerData.SceneToResume);
+                    this.scene.stop('ConfirmMenu');
+                    this.scene.stop('OptionMenu');
+                    this.scene.start('TutorialAseb', this.playerData);
+
+                    
+                },
+                onNo: () => {
+                    this.scene.start('AsebBeginScene', this.playerData);
+                    this.scene.stop('ConfirmMenu');
+                    console.log("cambia de escena");
+                }
+            });
+            
         });
     
     }

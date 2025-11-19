@@ -102,7 +102,7 @@ export class Start extends Phaser.Scene {
             this.transitionController.startFadeOutTransition(() => {
                 
                 if (this.playerData.IntroCompleted) this.scene.start('SelectionMenuScene', this.playerData)
-                else this.scene.start('Intro', this.playerData)
+                else this.scene.start('TutorialAseb', this.playerData)
             
             }, 400);
         });

@@ -24,6 +24,7 @@ export default class DialogueController
 
         /** @property object that holds the dialogues objects from the json file*/
         this.dialogueGroup = null;
+        this.isTutorial = false;
 
         /** @property ID of the next dialogue to be shown */
         this.nextID = null;
@@ -37,6 +38,7 @@ export default class DialogueController
     */
     iniDialogue()
     {   
+
         if(this.era == 'Intro')
         {
             this.dialogueGroup = this.dialogueData.IntroDialogue;
@@ -44,6 +46,11 @@ export default class DialogueController
         else if(this.era == 'Aseb')
         {
             this.dialogueGroup = this.dialogueData.EgyptDialogue;
+        }
+        else if(this.era == 'AsebTutorial')
+        {
+            this.dialogueGroup = this.dialogueData.AsebTutorialDialogue;
+            this.isTutorial = true;
         }
         else if (this.era == 'AsebWin')
         {
@@ -70,7 +77,7 @@ export default class DialogueController
 			windowHeight: 150,
 			padding: 32,
 			closeBtnColor: 'darkgoldenrod',
-			dialogSpeed: 3,
+			dialogSpeed: 3.5,
 			fontSize: 34,
             fontFamily: 'rimouski',
             radius: 20
@@ -106,6 +113,12 @@ export default class DialogueController
         const text = element.text;
         /**gets if the dialogue is animated */
         const isAnimated = element.animation === 'true';
+
+        const imageKey = element.image;
+        if(imageKey)
+        {
+            this.scene.events.emit('changeTutoImage', imageKey);
+        }
         
         /**creates the dialogue with all the necessary parameters*/
         this.currentDialogue = new Dialogue(speaker, text, isAnimated);

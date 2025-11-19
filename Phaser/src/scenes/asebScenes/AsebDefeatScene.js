@@ -5,15 +5,7 @@ export class AsebDefeatScene extends Phaser.Scene
 {
     constructor(){super('AsebDefeatScene');}
 
-    preload()
-    {
 
-        /** Load the json file for the Intro Dialogue 
-        * @param {string} key - The key to reference the loaded JSON data.
-        * @param {string} url - The URL of the JSON file to load.
-        */
-        this.load.json('AsebDefeatDialogue', 'Phaser/DialoguesJson/AsebDefeatDialogue.json');
-    }
 
     create(playerData) 
     {
@@ -48,8 +40,8 @@ export class AsebDefeatScene extends Phaser.Scene
         });
 
         /** variable json*/
-        const introAsebData = this.cache.json.get('AsebDefeatDialogue');
-        this.dialogueController = new DialogueController(this, "AsebDefeat", introAsebData);
+        const defeatAsebData = this.cache.json.get('AsebDefeatDialogue');
+        this.dialogueController = new DialogueController(this, "AsebDefeat", defeatAsebData);
         this.dialogueController.iniDialogue();
         
         this.events.on('nextDialog',()=>
