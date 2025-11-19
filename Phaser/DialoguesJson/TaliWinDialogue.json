@@ -1,0 +1,105 @@
+{
+    "start":
+    {
+        "speaker": "Narrator",
+        "text": "The last dice lands.",
+        "animation": "true",
+        "next": "TW1"
+    },
+
+    "TW1":
+    {
+        "speaker": "Narrator",
+        "text": "You lean over the table, eagerly calculating the last points of the game...",
+        "animation": "true",
+        "next": "TW2"
+    },
+
+    "TW2":
+    {
+        "speaker": "Mercury",
+        "text": "NOOOOOO!",
+        "animation": "true",
+        "next": "TW3"
+    },
+
+    "TW3":
+    {
+        "speaker": "Narrator",
+        "text": "The drunk Mercury slumps over the table and sniffles.",
+        "animation": "true",
+        "next": "TW4"
+    },
+
+    "TW4":
+    {
+        "speaker": "Mercury",
+        "text": "I can't believe I lost...",
+        "animation": "true",
+        "next": "TW5"
+    },
+
+    "TW5":
+    {
+        "speaker": "Narrator",
+        "text": "He raises his head and takes a big gulp from his cup of fermented milk drink, descending even more into drunkenness.",
+        "animation": "true",
+        "next": "TW6"
+    },
+
+    "TW6":
+    {
+        "speaker": "Player",
+        "text": "So about the can-",
+        "animation": "true",
+        "next": "TW7"
+    },
+
+    "TW7":
+    {
+        "speaker": "Kronos",
+        "text": "Kitty!",
+        "animation": "true",
+        "next": "TW8"
+    },
+
+    "TW8":
+    {
+        "speaker": "Narrator",
+        "text": "Kronos appears next to you and slings his paw over your shoulder.",
+        "animation": "true",
+        "next": "TW9"
+    },
+
+    "TW9":
+    {
+        "speaker": "Kronos",
+        "text": "I knew you could do it.",
+        "animation": "true",
+        "next": "TW10"
+    },
+
+    "TW10":
+    {
+        "speaker": "Player",
+        "text": "You abandoned me, Kronos, what the fu-",
+        "animation": "true",
+        "next": "TW11"
+    },
+
+    "TW11":
+    {
+        "speaker": "Kronos",
+        "text": "Ay-oh-kay, we're going to take my dear tuna can and leave! Bye, Mercury!",
+        "animation": "true",
+        "next": "end"
+    }, 
+
+    "end":
+    {
+        "speaker": "Narrator",
+        "text": "You jump back into the box, leaving a drunk Mercury to sob on the table.",
+        "animation": "true",
+        "next": null
+    }
+}

@@ -1,0 +1,201 @@
+{
+    "start":
+    {
+        "speaker": "Narrator",
+        "text": "You leave the box with Kronos and see a room full of cats doing something you weren't expecting: partying--",
+        "animation": "true",
+        "next": "TI1"
+    },
+
+    "TI1":
+    {
+        "speaker": "Narrator",
+        "text": "--clinking cups, cheering, spilling milk on their brown furs and metal shields, discarded at their feet. Some of them are talking, others are throwing dice and calculating throws.",
+        "animation": "true",
+        "next": "TI2"
+    },
+
+    "TI2":
+    {
+        "speaker": "Narrator",
+        "text": "They look like soldiers just returned from a war, celebrating a great victory.",
+        "animation": "true",
+        "next": "TI3"
+    },
+
+    "TI3":
+    {
+        "speaker": "Narrator",
+        "text": "Kronos puts a paw around your shoulders and guides you through the multitude.",
+        "animation": "true",
+        "next": "TI4"
+    },
+    
+    "TI4":
+    {
+        "speaker": "Narrator",
+        "text": "He whispers in your ear...",
+        "animation": "true",
+        "next": "TI5"
+    },
+    
+    "TI6":
+    {
+        "speaker": "Kronos",
+        "text": "Don't get drunk or you'll lose. No one can hold their alcohol like Mercury.",
+        "animation": "true",
+        "next": "TI7"
+    },
+    
+    "TI7":
+    {
+        "speaker": "Kronos",
+        "text": "...except me, of course.",
+        "animation": "true",
+        "next": "TI8"
+    },
+    
+    "TI8":
+    {
+        "speaker": "Narrator",
+        "text": "Kronos looks very proud of himself.",
+        "animation": "true",
+        "next": "TI9"
+    },
+    
+    "TI9":
+    {
+        "speaker": "Player",
+        "text": "Is that why you lost?",
+        "animation": "true",
+        "next": "TI10"
+    },
+    
+    "TI10":
+    {
+        "speaker": "Kronos",
+        "text": "Hmph.",
+        "animation": "true",
+        "next": "TI11"
+    },
+    
+    "TI11":
+    {
+        "speaker": "Narrator",
+        "text": "Kronos opens his mouth-",
+        "animation": "true",
+        "next": "TI12"
+    },
+    
+    "TI12":
+    {
+        "speaker": "???",
+        "text": "GOD OF TIME!",
+        "animation": "true",
+        "next": "TI13"
+    },
+    
+    "TI13":
+    {
+        "speaker": "Narrator",
+        "text": "A booming voice interrupts your conversation.",
+        "animation": "true",
+        "next": "TI14"
+    },
+    
+    "TI14":
+    {
+        "speaker": "Kronos",
+        "text": "Tsk. There he is. Be careful, kitty.",
+        "animation": "true",
+        "next": "TI15"
+    },
+    
+    "TI15":
+    {
+        "speaker": "Narrator",
+        "text": "You are about to protest when Kronos pushes you forward and you stumble at the feet of a very...",
+        "animation": "true",
+        "next": "TI16"
+    },
+    
+    "TI16":
+    {
+        "speaker": "Narrator",
+        "text": "...small, fluffy, spiky cat with tiny eyes and brown fur.",
+        "animation": "true",
+        "next": "TI17"
+    },
+    
+    "TI17":
+    {
+        "speaker": "Narrator",
+        "text": "You glance back, but Kronos has disappeared. ",
+        "animation": "true",
+        "next": "TI18"
+    },
+    
+    "TI18":
+    {
+        "speaker": "PLayer",
+        "text": "You son of a-",
+        "animation": "true",
+        "next": "TI19"
+    },
+    
+    "TI19":
+    {
+        "speaker": "???",
+        "text": "Who's this little kitty? A follower of Kronos's?",
+        "animation": "true",
+        "next": "TI20"
+    },
+    
+    "TI20":
+    {
+        "speaker": "Player",
+        "text": "I- Uh- I-",
+        "animation": "true",
+        "next": "TI21"
+    },
+    
+    "TI21":
+    {
+        "speaker": "Narrator",
+        "text": "Mercury, the trickster, God of commerce and thieves, laughs in your face.",
+        "animation": "true",
+        "next": "TI22"
+    },
+    
+    "TI22":
+    {
+        "speaker": "Narrator",
+        "text": "You can smell the alcohol in his breath.",
+        "animation": "true",
+        "next": "TI23"
+    },
+    
+    "TI23":
+    {
+        "speaker": "Mercury",
+        "text": "You're here for the can of tuna ol' Kronos lost? I'm surprised you would wager your soul for him!",
+        "animation": "true",
+        "next": "TI24"
+    },
+    
+    "TI24":
+    {
+        "speaker": "Narrator",
+        "text": "Mercury slams his paw into the table and interrupts your thoughts about the soul-trading. Four stone dice on the table shake.",
+        "animation": "true",
+        "next": "end"
+    },
+    
+    "end":
+    {
+        "speaker": "Mercury",
+        "text": "Then join me for a round of Tali, and let the dice decide your fate!",
+        "animation": "true",
+        "next": null
+    }
+}

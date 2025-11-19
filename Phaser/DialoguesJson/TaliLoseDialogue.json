@@ -1,0 +1,121 @@
+{
+    "start":
+    {
+        "speaker": "Narrator",
+        "text": "The last dice lands.",
+        "animation": "true",
+        "next": "TW1"
+    },
+
+    "TW1":
+    {
+        "speaker": "Narrator",
+        "text": "You lean over the table, eagerly calculating the last points of the game...",
+        "animation": "true",
+        "next": "TW2"
+    },
+
+    "TW2":
+    {
+        "speaker": "Mercury",
+        "text": "YES! Whoop!",
+        "animation": "true",
+        "next": "TW3"
+    },
+
+    "TW3":
+    {
+        "speaker": "Narrator",
+        "text": "The drunk Mercury raises his paws up high and cheers.",
+        "animation": "true",
+        "next": "TW4"
+    },
+
+    "TW4":
+    {
+        "speaker": "Mercury",
+        "text": "You lose!",
+        "animation": "true",
+        "next": "TW5"
+    },
+
+    "TW5":
+    {
+        "speaker": "Narrator",
+        "text": "He points a claw at your face.",
+        "animation": "true",
+        "next": "TW6"
+    },
+
+    "TW6":
+    {
+        "speaker": "Mercury",
+        "text": "Now your soul is mine!",
+        "animation": "true",
+        "next": "TW7"
+    },
+    
+    "TW7":
+    {
+        "speaker": "Narrator",
+        "text": "Mercury takes a swig of his fermented milk and orders another drink.",
+        "animation": "true",
+        "next": "TW8"
+    },
+
+    "TW8":
+    {
+        "speaker": "Player",
+        "text": "Soul? No one said anything about a soul-",
+        "animation": "true",
+        "next": "TW9"
+    },
+
+    "TW9":
+    {
+        "speaker": "Mercury",
+        "text": "You're a mortal, you lose, you give me your soul.",
+        "animation": "true",
+        "next": "TW10"
+    },
+
+    "TW10":
+    {
+        "speaker": "Narrator",
+        "text": "You stumble back. Kronos appears behind you and drags you into the crowds.",
+        "animation": "true",
+        "next": "TW11"
+    },
+
+    "TW11":
+    {
+        "speaker":"Narrator",
+        "text": "Fortunately for you, Mercury is too drunk to notice right away.",
+        "animation": "true",
+        "next": "TW12"
+    },
+
+    "TW12":
+    {
+        "speaker":"Kronos",
+        "text": "Ok, kitty, we'll have to redo this. But promise me you'll win next time, alright?",
+        "animation": "true",
+        "next": "TW13"
+    },
+
+    "TW13":
+    {
+        "speaker":"Kronos",
+        "text": "The world dissolves into a swirl of colors and fades to black.",
+        "animation": "true",
+        "next": "end"
+    },
+
+    "end":
+    {
+        "speaker":"Narrator",
+        "text":"The hands of time turn back and you forget this ever happened...",
+        "animation": "true",
+        "next": null
+    }
+}
