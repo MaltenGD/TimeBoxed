@@ -151,6 +151,36 @@ export class HanafudaGame extends Phaser.Scene{
         this.roundText.setText("Round: " + this.round);
     }
 
+    table(card)
+    {
+        this.searchesPair(card);
+    }
+
+    searchesPair(card)
+    {   
+        let numberOfPairs = 0;
+        this.tableCards.forEach((tableCard) =>{
+
+            if(card.month === tableCard.month)
+            {
+                numberOfPairs++;
+                console.log("Pair found", card, tableCard);
+            }
+
+        })
+    }
+
+    foundPair(card1, card2)
+    {
+        this.playerPairs.push([card1, card2]);
+    }
+
+    pairNotFound(card)
+    {
+        this.tableCards.push(this.deck.splice(0,1));
+    }
+
+
 
     openOptionMenu()
     {
