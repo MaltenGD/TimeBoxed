@@ -46,7 +46,7 @@ export class LoadingScene extends Phaser.Scene
         this.load.json('achievements', 'Phaser/assets/achievements.json');
 
         this.load.on('progress', (value) => {
-        console.log(value);
+        //console.log(value);
         progressBar.clear();
         progressBar.fillStyle(0xFFFFFF, 1);
         progressBar.fillRect(progressBoxPosX + 10, progressBoxPosY + 10, progressBarWidth * value, progressBarHeight);
@@ -56,21 +56,21 @@ export class LoadingScene extends Phaser.Scene
         });
                 
         this.load.on('fileprogress', (file) => {
-            console.log(file.src);
+            //console.log(file.src);
             loadingInfo.setText("Loading: " + file.key +"\nFrom: " + file.src);
         });
         this.load.on('complete', () => {
-            console.log('complete');
+            //console.log('complete');
 
             progressBar.destroy();
             progressBox.destroy();
         })
         this.load.on('fileprogress', (file) => {
-            console.log(file.src);
+            //console.log(file.src);
             loadingInfo.setText("Loading: " + file.key +"\nFrom: " + file.src);
         });
         this.load.on('complete', () => {
-            console.log('complete');
+            //console.log('complete');
 
             progressBar.destroy();
             progressBox.destroy();
@@ -159,7 +159,7 @@ export class LoadingScene extends Phaser.Scene
             this.load.image('dice' + i, 'Phaser/assets/tali/temporary_dice' + i + '.png');
         }
         for (let i = 0; i < Tali.DICE_THROW_NAMES.length; i++) {
-            console.log(Tali.DICE_THROW_NAMES[i]);
+            //console.log(Tali.DICE_THROW_NAMES[i]);
             this.load.image(Tali.DICE_THROW_NAMES[i], 'Phaser/assets/tali/temporary_throw' + i + '.png');
         }
     }

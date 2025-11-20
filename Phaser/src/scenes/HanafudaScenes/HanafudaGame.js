@@ -8,14 +8,34 @@ export class HanafudaGame extends Phaser.Scene{
         this.playerFirst = null;
 
         this.round = 1;
+
+        /**array of cards in deck */
+        this.deck = [];
+
+        /** Array of player cards */
+        this.playerCards = [];
+
+        /**Array of oponent cards */
+        this.enemyCards = [];
+
+        /** Array of cards on the table*/
+        this.tableCards = [];
+
+        this.playerPairs = [];
+        this.enemyPairs = [];
+
         this.playerContainer = [];
         this.playerChosenCard = null;
-        this.refillTimes = null;
+
+        /** Counter for how many refills have been done */
+        this.refillTimes = 0;
+        this.OponentChoice = null;
     }
 
     init(data)
     {
-        this.playerFirst = data.begins;
+        /** Boolean to know whose turn is, if it's false then that means it's the oponent starts */
+        this.playerTurn = this.playerFirst = data.begins;
     }
 
     create(playerData) 
@@ -49,7 +69,7 @@ export class HanafudaGame extends Phaser.Scene{
         });
 
         //UI texts
-        this.roundText = this.add.text(50, 20, "Round:1", {
+        this.roundText = this.add.text(100, 900, "Round:1", {
         fontSize: "48px",
         color: "#ffffff"
         });
@@ -59,23 +79,23 @@ export class HanafudaGame extends Phaser.Scene{
         color: "#ffffff"
         });
 
-        this.refillTimes = 0;
-
+        //Prepare the round
         this.createDeck();
         this.shuffleDeck();
         this.dealCards();
-        this.playerPairs = [];
-        this.enemyPairs = [];
-        this.playerTurn = this.playerFirst === true; 
+
         //this.updateTurnText();
         console.log("Jugador empieza:", this.playerTurn);
-        this.renderAllCards();
-        
+
+        //Initial render
+        this.renderOponentCards();
+        this.renderTableCards();
+        this.renderPlayerCards();
+
+        this.handlesTurns();
     }
 
     createDeck() {
-        this.deck = [];
-
         let number = 0;
         for (let month = 0; month < 12; month++) 
         {
@@ -111,9 +131,7 @@ export class HanafudaGame extends Phaser.Scene{
         // }
     }
 
-
-    renderAllCards() {
-        // Mesa
+    renderOponentCards() {
          this.enemyCards.forEach((card, i) => {
             const rect = this.add.rectangle(550 + i * 120, 150, 100, 150, 0x444444);
 
@@ -123,8 +141,6 @@ export class HanafudaGame extends Phaser.Scene{
         }).setOrigin(0.5);
             
         });
-        this.renderMesa();
-        this.renderPlayerCards();
     }
 
     renderPlayerCards()
@@ -135,8 +151,7 @@ export class HanafudaGame extends Phaser.Scene{
         });
     }
 
-
-    renderMesa()
+    renderTableCards()
     {
         const startX = 550;
         const startY = this.height / 2 - 100;
@@ -202,8 +217,6 @@ export class HanafudaGame extends Phaser.Scene{
 
     onCardSelected(card) 
     {
-        console.log("heloooo", this.tableCards);
-
         this.playerContainer.forEach(container => container.disableInteractive());
 
         if(this.playerTurn == true)
@@ -217,15 +230,13 @@ export class HanafudaGame extends Phaser.Scene{
             }
         }
         
-        // this.time.delayedCall(1000, () => {
-        //     this.handleOpponentTurn();
-        // });
-
         this.events.off("cardSelected");
     }
 
     table(card, cardpos)
     {
+        console.log ("card sent", card, cardpos);
+
         this.searchesPair(card, cardpos);
 
         this.refillTimes ++;
@@ -240,7 +251,7 @@ export class HanafudaGame extends Phaser.Scene{
         console.log ("no more refill")
         this.refillTimes = 0;
         this.tableCards.push(this.cardFromDeck);
-        this.renderMesa();
+        this.renderTableCards();
         console.log("bleh",this.tableCards);
     }
 
@@ -261,6 +272,8 @@ export class HanafudaGame extends Phaser.Scene{
             }
         })
 
+        console.log("nofP",numberOfPairs);
+
         if(numberOfPairs === 1)
         {
             console.log("Pair found", card, this.tablecard);
@@ -273,42 +286,65 @@ export class HanafudaGame extends Phaser.Scene{
             this.pairNotFound(cardpos);
         }
 
-        this.renderMesa();
+        this.renderTableCards();
     }
 
-    foundPair(card1pos, card2pos) //Good
+    foundPair(cardpos, tablecardPos) //Good
     {
         // add the pair to the player pairs, and remove from playerCards and tableCards
         
         if(this.playerTurn == true)
         {  
-            if(this.refillTimes == 0)
-            {
-                this.playerPairs.push(this.playerCards.splice(card1pos, 1)[0]);
-            }
-           
-            this.playerPairs.push(this.tableCards.splice(card2pos, 1)[0]);
+            console.log(this.refillTimes);
+            console.log(tablecardPos);
             
+            if(this.refillTimes == 0) {this.playerPairs.push(this.playerCards.splice(cardpos, 1)[0]);}
+           
+            this.playerPairs.push(this.tableCards.splice(tablecardPos, 1)[0]);
             console.log(this.playerPairs);
         }
         else 
         {
-            this.enemyPairs.push([this.enemyCards.splice(card1pos, 1), this.tableCards.splice(card2pos, 1)]);
+            if(this.refillTimes == 0) { this.enemyPairs.push(this.enemyCards.splice(cardpos, 1)[0]);
+
+                console.log(this.enemyCards.splice(cardpos, 1)[0]);
+            }
+
+            console.log(this.refillTimes);
+
+            this.enemyPairs.push(this.tableCards.splice(tablecardPos, 1)[0]);
+            console.log(this.enemyPairs);
         }
-        
     }
 
     pairNotFound(cardpos) //Good
     {
         if(this.refillTimes === 0)
         {
-            if(this.playerTurn == true) 
-            { 
-                this.eliminatedCard = this.playerCards.splice(cardpos,1)[0];
-                this.tableCards.push(this.eliminatedCard);
-            }
-            else { this.tableCards.push(this.enemyCards.splice(cardpos,1)[0]);}
+            if(this.playerTurn == true) { this.tableCards.push(this.playerCards.splice(cardpos,1)[0]);}
+            else {this.tableCards.push(this.enemyCards.splice(cardpos,1)[0]);}
         }
+    }
+
+    handlesTurns()
+    {
+        if(this.playerTurn == false)
+        {
+            this.handleOpponentTurn();
+        }
+        else
+        {
+            this.playerContainer.forEach(container => container.setInteractive());
+        }
+    }
+
+    handleOpponentTurn()
+    {
+        this.OponentChoice = Math.floor(Math.random() * this.enemyCards.length);
+        console.log(this.OponentChoice);
+        this.table(this.enemyCards[this.OponentChoice], this.OponentChoice);
+        console.log(this.tableCards);
+        this.playerTurn = true;
     }
 
     openOptionMenu()
