@@ -10,6 +10,7 @@ export class HanafudaGame extends Phaser.Scene{
         this.round = 1;
         this.playerContainer = [];
         this.playerChosenCard = null;
+        this.refillTimes = null;
     }
 
     init(data)
@@ -58,6 +59,8 @@ export class HanafudaGame extends Phaser.Scene{
         color: "#ffffff"
         });
 
+        this.refillTimes = 0;
+
         this.createDeck();
         this.shuffleDeck();
         this.dealCards();
@@ -67,6 +70,7 @@ export class HanafudaGame extends Phaser.Scene{
         //this.updateTurnText();
         console.log("Jugador empieza:", this.playerTurn);
         this.renderAllCards();
+        
     }
 
     createDeck() {
@@ -75,7 +79,7 @@ export class HanafudaGame extends Phaser.Scene{
         let number = 0;
         for (let month = 0; month < 12; month++) 
         {
-            for (let i = 0; i < 4; i++) 
+            for (let i = 0; i < 4; i++)
             {
                 this.deck.push({
                     number, month 
@@ -97,7 +101,7 @@ export class HanafudaGame extends Phaser.Scene{
         this.enemyCards = this.deck.splice(0, 8);
         this.tableCards = this.deck.splice(0, 8);
 
-        console.log(this.deck);
+        console.log(this.tableCards);
 
         // Mesa no puede ser todo un mes
         //const allSameMonth = this.tableCards.every(c => c.month === this.tableCards[0].month);
@@ -107,41 +111,52 @@ export class HanafudaGame extends Phaser.Scene{
         // }
     }
 
+
     renderAllCards() {
-        // Jugador
+        // Mesa
+         this.enemyCards.forEach((card, i) => {
+            const rect = this.add.rectangle(550 + i * 120, 150, 100, 150, 0x444444);
+
+            this.mesaText = this.add.text(rect.x, rect.y, `${card.number}`, {
+            fontSize: "28px",
+            color: "#ffffff"
+        }).setOrigin(0.5);
+            
+        });
+        this.renderMesa();
+        this.renderPlayerCards();
+    }
+
+    renderPlayerCards()
+    {
         this.playerCards.forEach((card, i) => {
 
             this.playerContainer.push(this.createCards(550 + i * 120, this.height - 150, `${card.number}`, card));
-
-            // const rect = this.add.rectangle(550 + i * 120, this.height - 150, 100, 150, 0x3333aa)
-            //     .setInteractive()
-            //     .on("pointerdown", () => {
-            //         if (!this.playerTurn) return;
-            //         this.handlePlayerCard(card, i);
-            //     });
-
-            // this.add.text(rect.x, rect.y, `${card.number}`, {
-            //     fontSize: "28px",
-            //     color: "#ffffff"
-            // }).setOrigin(0.5);
         });
+    }
 
-        // Mesa
+
+    renderMesa()
+    {
+        const startX = 550;
+        const startY = this.height / 2 - 100;
+        const cardSpacingX = 120;
+        const cardSpacingY = 170;
+        const cardsPerRow = 4;
+
         this.tableCards.forEach((card, i) => {
-            const rect = this.add.rectangle(550 + i * 120, this.height / 2, 100, 150, 0xaa3333);
-            this.add.text(rect.x, rect.y, `${card.number}`, {
-                fontSize: "28px",
-                color: "#ffffff"
-            }).setOrigin(0.5);
-        });
+            const col = i % cardsPerRow;
+            const row = Math.floor(i / cardsPerRow);
 
-        // Enemigo
-        this.enemyCards.forEach((card, i) => {
-            const rect = this.add.rectangle(550 + i * 120, 150, 100, 150, 0x444444);
+            const x = startX + col * cardSpacingX;
+            const y = startY + row * cardSpacingY;
+
+            const rect = this.add.rectangle(x, y, 100, 150, 0xaa3333);
             this.add.text(rect.x, rect.y, `${card.number}`, {
-                fontSize: "28px",
-                color: "#ffffff"
+            fontSize: "28px",
+            color: "#ffffff"
             }).setOrigin(0.5);
+
         });
     }
 
@@ -164,7 +179,6 @@ export class HanafudaGame extends Phaser.Scene{
         const BOX_WIDTH = 90;
         const BOX_HEIGHT = 150;
     
-        // Create children at (0,0) as their positions are relative to the container
         const backgroundCard = this.add.rectangle(0, 0, BOX_WIDTH, BOX_HEIGHT, 0xffffff);
     
         const text = this.add.text(0, 0,textContent,
@@ -176,7 +190,6 @@ export class HanafudaGame extends Phaser.Scene{
     
         const container = this.add.container(x, y, [backgroundCard, text]);
 
-        // Define a hit area for the container to make it interactive
         container.setInteractive(new Phaser.Geom.Rectangle(-BOX_WIDTH / 2, -BOX_HEIGHT / 2, BOX_WIDTH, BOX_HEIGHT), Phaser.Geom.Rectangle.Contains)
         .on('pointerover', () => backgroundCard.setFillStyle(0xbbbaba))
         .on('pointerout', () => backgroundCard.setFillStyle(0xffffff))
@@ -189,7 +202,7 @@ export class HanafudaGame extends Phaser.Scene{
 
     onCardSelected(card) 
     {
-        console.log("Player selected:", card);
+        console.log("heloooo", this.tableCards);
 
         this.playerContainer.forEach(container => container.disableInteractive());
 
@@ -197,7 +210,8 @@ export class HanafudaGame extends Phaser.Scene{
         {   
             const cardChosenPos= this.playerCards.findIndex(playerCard => playerCard === card);
             if (cardChosenPos !== -1){
-                this.searchesPair(card, cardChosenPos);
+                console.log("Player selected:", card);
+                this.table(card, cardChosenPos);
             } else {
                 console.error("Selected card not found in player's hand.", card);
             }
@@ -207,11 +221,30 @@ export class HanafudaGame extends Phaser.Scene{
         //     this.handleOpponentTurn();
         // });
 
-        this.events.off("cardSelected"); // Prevent this from being called again.
+        this.events.off("cardSelected");
     }
 
+    table(card, cardpos)
+    {
+        this.searchesPair(card, cardpos);
 
-    searchesPair(card, cardpos)
+        this.refillTimes ++;
+
+        if(this.refillTimes == 1)
+        { 
+            this.cardFromDeck = this.deck.splice(0,1)[0];
+            console.log("anotherpair");
+            this.searchesPair(this.cardFromDeck, this.tableCards.length - 1);
+        }
+
+        console.log ("no more refill")
+        this.refillTimes = 0;
+        this.tableCards.push(this.cardFromDeck);
+        this.renderMesa();
+        console.log("bleh",this.tableCards);
+    }
+
+    searchesPair(card, cardpos) //GoodForNow
     {   
         let numberOfPairs = 0;
         this.tableCards.forEach((tableCard, index) =>{
@@ -219,71 +252,63 @@ export class HanafudaGame extends Phaser.Scene{
             if(card.month === tableCard.month)
             {
                 numberOfPairs++;
-                console.log("Pair found", card, tableCard);
-            
-                this.foundPair(cardpos, index);
+                this.tablepos = index;
 
-                console.log("table cards", this.tableCards);
+                if(numberOfPairs === 1)
+                {
+                    this.tablecard = tableCard;
+                }
             }
-            else 
-            {
-                //this.pairNotFound(card, cardpos);
-            }
-
         })
 
-        // if(numberOfPairs >= 1)
-        // {
+        if(numberOfPairs === 1)
+        {
+            console.log("Pair found", card, this.tablecard);
             
-        // }
+            this.foundPair(cardpos, this.tablepos);
+        }
+        else if (numberOfPairs < 1)
+        {
+            console.log("pairnotfound");
+            this.pairNotFound(cardpos);
+        }
 
-        this.tableCards.push(this.deck.splice(0,1)[0]);
-        console.log("table cards", this.tableCards);
+        this.renderMesa();
     }
 
-    foundPair(card1pos, card2pos)
+    foundPair(card1pos, card2pos) //Good
     {
         // add the pair to the player pairs, and remove from playerCards and tableCards
+        
         if(this.playerTurn == true)
-        {   
-            this.tableDeletedCard = [];
-            this.playerPairs.push(this.playerCards.splice(card1pos, 1)[0]);
-
-            console.log("tablee",this.tableCards);
-
-            this.tableDeletedCard = this.tableCards.splice(card2pos, 1);
-            this.playerPairs.push(this.tableDeletedCard[0]);
-
-            console.log("TABLEEEEPAIR",this.tableCards);
+        {  
+            if(this.refillTimes == 0)
+            {
+                this.playerPairs.push(this.playerCards.splice(card1pos, 1)[0]);
+            }
+           
+            this.playerPairs.push(this.tableCards.splice(card2pos, 1)[0]);
+            
+            console.log(this.playerPairs);
         }
         else 
         {
             this.enemyPairs.push([this.enemyCards.splice(card1pos, 1), this.tableCards.splice(card2pos, 1)]);
         }
-
-        console.log(this.playerPairs);
-        console.log(this.playerCards);
-        console.log(this.tableCards);
-        //console.log(this.enemyCards);
-        //console.log(this.enemyPairs);
+        
     }
 
-    pairNotFound(card, cardpos)
+    pairNotFound(cardpos) //Good
     {
-        if(this.playerTurn == true)
+        if(this.refillTimes === 0)
         {
-            this.tableCards.push(this.playerCards.splice(cardpos,1));
+            if(this.playerTurn == true) 
+            { 
+                this.eliminatedCard = this.playerCards.splice(cardpos,1)[0];
+                this.tableCards.push(this.eliminatedCard);
+            }
+            else { this.tableCards.push(this.enemyCards.splice(cardpos,1)[0]);}
         }
-        else 
-        {
-            this.tableCards.push(this.enemyCards.splice(cardpos,1));
-        }
-
-        console.log(this.playerCards);
-        console.log(this.enemyCards);
-        console.log(this.tableCards);
-
-        this.searchesPair(this.tableCards[this.tableCards.length -1], this.tableCards.length -1);
     }
 
     openOptionMenu()

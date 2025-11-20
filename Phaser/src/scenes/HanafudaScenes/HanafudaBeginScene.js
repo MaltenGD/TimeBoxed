@@ -64,6 +64,7 @@ export class HanafudaBeginScene extends Phaser.Scene
         for (let i = 0; i < totalCards; ++i)
         {
             monthCount = Math.floor(i / 4);
+            
 
             const newCard = {number: i, month: months[monthCount]};
             
