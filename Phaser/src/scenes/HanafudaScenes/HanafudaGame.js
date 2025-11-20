@@ -30,6 +30,8 @@ export class HanafudaGame extends Phaser.Scene{
         /** Counter for how many refills have been done */
         this.refillTimes = 0;
         this.OponentChoice = null;
+
+        this.hasDeckCardPair = null;
     }
 
     init(data)
@@ -167,7 +169,7 @@ export class HanafudaGame extends Phaser.Scene{
             const y = startY + row * cardSpacingY;
 
             const rect = this.add.rectangle(x, y, 100, 150, 0xaa3333);
-            this.add.text(rect.x, rect.y, `${card.number}`, {
+            this.add.text(rect.x, rect.y, `${card.number} \n ${card.month}`, {
             fontSize: "28px",
             color: "#ffffff"
             }).setOrigin(0.5);
@@ -243,6 +245,7 @@ export class HanafudaGame extends Phaser.Scene{
 
         if(this.refillTimes == 1)
         { 
+            console.log
             this.cardFromDeck = this.deck.splice(0,1)[0];
             console.log("anotherpair");
             this.searchesPair(this.cardFromDeck, this.tableCards.length - 1);
@@ -250,9 +253,16 @@ export class HanafudaGame extends Phaser.Scene{
 
         console.log ("no more refill")
         this.refillTimes = 0;
-        this.tableCards.push(this.cardFromDeck);
+
+        if(this.hasDeckCardPair == false)
+        {
+            this.tableCards.push(this.cardFromDeck);
+        }
+
+        this.hasDeckCardPair = false;
         this.renderTableCards();
         console.log("bleh",this.tableCards);
+        this.renderTableCards();
     }
 
     searchesPair(card, cardpos) //GoodForNow
@@ -278,7 +288,7 @@ export class HanafudaGame extends Phaser.Scene{
         {
             console.log("Pair found", card, this.tablecard);
             
-            this.foundPair(cardpos, this.tablepos);
+            this.foundPair(card, cardpos, this.tablepos);
         }
         else if (numberOfPairs < 1)
         {
@@ -289,7 +299,7 @@ export class HanafudaGame extends Phaser.Scene{
         this.renderTableCards();
     }
 
-    foundPair(cardpos, tablecardPos) //Good
+    foundPair(card, cardpos, tablecardPos) //Good
     {
         // add the pair to the player pairs, and remove from playerCards and tableCards
         
@@ -305,25 +315,30 @@ export class HanafudaGame extends Phaser.Scene{
         }
         else 
         {
-            if(this.refillTimes == 0) { this.enemyPairs.push(this.enemyCards.splice(cardpos, 1)[0]);
+            if(this.refillTimes == 0) {
 
-                console.log(this.enemyCards.splice(cardpos, 1)[0]);
+                console.log(this.enemyCards);
+                
+                this.enemyPairs.push(this.enemyCards.splice(cardpos, 1)[0]);
+            }
+            else 
+            {
+                console.log("has deck card pair", card);
+                this.enemyPairs.push(card);
+                this.hasDeckCardPair = true;
             }
 
             console.log(this.refillTimes);
 
             this.enemyPairs.push(this.tableCards.splice(tablecardPos, 1)[0]);
-            console.log(this.enemyPairs);
+            console.log("Oponent Pairs",this.enemyPairs);
         }
     }
 
     pairNotFound(cardpos) //Good
     {
-        if(this.refillTimes === 0)
-        {
-            if(this.playerTurn == true) { this.tableCards.push(this.playerCards.splice(cardpos,1)[0]);}
-            else {this.tableCards.push(this.enemyCards.splice(cardpos,1)[0]);}
-        }
+        if(this.playerTurn == true) { this.tableCards.push(this.playerCards.splice(cardpos,1)[0]);}
+        else {this.tableCards.push(this.enemyCards.splice(cardpos,1)[0]);}
     }
 
     handlesTurns()
