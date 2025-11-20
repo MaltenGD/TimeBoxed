@@ -8,5 +8,6 @@
     "AsebCompleted": false,
     "TaliCompleted": false,
     "HanafudaCompleted": false,
-    "SceneToResume" : null
+    "SceneToResume" : null,
+    "comingFromMenu": false
 }

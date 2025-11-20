@@ -40,6 +40,9 @@ export class TutorialAseb extends Phaser.Scene
            if (this.playerData.comingFromMenu)
            {
             // Stops this scene and resumes the HelpLobyScene
+            this.playerData.comingFromMenu = false;
+            this.scene.stop();
+            this.scene.resume('HelpLobbyScene', this.playerData);
 
            }
             else this.scene.start('AsebBeginScene', this.playerData)

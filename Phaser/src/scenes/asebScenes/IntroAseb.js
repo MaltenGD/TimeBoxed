@@ -81,8 +81,7 @@ export class IntroAseb extends Phaser.Scene
                 }
             });
             
-        });
-    
+        });  
     }
     openOptionMenu()
     {

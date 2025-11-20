@@ -55,6 +55,18 @@ export class HelpLobbyScene extends Phaser.Scene {
         this.input.keyboard.once('keydown-ESC', () => {
             this.exitHelpLobby();
         });
+
+        this.AsebTutorialBtn = this.add.text(width / 3, height / 2 - 50, 'Aseb Tutorial', {
+            fontSize: '28px',
+            fill: '#fff',
+            padding: { x: 15, y: 10 },
+        }).setOrigin(0.5).setInteractive();
+
+        this.AsebTutorialBtn.on('pointerdown', () => {
+            this.playerData.comingFromMenu = true;
+            this.scene.launch('TutorialAseb', this.playerData);
+            this.scene.pause();
+        });
     }
 
     exitHelpLobby() {

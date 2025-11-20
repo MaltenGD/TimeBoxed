@@ -24,7 +24,6 @@ export default class DialogueController
 
         /** @property object that holds the dialogues objects from the json file*/
         this.dialogueGroup = null;
-        this.isTutorial = false;
 
         /** @property ID of the next dialogue to be shown */
         this.nextID = null;
@@ -38,6 +37,14 @@ export default class DialogueController
     */
     iniDialogue()
     {   
+        // Remove any existing event listeners to prevent stacking
+        this.scene.events.removeListener('nextDialog');
+        this.scene.events.removeListener('Finished');
+        this.scene.events.removeListener('changeTutoImage');
+        
+        // Reset dialogue state to prevent skipping issues
+        this.nextID = null;
+        this.currentDialogue = null;
 
         if(this.era == 'Intro')
         {
@@ -87,6 +94,7 @@ export default class DialogueController
         if (!this.dialogBox.visible) {
             this.dialogBox.toggleWindow();
         }
+
 
         /**starts the dialogue block */
         this.startDialogueBlock('start');
