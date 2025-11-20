@@ -90,7 +90,7 @@ export class SelectionMenuScene extends Phaser.Scene {
          * HanafudaScene for japanese level scene
         */
 
-        const scenes = ['IntroAseb', 'TaliBeginScene', 'HanafudaBeginScene'];
+        const scenes = ['IntroAseb', 'TaliIntroScene', 'HanafudaBeginScene'];
 
         /** Array for buttons */
         const buttons = [];

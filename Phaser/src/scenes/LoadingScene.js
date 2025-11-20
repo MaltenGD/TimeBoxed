@@ -41,7 +41,7 @@ export class LoadingScene extends Phaser.Scene
         this.loadHanafudaAssets();
         this.loadCreditsAssets();
         this.loadInisgniaAssets();
-        this.loadTestAssets();
+        this.loadDialogues();
         
         this.load.json('achievements', 'Phaser/assets/achievements.json');
 
@@ -181,12 +181,12 @@ export class LoadingScene extends Phaser.Scene
         this.load.image('tempInsignia2', 'Phaser/assets/insignias/tempInsignia2.png');
     }
 
-    /**
-     * Loads test assets.
-     * Only exists to make loading slower, otherwise we wouldn't be able to see the loading screen.
-     */
-    loadTestAssets() {
-        
+    loadDialogues() {
+        /** Load the json file for the Intro Dialogue 
+        * @param {string} key - The key to reference the loaded JSON data.
+        * @param {string} url - The URL of the JSON file to load.
+        */
+        this.load.json('TaliDialogue', 'Phaser/DialoguesJson/TaliDialogue.json');
     }
 
     create() {

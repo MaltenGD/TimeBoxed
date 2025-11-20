@@ -18,6 +18,7 @@ import { ItemsScene } from './scenes/ItemsScene.js';
 import { TimeBoxedDefeat } from './scenes/TimeBoxedDefeat.js'
 import { HanafudaBeginScene} from './scenes/HanafudaScenes/HanafudaBeginScene.js'
 import { HanafudaGame} from './scenes/HanafudaScenes/HanafudaGame.js'
+import { TaliIntroScene } from './scenes/taliScenes/TaliIntroScene.js';
 
 
 
@@ -43,6 +44,7 @@ const config = {
         AsebVictoryScene,
         AsebDefeatScene,
         TaliScene,
+        TaliIntroScene,
         TaliBeginScene,
         TaliEndScene,
         HanafudaBeginScene,

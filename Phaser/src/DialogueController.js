@@ -53,6 +53,15 @@ export default class DialogueController
         {
             this.dialogueGroup = this.dialogueData.AsebDefeatDialogue;
         }
+        else if (this.era == 'Tali') {
+            this.dialogueGroup = this.dialogueData.TaliIntroDialogue;
+        }
+        else if (this.era == 'TaliWin') {
+            this.dialogueGroup = this.dialogueData.TaliWinDialogue;
+        }
+        else if (this.era == 'TaliLose') {
+            this.dialogueGroup = this.dialogueData.TaliLoseDialogue;
+        }
         else if (this.era == 'TimeBoxedDefeat')
         {
             this.dialogueGroup = this.dialogueData.TimeBoxedDefeatDialogue;
