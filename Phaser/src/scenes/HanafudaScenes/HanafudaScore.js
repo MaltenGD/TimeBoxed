@@ -27,7 +27,7 @@ export function calculateYakus(pairs)
         monthCount[card.month]++;
     }
     const yakus = [];
-    let pointsTotal = 0;
+    let totalPoints = 0;
     if (specialCount >= 5) 
     {
         yakus.push("Tane");
@@ -68,6 +68,6 @@ export function calculateYakus(pairs)
         totalPoints += 2;
     }
 
-    return { pointsTotal, yakus };
+    return { totalPoints, yakus };
 
 }
