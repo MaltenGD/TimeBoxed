@@ -27,7 +27,7 @@ export function calculateYakus(pairs)
         monthCount[card.month]++;
     }
     const yakus = [];
-    let totalPoints = 0;
+    let pointsTotal = 0;
     if (specialCount >= 5) 
     {
         yakus.push("Tane");
@@ -50,5 +50,24 @@ export function calculateYakus(pairs)
         yakus.push("Fujin");
         totalPoints += 2;
     }
+    const seasons = {
+        spring: [0, 1, 2],
+        summer: [3, 4, 5],
+        autumn: [6, 7, 8],
+        winter: [9, 10, 11, 12]
+    };
+    let doujinComb = false;
+    for (const season of Object.values(seasons)) {
+        if (season.every(m => monthCount[m] > 0)) {
+            doujinComb = true;
+            break;
+        }
+    }
+    if (doujinComb) {
+        yakus.push("Doujin");
+        totalPoints += 2;
+    }
+
+    return { pointsTotal, yakus };
 
 }
