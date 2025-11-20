@@ -57,12 +57,37 @@ export class HelpLobbyScene extends Phaser.Scene {
         });
 
         this.AsebTutorialBtn = this.add.text(width / 3, height / 2 - 50, 'Aseb Tutorial', {
-            fontSize: '28px',
+            fontSize: '36px',
             fill: '#fff',
-            padding: { x: 15, y: 10 },
+            backgroundColor: '#555',
+            padding: { x: 15, y: 50 }
         }).setOrigin(0.5).setInteractive();
 
+        this.AsebTutorialBtn.on('pointerover', () => {
+            //this.AsebTutorialBtn.setBackgroundColor('#777');
+            //this.AsebTutorialBtn.setStyle({ fill: '#ffff00' });
+            this.tweens.add({
+                targets: this.AsebTutorialBtn,
+                scale: 1.1,
+                duration: 200,
+                ease: 'Back.easeOut' // Bouncy effect on hover
+            });
+        });
+
+        this.AsebTutorialBtn.on('pointerout', () => {
+            //this.AsebTutorialBtn.setBackgroundColor('#555');
+            //this.AsebTutorialBtn.setStyle({ fill: '#fff' });
+            this.tweens.add({
+                targets: this.AsebTutorialBtn,
+                scale: 1.0,
+                duration: 150,
+                ease: 'Sine.easeOut' // Smooth and quick, no delay
+            });
+        });
+
         this.AsebTutorialBtn.on('pointerdown', () => {
+            this.AsebTutorialBtn.setBackgroundColor('#555');
+            this.AsebTutorialBtn.setStyle({ fill: '#fff' });
             this.playerData.comingFromMenu = true;
             this.scene.launch('TutorialAseb', this.playerData);
             this.scene.pause();

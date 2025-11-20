@@ -91,9 +91,32 @@
     "ATD12":
     {
         "speaker": "Kronos",
-        "text": "There you have it. Aseb in a nutshell. Now, are you ready to face the guardian of the underworld? Because I believe in you... mostly. Now get out there!",
+        "text": "There you have it. Aseb in a nutshell. Now, are you ready to face the guardian of the underworld? Because I believe in you... mostly.",
+        "animation": "true",
+        "next": "ATD13"
+    },
+    "ATD13":
+    {
+        "speaker": "Kronos",
+        "text": "Oh yeah i almost forgot, if you need to refresh the rules, open the menu and go to help.",
+        "animation": "true",
+        "next": "ATD14"
+    },
+    "ATD14":
+    {
+        "speaker": "Kronos",
+        "text": "An aseb option will be on there for you to check anytime you want.",
+        "animation": "true",
+        "next": "ATD15"
+    },
+    "ATD15":
+    {
+        "speaker": "Kronos",
+        "text": "Good luck, my friend. Now get out there!",
         "animation": "true",
         "next": null
+
     }
+
 }
 }

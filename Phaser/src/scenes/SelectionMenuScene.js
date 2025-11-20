@@ -50,6 +50,16 @@ export class SelectionMenuScene extends Phaser.Scene {
             .setInteractive({ cursor: 'pointer' })
             .setOrigin(0.5);
         
+        // A floating animation to the box before it's clicked
+        const floatingBoxAnim = this.tweens.add({
+            targets: box,
+            y: centerY - 20, // Move up by 20 pixels
+            duration: 1500,
+            ease: 'Sine.easeInOut',
+            yoyo: true,
+            repeat: -1
+        });
+
         // Position of the buttons when they're out of the box
 
         /**Space between buttons */
@@ -189,6 +199,9 @@ export class SelectionMenuScene extends Phaser.Scene {
             if (deployed) return;
             deployed = true;
 
+            // Stop the floating animation
+            floatingBoxAnim.stop();
+
             box.setTexture('BoxOpen');
 
             /**
@@ -243,6 +256,26 @@ export class SelectionMenuScene extends Phaser.Scene {
                          * @on pointerdown starts the corresponding level scene when the button is clicked
                          */
                         btn.setInteractive({ cursor: 'pointer' })
+                            .on('pointerover', () => {
+                               
+                                this.tweens.add({
+                                    targets: btn,
+                                    scaleX: 0.42,
+                                    scaleY: 0.42,
+                                    duration: 200,
+                                    ease: 'Back.easeOut'
+                                });
+                            })
+                            .on('pointerout', () => {
+                             
+                                this.tweens.add({
+                                    targets: btn,
+                                    scaleX: 0.4,
+                                    scaleY: 0.4,
+                                    duration: 200,
+                                    ease: 'Back.easeIn'
+                                });
+                            })
                             .on('pointerdown', () => {
                                 this.transitionController.startFadeOutTransition(() => {
                                     
@@ -266,7 +299,17 @@ export class SelectionMenuScene extends Phaser.Scene {
                     scale: 0.4,
                     duration: 1700,
                     ease: 'Sine.easeOut',
-                    
+                    onComplete: () => {
+                        this.tweens.add({
+                            targets: btn,
+                            y: finalPositions[index].y - 15,
+                            duration: 2000 + (index * 300),
+                            ease: 'Sine.easeInOut',
+                            yoyo: true,
+                            repeat: -1,
+                            delay: index * 200
+                        });
+                    }
                 });
 
             });
