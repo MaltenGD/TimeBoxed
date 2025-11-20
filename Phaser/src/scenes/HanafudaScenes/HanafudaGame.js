@@ -1,4 +1,5 @@
 import TransitionController, {RGBColor} from "../../misc/transitioncontroller.js";
+import { calculateYakus } from "./HanafudaScore.js";
 
 export class HanafudaGame extends Phaser.Scene{
     constructor()
@@ -361,6 +362,25 @@ export class HanafudaGame extends Phaser.Scene{
         console.log(this.tableCards);
         this.playerTurn = true;
     }
+
+    checkYakus(isPlayer) {
+
+    let pairs;
+    if (isPlayer) 
+        {
+        pairs = this.playerPairs;
+    } else {
+        pairs = this.enemyPairs;
+    }
+
+    const result = calculateYakus(pairs);
+
+    if (result.yakus.length === 0) 
+        {
+        return;
+    }
+}
+
 
     openOptionMenu()
     {
