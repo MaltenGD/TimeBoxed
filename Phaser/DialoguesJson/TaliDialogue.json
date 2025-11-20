@@ -201,6 +201,33 @@
         "next": null
     }
 },
+
+"TaliTutorialDialogue": {
+    "start":{
+        "speaker": "Kronos",
+        "text": "Ok, friend, before we head in, I'll teach you how to play Tali.",
+        "animation":"true",
+        "next": "TT1",
+        "image": ""
+    },
+
+    "TT1":{
+        "speaker": "Kronos",
+        "text": "It's a simple game, so you'd better catch on quickly.",
+        "animation":"true",
+        "next": "TT2",
+        "image": ""
+    },
+
+    "TT2":{
+        "speaker": "Kronos",
+        "text": "",
+        "animation":"true",
+        "next": "TT3",
+        "image": ""
+    },
+},
+
 "TaliWinDialogue": {
     "start":
     {
