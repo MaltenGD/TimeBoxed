@@ -50,6 +50,9 @@ export class AsebScene extends Phaser.Scene {
         this.playerData = playerData;
         console.log(this.playerData)
 
+        // Flags for the aseb achievements
+        this.anyPieceCaptured = false;
+
         this.transitionController = new TransitionController(this);
         this.transitionController.startFadeInTransition();
 
@@ -131,6 +134,12 @@ export class AsebScene extends Phaser.Scene {
             console.log("Piece Reached End")
             this.pieceReachesEnd(piece);
         });
+        this.board.on('pieceCaptured', (capturedPiece) => {
+            if (capturedPiece.pieceType === PIECE_TYPE.PLAYER) {
+                this.anyPieceCaptured = true;
+                console.log("A player piece was captured. The player will not get the achievement.");
+            }
+        });
 
         // --- UI Elements ---  
 
@@ -168,6 +177,11 @@ export class AsebScene extends Phaser.Scene {
             this.startPlayerTurn();
         }
         if (this.asebGame.state === GAME_STATE.PLAYER_VICTORY) {
+
+            if (!this.anyPieceCaptured) {
+
+                this.playerData.AsebNoCapturesCompletion = true;
+            }
             this.transitionController.startFadeOutTransition(() => {
                 
                  this.scene.start('AsebVictoryScene', this.playerData);

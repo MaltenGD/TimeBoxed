@@ -6,6 +6,7 @@
     "AsebPlayerFirst" : false,
     "TaliPlayerFirst" : false,
     "AsebCompleted": false,
+    "AsebNoCapturesCompletion": false,
     "TaliCompleted": false,
     "HanafudaCompleted": false,
     "SceneToResume" : null,

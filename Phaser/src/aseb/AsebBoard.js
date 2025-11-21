@@ -229,6 +229,7 @@ export default class AsebBoard extends Phaser.GameObjects.Image
       {
         console.log("Landed on an opponent's piece. Sending it back to spawn.");
         isNextPositionValid.piece.ReturnToSpawn();
+        this.emit('pieceCaptured', isNextPositionValid.piece);
       }
 
       
