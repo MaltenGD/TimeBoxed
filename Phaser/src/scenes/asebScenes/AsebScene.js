@@ -182,6 +182,9 @@ export class AsebScene extends Phaser.Scene {
 
                 this.playerData.AsebNoCapturesCompletion = true;
             }
+
+            this.playerData.AsebLandedOnEverySpecial = this.board.checkLandedAllSpecialPositions();
+            
             this.transitionController.startFadeOutTransition(() => {
                 
                  this.scene.start('AsebVictoryScene', this.playerData);

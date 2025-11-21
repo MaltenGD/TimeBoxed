@@ -22,6 +22,7 @@ export class AsebVictoryScene extends Phaser.Scene
 
         this.awardAch("AS1");
         if (this.playerData.AsebNoCapturesCompletion) this.awardAch("AS2");
+        if (this.playerData.AsebLandedOnEverySpecial) this.awardAch("AS3");
 
         this.input.keyboard.on('keydown-ESC', () => {
            this.openOptionMenu();

@@ -16,7 +16,7 @@
         "AS3":
         {
             "name": "Square Master",
-            "description": "Land on every special square in Aseb at least once in a single match.",
+            "description": "Won Aseb and land on all special squares at least once in that match.",
             "image": "tempInsignia7"
         },
 
