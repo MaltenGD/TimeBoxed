@@ -20,6 +20,7 @@ import { HanafudaBeginScene} from './scenes/HanafudaScenes/HanafudaBeginScene.js
 import { HanafudaGame} from './scenes/HanafudaScenes/HanafudaGame.js'
 import { TutorialAseb } from './scenes/asebScenes/TutorialAseb.js';
 import { TaliIntroScene } from './scenes/taliScenes/TaliIntroScene.js';
+import { TaliTutorial } from './scenes/taliScenes/TaliTutorialScene.js';
 
 
 
@@ -47,6 +48,7 @@ const config = {
         TaliScene,
         TaliIntroScene,
         TaliBeginScene,
+        TaliTutorial,
         TaliEndScene,
         HanafudaBeginScene,
         HanafudaGame,

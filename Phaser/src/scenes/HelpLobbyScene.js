@@ -94,6 +94,42 @@ export class HelpLobbyScene extends Phaser.Scene {
         });
     }
 
+    addTutorialButton(text, sceneToLaunch) {
+        const btn = this.add.text(width / 3, height / 2 - 50, text, {
+            fontSize: '36px',
+            fill: '#fff',
+            backgroundColor: '#555',
+            padding: { x: 15, y: 50 }
+        }).setOrigin(0.5).setInteractive();
+
+        btn.on('pointerover', () => {
+            this.tweens.add({
+                targets: btn,
+                scale: 1.1,
+                duration: 200,
+                ease: 'Back.easeOut' // Bouncy effect on hover
+            });
+        });
+
+        btn.on('pointerout', () => {
+            this.tweens.add({
+                targets: btn,
+                scale: 1.0,
+                duration: 150,
+                ease: 'Sine.easeOut' // Smooth and quick, no delay
+            });
+        });
+
+        btn.on('pointerdown', () => {
+            btn.setBackgroundColor('#555');
+            btn.setStyle({ fill: '#fff' });
+            this.playerData.comingFromMenu = true;
+            this.scene.launch(sceneToLaunch, this.playerData);
+            this.scene.pause();
+        });
+
+    }
+
     exitHelpLobby() {
         // Stop the current scene
         this.scene.stop('HelpLobbyScene');
