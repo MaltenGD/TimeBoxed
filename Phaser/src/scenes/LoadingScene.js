@@ -93,39 +93,6 @@ export class LoadingScene extends Phaser.Scene
         this.load.json('playerData', 'Phaser/src/playerData.json');
     }
 
-
-    loadDialogues()
-    {
-        /** Load the json file for the Intro Dialogue 
-        * @param {string} key - The key to reference the loaded JSON data.
-        * @param {string} url - The URL of the JSON file to load.
-        */
-        this.load.json('IntroDialogue', 'Phaser/DialoguesJson/IntroDialogue.json');
-
-         /** Load the json file for the Intro Dialogue 
-        * @param {string} key - The key to reference the loaded JSON data.
-        * @param {string} url - The URL of the JSON file to load.
-        */
-        this.load.json('AsebTutorialDialogue', 'Phaser/DialoguesJson/AsebTutorialDialogue.json');
-
-        /** Load the json file for the Egypt/Aseb Intro Dialogue 
-        * @param {string} key - The key to reference the loaded JSON data.
-        * @param {string} url - The URL of the JSON file to load.
-        */
-        this.load.json('AsebIntroDialogue', 'Phaser/DialoguesJson/EgyptDialogue.json');
-
-        /** Load the json file for the Aseb Defeat Dialogue, when the player loses. 
-        * @param {string} key - The key to reference the loaded JSON data.
-        * @param {string} url - The URL of the JSON file to load.
-        */
-        this.load.json('AsebDefeatDialogue', 'Phaser/DialoguesJson/AsebDefeatDialogue.json');
-
-        /** Load the json file for the Aseb Winning Dialogue, when the player wins.
-        * @param {string} key - The key to reference the loaded JSON data.
-        * @param {string} url - The URL of the JSON file to load.
-        */
-        this.load.json('AsebWinDialogue', 'Phaser/DialoguesJson/AsebWinDialogue.json');
-    }
     /**
      * Loads all option menu assets.
      */
@@ -230,6 +197,36 @@ export class LoadingScene extends Phaser.Scene
         * @param {string} url - The URL of the JSON file to load.
         */
         this.load.json('TaliDialogue', 'Phaser/DialoguesJson/TaliDialogue.json');
+
+        /** Load the json file for the Intro Dialogue 
+        * @param {string} key - The key to reference the loaded JSON data.
+        * @param {string} url - The URL of the JSON file to load.
+        */
+        this.load.json('IntroDialogue', 'Phaser/DialoguesJson/IntroDialogue.json');
+
+         /** Load the json file for the Intro Dialogue 
+        * @param {string} key - The key to reference the loaded JSON data.
+        * @param {string} url - The URL of the JSON file to load.
+        */
+        this.load.json('AsebTutorialDialogue', 'Phaser/DialoguesJson/AsebTutorialDialogue.json');
+
+        /** Load the json file for the Egypt/Aseb Intro Dialogue 
+        * @param {string} key - The key to reference the loaded JSON data.
+        * @param {string} url - The URL of the JSON file to load.
+        */
+        this.load.json('AsebIntroDialogue', 'Phaser/DialoguesJson/EgyptDialogue.json');
+
+        /** Load the json file for the Aseb Defeat Dialogue, when the player loses. 
+        * @param {string} key - The key to reference the loaded JSON data.
+        * @param {string} url - The URL of the JSON file to load.
+        */
+        this.load.json('AsebDefeatDialogue', 'Phaser/DialoguesJson/AsebDefeatDialogue.json');
+
+        /** Load the json file for the Aseb Winning Dialogue, when the player wins.
+        * @param {string} key - The key to reference the loaded JSON data.
+        * @param {string} url - The URL of the JSON file to load.
+        */
+        this.load.json('AsebWinDialogue', 'Phaser/DialoguesJson/AsebWinDialogue.json');
     }
 
     create() {
