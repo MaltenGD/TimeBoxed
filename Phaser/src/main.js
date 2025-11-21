@@ -18,6 +18,7 @@ import { ItemsScene } from './scenes/ItemsScene.js';
 import { TimeBoxedDefeat } from './scenes/TimeBoxedDefeat.js'
 import { HanafudaBeginScene} from './scenes/HanafudaScenes/HanafudaBeginScene.js'
 import { HanafudaGame} from './scenes/HanafudaScenes/HanafudaGame.js'
+import { TutorialAseb } from './scenes/asebScenes/TutorialAseb.js';
 import { TaliIntroScene } from './scenes/taliScenes/TaliIntroScene.js';
 
 
@@ -53,7 +54,8 @@ const config = {
         OptionMenuScene,
         ConfirmMenuScene,
         ItemsScene,
-        HelpLobbyScene
+        HelpLobbyScene,
+        TutorialAseb
     ],
     scale: {
         mode: Phaser.Scale.FIT,

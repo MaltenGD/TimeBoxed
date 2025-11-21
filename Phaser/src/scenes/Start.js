@@ -81,10 +81,11 @@ export class Start extends Phaser.Scene {
                 padding: { x: 40, y: 40 },
                 
             }).setOrigin(0.5)
-            .setInteractive();
         if (this.playerData.TimeboxedMode) this.TimeboxedButton.setText('   DISABLE\nTIMEBOXED MODE')
         else this.TimeboxedButton.setText('   ENABLE\nTIMEBOXED MODE')
 
+        if (!this.playerData.IntroCompleted) this.TimeboxedButton.setInteractive(); 
+        else this.TimeboxedButton.setAlpha(0.5);
         
 
         //PLAY BUTTON INTERACTIONS
@@ -145,6 +146,7 @@ export class Start extends Phaser.Scene {
                 sceneToPause: this.scene.key,
                 text: "Are you sure you want to activate TimeBoxed mode?\n\n When playing with this enabled, if you lose any game, the entire game will restart. \nCompleting the entire game in this mode will grant an exclusive achievement",
                 onYes: () => {
+                    this.transitionController.startFadeInTransition();
                     this.scene.resume(this);
                     this.scene.stop('ConfirmMenu');
                 

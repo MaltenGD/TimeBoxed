@@ -51,33 +51,81 @@ export class OptionMenuScene extends Phaser.Scene {
 
         resumeBtn.on('pointerover', () => {
             resumeBtn.setTexture('ResumeButtonHovered');
+            this.tweens.add({
+                targets: resumeBtn,
+                scale: 1.1,
+                duration: 200,
+                ease: 'Sine.easeOut'
+            });
         });
         resumeBtn.on('pointerout', () => {
             resumeBtn.setTexture('ResumeButtonNormal');
+            this.tweens.add({
+                targets: resumeBtn,
+                scale: 1.0,
+                duration: 150,
+                ease: 'Sine.easeOut'
+            });
         });
 
 
         helpBtn.on('pointerover', () => {
             helpBtn.setTexture('HelpButtonHovered');
+            this.tweens.add({
+                targets: helpBtn,
+                scale: 1.1,
+                duration: 200,
+                ease: 'Sine.easeOut'
+            });
         });
         helpBtn.on('pointerout', () => {
             helpBtn.setTexture('HelpButtonNormal');
+            this.tweens.add({
+                targets: helpBtn,
+                scale: 1.0,
+                duration: 150,
+                ease: 'Sine.easeOut'
+            });
         });
 
 
         itemsBtn.on('pointerover', () => {
             itemsBtn.setTexture('ItemsButtonHovered');
+            this.tweens.add({
+                targets: itemsBtn,
+                scale: 1.1,
+                duration: 200,
+                ease: 'Sine.easeOut'
+            });
         });
         itemsBtn.on('pointerout', () => {
             itemsBtn.setTexture('ItemsButtonNormal');
+            this.tweens.add({
+                targets: itemsBtn,
+                scale: 1.0,
+                duration: 150,
+                ease: 'Sine.easeOut'
+            });
         });
 
 
         exitBtn.on('pointerover', () => {
             exitBtn.setTexture('ExitButtonHovered');
+            this.tweens.add({
+                targets: exitBtn,
+                scale: 1.1,
+                duration: 200,
+                ease: 'Sine.easeOut'
+            });
         });
         exitBtn.on('pointerout', () => {
             exitBtn.setTexture('ExitButtonNormal');
+            this.tweens.add({
+                targets: exitBtn,
+                scale: 1.0,
+                duration: 150,
+                ease: 'Sine.easeOut'
+            });
         });
 
 

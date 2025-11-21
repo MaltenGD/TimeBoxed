@@ -53,7 +53,7 @@
     "AWD8":
     {
         "speaker": "Kronos",
-        "text": "Splendid! We'll take that! One down, a few more to go. No time to waste, my friend, the cosmos awaits!",
+        "text": "Splendid! We'll take that! One down. No time to waste, my friend, the cosmos awaits!",
         "animation": "true",
         "next": "AWD9"
     },

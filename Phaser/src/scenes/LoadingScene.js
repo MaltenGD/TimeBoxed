@@ -34,6 +34,7 @@ export class LoadingScene extends Phaser.Scene
         let loadingInfo = this.add.text(progressBoxPosX + progressBoxWidth/2, progressBoxPosY + progressBoxHeight + 40 , "Starting game...", {fontSize:35}).setOrigin(0.5);
 
         this.loadMainMenuAssets();
+        this.loadDialogues();
         this.loadIntroAssets();
         this.loadSelectionMenuAssets();
         this.loadAsebAssets();
@@ -92,6 +93,39 @@ export class LoadingScene extends Phaser.Scene
         this.load.json('playerData', 'Phaser/src/playerData.json');
     }
 
+
+    loadDialogues()
+    {
+        /** Load the json file for the Intro Dialogue 
+        * @param {string} key - The key to reference the loaded JSON data.
+        * @param {string} url - The URL of the JSON file to load.
+        */
+        this.load.json('IntroDialogue', 'Phaser/DialoguesJson/IntroDialogue.json');
+
+         /** Load the json file for the Intro Dialogue 
+        * @param {string} key - The key to reference the loaded JSON data.
+        * @param {string} url - The URL of the JSON file to load.
+        */
+        this.load.json('AsebTutorialDialogue', 'Phaser/DialoguesJson/AsebTutorialDialogue.json');
+
+        /** Load the json file for the Egypt/Aseb Intro Dialogue 
+        * @param {string} key - The key to reference the loaded JSON data.
+        * @param {string} url - The URL of the JSON file to load.
+        */
+        this.load.json('AsebIntroDialogue', 'Phaser/DialoguesJson/EgyptDialogue.json');
+
+        /** Load the json file for the Aseb Defeat Dialogue, when the player loses. 
+        * @param {string} key - The key to reference the loaded JSON data.
+        * @param {string} url - The URL of the JSON file to load.
+        */
+        this.load.json('AsebDefeatDialogue', 'Phaser/DialoguesJson/AsebDefeatDialogue.json');
+
+        /** Load the json file for the Aseb Winning Dialogue, when the player wins.
+        * @param {string} key - The key to reference the loaded JSON data.
+        * @param {string} url - The URL of the JSON file to load.
+        */
+        this.load.json('AsebWinDialogue', 'Phaser/DialoguesJson/AsebWinDialogue.json');
+    }
     /**
      * Loads all option menu assets.
      */
@@ -117,11 +151,7 @@ export class LoadingScene extends Phaser.Scene
         this.load.image('ExitButtonNormal', 'Phaser/assets/OptionMenu/ExitNormal.png');
         this.load.image('ExitButtonHovered', 'Phaser/assets/OptionMenu/ExitHovered.png');
 
-        /** Load the json file for the Intro Dialogue 
-        * @param {string} key - The key to reference the loaded JSON data.
-        * @param {string} url - The URL of the JSON file to load.
-        */
-        this.load.json('IntroDialogue', 'Phaser/DialoguesJson/IntroDialogue.json');
+        
     }
 
     loadSelectionMenuAssets()
@@ -146,6 +176,19 @@ export class LoadingScene extends Phaser.Scene
         this.load.image('asebBoard', 'Phaser/assets/aseb/AsebBoard.png');
         this.load.image('redPiece', 'Phaser/assets/aseb/redPiece.png');
         this.load.image('bluePiece', 'Phaser/assets/aseb/bluePiece.png');
+
+        // Related to Aseb tutorial
+        this.load.image('AsebTuto_AsebBoard', 'Phaser/assets/aseb/Tutorial/AsebTuto_AsebBoard.png');
+        this.load.image('AsebTuto_ThrowingSticks', 'Phaser/assets/aseb/Tutorial/AsebTuto_ThrowingSticks.png');
+        this.load.image('AsebTuto_SpecialSquares', 'Phaser/assets/aseb/Tutorial/AsebTuto_SpecialSquares.png');
+        this.load.image('AsebTuto_SpecialSquares', 'Phaser/assets/aseb/Tutorial/AsebTuto_SpecialSquares.png');
+        this.load.image('AsebTuto_KillingPieces', 'Phaser/assets/aseb/Tutorial/AsebTuto_KillingPieces.png');
+        this.load.image('AsebTuto_ReachingEnd', 'Phaser/assets/aseb/Tutorial/AsebTuto_ReachingEnd.png');
+        this.load.image('AsebTuto_Pieces', 'Phaser/assets/aseb/Tutorial/AsebTuto_Pieces.png');
+        this.load.image('AsebTuto_Paths', 'Phaser/assets/aseb/Tutorial/AsebTuto_Paths.png');
+        this.load.image('AsebTuto_HelpMenu', 'Phaser/assets/aseb/Tutorial/AsebTuto_HelpMenu.png');
+
+        
     }
 
     /**
