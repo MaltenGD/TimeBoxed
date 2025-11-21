@@ -204,28 +204,156 @@
 
 "TaliTutorialDialogue": {
     "start":{
-        "speaker": "Kronos",
-        "text": "Ok, friend, before we head in, I'll teach you how to play Tali.",
+        "speaker": "Mercury",
+        "text": "So your friend has left you, huh?",
         "animation":"true",
         "next": "TT1",
         "image": ""
     },
 
     "TT1":{
-        "speaker": "Kronos",
-        "text": "It's a simple game, so you'd better catch on quickly.",
+        "speaker": "Mercury",
+        "text": "Typical Kronos.",
         "animation":"true",
         "next": "TT2",
         "image": ""
     },
 
     "TT2":{
-        "speaker": "Kronos",
-        "text": "",
+        "speaker": "Mercury",
+        "text": "Do not worry, *I* will teach you!",
         "animation":"true",
         "next": "TT3",
         "image": ""
     },
+
+    "TT3":{
+        "speaker": "Mercury",
+        "text": "Tali is a game that revolves around dice. The rules are simple:",
+        "animation":"true",
+        "next": "TT4",
+        "image": ""
+    },
+
+    "TT4":{
+        "speaker": "Mercury",
+        "text": "Each of us rolls the dice once. Whoever gets a higher score begins.",
+        "animation":"true",
+        "next": "TT5",
+        "image": ""
+    },
+
+    "TT5":{
+        "speaker": "Mercury",
+        "text": "On your turn, you throw the dice and get points based on the combinations they form.",
+        "animation":"true",
+        "next": "TT6",
+        "image": ""
+    },
+
+    "TT6":{
+        "speaker": "Mercury",
+        "text": "Let me tell you about them!",
+        "animation":"true",
+        "next": "TT7",
+        "image": ""
+    },
+
+    "TT7":{
+        "speaker": "Mercury",
+        "text": "Venus: all the dice rolled different numbers.",
+        "animation":"true",
+        "next": "TT8",
+        "image": ""
+    },
+
+    "TT8":{
+        "speaker": "Mercury",
+        "text": "Marte: you rolled at least one dice with the number 6 on it.",
+        "animation":"true",
+        "next": "TT9",
+        "image": ""
+    },
+
+    "TT9":{
+        "speaker": "Mercury",
+        "text": "Jupiter: all the dice rolled the same number.",
+        "animation":"true",
+        "next": "TT10",
+        "image": ""
+    },
+
+    "TT10":{
+        "speaker": "Mercury",
+        "text": "Neptune: all the dice landed on 1. This is an unlucky throw, so it gives you no points.",
+        "animation":"true",
+        "next": "TT11",
+        "image": ""
+    },
+
+    "TT11":{
+        "speaker": "Mercury",
+        "text": "I saved the best for last! Luna: you rolled at least 3 dice with the number 3.",
+        "animation":"true",
+        "next": "TT12",
+        "image": ""
+    },
+
+    "TT12":{
+        "speaker": "Mercury",
+        "text": "If you roll a Luna, you get another turn! How cool is that?",
+        "animation":"true",
+        "next": "TT13",
+        "image": ""
+    },
+
+    "TT13":{
+        "speaker": "Mercury",
+        "text": "We're going to play three rounds. May the dice be in your favor!",
+        "animation":"true",
+        "next": "TT14",
+        "image": ""
+    },
+
+    "TT14":{
+        "speaker": "Kronos",
+        "text": "Psst, friend!",
+        "animation":"true",
+        "next": "TT15",
+        "image": ""
+    },
+
+    "TT15":{
+        "speaker": "Kronos",
+        "text": "I don't trust the fates to be in your favor in this game, so I'll help you.",
+        "animation":"true",
+        "next": "TT16",
+        "image": ""
+    },
+
+    "TT16":{
+        "speaker": "Kronos",
+        "text": "Each time before Mercury's turn, you should try distracting him.",
+        "animation":"true",
+        "next": "TT17",
+        "image": ""
+    },
+
+    "TT17":{
+        "speaker": "Kronos",
+        "text": "How? Just say something about the alcohol, or compliment his eyes. You'll figure it out!",
+        "animation":"true",
+        "next": "end",
+        "image": ""
+    },
+
+    "end":{
+        "speaker": "Mercury",
+        "text": "I think we're ready now. Let's start!",
+        "animation":"true",
+        "next": null,
+        "image": "none"
+    }
 },
 
 "TaliWinDialogue": {
@@ -442,7 +570,7 @@
 
     "TW13":
     {
-        "speaker":"Kronos",
+        "speaker":"Narrator",
         "text": "The world dissolves into a swirl of colors and fades to black.",
         "animation": "true",
         "next": "end"
