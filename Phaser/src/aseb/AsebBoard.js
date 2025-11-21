@@ -70,6 +70,7 @@ export default class AsebBoard extends Phaser.GameObjects.Image
     // All positions that matches the specialBoxes positions now are special positions
     this.specialBoxes.forEach(position => {
       this.positions[position.row][position.col].isSpecial = true;
+      this.positions[position.row][position.col].landedHere = false;
     });
   }
 
@@ -229,6 +230,7 @@ export default class AsebBoard extends Phaser.GameObjects.Image
       {
         console.log("Landed on an opponent's piece. Sending it back to spawn.");
         isNextPositionValid.piece.ReturnToSpawn();
+        this.emit('pieceCaptured', isNextPositionValid.piece);
       }
 
       
@@ -258,6 +260,7 @@ export default class AsebBoard extends Phaser.GameObjects.Image
         if (isNextPositionValid.isSpecialPosition)
         {
           this.emit('SpecialPosition' ,piece.type);
+          isNextPositionValid.landedHere = true;
         }
         else this.emit('pieceMoved', piece); // Emit an event to notify the scene.
 
@@ -324,21 +327,15 @@ export default class AsebBoard extends Phaser.GameObjects.Image
 
 
 
-  /**
-   * A debug method to visualize the board positions.
-   * It draws a circle on each position, colored by its validity.
-   * Green = Valid, Red = Invalid.
-   */
-  debugDrawPositions() {
-    const graphics = this.scene.add.graphics();
-    for (let row = 0; row < this.rows; row++) {
-      for (let col = 0; col < this.cols; col++) {
-        const pos = this.positions[row][col];
-        const color = pos.validPos ? 0x00ff00 : 0xff0000; // Green for valid, Red for invalid
-        graphics.fillStyle(color, 0.5); // Color with 50% alpha
-        graphics.fillCircle(pos.x, pos.y, 15); // Draw a circle of radius 15
+  checkLandedAllSpecialPositions() {
+    for (let position of this.specialBoxes) {
+      if (!this.positions[position.row][position.col].landedHere) {
+        return false;
       }
     }
+    return true;
   }
+
+  
 
 }

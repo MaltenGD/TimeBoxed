@@ -102,6 +102,13 @@ export class SelectionMenuScene extends Phaser.Scene {
 
         const scenes = ['IntroAseb', 'TaliIntroScene', 'HanafudaBeginScene'];
 
+        /** Maps level options to playerData completion flags */
+        const completionFlags = {
+            'Egypt': 'AsebCompleted',
+            'Rome': 'TaliCompleted',
+            'Japan': 'HanafudaCompleted'
+        };
+
         /** Array for buttons */
         const buttons = [];
         
@@ -277,13 +284,35 @@ export class SelectionMenuScene extends Phaser.Scene {
                                 });
                             })
                             .on('pointerdown', () => {
+                                
+                            const completionFlag = completionFlags[opciones[index]];
+                            if (this.playerData[completionFlag]) {
+                                    this.scene.pause();
+                                    this.scene.launch('ConfirmMenu',{
+                                    sceneToPause: this.scene.key,
+                                    text: "You've already beaten this level. Completing it again won't grant you additional achievements. \n\n Are you sure you want to replay it?",
+                                    onYes: () => {         
+                                        this.scene.stop(this.scene.key);
+                                        this.scene.stop('ConfirmMenu');
+                                        this.scene.start(scenes[index], this.playerData);
+
+                                        
+                                    },
+                                    onNo: () => {
+                                        this.scene.stop('ConfirmMenu');
+                                        this.scene.resume(this.scene.key);
+                                    }
+                                });
+                            } else {
+                                
+                                
                                 this.transitionController.startFadeOutTransition(() => {
-                                    
-                                    this.scene.start(scenes[index], this.playerData);
-                                
+                                    this.scene.start(scenes[index], this.playerData)
                                 }, 400);
-                                
-                            });
+                            }
+                        });
+
+                            
                     }
                 });
 

@@ -7,6 +7,18 @@
             "description": "Won once in Aseb.",
             "image": "tempInsignia1"
         },
+        "AS2":
+        {
+            "name": "Underworld Conqueror",
+            "description": "Won Aseb without having any of your pieces captured.",
+            "image": "tempInsignia6"
+        },
+        "AS3":
+        {
+            "name": "Square Master",
+            "description": "Won Aseb and land on all special squares at least once in that match.",
+            "image": "tempInsignia7"
+        },
 
         "TA1":
         {

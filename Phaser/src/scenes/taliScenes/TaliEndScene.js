@@ -22,7 +22,7 @@ export class TaliEndScene extends Phaser.Scene {
 
         this.playerData = playerData;
         console.log(this.playerData);
-        this.playerWon = this.playerData.TaliPlayerWon;
+        this.playerWon = this.playerData.TaliCompleted;
 
         this.achManager = this.registry.get('AchievementManager');
         if (this.playerWon) {
