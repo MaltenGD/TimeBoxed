@@ -251,7 +251,7 @@ export class TaliScene extends Phaser.Scene {
      * Ends the game and announces the winner.
      */
     endGame() {
-        this.playerData.TaliPlayerWon = this.taliGame.playerWon()
+        this.playerData.TaliCompleted = this.taliGame.playerWon()
         this.scene.start('TaliEndScene', this.playerData);
     }
     
