@@ -91,7 +91,7 @@ export class AsebScene extends Phaser.Scene {
         this.board = new AsebBoard(this,this.boardAnchor.x,this.boardAnchor.y,'asebBoard');
 
         /** @type {number} The pause time in milliseconds for showing information to the player. */
-        this.pauseTime = 0        // 1000 miliseconds
+        this.pauseTime = 1000        // 1000 miliseconds
 
         // --- Board Event Listeners ---
 

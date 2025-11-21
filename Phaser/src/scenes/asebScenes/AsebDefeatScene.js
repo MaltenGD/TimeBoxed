@@ -5,15 +5,7 @@ export class AsebDefeatScene extends Phaser.Scene
 {
     constructor(){super('AsebDefeatScene');}
 
-    preload()
-    {
 
-        /** Load the json file for the Intro Dialogue 
-        * @param {string} key - The key to reference the loaded JSON data.
-        * @param {string} url - The URL of the JSON file to load.
-        */
-        this.load.json('AsebDefeatDialogue', 'Phaser/DialoguesJson/AsebDefeatDialogue.json');
-    }
 
     create(playerData) 
     {
@@ -39,17 +31,14 @@ export class AsebDefeatScene extends Phaser.Scene
         .setInteractive({ cursor: 'pointer' })
         .on('pointerover', () => skipBtn.setStyle({ backgroundColor: '#bbbaba' }))
         .on('pointerout', () => skipBtn.setStyle({ backgroundColor: '#f7f7f7' }))
-        .on('pointerdown', () => {
-            this.transitionController.startFadeOutTransition(() => {
-                
-                 this.dialogueController.skipToEnd();
-            
-            }, 400);
+        .on('pointerdown', () => {   
+            this.dialogueController.skipToEnd();
+
         });
 
         /** variable json*/
-        const introAsebData = this.cache.json.get('AsebDefeatDialogue');
-        this.dialogueController = new DialogueController(this, "AsebDefeat", introAsebData);
+        const defeatAsebData = this.cache.json.get('AsebDefeatDialogue');
+        this.dialogueController = new DialogueController(this, "AsebDefeat", defeatAsebData);
         this.dialogueController.iniDialogue();
         
         this.events.on('nextDialog',()=>
@@ -59,8 +48,10 @@ export class AsebDefeatScene extends Phaser.Scene
 
         this.events.on('Finished', () => {
 
+            this.transitionController.startFadeOutTransition(() => {
             if (this.playerData.TimeboxedMode) this.scene.start('TimeBoxedDefeat', this.playerData);
             else this.scene.start('AsebBeginScene', this.playerData)
+                }, 400);
             
             console.log("cambia de escena");
         });

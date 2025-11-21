@@ -37,6 +37,15 @@ export default class DialogueController
     */
     iniDialogue()
     {   
+        // Remove any existing event listeners to prevent stacking
+        this.scene.events.removeListener('nextDialog');
+        this.scene.events.removeListener('Finished');
+        this.scene.events.removeListener('changeTutoImage');
+        
+        // Reset dialogue state to prevent skipping issues
+        this.nextID = null;
+        this.currentDialogue = null;
+
         if(this.era == 'Intro')
         {
             this.dialogueGroup = this.dialogueData.IntroDialogue;
@@ -44,6 +53,11 @@ export default class DialogueController
         else if(this.era == 'Aseb')
         {
             this.dialogueGroup = this.dialogueData.EgyptDialogue;
+        }
+        else if(this.era == 'AsebTutorial')
+        {
+            this.dialogueGroup = this.dialogueData.AsebTutorialDialogue;
+            this.isTutorial = true;
         }
         else if (this.era == 'AsebWin')
         {
@@ -79,7 +93,7 @@ export default class DialogueController
 			windowHeight: 150,
 			padding: 32,
 			closeBtnColor: 'darkgoldenrod',
-			dialogSpeed: 3,
+			dialogSpeed: 3.5,
 			fontSize: 34,
             fontFamily: 'rimouski',
             radius: 20
@@ -89,6 +103,7 @@ export default class DialogueController
         if (!this.dialogBox.visible) {
             this.dialogBox.toggleWindow();
         }
+
 
         /**starts the dialogue block */
         this.startDialogueBlock('start');
@@ -115,6 +130,12 @@ export default class DialogueController
         const text = element.text;
         /**gets if the dialogue is animated */
         const isAnimated = element.animation === 'true';
+
+        const imageKey = element.image;
+        if(imageKey)
+        {
+            this.scene.events.emit('changeTutoImage', imageKey);
+        }
         
         /**creates the dialogue with all the necessary parameters*/
         this.currentDialogue = new Dialogue(speaker, text, isAnimated);
