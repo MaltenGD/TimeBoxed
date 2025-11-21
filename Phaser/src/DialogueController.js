@@ -76,6 +76,9 @@ export default class DialogueController
         else if (this.era == 'TaliLose') {
             this.dialogueGroup = this.dialogueData.TaliLoseDialogue;
         }
+        else if (this.era == 'TaliTutorial') {
+            this.dialogueGroup = this.dialogueData.TaliTutorialDialogue;
+        }
         else if (this.era == 'TimeBoxedDefeat')
         {
             this.dialogueGroup = this.dialogueData.TimeBoxedDefeatDialogue;
