@@ -31,12 +31,9 @@ export class AsebDefeatScene extends Phaser.Scene
         .setInteractive({ cursor: 'pointer' })
         .on('pointerover', () => skipBtn.setStyle({ backgroundColor: '#bbbaba' }))
         .on('pointerout', () => skipBtn.setStyle({ backgroundColor: '#f7f7f7' }))
-        .on('pointerdown', () => {
-            this.transitionController.startFadeOutTransition(() => {
-                
-                 this.dialogueController.skipToEnd();
-            
-            }, 400);
+        .on('pointerdown', () => {   
+            this.dialogueController.skipToEnd();
+
         });
 
         /** variable json*/
@@ -51,8 +48,10 @@ export class AsebDefeatScene extends Phaser.Scene
 
         this.events.on('Finished', () => {
 
+            this.transitionController.startFadeOutTransition(() => {
             if (this.playerData.TimeboxedMode) this.scene.start('TimeBoxedDefeat', this.playerData);
             else this.scene.start('AsebBeginScene', this.playerData)
+                }, 400);
             
             console.log("cambia de escena");
         });

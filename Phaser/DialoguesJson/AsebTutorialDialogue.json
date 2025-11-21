@@ -44,35 +44,41 @@
         "speaker": "Kronos",
         "text": "But watch out—if your piece lands on a square your opponent's piece occupies, their piece gets sent back to the start. Fair's fair, after all.",
         "animation": "true",
-        "next": "ATD6"
+        "next": "ATD6",
+        "image": "AsebTuto_KillingPieces"
     },
     "ATD6":
     {
         "speaker": "Kronos",
         "text": "There's one catch: to get your piece off the board at the very end, you need the *exact* number. No more, no less. If you overshoot, your piece stays put, and you pick another piece to move or end your turn.",
         "animation": "true",
-        "next": "ATD7"
+        "next": "ATD7",
+        "image": "AsebTuto_ReachingEnd"
+        
     },
     "ATD7":
     {
         "speaker": "Kronos",
-        "text": "If your throw doesn't let you move any piece—maybe all your pieces are stuck or the number is too high—then you lose that turn. The game continues with your opponent.",
+        "text": "If your throw doesn't let you move any piece, maybe all your pieces are stuck or the number is too high, then you lose that turn. The game continues with your opponent.",
         "animation": "true",
         "next": "ATD8"
     },
     "ATD8":
     {
         "speaker": "Kronos",
-        "text": "First one to get all three pieces off the board wins. Once that happens, the match is over, and the victor claims their prize. In your case... well, you'd better win.",
+        "text": "First one to get all five pieces off the board wins. Once that happens, the match is over, and the victor claims their prize. In your case... well, you'd better win.",
         "animation": "true",
-        "next": "ATD9"
+        "next": "ATD9",
+        "image": "AsebTuto_Pieces"
     },
     "ATD9":
     {
         "speaker": "Kronos",
         "text": "The path starts from your side, curves around to the center, and continues toward the end square. Pay attention to where you're moving—one mistake and Anubis will capitalize on it.",
         "animation": "true",
-        "next": "ATD10"
+        "next": "ATD10",
+        "image": "AsebTuto_Paths"
+
     },
     "ATD10":
     {
@@ -93,14 +99,17 @@
         "speaker": "Kronos",
         "text": "There you have it. Aseb in a nutshell. Now, are you ready to face the guardian of the underworld? Because I believe in you... mostly.",
         "animation": "true",
-        "next": "ATD13"
+        "next": "ATD13",
+        "image": "none"
     },
     "ATD13":
     {
         "speaker": "Kronos",
         "text": "Oh yeah i almost forgot, if you need to refresh the rules, open the menu and go to help.",
         "animation": "true",
-        "next": "ATD14"
+        "next": "ATD14",
+        "image": "AsebTuto_HelpMenu"
+
     },
     "ATD14":
     {
@@ -114,7 +123,8 @@
         "speaker": "Kronos",
         "text": "Good luck, my friend. Now get out there!",
         "animation": "true",
-        "next": null
+        "next": null,
+        "image": "none"
 
     }
 

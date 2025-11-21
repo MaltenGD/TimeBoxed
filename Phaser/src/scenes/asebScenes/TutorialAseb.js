@@ -62,7 +62,7 @@ export class TutorialAseb extends Phaser.Scene
             this.tutoImage.destroy();
         }
 
-        this.tutoImage = this.add.image(this.width/2, this.height/2, imageKey).setOrigin(0.5).setScale(1);
+        if (imageKey != "none") this.tutoImage = this.add.image(this.width/2, this.height/2, imageKey).setOrigin(0.5).setScale(1);
     }
 
 

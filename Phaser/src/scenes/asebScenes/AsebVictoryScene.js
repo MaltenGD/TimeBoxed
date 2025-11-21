@@ -48,11 +48,8 @@ export class AsebVictoryScene extends Phaser.Scene
         .on('pointerover', () => skipBtn.setStyle({ backgroundColor: '#bbbaba' }))
         .on('pointerout', () => skipBtn.setStyle({ backgroundColor: '#f7f7f7' }))
         .on('pointerdown', () => {
-            this.transitionController.startFadeOutTransition(() => {
-                
-                 this.dialogueController.skipToEnd();
-            
-            }, 400);
+            this.dialogueController.skipToEnd();
+
         });
 
         /** variable json*/
@@ -66,7 +63,9 @@ export class AsebVictoryScene extends Phaser.Scene
         });
 
         this.events.on('Finished', () => {
+            this.transitionController.startFadeOutTransition(() => {
             this.scene.start('SelectionMenuScene');
+                }, 400);
             console.log("cambia de escena");
         });
     

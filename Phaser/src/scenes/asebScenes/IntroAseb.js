@@ -44,11 +44,8 @@ export class IntroAseb extends Phaser.Scene
         .on('pointerover', () => skipBtn.setStyle({ backgroundColor: '#bbbaba' }))
         .on('pointerout', () => skipBtn.setStyle({ backgroundColor: '#f7f7f7' }))
         .on('pointerdown', () => {
-           this.transitionController.startFadeOutTransition(() => {
-                
-                 this.dialogueController.skipToEnd();
-            
-            }, 400);
+             this.dialogueController.skipToEnd();
+          
         });
 
         /** variable json*/
@@ -63,7 +60,8 @@ export class IntroAseb extends Phaser.Scene
 
         this.events.on('Finished', () => {
 
-            this.scene.launch('ConfirmMenu',{
+             this.transitionController.startFadeOutTransition(() => {
+                this.scene.launch('ConfirmMenu',{
                 sceneToPause: this.scene.key,
                 text: "Is your first time playing Aseb?\n Do you want to go through an explanation?",
                 onYes: () => {         
@@ -82,6 +80,10 @@ export class IntroAseb extends Phaser.Scene
             });
             
         });  
+                
+            
+            }, 400);
+            
     }
     openOptionMenu()
     {
