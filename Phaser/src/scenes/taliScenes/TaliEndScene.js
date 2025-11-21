@@ -76,7 +76,7 @@ export class TaliEndScene extends Phaser.Scene {
         });
 
         this.events.on('Finished', () => {
-            this.scene.start('SelectionScene', this.playerData);
+            this.scene.start('SelectionMenuScene', this.playerData);
             console.log("cambia de escena");
         });
     }
