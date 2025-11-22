@@ -5,11 +5,6 @@ export class TutorialAseb extends Phaser.Scene
     constructor()
     {super('TutorialAseb');}
 
-    preload()
-    {
-        this.load.json('AsebTutorialDialogue', 'Phaser/DialoguesJson/AsebTurorialDialogues.json');
-    }
-
     create(playerData)
     {
 

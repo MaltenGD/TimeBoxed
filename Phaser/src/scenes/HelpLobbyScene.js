@@ -132,6 +132,7 @@ export class HelpLobbyScene extends Phaser.Scene {
         });
 
         btn.on('pointerdown', () => {
+            console.log('clicked');
             btn.setBackgroundColor('#555');
             btn.setStyle({ fill: '#fff' });
             this.playerData.comingFromMenu = true;
