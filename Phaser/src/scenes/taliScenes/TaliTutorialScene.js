@@ -30,7 +30,6 @@ export class TaliTutorial extends Phaser.Scene
         });
 
         this.events.on('Finished', () => {
-
            if (this.playerData.comingFromMenu)
            {
                 // Stops this scene and resumes the HelpLobyScene
@@ -54,7 +53,7 @@ export class TaliTutorial extends Phaser.Scene
             this.tutoImage.destroy();
         }
 
-        if (imageKey != "none") this.tutoImage = this.add.image(this.width/2, this.height/2, imageKey).setOrigin(0.5).setScale(1);
+        if (imageKey != "none") this.tutoImage = this.add.image(this.width/2, this.height/2, imageKey).setOrigin(0.5).setScale(1);   
     }
 
 

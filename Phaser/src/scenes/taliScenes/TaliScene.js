@@ -35,7 +35,7 @@ export class TaliScene extends Phaser.Scene {
         this.playerData = playerData;
         console.log(this.playerData)
 
-        this.playerFirst = this.playerData.TaliPlayerFirst
+        this.playerFirst = this.playerData.TaliPlayerFirst;
         
         this.transitionController = new TransitionController(this);
 
