@@ -193,6 +193,7 @@ export class LoadingScene extends Phaser.Scene
         this.load.image('tempInsignia4', 'Phaser/assets/insignias/tempInsignia4.png');
         this.load.image('tempInsignia5', 'Phaser/assets/insignias/tempInsignia5.png');
         this.load.image('Underworld_Conqueror', 'Phaser/assets/insignias/Underworld_Conqueror.png');
+        this.load.image('Square_Master', 'Phaser/assets/insignias/Square_Master.png');
 
     }
 

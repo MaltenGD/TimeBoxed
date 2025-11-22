@@ -48,16 +48,16 @@ const config = {
         TaliScene,
         TaliIntroScene,
         TaliBeginScene,
-        TaliTutorial,
         TaliEndScene,
         HanafudaBeginScene,
         HanafudaGame,
         TimeBoxedDefeat,
         OptionMenuScene,
-        ConfirmMenuScene,
         ItemsScene,
         HelpLobbyScene,
-        TutorialAseb
+        TaliTutorial,
+        TutorialAseb,
+        ConfirmMenuScene
     ],
     scale: {
         mode: Phaser.Scale.FIT,
