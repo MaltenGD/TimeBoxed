@@ -67,11 +67,12 @@ export class TimeBoxedDefeat extends Phaser.Scene
 
     resetPlayerData()
     {
-        this.playerData.IntroCompleted = false;
-        this.playerData.EgyptIntroCompleted = false;
-        this.playerData.AsebCompleted = false;
-        this.playerData.TaliCompleted = false;
-        this.playerData.HanafudaCompleted = false;
+        for (const key in this.playerData) {
+            if (typeof this.playerData[key] === 'boolean') {
+                this.playerData[key] = false;
+            }
+        }
+
     }
             
 }

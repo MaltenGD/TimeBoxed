@@ -77,12 +77,13 @@ export class IntroAseb extends Phaser.Scene
                     this.scene.stop('ConfirmMenu');
                     console.log("cambia de escena");
                 }
+                
             });
             
-        });  
+        } , 400);  
                 
             
-            }, 400);
+            });
             
     }
     openOptionMenu()

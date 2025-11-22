@@ -76,7 +76,8 @@ export class AsebScene extends Phaser.Scene {
         .on('pointerover', () => this.winBtn.setStyle({fill: '#0f0'}))
         .on('pointerout', () => this.winBtn.setStyle({fill: '#000000ff'}))
         .on('pointerdown', () => {
-            this.scene.start('AsebVictoryScene', this.playerData);
+            this.asebGame.state = GAME_STATE.PLAYER_VICTORY;
+            this.nextTurn();
         });
 
         this.loseBtn = this.add.text(350, 70, 'Lose Game', { fontSize: 64, fill: '#000000ff'})
@@ -84,7 +85,8 @@ export class AsebScene extends Phaser.Scene {
         .on('pointerover', () => this.loseBtn.setStyle({fill: '#f00'}))
         .on('pointerout', () => this.loseBtn.setStyle({fill: '#000000ff'}))
         .on('pointerdown', () => {
-            this.scene.start('AsebDefeatScene', this.playerData);
+            this.asebGame.state = GAME_STATE.ENEMY_VICTORY;
+            this.nextTurn();
         });
 
         console.log(this.playerFirst ? "Player starts the game." : "Anubis starts the game.");
@@ -94,16 +96,19 @@ export class AsebScene extends Phaser.Scene {
         this.board = new AsebBoard(this,this.boardAnchor.x,this.boardAnchor.y,'asebBoard');
 
         /** @type {number} The pause time in milliseconds for showing information to the player. */
-        this.pauseTime = 1000        // 1000 miliseconds
+        this.pauseTime = 1200        // 1000 miliseconds
 
         // --- Board Event Listeners ---
 
         this.board.on('pieceMoved', (piece) => {
+            this.board.setPlayerPieceInteractable(false);
             this.nextTurn();
         });
         this.board.on('SpecialPosition', (pieceType) => { // If any
             
             if (pieceType === PIECE_TYPE.PLAYER) {
+                
+                this.board.setPlayerPieceInteractable(false);
 
                 this.infoText.setText("You Landed on a special position,\nyou've been blessed with another turn")
                 this.time.addEvent({
@@ -116,6 +121,7 @@ export class AsebScene extends Phaser.Scene {
             } 
             else {
                 this.infoText.setText("Anubis Landed on a special position,\nHe has been blessed with another turn")
+                console.log("Enemy landed on special position");
                 this.time.addEvent({
                     delay: this.pauseTime + 1000,
                     callback: () => {

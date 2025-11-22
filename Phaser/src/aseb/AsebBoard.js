@@ -70,7 +70,7 @@ export default class AsebBoard extends Phaser.GameObjects.Image
     // All positions that matches the specialBoxes positions now are special positions
     this.specialBoxes.forEach(position => {
       this.positions[position.row][position.col].isSpecial = true;
-      this.positions[position.row][position.col].landedHere = false;
+      this.positions[position.row][position.col].playerlandedHere = false;
     });
   }
 
@@ -182,7 +182,7 @@ export default class AsebBoard extends Phaser.GameObjects.Image
     /**
      * Validates a potential move for a piece to a target row and column.
      * @param {AsebPiece} piece - The piece that is intended to move.
-     * @param {{row: number, col: number}} The target destination with row and column.
+     * @param {{row: number, col: number}} position - The target destination with row and column.
      * @returns {{isValid: boolean, piece: AsebPiece|null, isSpecialPosition: boolean, msg: string}} An object describing the validity of the move.
      */
     IsValidMove(piece, {row, col})
@@ -260,7 +260,12 @@ export default class AsebBoard extends Phaser.GameObjects.Image
         if (isNextPositionValid.isSpecialPosition)
         {
           this.emit('SpecialPosition' ,piece.type);
-          isNextPositionValid.landedHere = true;
+          if (piece.type === PIECE_TYPE.PLAYER) 
+            {
+              this.positions[row][col].playerlandedHere = true;
+              console.log("Player landed on a special position. position: " + row + "," + col);
+            }
+          
         }
         else this.emit('pieceMoved', piece); // Emit an event to notify the scene.
 
@@ -329,8 +334,9 @@ export default class AsebBoard extends Phaser.GameObjects.Image
 
   checkLandedAllSpecialPositions() {
     for (let position of this.specialBoxes) {
-      if (!this.positions[position.row][position.col].landedHere) {
+      if (position.row != 0 && !this.positions[position.row][position.col].playerlandedHere) { // position.row != 0 to skip the first special box that the player cannot reach (is the enemy lane)
         return false;
+        console.log("Not all special positions have been landed on yet by the player.");
       }
     }
     return true;
