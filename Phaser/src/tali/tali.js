@@ -32,7 +32,7 @@ export default class Tali {
      * @param {number} canvasHeight The canvas's height.  
      * @param {boolean} playerFirst Determines if the player begins first. 
      */
-    constructor(scene, canvasWidth, canvasHeight, playerFirst = true) {
+    constructor(scene, canvasWidth, canvasHeight, playerFirst) {
         this.scene = scene;
         this.width = canvasWidth;
         this.height = canvasHeight;
