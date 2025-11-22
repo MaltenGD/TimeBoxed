@@ -379,8 +379,29 @@ export class HanafudaGame extends Phaser.Scene{
         {
         return;
     }
-}
 
+    const lastYAkus= result.yakus[result.yakus.length-1];
+    const points= result.totalPoints;
+    if(isPlayer)
+    {
+        
+    }
+    
+}
+    showYakuPlayer(yaku, points)
+    {
+
+        const overlay = this.add.rectangle(this.width/2, this.height/2,this.width,this.height, 0x00000, 0,5);
+        const box = this.add.rectangle(this.width/2, this.height/2, 600, 350, 0xfffff).setStrokeStyle(5,0xaa0000);
+        
+        const title = this.add.text(this.width / 2, this.height / 2 - 100,
+        "¡Has conseguido un Yaku!",
+        { fontSize: "40px", color: "#000" }
+        ).setOrigin(0.5);
+        
+
+
+    }
 
     openOptionMenu()
     {
