@@ -22,17 +22,18 @@ export class HanafudaGame extends Phaser.Scene{
         /** Array of cards on the table*/
         this.tableCards = [];
 
+        /** Array of GameObjects for cards on the table */
+        this.tableCardObjects = [];
+
         this.playerPairs = [];
-        this.enemyPairs = [];
+        this.opponentPairs = [];
 
         this.playerContainer = [];
         this.playerChosenCard = null;
 
-        /** Counter for how many refills have been done */
-        this.refillTimes = 0;
+        /** Boolean to know if the table has been refill in a turn or not*/
+        this.refill = false;
         this.OponentChoice = null;
-
-        this.hasDeckCardPair = null;
     }
 
     init(data)
@@ -126,9 +127,16 @@ export class HanafudaGame extends Phaser.Scene{
 
         console.log(this.tableCards);
 
-        // Mesa no puede ser todo un mes
-        //const allSameMonth = this.tableCards.every(c => c.month === this.tableCards[0].month);
-        // if (allSameMonth) { this.deck.push(...this.playerCards, ...this.enemyCards, ...this.tableCards);
+        //Mesa no puede ser todo un mes
+        // let allSameMonth = 0;
+        // this.tableCards.forEach((card, card2, index) => {
+        
+        //     if(card.month ===)
+
+        // });
+
+        
+        // if (allSameMonth) { this.deck.push(this.playerCards, this.enemyCards, this.tableCards);
         //     this.shuffleDeck();
         //     this.dealCards();
         // }
@@ -156,6 +164,10 @@ export class HanafudaGame extends Phaser.Scene{
 
     renderTableCards()
     {
+        // Clear previous card game objects
+        this.tableCardObjects.forEach(obj => obj.destroy());
+        this.tableCardObjects = [];
+
         const startX = 550;
         const startY = this.height / 2 - 100;
         const cardSpacingX = 120;
@@ -170,13 +182,26 @@ export class HanafudaGame extends Phaser.Scene{
             const y = startY + row * cardSpacingY;
 
             const rect = this.add.rectangle(x, y, 100, 150, 0xaa3333);
-            this.add.text(rect.x, rect.y, `${card.number} \n ${card.month}`, {
-            fontSize: "28px",
-            color: "#ffffff"
+            const text = this.add.text(rect.x, rect.y, `${card.number} \n ${card.month}`, {
+                fontSize: "28px",
+                color: "#ffffff"
             }).setOrigin(0.5);
 
+            this.tableCardObjects.push(rect);
+            this.tableCardObjects.push(text);
         });
     }
+
+    renderPlayerPairs()
+    {
+
+    }
+
+    renderOpponentPairs()
+    {
+
+    }
+
 
     updateTurnText() {
     this.turnText.setText(this.playerTurn ? "Turn: you" : "Turn: oponent");
@@ -224,71 +249,56 @@ export class HanafudaGame extends Phaser.Scene{
 
         if(this.playerTurn == true)
         {   
-            const cardChosenPos= this.playerCards.findIndex(playerCard => playerCard === card);
+            const cardChosenPos = this.playerCards.findIndex(playerCard => playerCard === card);
             if (cardChosenPos !== -1){
                 console.log("Player selected:", card);
                 this.table(card, cardChosenPos);
-            } else {
-                console.error("Selected card not found in player's hand.", card);
             }
         }
-        
         this.events.off("cardSelected");
     }
 
     table(card, cardpos)
     {
         console.log ("card sent", card, cardpos);
+        this.searchesPair(card, cardpos);   //Looks for a pairs with cards on the table
+        this.refill = true; //The refill of the table only happens one time per turn
 
-        this.searchesPair(card, cardpos);
-
-        this.refillTimes ++;
-
-        if(this.refillTimes == 1)
+        if(this.refill == true && this.tableCards.length < 10)//just in case refill doesn't change
         { 
-            console.log
             this.cardFromDeck = this.deck.splice(0,1)[0];
             console.log("anotherpair");
-            this.searchesPair(this.cardFromDeck, this.tableCards.length - 1);
+            console.log("cardFromDeck", this.cardFromDeck);
+            this.searchesPair(this.cardFromDeck, 0);
         }
 
-        console.log ("no more refill")
-        this.refillTimes = 0;
-
-        if(this.hasDeckCardPair == false)
-        {
-            this.tableCards.push(this.cardFromDeck);
-        }
-
-        this.hasDeckCardPair = false;
-        this.renderTableCards();
-        console.log("bleh",this.tableCards);
-        this.renderTableCards();
+        this.refill = false; //Resetear la variable para siguiente turno
+        this.renderTableCards(); //render
+        console.log("oponentPairss", this.opponentPairs);
     }
 
-    searchesPair(card, cardpos) //GoodForNow
-    {   
-        let numberOfPairs = 0;
+    searchesPair(card, cardpos) //Good
+    {
+        let numberOfPairs = 0; //Contador para saber cuantas cartas del mismo mes hay en la mesa
         this.tableCards.forEach((tableCard, index) =>{
 
-            if(card.month === tableCard.month)
+            if(card.month === tableCard.month) //Comprueba si la carta elegida tiene algun par en la mesa (los meses deben coincidir)
             {
-                numberOfPairs++;
-                this.tablepos = index;
-
-                if(numberOfPairs === 1)
+                numberOfPairs++; //Ha encontrado un par
+            
+                if(numberOfPairs === 1) //Cuando solo hay una carta del mismo mes en la mesa
                 {
-                    this.tablecard = tableCard;
+                    this.tablepos = index; //envia el index del par
+                    this.tablecard = tableCard; //envia la carta par de la mesa
                 }
             }
         })
 
-        console.log("nofP",numberOfPairs);
+        console.log("Pairs?",numberOfPairs);
 
         if(numberOfPairs === 1)
         {
             console.log("Pair found", card, this.tablecard);
-            
             this.foundPair(card, cardpos, this.tablepos);
         }
         else if (numberOfPairs < 1)
@@ -302,44 +312,34 @@ export class HanafudaGame extends Phaser.Scene{
 
     foundPair(card, cardpos, tablecardPos) //Good
     {
-        // add the pair to the player pairs, and remove from playerCards and tableCards
-        
         if(this.playerTurn == true)
         {  
-            console.log(this.refillTimes);
-            console.log(tablecardPos);
-            
-            if(this.refillTimes == 0) {this.playerPairs.push(this.playerCards.splice(cardpos, 1)[0]);}
+            console.log(this.refill);
+            if(this.refill == false) {this.playerPairs.push(this.playerCards.splice(cardpos, 1)[0]);}
            
             this.playerPairs.push(this.tableCards.splice(tablecardPos, 1)[0]);
             console.log(this.playerPairs);
         }
         else 
         {
-            if(this.refillTimes == 0) {
-
-                console.log(this.enemyCards);
-                
-                this.enemyPairs.push(this.enemyCards.splice(cardpos, 1)[0]);
-            }
-            else 
-            {
+            if(this.refill === false) { this.opponentPairs.push(this.enemyCards.splice(cardpos, 1)[0]);}
+            else {
                 console.log("has deck card pair", card);
-                this.enemyPairs.push(card);
-                this.hasDeckCardPair = true;
+                this.opponentPairs.push(card); //Pone la carta del deck
             }
 
-            console.log(this.refillTimes);
-
-            this.enemyPairs.push(this.tableCards.splice(tablecardPos, 1)[0]);
-            console.log("Oponent Pairs",this.enemyPairs);
+            this.opponentPairs.push(this.tableCards.splice(tablecardPos, 1)[0]); //Coloca 
         }
     }
 
     pairNotFound(cardpos) //Good
     {
-        if(this.playerTurn == true) { this.tableCards.push(this.playerCards.splice(cardpos,1)[0]);}
-        else {this.tableCards.push(this.enemyCards.splice(cardpos,1)[0]);}
+        if(this.refill == false)
+        {
+            if(this.playerTurn == true) { this.tableCards.push(this.playerCards.splice(cardpos,1)[0]);}
+            else {this.tableCards.push(this.enemyCards.splice(cardpos,1)[0]);}
+        }
+        else{ this.tableCards.push(this.cardFromDeck);} //If The table is refilling then 
     }
 
     handlesTurns()
@@ -357,23 +357,21 @@ export class HanafudaGame extends Phaser.Scene{
     handleOpponentTurn()
     {
         this.OponentChoice = Math.floor(Math.random() * this.enemyCards.length);
-        console.log(this.OponentChoice);
         this.table(this.enemyCards[this.OponentChoice], this.OponentChoice);
         console.log(this.tableCards);
         this.playerTurn = true;
     }
 
     checkYakus(isPlayer) {
+        let pairs;
+        if (isPlayer) 
+            {
+            pairs = this.playerPairs;
+        } else {
+            pairs = this.opponentPairs;
+        }
 
-    let pairs;
-    if (isPlayer) 
-        {
-        pairs = this.playerPairs;
-    } else {
-        pairs = this.enemyPairs;
-    }
-
-    const result = calculateYakus(pairs);
+        const result = calculateYakus(pairs);
 
     if (result.yakus.length === 0) 
         {

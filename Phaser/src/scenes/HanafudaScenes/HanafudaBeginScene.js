@@ -64,10 +64,7 @@ export class HanafudaBeginScene extends Phaser.Scene
         for (let i = 0; i < totalCards; ++i)
         {
             monthCount = Math.floor(i / 4);
-            
-
             const newCard = {number: i, month: months[monthCount]};
-            
             this.mazo.push(newCard);
         }
 
@@ -82,8 +79,6 @@ export class HanafudaBeginScene extends Phaser.Scene
             this.mazo[i] = this.mazo[randomNumber];
             this.mazo[randomNumber] = aux1;
         }
-
-        console.log(this.mazo);
 
         let cardGap = 110;
         let centerX = this.width/2;
