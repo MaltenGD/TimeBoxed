@@ -60,10 +60,31 @@ export class TaliIntroScene extends Phaser.Scene
             this.dialogueController.handleInteraction();
         });
 
-        this.events.on('Finished', () => {
-            this.scene.start('TaliBeginScene', this.playerData);
-            console.log("cambia de escena");
-        });
+         this.events.on('Finished', () => {
+
+             this.transitionController.startFadeOutTransition(() => {
+                this.scene.launch('ConfirmMenu',{
+                sceneToPause: this.scene.key,
+                text: "Is your first time playing Tali?\n Do you want to go through an explanation?",
+                onYes: () => {         
+                    this.scene.stop(this.playerData.SceneToResume);
+                    this.scene.stop('ConfirmMenu');
+                    this.scene.stop('OptionMenu');
+                    this.scene.start('TaliTutorial', this.playerData);
+
+                    
+                },
+                onNo: () => {
+                    this.scene.start('TaliBeginScene', this.playerData);
+                    this.scene.stop('ConfirmMenu');
+                }
+            });
+            
+        });  
+                
+            
+            }, 400);
+     
     
     }
     openOptionMenu()

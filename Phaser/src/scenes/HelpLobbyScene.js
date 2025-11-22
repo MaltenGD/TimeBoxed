@@ -56,42 +56,89 @@ export class HelpLobbyScene extends Phaser.Scene {
             this.exitHelpLobby();
         });
 
-        this.AsebTutorialBtn = this.add.text(width / 3, height / 2 - 50, 'Aseb Tutorial', {
+
+        this.addTutorialButton(width/3 - 50, height/2 - 50, 'Aseb Tutorial', 'TutorialAseb');
+        this.addTutorialButton(width/2, height/2 - 50, 'Tali Tutorial', 'TaliTutorial');
+
+        // this.AsebTutorialBtn = this.add.text(width / 3, height / 2 - 50, 'Aseb Tutorial', {
+        //     fontSize: '36px',
+        //     fill: '#fff',
+        //     backgroundColor: '#555',
+        //     padding: { x: 15, y: 50 }
+        // }).setOrigin(0.5).setInteractive();
+
+        // this.AsebTutorialBtn.on('pointerover', () => {
+        //     //this.AsebTutorialBtn.setBackgroundColor('#777');
+        //     //this.AsebTutorialBtn.setStyle({ fill: '#ffff00' });
+        //     this.tweens.add({
+        //         targets: this.AsebTutorialBtn,
+        //         scale: 1.1,
+        //         duration: 200,
+        //         ease: 'Back.easeOut' // Bouncy effect on hover
+        //     });
+        // });
+
+        // this.AsebTutorialBtn.on('pointerout', () => {
+        //     //this.AsebTutorialBtn.setBackgroundColor('#555');
+        //     //this.AsebTutorialBtn.setStyle({ fill: '#fff' });
+        //     this.tweens.add({
+        //         targets: this.AsebTutorialBtn,
+        //         scale: 1.0,
+        //         duration: 150,
+        //         ease: 'Sine.easeOut' // Smooth and quick, no delay
+        //     });
+        // });
+
+        // this.AsebTutorialBtn.on('pointerdown', () => {
+        //     this.AsebTutorialBtn.setBackgroundColor('#555');
+        //     this.AsebTutorialBtn.setStyle({ fill: '#fff' });
+        //     this.playerData.comingFromMenu = true;
+        //     this.scene.launch('TutorialAseb', this.playerData);
+        //     this.scene.pause();
+        // });
+    }
+
+    /**
+     * Adds a tutorial button at the specified position.
+     * @param {number} x X position in the scene.
+     * @param {number} y Y position in the scene.
+     * @param {string} text The text to show in the button. 
+     * @param {string} sceneToLaunch The scene to launch when pressing the button.
+     */
+    addTutorialButton(x, y, text, sceneToLaunch) {
+        const btn = this.add.text(x, y, text, {
             fontSize: '36px',
             fill: '#fff',
             backgroundColor: '#555',
             padding: { x: 15, y: 50 }
         }).setOrigin(0.5).setInteractive();
 
-        this.AsebTutorialBtn.on('pointerover', () => {
-            //this.AsebTutorialBtn.setBackgroundColor('#777');
-            //this.AsebTutorialBtn.setStyle({ fill: '#ffff00' });
+        btn.on('pointerover', () => {
             this.tweens.add({
-                targets: this.AsebTutorialBtn,
+                targets: btn,
                 scale: 1.1,
                 duration: 200,
                 ease: 'Back.easeOut' // Bouncy effect on hover
             });
         });
 
-        this.AsebTutorialBtn.on('pointerout', () => {
-            //this.AsebTutorialBtn.setBackgroundColor('#555');
-            //this.AsebTutorialBtn.setStyle({ fill: '#fff' });
+        btn.on('pointerout', () => {
             this.tweens.add({
-                targets: this.AsebTutorialBtn,
+                targets: btn,
                 scale: 1.0,
                 duration: 150,
                 ease: 'Sine.easeOut' // Smooth and quick, no delay
             });
         });
 
-        this.AsebTutorialBtn.on('pointerdown', () => {
-            this.AsebTutorialBtn.setBackgroundColor('#555');
-            this.AsebTutorialBtn.setStyle({ fill: '#fff' });
+        btn.on('pointerdown', () => {
+            btn.setBackgroundColor('#555');
+            btn.setStyle({ fill: '#fff' });
             this.playerData.comingFromMenu = true;
-            this.scene.launch('TutorialAseb', this.playerData);
+            this.scene.launch(sceneToLaunch, this.playerData);
             this.scene.pause();
         });
+
     }
 
     exitHelpLobby() {
