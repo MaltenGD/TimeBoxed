@@ -1,5 +1,7 @@
 import AsebGame from '../../aseb/AsebGame.js';
 import AsebBoard from '../../aseb/AsebBoard.js';
+import { OptionMenuScene } from '../OptionMenuScene.js';
+import TransitionController, {RGBColor} from "../../misc/transitioncontroller.js";
 
 
 
@@ -65,15 +67,10 @@ export class AsebBeginScene extends Phaser.Scene {
         /** @type {Phaser.GameObjects.Text} */
         this.backBtn = this.add.text(0, 0, 'Back', { fontSize: 64, fill: '#000000ff'})
         .setInteractive()
-        .on('pointerover', () => this.backBtn.setStyle({fill: '#0f0'}))
+        .on('pointerover', () => this.backBtn.setStyle({fill: 'rgba(104, 35, 35, 1)'}))
         .on('pointerout', () => this.backBtn.setStyle({fill: '#000000ff'}))
         .on('pointerdown', () => {
-       if (this.scene.isActive('PauseMenu')) return;
-
-        this.scene.launch('PauseMenu');
-        const pauseMenu = this.scene.get('PauseMenu');
-        pauseMenu.setPausedScene(this.scene.key);
-        this.scene.pause();
+            this.openOptionMenu();
         });
         
         /** @type {Phaser.GameObjects.Text} */
@@ -109,14 +106,27 @@ export class AsebBeginScene extends Phaser.Scene {
     /**
      * The main creation function for the scene. Sets up game objects and buttons.
      */
-    create() 
+    create(playerData) 
     {
+
+        this.playerData = playerData;
+        console.log(this.playerData)
+
+        this.playerData.EgyptIntroCompleted = true;
+
+        this.transitionController = new TransitionController(this);
+        this.transitionController.startFadeInTransition();
+
         this.background = this.add.image(this.width/ 2, this.height / 2, 'asebBackgroundPlaceholder').setDisplaySize(this.width, this.height);
         /** @type {AsebGame} */
         this.asebGame = new AsebGame(this);
         this.createGameObjects();
 
         this.createButtons();
+
+        this.input.keyboard.on('keydown-ESC', () => {
+           this.openOptionMenu();
+        });
             
     }
     
@@ -184,13 +194,13 @@ export class AsebBeginScene extends Phaser.Scene {
 
         if (this.playerStickResult.Sum > this.enemyStickResult.Sum) {
             this.infoText.setText('You begin!');
-            this.playerFirst = true;
+            this.playerData.AsebPlayerFirst = true;
         } else if (this.enemyStickResult.Sum > this.playerStickResult.Sum) {
             this.infoText.setText('Anubis begins!');
-            this.playerFirst = false;
+            this.playerData.AsebPlayerFirst = false;
         } else {
             this.infoText.setText("It's a tie! You start anyways.");
-            this.playerFirst = true;
+            this.playerData.AsebPlayerFirst = true;
         }
 
         this.time.addEvent({
@@ -207,7 +217,7 @@ export class AsebBeginScene extends Phaser.Scene {
      */
     startActualGame() {
         // Changes the Scene
-        this.scene.start('AsebScene', {playerFirst: this.playerFirst});
+        this.scene.start('AsebScene', this.playerData);
     }
 
     /**
@@ -286,6 +296,14 @@ export class AsebBeginScene extends Phaser.Scene {
         object.setInteractive(state);
         object.setActive(state);
 
+    }
+
+    openOptionMenu()
+    {
+        if (this.scene.isActive('OptionMenu')) return;
+            this.scene.pause();
+            this.playerData.SceneToResume = this.scene.key;
+            this.scene.launch('OptionMenu', this.playerData);
     }
 
 }

@@ -1,0 +1,51 @@
+{
+    "Achievements":
+    {
+        "AS1":
+        {
+            "name": "Stick King",
+            "description": "Won once in Aseb.",
+            "image": "tempInsignia1"
+        },
+        "AS2":
+        {
+            "name": "Underworld Conqueror",
+            "description": "Won Aseb without having any of your pieces captured.",
+            "image": "Underworld_Conqueror"
+        },
+        "AS3":
+        {
+            "name": "Square Master",
+            "description": "Won Aseb and land on all special squares at least once in that match.",
+            "image": "Square_Master"
+        },
+
+        "TA1":
+        {
+            "name": "Dice Ruler",
+            "description": "Won once in Tali.",
+            "image": "tempInsignia2"
+        },
+
+        "HA1":
+        {
+            "name": "Card God",
+            "description": "Won once in Hanafuda.",
+            "image": "tempInsignia3"
+        },
+
+        "G1":
+        {
+            "name": "Master of Time",
+            "description": "Completed the entire game.",
+            "image": "tempInsignia4"
+        },
+
+        "G2":
+        {
+            "name": "God of Time",
+            "description": "Completed the entire game in Timeboxed mode.",
+            "image": "tempInsignia5"
+        }
+    }
+}

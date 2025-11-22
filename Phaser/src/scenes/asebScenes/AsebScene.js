@@ -1,6 +1,9 @@
 import AsebGame, { GAME_STATE } from '../../aseb/AsebGame.js';
 import AsebBoard from '../../aseb/AsebBoard.js';
+import { OptionMenuScene } from '../OptionMenuScene.js';
 import { PIECE_TYPE } from '../../aseb/AsebPiece.js';
+import TransitionController, {RGBColor} from "../../misc/transitioncontroller.js";
+
 
 
 
@@ -20,9 +23,9 @@ export class AsebScene extends Phaser.Scene {
          * @param {object} data - Data passed from the previous scene.
          * @param {boolean} [data.playerFirst=true] - Determines if the player takes the first turn.
          */
-        init(data) {
+        init(playerData) {
             // Default to player going first if no data is passed.
-            if (data !== undefined) this.playerFirst = data.playerFirst
+            if (playerData !== undefined) this.playerFirst = playerData.AsebPlayerFirst
             else this.playerFirst = true;
         }
 
@@ -33,7 +36,7 @@ export class AsebScene extends Phaser.Scene {
 
             this.boardAnchor = {
                 x: width/2,
-                y: height/2
+                y: height/2 + 50
             }
             
         }
@@ -42,23 +45,50 @@ export class AsebScene extends Phaser.Scene {
     /*
      * Creates the game objects and sets up the scene.
      */
-    create(){
+    create(playerData){
+
+        this.playerData = playerData;
+        console.log(this.playerData)
+
+        // Flags for the aseb achievements
+        this.anyPieceCaptured = false;
+
+        this.transitionController = new TransitionController(this);
+        this.transitionController.startFadeInTransition();
 
         this.background = this.add.image(this.width / 2, this.height / 2, 'asebBackgroundPlaceholder').setDisplaySize(this.width, this.height);
+        this.infoBoard = this.add.image(this.width/2, this.height/2, 'StickBoard').setOrigin(0.5).setScale(0.55);
+
+        this.input.keyboard.on('keydown-ESC', () => {
+           this.openOptionMenu();
+        });
 
         this.backBtn = this.add.text(0, 0, 'Back', { fontSize: 64, fill: '#000000ff'})
         .setInteractive()
-        .on('pointerover', () => this.backBtn.setStyle({fill: '#0f0'}))
+        .on('pointerover', () => this.backBtn.setStyle({fill: 'rgba(104, 35, 35, 1)'}))
         .on('pointerout', () => this.backBtn.setStyle({fill: '#000000ff'}))
         .on('pointerdown', () => {
-        if (this.scene.isActive('PauseMenu')) return;
-
-    this.scene.launch('PauseMenu');
-    const pauseMenu = this.scene.get('PauseMenu');
-    pauseMenu.setPausedScene(this.scene.key);
-    this.scene.pause();
+            this.openOptionMenu();
         });
         
+        this.winBtn = this.add.text(0, 70, 'Win Game', { fontSize: 64, fill: '#000000ff'})
+        .setInteractive()
+        .on('pointerover', () => this.winBtn.setStyle({fill: '#0f0'}))
+        .on('pointerout', () => this.winBtn.setStyle({fill: '#000000ff'}))
+        .on('pointerdown', () => {
+            this.asebGame.state = GAME_STATE.PLAYER_VICTORY;
+            this.nextTurn();
+        });
+
+        this.loseBtn = this.add.text(350, 70, 'Lose Game', { fontSize: 64, fill: '#000000ff'})
+        .setInteractive()
+        .on('pointerover', () => this.loseBtn.setStyle({fill: '#f00'}))
+        .on('pointerout', () => this.loseBtn.setStyle({fill: '#000000ff'}))
+        .on('pointerdown', () => {
+            this.asebGame.state = GAME_STATE.ENEMY_VICTORY;
+            this.nextTurn();
+        });
+
         console.log(this.playerFirst ? "Player starts the game." : "Anubis starts the game.");
 
         this.asebGame = new AsebGame(this, this.playerFirst);
@@ -66,16 +96,19 @@ export class AsebScene extends Phaser.Scene {
         this.board = new AsebBoard(this,this.boardAnchor.x,this.boardAnchor.y,'asebBoard');
 
         /** @type {number} The pause time in milliseconds for showing information to the player. */
-        this.pauseTime = 1000        // 1000 miliseconds
+        this.pauseTime = 1200        // 1000 miliseconds
 
         // --- Board Event Listeners ---
 
         this.board.on('pieceMoved', (piece) => {
+            this.board.setPlayerPieceInteractable(false);
             this.nextTurn();
         });
         this.board.on('SpecialPosition', (pieceType) => { // If any
             
             if (pieceType === PIECE_TYPE.PLAYER) {
+                
+                this.board.setPlayerPieceInteractable(false);
 
                 this.infoText.setText("You Landed on a special position,\nyou've been blessed with another turn")
                 this.time.addEvent({
@@ -88,6 +121,7 @@ export class AsebScene extends Phaser.Scene {
             } 
             else {
                 this.infoText.setText("Anubis Landed on a special position,\nHe has been blessed with another turn")
+                console.log("Enemy landed on special position");
                 this.time.addEvent({
                     delay: this.pauseTime + 1000,
                     callback: () => {
@@ -106,15 +140,21 @@ export class AsebScene extends Phaser.Scene {
             console.log("Piece Reached End")
             this.pieceReachesEnd(piece);
         });
+        this.board.on('pieceCaptured', (capturedPiece) => {
+            if (capturedPiece.pieceType === PIECE_TYPE.PLAYER) {
+                this.anyPieceCaptured = true;
+                console.log("A player piece was captured. The player will not get the achievement.");
+            }
+        });
 
         // --- UI Elements ---  
 
-        this.infoText = this.add.text(this.width/2, 100, '*', {fontSize: 55, fill: 0x000000ff}).setOrigin(0.5);
+        this.infoText = this.add.text(this.boardAnchor.x, this.boardAnchor.y -400, '*', {fontSize: 55, fill: 0x000000ff}).setOrigin(0.5);
 
-        this.eventsText = this.add.text(200, this.height/2, '*', {fontSize: 35}).setOrigin(0.5);
+        this.eventsText = this.add.text(this.boardAnchor.x-675, this.boardAnchor.y, '*', {fontSize: 35}).setOrigin(0.5);
 
         /** @type {Phaser.GameObjects.Text} The button for the player to throw the sticks. */
-        this.throwBtn = this.add.text(this.width/2 , this.height - 100, 'Throw', {fontSize: 55, fill:0x000000ff}).setOrigin(0.5)
+        this.throwBtn = this.add.text(this.boardAnchor.x, this.boardAnchor.y +300, 'Throw', {fontSize: 55, fill:0x000000ff}).setOrigin(0.5)
         .setInteractive()
         .on('pointerdown', () => {
 
@@ -129,6 +169,7 @@ export class AsebScene extends Phaser.Scene {
         } else {
             this.startEnemyTurn();
         }
+
     }
 
     /**
@@ -142,11 +183,28 @@ export class AsebScene extends Phaser.Scene {
             this.startPlayerTurn();
         }
         if (this.asebGame.state === GAME_STATE.PLAYER_VICTORY) {
-            this.scene.start('AsebVictoryScene');
+
+            if (!this.anyPieceCaptured) {
+
+                this.playerData.AsebNoCapturesCompletion = true;
+            }
+
+            this.playerData.AsebLandedOnEverySpecial = this.board.checkLandedAllSpecialPositions();
+            
+            this.transitionController.startFadeOutTransition(() => {
+                
+                 this.scene.start('AsebVictoryScene', this.playerData);
+            
+            }, 400);
+           
 
         } 
         else if (this.asebGame.state === GAME_STATE.ENEMY_VICTORY) {
-            this.scene.start('AsebDefeatScene');
+           this.transitionController.startFadeOutTransition(() => {
+                
+                 this.scene.start('AsebDefeatScene', this.playerData);
+            
+            }, 400);
 
         }
     }
@@ -259,5 +317,12 @@ export class AsebScene extends Phaser.Scene {
     {
         object.setActive(state);
         object.setVisible(state);
+    }
+    openOptionMenu()
+    {
+        if (this.scene.isActive('OptionMenu')) return;
+            this.scene.pause();
+            this.playerData.SceneToResume = this.scene.key;
+            this.scene.launch('OptionMenu', this.playerData);
     }
 }

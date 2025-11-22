@@ -6,13 +6,22 @@ import { TaliBeginScene } from './scenes/taliScenes/TaliBeginScene.js';
 import { TaliEndScene } from './scenes/taliScenes/TaliEndScene.js';
 import { AsebBeginScene } from './scenes/asebScenes/AsebBeginScene.js';
 import { AsebScene } from './scenes/asebScenes/AsebScene.js';
-import { HanafudaScene } from './scenes/HanafudaScene.js';
 import { CreditsScene } from './scenes/CreditsScene.js';
 import { Intro } from './scenes/Intro.js';
 import { AsebVictoryScene } from './scenes/asebScenes/AsebVictoryScene.js';
 import { AsebDefeatScene } from './scenes/asebScenes/AsebDefeatScene.js';
-import { PauseMenuScene } from './scenes/PauseMenuScene.js';
+import { ConfirmMenuScene } from './scenes/ConfirmMenuScene.js';
 import { IntroAseb } from './scenes/asebScenes/IntroAseb.js';
+import { OptionMenuScene } from './scenes/OptionMenuScene.js';
+import { HelpLobbyScene } from './scenes/HelpLobbyScene.js';
+import { ItemsScene } from './scenes/ItemsScene.js';
+import { TimeBoxedDefeat } from './scenes/TimeBoxedDefeat.js'
+import { HanafudaBeginScene} from './scenes/HanafudaScenes/HanafudaBeginScene.js'
+import { HanafudaGame} from './scenes/HanafudaScenes/HanafudaGame.js'
+import { TutorialAseb } from './scenes/asebScenes/TutorialAseb.js';
+import { TaliIntroScene } from './scenes/taliScenes/TaliIntroScene.js';
+import { TaliTutorial } from './scenes/taliScenes/TaliTutorialScene.js';
+
 
 
 const config = {
@@ -26,8 +35,8 @@ const config = {
     pixelArt: false,
     scene: 
     [
-        Start,
         LoadingScene,
+        Start,
         Intro,
         CreditsScene,
         SelectionMenuScene,
@@ -37,10 +46,18 @@ const config = {
         AsebVictoryScene,
         AsebDefeatScene,
         TaliScene,
+        TaliIntroScene,
         TaliBeginScene,
         TaliEndScene,
-        HanafudaScene,
-        PauseMenuScene
+        HanafudaBeginScene,
+        HanafudaGame,
+        TimeBoxedDefeat,
+        OptionMenuScene,
+        ItemsScene,
+        HelpLobbyScene,
+        TaliTutorial,
+        TutorialAseb,
+        ConfirmMenuScene
     ],
     scale: {
         mode: Phaser.Scale.FIT,

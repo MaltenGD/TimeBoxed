@@ -1,4 +1,5 @@
 import Tali, { GAME_STATE } from '../../tali/tali.js';
+import { OptionMenuScene } from '../OptionMenuScene.js';
 import TransitionController, {RGBColor} from '../../misc/transitioncontroller.js';
 
 /**
@@ -29,8 +30,12 @@ export class TaliScene extends Phaser.Scene {
         this.height = height;
     }
 
-    create(data) {
-        this.playerFirst = data?.playerFirst ?? true;
+    create(playerData) {
+
+        this.playerData = playerData;
+        console.log(this.playerData)
+
+        this.playerFirst = this.playerData.TaliPlayerFirst;
         
         this.transitionController = new TransitionController(this);
 
@@ -43,10 +48,11 @@ export class TaliScene extends Phaser.Scene {
         this.createUI();
         this.registerEvents();
 
-        this.transitionController.startFadeInTransition(
-            1000, 
-            new RGBColor(0,0,0), 
-            () => this.startGame());
+        this.transitionController.startFadeInTransition(() => this.startGame());
+
+        this.input.keyboard.on('keydown-ESC', () => {
+           this.openOptionMenu();
+        });
     }
 
     createUI() {
@@ -68,7 +74,13 @@ export class TaliScene extends Phaser.Scene {
      */
     createButtons() {
         this.rollBtn = this.createButton(this.width/2, 4*this.height/5, '', () => {});
-        this.backBtn = this.createButton(100, 50, 'Back', () => this.openPauseMenu(), {fontSize: 64, fill: '#fff'});
+        this.backBtn = this.add.text(0, 0, 'Back', { fontSize: 64, fill: '#000000ff'})
+        .setInteractive()
+        .on('pointerover', () => this.backBtn.setStyle({fill: 'rgba(104, 35, 35, 1)'}))
+        .on('pointerout', () => this.backBtn.setStyle({fill: '#000000ff'}))
+        .on('pointerdown', () => {
+            this.openOptionMenu();
+        });
     }
 
     /**
@@ -120,16 +132,7 @@ export class TaliScene extends Phaser.Scene {
         object.setVisible(state).setActive(state).setAlpha(state ? 1 : 0);
     }
 
-    /**
-     * Opens the pause menu.
-     */
-    openPauseMenu() {
-        if (this.scene.isActive('PauseMenu')) return;
-        this.scene.launch('PauseMenu');
-        const pauseMenu = this.scene.get('PauseMenu');
-        pauseMenu.setPausedScene(this.scene.key);
-        this.scene.pause();
-    }
+
     
     /**
      * Adds all the text to the scene.
@@ -248,6 +251,15 @@ export class TaliScene extends Phaser.Scene {
      * Ends the game and announces the winner.
      */
     endGame() {
-        this.transitionController.startFadeOutTransition(600, new RGBColor(0,0,0), () => this.scene.start('TaliEndScene', {playerWon: this.taliGame.playerWon()}));
+        this.playerData.TaliCompleted = this.taliGame.playerWon()
+        this.scene.start('TaliEndScene', this.playerData);
     }
+    
+    openOptionMenu()
+    {
+        if (this.scene.isActive('OptionMenu')) return;
+            this.scene.pause();
+            this.playerData.SceneToResume = this.scene.key;
+            this.scene.launch('OptionMenu', this.playerData);
+    }   
 }

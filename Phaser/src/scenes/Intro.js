@@ -1,4 +1,5 @@
 import DialogueController from "../DialogueController.js";
+import TransitionController, {RGBColor} from "../misc/transitioncontroller.js";
 
 /**  
  *  @class Intro
@@ -11,27 +12,34 @@ export class Intro extends Phaser.Scene
         super('Intro');
     }
 
-    // Here we will load the assets for dialogues, fonts, etc...
-    preload()
-    {
-        // loads the background
-        this.load.image('IntroBackgroundPlaceholder', 'Phaser/assets/Intro/IntroBackgroundPlaceholder.jpeg');
-
-        /** Load the json file for the Intro Dialogue 
-        * @param {string} key - The key to reference the loaded JSON data.
-        * @param {string} url - The URL of the JSON file to load.
-        */
-        this.load.json('IntroDialogue', 'Phaser/DialoguesJson/IntroDialogue.json');
-    }
     
-    create() 
+    create(playerData) 
     {
+
+        this.playerData = playerData;
+        console.log(this.playerData)
+
+        this.transitionController = new TransitionController(this);
+        this.transitionController.startFadeInTransition();
+
         // Get the canvas width and height to use when giving a position to an object
         let { width, height } = this.sys.game.canvas;
+
+        this.input.keyboard.on('keydown-ESC', () => {
+             this.openOptionMenu()
+        });
 
         //creating the background
         this.background = this.add.image(width / 2, height / 2, 'IntroBackgroundPlaceholder').setDisplaySize(width, height);
 
+        this.backBtn = this.add.text(0, 0, 'Back', { fontSize: 64, fill: '#000000ff'})
+        .setInteractive()
+        .on('pointerover', () => this.backBtn.setStyle({fill: 'rgba(104, 35, 35, 1)'}))
+        .on('pointerout', () => this.backBtn.setStyle({fill: '#000000ff'}))
+        .on('pointerdown', () => {
+            this.openOptionMenu();
+        });
+        
         /**Skip button */
        const skipBtn = this.add.text(width - 100, height - 1000 , 'SKIP', {
             fontSize: '30px',
@@ -44,7 +52,9 @@ export class Intro extends Phaser.Scene
         .on('pointerover', () => skipBtn.setStyle({ backgroundColor: '#bbbaba' }))
         .on('pointerout', () => skipBtn.setStyle({ backgroundColor: '#f7f7f7' }))
         .on('pointerdown', () => {
-           this.dialogueController.skipToEnd();
+                this.dialogueController.skipToEnd();
+
+          
         });
 
         //dialogues
@@ -58,10 +68,20 @@ export class Intro extends Phaser.Scene
         });
 
         this.events.on('Finished', () => {
-            this.scene.start('SelectionMenuScene');
+            this.playerData.IntroCompleted = true
+            this.transitionController.startFadeOutTransition(() => {
+            this.scene.start('SelectionMenuScene', this.playerData);
+                }, 400);
             console.log("cambia de escena");
         });
 
+    }
+    openOptionMenu()
+    {
+        if (this.scene.isActive('OptionMenu')) return;
+            this.scene.pause();
+            this.playerData.SceneToResume = this.scene.key;
+            this.scene.launch('OptionMenu', this.playerData);
     }
         
 }

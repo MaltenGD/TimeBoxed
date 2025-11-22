@@ -1,16 +1,21 @@
+import TransitionController, {RGBColor} from "../misc/transitioncontroller.js";
 export class CreditsScene extends Phaser.Scene {
     constructor() {
         super('CreditsScene');
     }
 
     preload() {
-        this.load.image('member1', 'Phaser/assets/mewingCat.jpg');
-        this.load.image('member2', 'Phaser/assets/oreoCat.jpg');
-        this.load.image('member3', 'Phaser/assets/alienCat.jpg');
-        this.load.image('member4', 'Phaser/assets/awkwarCat.jpg');
+
     }
 
-    create() {
+    create(playerData) {
+
+        this.playerData = playerData;
+        console.log(this.playerData)
+
+        this.transitionController = new TransitionController(this);
+        this.transitionController.startFadeInTransition();
+
         const { width, height } = this.sys.game.canvas;
 
         this.cameras.main.setBackgroundColor('#000000');
@@ -84,7 +89,7 @@ export class CreditsScene extends Phaser.Scene {
         .on('pointerover', () => backBtn.setStyle({ backgroundColor: '#e6e6e6' }))
         .on('pointerout', () => backBtn.setStyle({ backgroundColor: '#FFFFFF' }))
         .on('pointerdown', () => {
-            this.scene.start('Start');
+            this.scene.start('Start', this.playerData);
         });
     }
 }

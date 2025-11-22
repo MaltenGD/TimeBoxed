@@ -37,6 +37,15 @@ export default class DialogueController
     */
     iniDialogue()
     {   
+        // Remove any existing event listeners to prevent stacking
+        this.scene.events.removeListener('nextDialog');
+        this.scene.events.removeListener('Finished');
+        this.scene.events.removeListener('changeTutoImage');
+        
+        // Reset dialogue state to prevent skipping issues
+        this.nextID = null;
+        this.currentDialogue = null;
+
         if(this.era == 'Intro')
         {
             this.dialogueGroup = this.dialogueData.IntroDialogue;
@@ -45,11 +54,41 @@ export default class DialogueController
         {
             this.dialogueGroup = this.dialogueData.EgyptDialogue;
         }
+        else if(this.era == 'AsebTutorial')
+        {
+            this.dialogueGroup = this.dialogueData.AsebTutorialDialogue;
+            this.isTutorial = true;
+        }
+        else if (this.era == 'AsebWin')
+        {
+            this.dialogueGroup = this.dialogueData.AsebWinDialogue;
+        }
+        else if (this.era == 'AsebDefeat')
+        {
+            this.dialogueGroup = this.dialogueData.AsebDefeatDialogue;
+        }
+        else if (this.era == 'Tali') {
+            this.dialogueGroup = this.dialogueData.TaliIntroDialogue;
+        }
+        else if (this.era == 'TaliWin') {
+            this.dialogueGroup = this.dialogueData.TaliWinDialogue;
+        }
+        else if (this.era == 'TaliLose') {
+            this.dialogueGroup = this.dialogueData.TaliLoseDialogue;
+        }
+        else if (this.era == 'TaliTutorial') {
+            this.dialogueGroup = this.dialogueData.TaliTutorialDialogue;
+        }
+        else if (this.era == 'TimeBoxedDefeat')
+        {
+            this.dialogueGroup = this.dialogueData.TimeBoxedDefeatDialogue;
+        }
+        
 
         /**creates the dialog box */
         this.dialogBox = new DialogBox(this.scene,
         {
-            borderThickness: 4,
+            borderThickness: 6,
 			borderColor: 0xcb3234,
 			borderAlpha: 1,
 			windowAlpha: 0.8,
@@ -57,15 +96,17 @@ export default class DialogueController
 			windowHeight: 150,
 			padding: 32,
 			closeBtnColor: 'darkgoldenrod',
-			dialogSpeed: 3,
+			dialogSpeed: 3.5,
 			fontSize: 34,
-            fontFamily: 'rimouski'
+            fontFamily: 'rimouski',
+            radius: 20
         });
 
         /**Initially hide the dialog box */
         if (!this.dialogBox.visible) {
             this.dialogBox.toggleWindow();
         }
+
 
         /**starts the dialogue block */
         this.startDialogueBlock('start');
@@ -92,6 +133,12 @@ export default class DialogueController
         const text = element.text;
         /**gets if the dialogue is animated */
         const isAnimated = element.animation === 'true';
+
+        const imageKey = element.image;
+        if(imageKey)
+        {
+            this.scene.events.emit('changeTutoImage', imageKey);
+        }
         
         /**creates the dialogue with all the necessary parameters*/
         this.currentDialogue = new Dialogue(speaker, text, isAnimated);

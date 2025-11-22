@@ -1,0 +1,15 @@
+{
+    "TimeboxedMode": false,
+    "showedTBwarn" : false,
+    "IntroCompleted": false,
+    "EgyptIntroCompleted": false,
+    "AsebPlayerFirst" : false,
+    "TaliPlayerFirst" : false,
+    "AsebCompleted": false,
+    "AsebNoCapturesCompletion": false,
+    "AsebLandedOnEverySpecial": false,
+    "TaliCompleted": false,
+    "HanafudaCompleted": false,
+    "SceneToResume" : null,
+    "comingFromMenu": false
+}

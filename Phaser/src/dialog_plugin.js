@@ -32,6 +32,7 @@ export default class DialogBox{
 		this.dialogSpeed = opts.dialogSpeed || 3;
 		this.fontSize = opts.fontSize || 24
 		this.fontFamily = opts.fontFamily || undefined
+		this.radius = opts.radius || 10;
 		
 		// se usa para animar el texto
 		this.eventCounter = 0;
@@ -145,26 +146,26 @@ export default class DialogBox{
 			x,
 			y,
 			rectWidth,
-			rectHeight
+			rectHeight,
 		};
 	}
 
 	// Crea la ventana interior, donde se muestra el texto 
-	_createInnerWindow(x, y, rectWidth, rectHeight) {
+	_createInnerWindow(x, y, rectWidth, rectHeight, radius) {
 		//rellena con el color y alpha especificados en las propiedades
 		this.graphics.fillStyle(this.windowColor, this.windowAlpha);
 		
 		//Se crea el rectangulo pasandole las propiedades de posicion y dimensiones
-		this.graphics.fillRect(x + 1, y + 1, rectWidth - 1, rectHeight - 1);
+		this.graphics.fillRoundedRect(x + 1, y + 1, rectWidth - 1, rectHeight - 1, radius);
 	}
 
 	// Creates the border rectangle of the dialog window
-	_createOuterWindow(x, y, rectWidth, rectHeight) {
+	_createOuterWindow(x, y, rectWidth, rectHeight, radius) {
 		//Se usa para especificar el estilo de la linea exterior: grosor, color...
 		this.graphics.lineStyle(this.borderThickness, this.borderColor, this.borderAlpha);
 		
 		//permite dibujar un rectangulo sin darle relleno
-		this.graphics.strokeRect(x, y, rectWidth, rectHeight);
+		this.graphics.strokeRoundedRect(x, y, rectWidth, rectHeight, radius);
 	}
 
 	// Método que crea la ventana de diálogo
@@ -193,56 +194,56 @@ export default class DialogBox{
 		});
 		
 		//Se crean las ventanas interior y exterior
-		this._createOuterWindow(dimensions.x, dimensions.y, dimensions.rectWidth, dimensions.rectHeight);
-		this._createInnerWindow(dimensions.x, dimensions.y, dimensions.rectWidth, dimensions.rectHeight);
+		this._createOuterWindow(dimensions.x, dimensions.y, dimensions.rectWidth, dimensions.rectHeight, this.radius);
+		this._createInnerWindow(dimensions.x, dimensions.y, dimensions.rectWidth, dimensions.rectHeight, this.radius);
 
-		this._createCloseModalButton(); //se muestra el boton de cerrar en la ventana
-		this._createCloseModalButtonBorder(); // se muestra el borde del boton de cerrar
+		// this._createCloseModalButton(); //se muestra el boton de cerrar en la ventana
+		// this._createCloseModalButtonBorder(); // se muestra el borde del boton de cerrar
 	}
 
 	// Con el siguiente código se crea el boton de cerrar la ventana de diálogo
-	_createCloseModalButton() {
-		var self = this;
-		this.closeBtn = this.scene.make.text({
-			//se crea el boton con las posiciones x e y siguientes
-			// se calculan de forma dinámica para que funcione para diferentes tamaños de pantalla
-			x: this._getGameWidth() - this.padding - 14,
-			y: this._getGameHeight() - this.windowHeight - this.padding + 3,
+	// _createCloseModalButton() {
+	// 	var self = this;
+	// 	this.closeBtn = this.scene.make.text({
+	// 		//se crea el boton con las posiciones x e y siguientes
+	// 		// se calculan de forma dinámica para que funcione para diferentes tamaños de pantalla
+	// 		x: this._getGameWidth() - this.padding - 14,
+	// 		y: this._getGameHeight() - this.windowHeight - this.padding + 3,
 			
-			//el boton queda representado como una X con su estilo debajo
-			text: 'X',
-			style: {
-				font: 'bold 12px TimesNewRoman',
-				fill: this.closeBtnColor
-			}
-		});
+	// 		//el boton queda representado como una X con su estilo debajo
+	// 		text: 'X',
+	// 		style: {
+	// 			font: 'bold 12px TimesNewRoman',
+	// 			fill: this.closeBtnColor
+	// 		}
+	// 	});
 		
-		this.closeBtn.setInteractive(); //hace interactuable el boton de cierre
-		this.closeBtn.on('pointerover', function () {
-			this.setTint(0xff0000); //cuando el cursor se encuentra encima se cambia de color
-		});
-		this.closeBtn.on('pointerout', function () {
-			this.clearTint(); //vuelve al color original al quitar el cursor
-		});
-		this.closeBtn.on('pointerdown', function () {
-			self.toggleWindow(); //se llama al método que cierra o muestra la ventana de diálogo
+	// 	this.closeBtn.setInteractive(); //hace interactuable el boton de cierre
+	// 	this.closeBtn.on('pointerover', function () {
+	// 		this.setTint(0xff0000); //cuando el cursor se encuentra encima se cambia de color
+	// 	});
+	// 	this.closeBtn.on('pointerout', function () {
+	// 		this.clearTint(); //vuelve al color original al quitar el cursor
+	// 	});
+	// 	this.closeBtn.on('pointerdown', function () {
+	// 		self.toggleWindow(); //se llama al método que cierra o muestra la ventana de diálogo
 			
-			// elimina el game object con el texto y borra el evento
-			if (self.timedEvent) 
-				self.timedEvent.remove();
-			if (self.text) 
-				self.text.destroy();
-		});
-	}
+	// 		// elimina el game object con el texto y borra el evento
+	// 		if (self.timedEvent) 
+	// 			self.timedEvent.remove();
+	// 		if (self.text) 
+	// 			self.text.destroy();
+	// 	});
+	// }
 
-	// Se crea el borde del botón
-	_createCloseModalButtonBorder() {
-		var x = this._getGameWidth() - this.padding - 20;
-		var y = this._getGameHeight() - this.windowHeight - this.padding;
+	// // Se crea el borde del botón
+	// _createCloseModalButtonBorder() {
+	// 	var x = this._getGameWidth() - this.padding - 20;
+	// 	var y = this._getGameHeight() - this.windowHeight - this.padding;
 		
-		//Se crea el borde del botón sin relleno
-		this.graphics.strokeRect(x, y, 20, 20);
-	}
+	// 	//Se crea el borde del botón sin relleno
+	// 	this.graphics.strokeRect(x, y, 20, 20);
+	// }
 
 	// Hace aparecer al texto lentamente en pantalla
 	_animateText() {
@@ -264,7 +265,7 @@ export default class DialogBox{
 		if (this.text) 
 			this.text.destroy();
 
-		var x = this.padding + 10;
+		var x = this.padding + 25;
 		var y = this._getGameHeight() - this.windowHeight - this.padding + 10;
 
 		//Crea un game object que sea texto
@@ -274,7 +275,7 @@ export default class DialogBox{
 			text,
 			style: {
 				//se obliga al texto a permanecer dentro de unos limites determinados
-				wordWrap: { width: this._getGameWidth() - (this.padding * 2) - 25 },
+				wordWrap: { width: this._getGameWidth() - (this.padding * 2) - 40 },
 				fontSize: this.fontSize,
 				fontFamily: this.fontFamily
 			}
