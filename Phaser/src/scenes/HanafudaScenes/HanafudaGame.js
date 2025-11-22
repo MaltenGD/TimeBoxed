@@ -318,6 +318,7 @@ export class HanafudaGame extends Phaser.Scene{
             if(this.refill == false) {this.playerPairs.push(this.playerCards.splice(cardpos, 1)[0]);}
            
             this.playerPairs.push(this.tableCards.splice(tablecardPos, 1)[0]);
+            //this.checkYakus(true);
             console.log(this.playerPairs);
         }
         else 
@@ -329,6 +330,7 @@ export class HanafudaGame extends Phaser.Scene{
             }
 
             this.opponentPairs.push(this.tableCards.splice(tablecardPos, 1)[0]); //Coloca 
+            //this.checkYakus(false);
         }
     }
 
@@ -397,8 +399,64 @@ export class HanafudaGame extends Phaser.Scene{
         { fontSize: "40px", color: "#000" }
         ).setOrigin(0.5);
         
+        const yakuText = this.add.text(this.width / 2, this.height / 2 - 20,
+        "Combination: " + yaku,
+        { fontSize: "32px", color: "#000" }
+        ).setOrigin(0.5);
 
+        const pointsText = this.add.text(this.width / 2, this.height / 2 + 40,
+        "Points: " + points,
+        { fontSize: "28px", color: "#333" }
+        ).setOrigin(0.5);
 
+    const koikoiBtn = this.add.text(this.width / 2 - 120, this.height / 2 + 120,
+        "KoiKoi",
+        { fontSize: "32px", backgroundColor: "#0077cc", padding: 10, color: "#fff" }
+        ).setOrigin(0.5).setInteractive();
+
+        const shobuBtn = this.add.text(this.width / 2 + 120, this.height / 2 + 120,
+        "Shobu",
+        { fontSize: "32px", backgroundColor: "#cc0044", padding: 10, color: "#fff" }
+    ).setOrigin(0.5).setInteractive();
+
+        koikoiBtn.on("pointerdown", () => {
+            console.log("El jugador elige koikoo, el juego sigue");
+            overlay.destroy();
+            box.destroy();
+            title.destroy();
+            yakuText.destroy();
+            pointsText.destroy();
+            koikoiBtn.destroy();
+            shobuBtn.destroy();
+
+            this.handlesTurns();
+        });
+
+        shobuBtn.on("pointerdown", () => {
+        console.log("El jugador elige SHOBU,ronda termina aqu");
+        overlay.destroy();
+        box.destroy();
+        title.destroy();
+        yakuText.destroy();
+        pointsText.destroy();
+        koikoiBtn.destroy();
+        shobuBtn.destroy();
+    });
+    }
+
+    enemyYaku(yaku, points)
+    {
+    console.log("El enemigo consiguio un Yaku:", yaku, points, "puntos");
+
+    const random = Math.random();
+
+    if (random < 0.5) {
+        console.log("El enemigo elige Koikoi");
+        this.handlesTurns();
+
+    } else {
+        console.log("El enemigo elige Shobu, ronda termina");
+    }
     }
 
     openOptionMenu()
