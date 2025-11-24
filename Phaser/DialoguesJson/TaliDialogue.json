@@ -139,7 +139,7 @@
     
     "TI17":
     {
-        "speaker": "PLayer",
+        "speaker": "Player",
         "text": "You son of a-",
         "animation": "true",
         "next": "TI18"

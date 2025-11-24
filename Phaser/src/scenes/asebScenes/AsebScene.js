@@ -21,7 +21,7 @@ export class AsebScene extends Phaser.Scene {
         /**
          * Initializes scene data.
          * @param {object} data - Data passed from the previous scene.
-         * @param {boolean} [data.playerFirst=true] - Determines if the player takes the first turn.
+         * @param {boolean} [data.playerFirst] - Determines if the player takes the first turn.
          */
         init(playerData) {
             // Default to player going first if no data is passed.
@@ -57,13 +57,13 @@ export class AsebScene extends Phaser.Scene {
         this.transitionController.startFadeInTransition();
 
         this.background = this.add.image(this.width / 2, this.height / 2, 'asebBackgroundPlaceholder').setDisplaySize(this.width, this.height);
-        this.infoBoard = this.add.image(this.width/2, this.height/2, 'StickBoard').setOrigin(0.5).setScale(0.55);
+        this.infoBoard = this.add.image(this.width/2, this.height/2, 'StickBoard').setOrigin(0.5).setScale(1.5,2.25).setRotation(Phaser.Math.DegToRad(90));
 
         this.input.keyboard.on('keydown-ESC', () => {
            this.openOptionMenu();
         });
 
-        this.backBtn = this.add.text(0, 0, 'Back', { fontSize: 64, fill: '#000000ff'})
+        this.backBtn = this.add.text(0, 0, 'Back', { fontSize: 64, fill: '#000000ff', fontFamily: "Anubismythicalserif"})
         .setInteractive()
         .on('pointerover', () => this.backBtn.setStyle({fill: 'rgba(104, 35, 35, 1)'}))
         .on('pointerout', () => this.backBtn.setStyle({fill: '#000000ff'}))
@@ -149,12 +149,12 @@ export class AsebScene extends Phaser.Scene {
 
         // --- UI Elements ---  
 
-        this.infoText = this.add.text(this.boardAnchor.x, this.boardAnchor.y -400, '*', {fontSize: 55, fill: 0x000000ff}).setOrigin(0.5);
+        this.infoText = this.add.text(this.boardAnchor.x, this.boardAnchor.y -400, '', {fontSize: 55, fill: 0x000000ff, fontFamily: "Anubismythicalserif"}).setOrigin(0.5);
 
-        this.eventsText = this.add.text(this.boardAnchor.x-675, this.boardAnchor.y, '*', {fontSize: 35}).setOrigin(0.5);
+        this.eventsText = this.add.text(this.boardAnchor.x-675, this.boardAnchor.y, '', {fontSize: 35, fill: 0x000000ff, fontFamily: "Anubismythicalserif"}).setOrigin(0.5);
 
         /** @type {Phaser.GameObjects.Text} The button for the player to throw the sticks. */
-        this.throwBtn = this.add.text(this.boardAnchor.x, this.boardAnchor.y +300, 'Throw', {fontSize: 55, fill:0x000000ff}).setOrigin(0.5)
+        this.throwBtn = this.add.text(this.boardAnchor.x, this.boardAnchor.y +300, 'Throw', {fontSize: 55, fill:0x000000ff, fontFamily: "Anubismythicalserif"}).setOrigin(0.5)
         .setInteractive()
         .on('pointerdown', () => {
 
@@ -297,12 +297,12 @@ export class AsebScene extends Phaser.Scene {
     pieceReachesEnd(piece)
     {
         this.asebGame.pieceReachedEnd(piece);
-        this.eventsText.setText("Piece Reached End");
+        this.infoText.setText("Piece Reached End");
 
         this.time.addEvent({
             delay: this.pauseTime,
             callback: () => {
-                this.eventsText.setText("*");
+                this.eventsText.setText("");
             },
         
         });

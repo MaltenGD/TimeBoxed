@@ -48,13 +48,13 @@ export class AsebBeginScene extends Phaser.Scene {
     createGameObjects() {
         
         /** @type {Phaser.GameObjects.Image} */
-        this.infoBoard = this.add.image(this.width/2, this.height/2, 'StickBoard').setOrigin(0.5).setScale(0.5);
+        this.infoBoard = this.add.image(this.width/2, this.height/2, 'StickBoard').setOrigin(0.5).setScale(1.5,2).setRotation(Phaser.Math.DegToRad(90));
         
         //The text that guides the player
         /** @type {Phaser.GameObjects.Text} */
-        this.infoText = this.add.text(this.width/2,250, "Lets decide who goes first!", {fontSize: 64, color: '#000000ff'}).setOrigin(0.5);
+        this.infoText = this.add.text(this.width/2,250, "Lets see who goes first!", {fontSize: 64, color: '#000000ff', fontFamily: "Anubismythicalserif"}).setOrigin(0.5);
         /** @type {Phaser.GameObjects.Text} */
-        this.scoreText = this.add.text(this.width/2,350, "*", {fontSize: 64, color: '#000000ff'}).setOrigin(0.5);
+        this.scoreText = this.add.text(this.width/2,350, "", {fontSize: 64, color: '#000000ff', fontFamily: "Anubismythicalserif"}).setOrigin(0.5);
         
     }
 
@@ -65,7 +65,7 @@ export class AsebBeginScene extends Phaser.Scene {
 
  
         /** @type {Phaser.GameObjects.Text} */
-        this.backBtn = this.add.text(0, 0, 'Back', { fontSize: 64, fill: '#000000ff'})
+        this.backBtn = this.add.text(0, 0, 'Back', { fontSize: 64, fill: '#000000ff', fontFamily: "Anubismythicalserif"})
         .setInteractive()
         .on('pointerover', () => this.backBtn.setStyle({fill: 'rgba(104, 35, 35, 1)'}))
         .on('pointerout', () => this.backBtn.setStyle({fill: '#000000ff'}))
@@ -74,7 +74,7 @@ export class AsebBeginScene extends Phaser.Scene {
         });
         
         /** @type {Phaser.GameObjects.Text} */
-        this.throwBtn = this.add.text(this.width/2 -100, this.height -300, 'Throw', { fontSize: 64, fill: '#000000ff'})
+        this.throwBtn = this.add.text(this.width/2 -100, this.height -300, 'Throw', { fontSize: 64, fill: '#000000ff', fontFamily: "Anubismythicalserif"})
         .setInteractive()
         .on('pointerover', () => this.throwBtn.setStyle({fill: '#0f0'}))
         .on('pointerout', () => this.throwBtn.setStyle({fill: '#000000ff'}))
@@ -90,6 +90,8 @@ export class AsebBeginScene extends Phaser.Scene {
      */
     continue(newState)
     {
+        this.throwBtn.setText('')
+        .off('pointerdown')
         this.gameState = newState;
         
         if (this.gameState === this.GAME_STATE.PLAYER_THROWS) {
@@ -206,7 +208,9 @@ export class AsebBeginScene extends Phaser.Scene {
         this.time.addEvent({
             delay: 1000,
             callback: () => {
-                this.startActualGame();
+                this.throwBtn.setText('Continue')
+                .off('pointerdown')
+                .on('pointerdown', () => this.startActualGame());
             }
         })
         

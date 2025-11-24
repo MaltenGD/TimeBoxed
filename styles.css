@@ -28,6 +28,12 @@ body{
   font-weight: normal;
   font-style: normal;
 }
+@font-face {
+  font-family: 'Anubismythicalserif';
+  src: url('fonts/Anubismythicalserif-lxdLy.otf') format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
 
 * {
     font-family: 'Minima', sans-serif;

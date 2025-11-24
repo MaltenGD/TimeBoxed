@@ -137,6 +137,9 @@ export class LoadingScene extends Phaser.Scene
         this.load.image('asebBackgroundPlaceholder', 'Phaser/assets/aseb/Egipcio.png');
 
         this.load.image('StickBoard', 'Phaser/assets/aseb/stickBoard.png');
+        this.load.image('AsebButton', 'Phaser/assets/aseb/AsebButton.png');
+        this.load.image('AsebButtonHovered', 'Phaser/assets/aseb/AsebButtonHovered.png');
+        this.load.image('AsebButtonDisabled', 'Phaser/assets/aseb/AsebButtonDisabled.png');
         this.load.image('StickLight', 'Phaser/assets/aseb/AsebStickLight.png');
         this.load.image('StickDark', 'Phaser/assets/aseb/AsebStickDark.png');
 
