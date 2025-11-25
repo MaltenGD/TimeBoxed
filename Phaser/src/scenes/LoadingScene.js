@@ -199,6 +199,7 @@ export class LoadingScene extends Phaser.Scene
         this.load.image('Square_Master', 'Phaser/assets/insignias/Square_Master.png');
         this.load.image('Wonder_of_Egypt', 'Phaser/assets/insignias/Wonder_of_Egypt.png');
         this.load.image('Dice_Ruler', 'Phaser/assets/insignias/Dice_Ruler.png');
+        this.load.image('Master_of_Time', 'Phaser/assets/insignias/Master_of_Time.png');
 
     }
 
