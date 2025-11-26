@@ -6,49 +6,43 @@ export class HanafudaGame extends Phaser.Scene{
 
     init(data){
         /** Boolean to know whose turn it is, if it's false then that means it's the oponent starts */
-        this.playerTurn = data.begins;
-
+        this.playerTurn = data.begins;  
+        /**Round counter*/
         this.round = 1;
-
-        /**array of cards in deck */
+        /**Array of cards in deck */
         this.deck = [];
-
         /** Array of player cards */
         this.playerCards = [];
-
         /**Array of oponent cards */
-        this.enemyCards = [];
-
+        this.opponentCards = [];
         /** Array of cards on the table*/
         this.tableCards = [];
-
+        /**Array of pairs the player has collected */
         this.playerPairs = [];
+        /** Array of pairs the opponent has collected */
         this.opponentPairs = [];
-
         /** Array of GameObjects for cards on the table */
         this.tableCardObjects = [];
+        /** Array of GameObjects for player cards */
         this.PlayerCardsObjects = [];
+        /** Array of GameObjects for opponent cards */
         this.opponentCardsObjects = [];
+        /** Array of GameObjects for player pairs */
         this.PlayerPairsObjects = [];
+        /** Array of GameObjects for opponent pairs */
         this.opponentPairsObjects = [];
-
-        this.playerChosenCard = null;
-
-        /** Boolean to know if the table has been refill in a turn or not*/
+        /** Boolean to know if the table has been refilled in a turn or not*/
         this.refill = false;
-        this.OponentChoice = null;
-
         /**Array for checking the number of cards of each month in the table*/
         this.monthCounter = [];
-
+        /**It constains the text to show the proccess of the game to the player*/
         this.infoText = null;
 
         this.tablepos = []; 
-
+        /**table rows*/
         this.rows = 2;
+        /**Initial table columns */
         this.cols = 4;
-
-        this.chooseTableCard = false;
     }
 
     create(playerData){
@@ -63,7 +57,7 @@ export class HanafudaGame extends Phaser.Scene{
             this.openOptionMenu();
         });
 
-        //Get Scale 
+        //Get Scale
         this.width = this.scale.width;
         this.height = this.scale.height;
 
@@ -71,7 +65,7 @@ export class HanafudaGame extends Phaser.Scene{
         this.background = this.add.image(this.width/2, this.height/2, 'HanafudaBackgroundPlaceholder');
 
         //Back button
-        this.backBtn = this.add.text(0, 0, 'Back', { fontSize: 64, fill: '#000000ff'})
+        this.backBtn = this.add.text(0, 0, 'Back', { fontSize: 45, fill: '#f0f0f0ff'})
         .setInteractive()
         .on('pointerover', () => this.backBtn.setStyle({fill: 'rgba(104, 35, 35, 1)'}))
         .on('pointerout', () => this.backBtn.setStyle({fill: '#000000ff'}))
@@ -80,28 +74,28 @@ export class HanafudaGame extends Phaser.Scene{
         });
 
         //UI texts
-        this.roundText = this.add.text(100, 900, "Round:1", {fontSize: "48px",color: "#ffffff"});
-        this.turnText = this.add.text(50, 80, "Turno:", {fontSize: "48px", color: "#ffffff"});
+        this.roundText = this.add.text(40, 1000, "Round:1", {fontSize: "30px",color: "#ffffff"});
+        //this.turnText = this.add.text(50, 80, "Turno:", {fontSize: "48px", color: "#ffffff"});
 
         //Prepare the round
         this.createDeck();
         this.shuffleDeck();
         this.dealCards();
 
-        //this.updateTurnText();
         console.log("Jugador empieza:", this.playerTurn);
 
-        this.board = this.add.rectangle(350, 30, 1050, 1000, 0x000000, 0.5).setOrigin(0, 0);
-        this.OpponentPairZone = this.add.rectangle(this.width/ 2+ 460, 30, 490, 400 , 0x000000, 0.5).setOrigin(0, 0);
-        this.PlayerPairZone = this.add.rectangle(this.width/ 2+ 460, this.height/2 + 20, 490, 400, 0x000000, 0.5).setOrigin(0, 0);
-        this.infoText = this.add.text(550, this.height / 2 + 200, "Start!", {fontSize: '60px', fill: '#ffffffff'});
+        //render the zones for the board (table, player and opponent cards are here), and two for where the player and opponent collected pairs will be
+        this.board = this.add.rectangle(300, 20, 1030, 1040, 0x000000, 0.5).setOrigin(0, 0);
+        this.opponentPairZone = this.add.rectangle(this.width/ 2+ 400, 30, 530, 470 , 0x000000, 0.5).setOrigin(0, 0);
+        this.playerPairZone = this.add.rectangle(this.width/ 2+ 400, this.height/2 + 20, 530, 470, 0x000000, 0.5).setOrigin(0, 0);
+        this.infoText = this.add.text(550, this.height / 2 + 200, "Start!", {fontSize: '60px', fill: '#ffffffff'}); //Text
 
         //Initial renders
         this.renderOpponentCards();
         this.renderTable();
         this.renderPlayerCards();
         this.handlesTurns();
-    }
+    } 
 
     /**
     * @method createDeck :It initalizes the deck array with 48 cards, each have a number int and a month int. 
@@ -130,17 +124,17 @@ export class HanafudaGame extends Phaser.Scene{
      * It also checks that a 4 cards from the same month aren't on the table array, or else it returns the cards to the deck, and calls suffleDeck and dealcards Mehtods.
      */
     dealCards() {
-        this.playerCards = this.deck.splice(0, 8);
-        this.enemyCards = this.deck.splice(0, 8);
+        this.playerCards = this.deck.splice(0, 8); //8 cards from deck to player
+        this.opponentCards = this.deck.splice(0, 8); //8 cards from deck to opponent
 
-        for(let i = 0; i < this.rows; ++i){
+        for(let i = 0; i < this.rows; ++i){ //8 cards from deck to table, that will be an array of arrays
             this.tableCards[i] = [];
             for(let j = 0; j < this.cols; ++j){
                 this.tableCards[i][j] = this.deck.splice(0, 1)[0];
             }
         }
 
-        //Table cannot contain a whole month, So we have to count how many cards of each month there are
+        //Table cannot contain a whole month, so we count how many cards of each month there are
         for(let i = 0; i < this.tableCards.length; ++i){
             for(let h = 0; h < this.tableCards[i].length; ++h){
                 for(let j = 0; j < this.monthCounter.length; ++j){
@@ -157,71 +151,65 @@ export class HanafudaGame extends Phaser.Scene{
         });
         
         if (wholeMonth){ //if a whole month is on the table, the cards are returned to the deck and it is suffled and dealt again.
-            this.deck.push(this.playerCards, this.enemyCards, this.tableCards);
+            this.deck.push(this.playerCards, this.opponentCards, this.tableCards);
             this.shuffleDeck();
             this.dealCards();
         }
     }
 
+    /**@method renderTable :It renders the table cards in between the opponent and player cards on screen*/
     renderTable(){
-        this.tableCardObjects.forEach((row, rowindex) =>{
-            row.forEach((obj, index) => { obj.destroy();})
+        this.tableCardObjects.forEach((row) =>{ //Destroy old objects so they don't linger on scene 
+            row.forEach((obj) => { obj.destroy();})
         });
-        this.tableCardObjects = [];
+        this.tableCardObjects = []; //clean the array
 
         for(let i = 0; i < this.tableCards.length; ++i){
             this.tableCardObjects[i] = [];
             for(let j = 0; j < this.tableCards[i].length; ++j){
-                
-                const x = 450 + j * 120;
-                const y = this.height / 2 - 100 + i * 170;
-                const rect = this.add.rectangle(x, y, 100, 150, 0xd30000);
-                const text = this.add.text(rect.x, rect.y, `${this.tableCards[i][j].number} \n${this.tableCards[i][j].month}`,{
-                    fontSize: "28px",
-                    color: "#ffffffff"
-                }).setOrigin(0.5);
-                
-                this.tableCardObjects[i].push(rect);
-                this.tableCardObjects[i].push(text);
+
+                const image = this.add.image(400 + (j * 120), (this.height / 2 - 100) + (i * 170), `Card${this.tableCards[i][j].number}`).setScale(0.17);
+                // const rect = this.add.rectangle(400 + (j * 120), (this.height / 2 - 100) + (i * 170), 100, 150, 0xd30000);
+                // const text = this.add.text(rect.x, rect.y, `${this.tableCards[i][j].number} \n${this.tableCards[i][j].month}`,{fontSize: "28px",color: "#ffffffff"})
+                // .setOrigin(0.5);
+                this.tableCardObjects[i].push(image); 
+                // this.tableCardObjects[i].push(text);
             }  
         }
     }
 
-    /**@method renderOpponentCards : It renders the opponent cards on screen*/
+    /**@method renderOpponentCards :It renders the opponent cards on screen*/
     renderOpponentCards() {
-        this.opponentCardsObjects.forEach(obj => obj.destroy());
-        this.opponentCardsObjects = [];
+        this.opponentCardsObjects.forEach(obj => obj.destroy()); //Destroy old objects so they don't linger on scene 
+        this.opponentCardsObjects = []; //clean the array
 
-        this.enemyCards.forEach((card, i) => {
-            const rect = this.add.rectangle(450 + i * 120, 150, 100, 150, 0x444444);
-            const text = this.add.text(rect.x, rect.y, `${card.number}`, { fontSize: "28px", color: "#ffffff"})
-            .setOrigin(0.5);  
-
+        this.opponentCards.forEach((card, i) => {
+            const rect = this.add.rectangle(400 + (i * 120), 150, 100, 150, 0x121212);
             this.opponentCardsObjects.push(rect);
-            this.opponentCardsObjects.push(text);
+            //const text = this.add.text(rect.x, rect.y, `${card.number}`, { fontSize: "28px", color: "#ffffff"}).setOrigin(0.5);  
+            //this.opponentCardsObjects.push(text);
         });
     }
 
+    /**@method renderPlayerCards :It renders the player cards on screen*/
     renderPlayerCards(){
-        this.PlayerCardsObjects.forEach(obj => obj.destroy());
-        this.PlayerCardsObjects = [];
+        this.PlayerCardsObjects.forEach(obj => obj.destroy());  //Destroy old objects so they don't linger on scene
+        this.PlayerCardsObjects = []; //clean the array
 
         this.playerCards.forEach((card, i) => {
-            const x = 450 + i *120;
-            const y = this.height / 2 + 400;
-
-            const rect = this.add.rectangle(x, y, 100, 150, 0xffffff)
-
-            const text = this.add.text(rect.x, rect.y, `${card.number} \n ${card.month}`, {
-                fontSize: "28px",
-                color: "#000000ff"
-            }).setOrigin(0.5);
-
-            this.PlayerCardsObjects.push(rect);
-            this.PlayerCardsObjects.push(text);
+            let image = this.add.image(400 + (i * 120), this.height / 2 + 400, `Card${card.number}`)
+            .setScale(0.2)
+            .setAlpha(1);
+            this.PlayerCardsObjects.push(image);
+            // const rect = this.add.rectangle(400 + (i * 120), this.height / 2 + 400, 100, 150, 0xffffff)
+            // const text = this.add.text(rect.x, rect.y, `${card.number} \n ${card.month}`, {fontSize: "28px", color: "#000000ff"})
+            // .setOrigin(0.5);
+            // this.PlayerCardsObjects.push(rect);
+            // this.PlayerCardsObjects.push(text);
         });
     }
 
+    /**@method renderPlayerPairs :It renders the pairs collected by the player on screen*/
     renderPlayerPairs(){
         this.PlayerPairsObjects.forEach(obj => obj.destroy());
         this.PlayerPairsObjects = [];
@@ -230,33 +218,36 @@ export class HanafudaGame extends Phaser.Scene{
         this.playerPairs.forEach((card, i) => {
             const col = i % cardsPerRow;
             const row = Math.floor(i / cardsPerRow);
-            const x = this.width / 2 + 500 + col * 70;
-            const y = this.height / 2 + 90 + row * 130;
-            const rect = this.add.rectangle(x, y, 60, 110, 0x92286b);
-            const text = this.add.text(rect.x, rect.y, `${card.number} \n ${card.month}`, {fontSize: "20px", color: "#ffffffff"})
-            .setOrigin(0.5);
+            const image = this.add.image((this.width / 2 + 450) + (col * 70), (this.height / 2 + 90)+ (row * 100), `Card${card.number}`).setScale(0.1);
+            this.PlayerPairsObjects.push(image);
 
-            this.PlayerPairsObjects.push(rect);
-            this.PlayerPairsObjects.push(text);
+            // const rect = this.add.rectangle((this.width / 2 + 450) + (col * 70), (this.height / 2 + 90)+ (row * 130), 60, 110, 0x92286b);
+            // const text = this.add.text(rect.x, rect.y, `${card.number} \n ${card.month}`, {fontSize: "20px", color: "#ffffffff"})
+            // .setOrigin(0.5);
+            // this.PlayerPairsObjects.push(rect);
+            // this.PlayerPairsObjects.push(text);
         });
     }
 
+    /**@method renderOpponentPairs :It renders the pairs collected by the opponent on screen*/
     renderOpponentPairs(){
         this.opponentPairsObjects.forEach(obj => obj.destroy());
         this.opponentPairsObjects = [];
-        const cardsPerRow = 7   ;
+        const cardsPerRow = 7;
 
         this.opponentPairs.forEach((card, i) => {
             const col = i % cardsPerRow;
             const row = Math.floor(i / cardsPerRow);
-            const x = this.width / 2 + 500 + col * 70;
-            const y = this.height / 2 - 450  + row * 130;
-            const rect = this.add.rectangle(x, y, 60, 110, 0x0000ff);
-            const text = this.add.text(rect.x, rect.y, `${card.number} \n ${card.month}`, {fontSize: "20px", color: "#ffffffff"})
-            .setOrigin(0.5);
+            const image = this.add.image((this.width / 2 + 450) + (col * 70), (this.height / 2 - 450) + (row * 100), `Card${card.number}`)
+            .setScale(0.1);
+            this.opponentPairsObjects.push(image);
 
-            this.opponentPairsObjects.push(rect);
-            this.opponentPairsObjects.push(text);
+            // const rect = this.add.rectangle((this.width / 2 + 450) + (col * 70), (this.height / 2 - 450) + (row * 130), 60, 110, 0x0000ff);
+            // const text = this.add.text(rect.x, rect.y, `${card.number} \n ${card.month}`, {fontSize: "20px", color: "#ffffffff"})
+            // .setOrigin(0.5);
+
+            // this.opponentPairsObjects.push(rect);
+            // this.opponentPairsObjects.push(text);
         });
     }
 
@@ -274,22 +265,23 @@ export class HanafudaGame extends Phaser.Scene{
         // this.roundText.setText("Round: " + this.round);
     //}
 
+
     table(card, cardpos){
         this.infoText.setText("Searching pairs...")
-        this.searchesPair(card, cardpos);   //Looks for a pairs with cards on the table
+        this.searchesPair(card, cardpos); //Looks for a pairs for the chosen card with cards on the table
         this.infoText.setText("Refilling table...");
-        this.refill = true; //The refill of the table only happens one time per turn
+        this.refill = true; //The refill of the table only happens one time per turn and after the chosen card has found a pair or has been added to the table
 
-        if(this.tableCards[0].length < 7 && this.tableCards[1].length < 7){//just in case refill doesn't change
-            this.cardFromDeck = this.deck.splice(0,1)[0];
-            console.log("anotherpair");
-            console.log("cardFromDeck", this.cardFromDeck);
-            this.searchesPair(this.cardFromDeck, 0);
+        if(this.tableCards[0].length < 7 && this.tableCards[1].length < 7){
+        this.cardFromDeck = this.deck.splice(0,1)[0];
+        console.log("anotherpair");
+        console.log("cardFromDeck", this.cardFromDeck);
+        this.searchesPair(this.cardFromDeck, 0);
         }
 
         this.refill = false; //Reset the variable for next turn
         this.infoText.setText("turn finished");
-        console.log("oponentPairss", this.opponentPairs);
+        console.log("oponentPairss", this.opponentPairs); 
     }
 
     searchesPair(card, cardpos){//Good
@@ -302,25 +294,22 @@ export class HanafudaGame extends Phaser.Scene{
             for(let j = 0; j < this.tableCards[i].length; ++j){
                 if(card.month === this.tableCards[i][j].month){ //Comprueba si la carta elegida tiene algun par en la mesa (los meses deben coincidir)
                     numberOfPairs++;
-                    if(numberOfPairs === 1){ pos1 = {row: i, col: j}}
+                    if(numberOfPairs === 1){pos1 = {row: i, col: j}}
                     else if(numberOfPairs === 2){ pos2 = {row: i, col: j}}
                     else if(numberOfPairs === 3){ pos3 = {row: i, col: j}}
                 }
             }
         }
-        console.log("Pairs?",numberOfPairs);
+        console.log("Pairs found?",numberOfPairs);
 
         if(numberOfPairs === 1){ //Cuando solo hay una carta del mismo mes en la mesa
-            this.tablecard = this.tableCards[pos1.row][pos1.col]; //envia la carta par de la mesa
             this.tablepos.push(pos1);
-
-            console.log("Pair found", card, this.tablecard);
-            this.infoText.setText("Pair Found!");
+            this.infoText.setText("Pair Found");
             this.foundPair(card, cardpos, this.tablepos);
         }
         else if(numberOfPairs > 1){this.selectTablePair(card, cardpos, numberOfPairs, pos1, pos2, pos3);}
         else if (numberOfPairs < 1){
-            this.infoText.setText("Shame, there aren't any matching cards");
+            this.infoText.setText("No pair found");
             this.pairNotFound(cardpos);
         }
     
@@ -333,36 +322,35 @@ export class HanafudaGame extends Phaser.Scene{
     }
 
     selectTablePair(card, cardpos, pairs, pos1, pos2, pos3){
-        let opponentChoice = 0;
+        let randomChoice = 0;
         let finalPos = null;
-        if(pairs === 2){opponentChoice = Math.floor(Math.random() * 2);}
-        else if(pairs === 3){opponentChoice = Math.floor(Math.random() * 3);}
+        if(pairs === 2){randomChoice = Math.floor(Math.random() * 2);}
+        else if(pairs === 3){randomChoice = Math.floor(Math.random() * 3);}
 
-        if(opponentChoice === 0){finalPos = pos1;}
-        else if(opponentChoice === 1){ finalPos = pos2;}
-        else if(opponentChoice === 2){finalPos = pos3;}
-        this.tablecard = this.tableCards[finalPos.row][finalPos.col];
+        if(randomChoice === 0){finalPos = pos1;}
+        else if(randomChoice === 1){ finalPos = pos2;}
+        else if(randomChoice === 2){finalPos = pos3;}
         this.tablepos.push(finalPos);
-        console.log("Pair found", card, this.tableCards[finalPos.row][finalPos.col]);
-        this.infoText.setText("Pair Found!");
+
+        this.infoText.setText("Pair Found");
         this.foundPair(card, cardpos, this.tablepos);
     }
 
-    foundPair(card, cardpos, tablecardPos){ //Good
+    /** 
+     * @method foundPair :The turn only changes the origin and final arrays. Before refilling the table it will add the card chosen by the player/opponent from the player/opponent array 
+     * to the player/opponent pairs array, and if it's refilling, it will add the deck card to the player/opponent pairs array. In both cases the pair card on the table 
+     * will be added to the pairs array. It will do the pairs arrays render according to the turn.*/
+    foundPair(card, cardpos, tablecardPos){
         if(this.playerTurn == true){
             if(this.refill == false) {this.playerPairs.push(this.playerCards.splice(cardpos, 1)[0]);}
             else {this.playerPairs.push(card);}
            
             this.playerPairs.push(this.tableCards[tablecardPos[0].row].splice(tablecardPos[0].col, 1)[0]);
-            console.log(this.playerPairs);
             this.renderPlayerPairs();
         }
         else {
-            if(this.refill === false) { this.opponentPairs.push(this.enemyCards.splice(cardpos, 1)[0]);}
-            else {
-                console.log("has deck card pair", card);
-                this.opponentPairs.push(card); //Pone la carta del deck
-            }
+            if(this.refill === false) { this.opponentPairs.push(this.opponentCards.splice(cardpos, 1)[0]);}
+            else {this.opponentPairs.push(card);} //Pone la carta del deck
 
             this.opponentPairs.push(this.tableCards[tablecardPos[0].row].splice(tablecardPos[0].col, 1)[0]); //Coloca 
             this.renderOpponentPairs();
@@ -371,57 +359,54 @@ export class HanafudaGame extends Phaser.Scene{
 
     /**@method pairNotFound : Before refilling the table, It eliminates the chosen card from it's original array and adds it to the table array. If during the table refill this method is called, it will add the card from the deck to the table.*/
     pairNotFound(cardpos){
-
         let row = 0;
         if(this.tableCards[0].length < this.tableCards[1].length){row = 0;}
         else if (this.tableCards[0].length > this.tableCards[1].length) {row = 1;}
 
         if(this.refill == false){ //If the table hasn't been refilled yet 
             if(this.playerTurn == true){this.tableCards[row].push(this.playerCards.splice(cardpos,1)[0]);}
-            else {this.tableCards[row].push(this.enemyCards.splice(cardpos,1)[0]);}
+            else {this.tableCards[row].push(this.opponentCards.splice(cardpos,1)[0]);}
         }
         else{this.tableCards[row].push(this.cardFromDeck);} //If The table is refilling then add deck card 
     }
 
     handlesTurns(){
-        if (this.playerCards.length === 0 && this.enemyCards.length === 0) {
+        if (this.playerCards.length === 0 && this.opponentCards.length === 0) {
             this.infoText.setText("Round Finished");
-            console.log("round over");
             this.round++;
             return;
         }
-
         this.roundText.setText("Round: " + this.round);
 
         if(this.playerTurn == false) {
             this.infoText.setText("Opponent's turn");
             this.time.addEvent({
-                delay: 1000,
+                delay: 1000/2,
                 callback: this.handleOpponentTurn,
                 callbackScope: this
             });  
         }
         else{
             this.infoText.setText("Your turn");
-            this.time.delayedCall(1000, () => this.infoText.setText("Choose a card..."));
+            this.time.delayedCall(1000, () => this.infoText.setText("Choose a card"));
             
             this.PlayerCardsObjects.forEach((cardObject, index) => {
-                if (index % 2 === 0) {
-                    const cardDataIndex = index / 2;
-                    const cardData = this.playerCards[cardDataIndex];
-                    cardObject.setInteractive()
-                        .on('pointerover', () => cardObject.setFillStyle(0xbbbaba))
-                        .on('pointerout', () => cardObject.setFillStyle(0xffffff))
-                        .on('pointerdown', () => {
-                            this.onCardSelected(cardData, cardDataIndex);
-                        });
-                }
+
+                cardObject.setInteractive();
+                cardObject.on('pointerover', () => cardObject.setScale(0.22));
+                cardObject.on('pointerout', () => cardObject.setScale(0.2));
+                cardObject.on('pointerdown', () => {
+                    this.onCardSelected(this.playerCards[index], index);
+                });
             });
         }
     }
 
     onCardSelected(card, cardPos){
-        this.PlayerCardsObjects.forEach(obj => obj.setInteractive(false));
+        this.PlayerCardsObjects.forEach(obj => {
+            obj.clearTint();
+            obj.disableInteractive();
+        });
         console.log("Player selected:", card);
         this.table(card, cardPos);
         this.playerTurn = false;
@@ -429,11 +414,15 @@ export class HanafudaGame extends Phaser.Scene{
     }
 
     handleOpponentTurn(){
-        this.infoText.setText("Choosing Card...");
-        this.OponentChoice = Math.floor(Math.random() * this.enemyCards.length);
-        this.table(this.enemyCards[this.OponentChoice], this.OponentChoice);
-        this.playerTurn = true;
-        this.handlesTurns();
+        this.time.delayedCall(1000, ()=> {
+            this.infoText.setText("Choosing Card...")
+            this.time.delayedCall(1000, ()=>{
+                let opponentChoice = Math.floor(Math.random() * this.opponentCards.length);
+                this.table(this.opponentCards[opponentChoice], opponentChoice);
+                this.playerTurn = true;
+                this.handlesTurns();
+            });
+        });
     }
 
     checkYakus(isPlayer) {

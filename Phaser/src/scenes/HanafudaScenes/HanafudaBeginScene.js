@@ -30,9 +30,8 @@ export class HanafudaBeginScene extends Phaser.Scene
         this.playerCard = null;
         this.oponentcard = null;
         this.mazo = [];
-        this.cardsContainers = [];
+        this.cardsObjects = [];
         this.infoText = null;
-        this.cardContainer = null;
     }
     create(playerData)
     {   
@@ -80,73 +79,69 @@ export class HanafudaBeginScene extends Phaser.Scene
             this.mazo[randomNumber] = aux1;
         }
 
-        let cardGap = 110;
-        let centerX = this.width/2;
-        let centerY = this.height/2;
-
-        for(let i = 0; i < 8; ++i)
-        {
-            this.cardContainer = this.createCards(500 + i * 120, this.height - 600  , `${this.mazo[i].number}`, this.mazo[i]);
-            this.cardsContainers.push(this.cardContainer);
+        for(let i = 0; i < 8; ++i){
+            const image = this.add.image(250 + i * 200, this.height - 600, `Card${this.mazo[i].number}`).setScale(0.35);
+            this.cardsObjects.push(image);
         }
 
-        this.infoText = this.add.text(this.width / 2, this.height / 2 - 200, "Choose a card", {
-            fontSize: '30px', fill: '#000000'
+        this.cardsObjects.forEach((card, i) =>{
+            card.setInteractive();
+            card.on('pointerover', () => card.setScale(0.37));
+            card.on('pointerout', () => card.setScale(0.35));
+            card.on('pointerdown', () => {
+                this.onCardSelected(this.mazo[i]);
+            });
+        });
+
+        this.infoText = this.add.text(this.width / 2, this.height / 2 - 300, "Choose a card", {
+            fontSize: '40px', fill: '#000000'
         }).setOrigin(0.5);
 
     }
 
-    createCards(x, y, textContent, card) 
-    {
-        const BOX_WIDTH = 90;
-        const BOX_HEIGHT = 150;
+    // this.cardContainer = this.createCards(500 + i * 120, this.height - 600  , `${this.mazo[i].number}`, this.mazo[i]);
+    // this.cardsContainers.push(this.cardContainer);
+    // createCards(x, y, textContent, card) 
+    // {
+    //     const BOX_WIDTH = 90;
+    //     const BOX_HEIGHT = 150;
     
-        // Create children at (0,0) as their positions are relative to the container
-        const backgroundCard = this.add.rectangle(0, 0, BOX_WIDTH, BOX_HEIGHT, 0xffffff);
+    //     // Create children at (0,0) as their positions are relative to the container
+    //     const backgroundCard = this.add.rectangle(0, 0, BOX_WIDTH, BOX_HEIGHT, 0xffffff);
     
-        const text = this.add.text(0, 0,textContent,
-        {   fontSize: '30px',
-            fill: '#000000',
-            align: 'center'
-        })
-        .setOrigin(0.5);
+    //     const text = this.add.text(0, 0,textContent,
+    //     {   fontSize: '30px',
+    //         fill: '#000000',
+    //         align: 'center'
+    //     })
+    //     .setOrigin(0.5);
     
-        const container = this.add.container(x, y, [backgroundCard, text]);
+    //     const container = this.add.container(x, y, [backgroundCard, text]);
 
-        // Define a hit area for the container to make it interactive
-        container.setInteractive(new Phaser.Geom.Rectangle(-BOX_WIDTH / 2, -BOX_HEIGHT / 2, BOX_WIDTH, BOX_HEIGHT), Phaser.Geom.Rectangle.Contains)
-        .on('pointerover', () => backgroundCard.setFillStyle(0xbbbaba))
-        .on('pointerout', () => backgroundCard.setFillStyle(0xffffff))
-        .on('pointerdown', () => { 
-            this.onCardSelected(card);
-        });
+    //     // Define a hit area for the container to make it interactive
+    //     container.setInteractive(new Phaser.Geom.Rectangle(-BOX_WIDTH / 2, -BOX_HEIGHT / 2, BOX_WIDTH, BOX_HEIGHT), Phaser.Geom.Rectangle.Contains)
+    //     .on('pointerover', () => backgroundCard.setFillStyle(0xbbbaba))
+    //     .on('pointerout', () => backgroundCard.setFillStyle(0xffffff))
+    //     .on('pointerdown', () => { 
+    //         this.onCardSelected(card);
+    //     });
 
-        return container;
-    }
+    //     return container;
+    // }
 
     onCardSelected(card) {
         this.playerCard = card;
-        console.log("Player selected:", this.playerCard);
-
-        this.cardsContainers.forEach(container => container.disableInteractive());
-
+        console.log("Player selected:", card);
+        this.cardsObjects.forEach(cardObject => cardObject.disableInteractive());
+        this.add.image(this.width/2 + 500, this.height/2 + 400,`Card${card.number}`).setScale(0.2);
         this.infoText.setText("Player has selected a card");
 
-        const playerChosenCard = this.createCards(this.width/2 + 500, this.height/2 + 400,`${card.number}`, card).disableInteractive();
-
-        this.time.delayedCall(1000, () => {
-            this.infoText.setText("Oponent is selecting a card");
-        });
-
-        this.time.delayedCall(1000, () => {
-            this.handleOpponentTurn();
-        });
-
+        this.time.delayedCall(1000, () => {this.infoText.setText("Oponent is selecting a card");});
+        this.time.delayedCall(1000, () => {this.handleOpponentTurn();});
         this.events.off("cardSelected"); // Prevent this from being called again.
     }
 
-    handleOpponentTurn()
-    {
+    handleOpponentTurn(){
         let oponentCardPos;
         do {
             oponentCardPos = Math.floor(Math.random() * 8);
@@ -158,37 +153,34 @@ export class HanafudaBeginScene extends Phaser.Scene
             this.infoText.setText("Oponent has selected a card");
         });
 
-        const oponentChosenCard = this.createCards(this.width/2 - 500, this.height/2 + 400,`${this.oponentcard.number}`, this.oponentcard).disableInteractive();
-        
+        this.time.delayedCall(1000, () => {
+            this.add.image(this.width/2 - 500, this.height/2 + 400,`Card${this.oponentcard.number}`).setScale(0.2);
+        });
+         
 
-        if(this.oponentcard.number < this.playerCard.number)
-        {
+        if(this.oponentcard.number < this.playerCard.number){
             this.playerBegins = false;
             console.log("Opponent starts");
-            this.time.delayedCall(1000, () => {
+            this.time.delayedCall(2000, () => {
                 this.infoText.setText("Oponent Starts");
             });
         }
-        else
-        {
+        else{
             this.playerBegins = true;
             console.log("Player starts");
-            this.time.delayedCall(1000, () => {
+            this.time.delayedCall(2000, () => {
                 this.infoText.setText("Player Starts");
             });
         }
 
-        this.time.delayedCall(2000, () => {
+        this.time.delayedCall(3000, () => {
             this.transitionController.startFadeOutTransition(() => {
-                
-                 this.scene.start('HanafudaGame', { begins: this.playerBegins});
-            
+                this.scene.start('HanafudaGame', { begins: this.playerBegins});
             }, 400);
-            
         });
     }
 
-     openOptionMenu()
+    openOptionMenu()
     {
         if (this.scene.isActive('OptionMenu')) return;
             this.scene.pause();

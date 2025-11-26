@@ -167,6 +167,54 @@ export class LoadingScene extends Phaser.Scene
     loadHanafudaAssets()
     {
         this.load.image('HanafudaBackgroundPlaceholder', 'Phaser/assets/Hanafuda/HanafudaBackgroundPlaceholder.png');
+        this.load.image('Card0', 'Phaser/assets/Hanafuda/HanafudaCards/0.png');
+        this.load.image('Card1', 'Phaser/assets/Hanafuda/HanafudaCards/1.png');
+        this.load.image('Card2', 'Phaser/assets/Hanafuda/HanafudaCards/2.png');
+        this.load.image('Card3', 'Phaser/assets/Hanafuda/HanafudaCards/3.png');
+        this.load.image('Card4', 'Phaser/assets/Hanafuda/HanafudaCards/4.png');
+        this.load.image('Card5', 'Phaser/assets/Hanafuda/HanafudaCards/5.png');
+        this.load.image('Card6', 'Phaser/assets/Hanafuda/HanafudaCards/6.png');
+        this.load.image('Card7', 'Phaser/assets/Hanafuda/HanafudaCards/7.png');
+        this.load.image('Card8', 'Phaser/assets/Hanafuda/HanafudaCards/8.png');
+        this.load.image('Card9', 'Phaser/assets/Hanafuda/HanafudaCards/9.png');
+        this.load.image('Card10', 'Phaser/assets/Hanafuda/HanafudaCards/10.png');
+        this.load.image('Card11', 'Phaser/assets/Hanafuda/HanafudaCards/11.png');
+        this.load.image('Card12', 'Phaser/assets/Hanafuda/HanafudaCards/12.png');
+        this.load.image('Card13', 'Phaser/assets/Hanafuda/HanafudaCards/13.png');
+        this.load.image('Card14', 'Phaser/assets/Hanafuda/HanafudaCards/14.png');
+        this.load.image('Card15', 'Phaser/assets/Hanafuda/HanafudaCards/15.png');
+        this.load.image('Card16', 'Phaser/assets/Hanafuda/HanafudaCards/16.png');
+        this.load.image('Card17', 'Phaser/assets/Hanafuda/HanafudaCards/17.png');
+        this.load.image('Card18', 'Phaser/assets/Hanafuda/HanafudaCards/18.png');
+        this.load.image('Card19', 'Phaser/assets/Hanafuda/HanafudaCards/19.png');
+        this.load.image('Card20', 'Phaser/assets/Hanafuda/HanafudaCards/20.png');
+        this.load.image('Card21', 'Phaser/assets/Hanafuda/HanafudaCards/21.png');
+        this.load.image('Card22', 'Phaser/assets/Hanafuda/HanafudaCards/22.png');
+        this.load.image('Card23', 'Phaser/assets/Hanafuda/HanafudaCards/23.png');
+        this.load.image('Card24', 'Phaser/assets/Hanafuda/HanafudaCards/24.png');
+        this.load.image('Card25', 'Phaser/assets/Hanafuda/HanafudaCards/25.png');
+        this.load.image('Card26', 'Phaser/assets/Hanafuda/HanafudaCards/26.png');
+        this.load.image('Card27', 'Phaser/assets/Hanafuda/HanafudaCards/27.png');
+        this.load.image('Card28', 'Phaser/assets/Hanafuda/HanafudaCards/28.png');
+        this.load.image('Card29', 'Phaser/assets/Hanafuda/HanafudaCards/29.png');
+        this.load.image('Card30', 'Phaser/assets/Hanafuda/HanafudaCards/30.png');
+        this.load.image('Card31', 'Phaser/assets/Hanafuda/HanafudaCards/31.png');
+        this.load.image('Card32', 'Phaser/assets/Hanafuda/HanafudaCards/32.png');
+        this.load.image('Card33', 'Phaser/assets/Hanafuda/HanafudaCards/33.png');
+        this.load.image('Card34', 'Phaser/assets/Hanafuda/HanafudaCards/34.png');
+        this.load.image('Card35', 'Phaser/assets/Hanafuda/HanafudaCards/35.png');
+        this.load.image('Card36', 'Phaser/assets/Hanafuda/HanafudaCards/36.png');
+        this.load.image('Card37', 'Phaser/assets/Hanafuda/HanafudaCards/37.png');
+        this.load.image('Card38', 'Phaser/assets/Hanafuda/HanafudaCards/38.png');
+        this.load.image('Card39', 'Phaser/assets/Hanafuda/HanafudaCards/39.png');
+        this.load.image('Card40', 'Phaser/assets/Hanafuda/HanafudaCards/40.png');
+        this.load.image('Card41', 'Phaser/assets/Hanafuda/HanafudaCards/41.png');
+        this.load.image('Card42', 'Phaser/assets/Hanafuda/HanafudaCards/42.png');
+        this.load.image('Card43', 'Phaser/assets/Hanafuda/HanafudaCards/43.png');
+        this.load.image('Card44', 'Phaser/assets/Hanafuda/HanafudaCards/44.png');
+        this.load.image('Card45', 'Phaser/assets/Hanafuda/HanafudaCards/45.png');
+        this.load.image('Card46', 'Phaser/assets/Hanafuda/HanafudaCards/46.png');
+        this.load.image('Card47', 'Phaser/assets/Hanafuda/HanafudaCards/47.png');
     }
 
     loadCreditsAssets() {
