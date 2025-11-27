@@ -1,5 +1,6 @@
 import TransitionController, {RGBColor} from "../misc/transitioncontroller.js";
-export class CreditsScene extends Phaser.Scene {
+import { BaseScene } from "./BaseScene.js";
+export class CreditsScene extends BaseScene {
     constructor() {
         super('CreditsScene');
     }

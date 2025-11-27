@@ -1,5 +1,5 @@
 {
-    "DebugMode": false,
+    "DebugMode": true,
     "StartedIntro": false,
     "TimeboxedMode": false,
     "showedTBwarn" : false,
@@ -7,11 +7,14 @@
     "EgyptIntroCompleted": false,
     "AsebPlayerFirst" : false,
     "TaliPlayerFirst" : false,
-    "AsebCompleted": false,
+    "AsebCompleted": true,
     "AsebNoCapturesCompletion": false,
     "AsebLandedOnEverySpecial": false,
-    "TaliCompleted": false,
-    "HanafudaCompleted": false,
+    "TaliCompleted": true,
+    "HanafudaCompleted": true,
     "SceneToResume" : null,
-    "comingFromMenu": false
+    "comingFromMenu": false,
+
+    "musicVolume": 1,
+    "sfxVolume": 1
 }

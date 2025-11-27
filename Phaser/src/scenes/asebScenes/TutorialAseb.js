@@ -1,6 +1,7 @@
 import DialogueController from "../../DialogueController.js";
 import TransitionController, {RGBColor} from "../../misc/transitioncontroller.js";
-export class TutorialAseb extends Phaser.Scene
+import { BaseScene } from "../BaseScene.js";
+export class TutorialAseb extends BaseScene
 {
     constructor()
     {super('TutorialAseb');}
@@ -10,6 +11,8 @@ export class TutorialAseb extends Phaser.Scene
 
         this.playerData = playerData;
         console.log(this.playerData) 
+
+        this.DisableOptionMenu();
         
          let { width, height } = this.sys.game.canvas;
          this.width = width;

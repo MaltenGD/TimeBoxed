@@ -1,7 +1,8 @@
 import DialogueController from "../../DialogueController.js";
 import TransitionController, {RGBColor} from "../../misc/transitioncontroller.js";
+import { BaseScene } from "../BaseScene.js";
 
-export class AsebVictoryScene extends Phaser.Scene
+export class AsebVictoryScene extends BaseScene
 {
     constructor(){super('AsebVictoryScene');}
 
@@ -23,10 +24,6 @@ export class AsebVictoryScene extends Phaser.Scene
         this.awardAch("AS1");
         if (this.playerData.AsebNoCapturesCompletion) this.awardAch("AS2");
         if (this.playerData.AsebLandedOnEverySpecial) this.awardAch("AS3");
-
-        this.input.keyboard.on('keydown-ESC', () => {
-           this.openOptionMenu();
-        });
 
         //creating the background
         this.background = this.add.image(width / 2, height / 2, 'asebBackgroundPlaceholder').setDisplaySize(width, height);
@@ -80,13 +77,4 @@ export class AsebVictoryScene extends Phaser.Scene
         this.achManager.checkGameCompletion(this.playerData);
         this.registry.set('AchievementManager', this.achManager);
     }
-    
-    openOptionMenu()
-    {
-        if (this.scene.isActive('OptionMenu')) return;
-            this.scene.pause();
-            this.playerData.SceneToResume = this.scene.key;
-            this.scene.launch('OptionMenu', this.playerData);
-    }
-            
 }

@@ -2,7 +2,7 @@ import AsebGame from '../../aseb/AsebGame.js';
 import AsebBoard from '../../aseb/AsebBoard.js';
 import { OptionMenuScene } from '../OptionMenuScene.js';
 import TransitionController, {RGBColor} from "../../misc/transitioncontroller.js";
-
+import { BaseScene } from '../BaseScene.js';
 
 
 /**
@@ -10,7 +10,7 @@ import TransitionController, {RGBColor} from "../../misc/transitioncontroller.js
  * @description A Phaser Scene that handles the initial "who goes first" sequence of the Aseb game.
  * Both the player and Anubis throw the sticks, and the one with the higher score starts the game.
  */
-export class AsebBeginScene extends Phaser.Scene {
+export class AsebBeginScene extends BaseScene {
     /**
      * @property {object} GAME_STATE - The different states for the scene's flow.
      * @property {string} GAME_STATE.RECEIVING_STATE - Initial state.
@@ -148,14 +148,12 @@ export class AsebBeginScene extends Phaser.Scene {
         this.background = this.add.image(this.width/ 2, this.height / 2, 'asebBackgroundPlaceholder').setDisplaySize(this.width, this.height);
         /** @type {AsebGame} */
         this.asebGame = new AsebGame(this);
+
+        
         this.createGameObjects();
 
         this.createButtons();
 
-        this.input.keyboard.on('keydown-ESC', () => {
-           this.openOptionMenu();
-        });
-            
     }
     
     /**
@@ -371,12 +369,11 @@ export class AsebBeginScene extends Phaser.Scene {
         });
     }
 
-    openOptionMenu()
-    {
-        if (this.scene.isActive('OptionMenu')) return;
-            this.scene.pause();
-            this.playerData.SceneToResume = this.scene.key;
-            this.scene.launch('OptionMenu', this.playerData);
+    shutdownMusic() {
+        // Stop the music when the scene is shut down
+        if (this.music && this.music.isPlaying) {
+            this.music.stop();
+        }
     }
 
 }

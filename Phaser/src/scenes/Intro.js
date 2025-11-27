@@ -1,11 +1,12 @@
 import DialogueController from "../DialogueController.js";
 import TransitionController, {RGBColor} from "../misc/transitioncontroller.js";
+import { BaseScene } from "./BaseScene.js";
 
 /**  
  *  @class Intro
  *  This class/scene shows the intro background and dialogues of the player meeting kronos
  */
-export class Intro extends Phaser.Scene 
+export class Intro extends BaseScene 
 {
     constructor() 
     {

@@ -1,6 +1,7 @@
 import DialogueController from "../../DialogueController.js";
 import TransitionController, {RGBColor} from "../../misc/transitioncontroller.js";
-export class TaliTutorial extends Phaser.Scene
+import { BaseScene } from "../BaseScene.js";
+export class TaliTutorial extends BaseScene
 {
     constructor()
     {super('TaliTutorial');}
@@ -9,6 +10,8 @@ export class TaliTutorial extends Phaser.Scene
     {
         this.playerData = playerData;
         console.log(this.playerData) 
+
+        this.DisableOptionMenu();
         
         let { width, height } = this.sys.game.canvas;
         this.width = width;

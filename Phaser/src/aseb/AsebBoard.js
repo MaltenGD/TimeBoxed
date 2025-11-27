@@ -248,6 +248,7 @@ export default class AsebBoard extends Phaser.GameObjects.Image
         piece.setBoardVariables(row, col);
 
         piece.MoveInScreen(boardTargetPos.x, boardTargetPos.y, isNextPositionValid.isSpecialPosition, row, col);
+        this.scene.sound.play('boxClickedSFX', { volume: 0.5 * this.scene.playerData.sfxVolume }); // The sound when a piece is moved is the same as when a box is clicked in the selection menu
         boardTargetPos.SetPiece(piece);
 
         return true;

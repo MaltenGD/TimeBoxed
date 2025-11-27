@@ -1,12 +1,13 @@
 import Tali, { GAME_STATE } from '../../tali/tali.js';
 import { OptionMenuScene } from '../OptionMenuScene.js';
 import TransitionController, {RGBColor} from '../../misc/transitioncontroller.js';
+import { BaseScene } from '../BaseScene.js';
 
 /**
  * @class TaliScene
  * The scene for the Tali game (Rome).
  */
-export class TaliScene extends Phaser.Scene {
+export class TaliScene extends BaseScene {
     turnText;
     resultText;
     
@@ -31,6 +32,7 @@ export class TaliScene extends Phaser.Scene {
     }
 
     create(playerData) {
+        
 
         this.playerData = playerData;
         console.log(this.playerData)
@@ -49,10 +51,6 @@ export class TaliScene extends Phaser.Scene {
         this.registerEvents();
 
         this.transitionController.startFadeInTransition(() => this.startGame());
-
-        this.input.keyboard.on('keydown-ESC', () => {
-           this.openOptionMenu();
-        });
     }
 
     createUI() {
@@ -254,12 +252,4 @@ export class TaliScene extends Phaser.Scene {
         this.playerData.TaliCompleted = this.taliGame.playerWon()
         this.scene.start('TaliEndScene', this.playerData);
     }
-    
-    openOptionMenu()
-    {
-        if (this.scene.isActive('OptionMenu')) return;
-            this.scene.pause();
-            this.playerData.SceneToResume = this.scene.key;
-            this.scene.launch('OptionMenu', this.playerData);
-    }   
 }

@@ -1,7 +1,8 @@
 import DialogueController from "../../DialogueController.js";
 import TransitionController, {RGBColor} from "../../misc/transitioncontroller.js";
+import { BaseScene } from "../BaseScene.js";
 
-export class AsebDefeatScene extends Phaser.Scene
+export class AsebDefeatScene extends BaseScene
 {
     constructor(){super('AsebDefeatScene');}
 
@@ -16,6 +17,8 @@ export class AsebDefeatScene extends Phaser.Scene
 
         this.transitionController = new TransitionController(this);
         this.transitionController.startFadeInTransition();
+
+        this.DisableOptionMenu();
 
         //creating the background
         this.background = this.add.image(width / 2, height / 2, 'asebBackgroundPlaceholder').setDisplaySize(width, height);
@@ -57,12 +60,4 @@ export class AsebDefeatScene extends Phaser.Scene
         });
     
     }
-    openOptionMenu()
-    {
-        if (this.scene.isActive('OptionMenu')) return;
-            this.scene.pause();
-            this.playerData.SceneToResume = this.scene.key;
-            this.scene.launch('OptionMenu', this.playerData);
-    }
-            
 }

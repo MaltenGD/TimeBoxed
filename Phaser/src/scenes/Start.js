@@ -1,12 +1,13 @@
 import TransitionController from "../misc/transitioncontroller.js";
 import { ConfirmMenuScene } from "./ConfirmMenuScene.js";
+import { BaseScene } from "./BaseScene.js";
 
 /**
  * @file Start.js
  * @description Escena inicial del juego. Desde aqui el jugador puede incial la partida 
  * y ver los creditos
  */
-export class Start extends Phaser.Scene {
+export class Start extends BaseScene {
 
     /**
      * Crea una nueva instancia de la escena Start
@@ -15,6 +16,7 @@ export class Start extends Phaser.Scene {
     constructor() {
         super('Start');
         this.firstAccess = true;
+
     }
 
 
@@ -25,7 +27,13 @@ export class Start extends Phaser.Scene {
      */
     create(playerData) {
 
+        // This scene does not use the options menu, so we remove the listener.
+        // Note: super.create() is not called, so the listener is never added.
+        // If it were, we would use: this.input.keyboard.removeListener('keydown-ESC');
+
         console.log('playerData:', Object.keys(playerData).length);
+
+        this.DisableOptionMenu();
 
         if (Object.keys(playerData).length == 0) // La primera vez que se inicia el juego (PlayerData es vacío)
         {
@@ -39,7 +47,8 @@ export class Start extends Phaser.Scene {
 
         this.sound.unlock();
         // background music
-            this.music = this.sound.add('startMenuMusic', { loop: true, volume: 0.5 });
+            this.music = this.sound.add('startMenuMusic', { loop: true, volume: 0.3 * this.playerData.musicVolume });
+            this.soundInstances.push(this.music);
             this.music.play();
         
 
@@ -90,7 +99,7 @@ export class Start extends Phaser.Scene {
 
         //efecto hover del boton play
         playButton.on('pointerover', () => {
-            this.sound.play('buttonHover', { volume: 0.5 });
+            this.sound.play('buttonHover', { volume: 0.5 * this.playerData.sfxVolume });
             playButton.setFrame(1);
         });
         playButton.on('pointerout', () => {
@@ -101,7 +110,7 @@ export class Start extends Phaser.Scene {
         //accion click
         playButton.on('pointerup', () => {
             this.transitionController.startFadeOutTransition(() => {
-                this.shutdownMusic();
+                this.KillSounds();
                 if (this.playerData.IntroCompleted) {
                     this.scene.start('SelectionMenuScene', this.playerData);
                 } else if (this.playerData.StartedIntro) {
@@ -164,13 +173,6 @@ export class Start extends Phaser.Scene {
         //.setTint(0xffffffff);
 
 
-    }
-
-    shutdownMusic() {
-        // Stop the music when the scene is shut down
-        if (this.music && this.music.isPlaying) {
-            this.music.stop();
-        }
     }
 
     changeTimeboxedMode(state)

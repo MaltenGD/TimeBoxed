@@ -1,12 +1,13 @@
 import TransitionController, {RGBColor} from '../../misc/transitioncontroller.js';
 import DialogueController from '../../DialogueController.js';
 import { OptionMenuScene } from '../OptionMenuScene.js';
+import { BaseScene } from '../BaseScene.js';
 
 /**
  * @class TaliEndScene
  * The scene for the end of the Tali game.
  */
-export class TaliEndScene extends Phaser.Scene {
+export class TaliEndScene extends BaseScene {
     constructor() {
         super('TaliEndScene');
         this.dialogueController;

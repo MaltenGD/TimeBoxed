@@ -1,11 +1,12 @@
 import DialogueController from "../DialogueController.js";
 import TransitionController, {RGBColor} from "../misc/transitioncontroller.js";
+import { BaseScene } from "./BaseScene.js";
 
 /**  
  *  @class GameCompleted
  *  This class/scene shows the intro background and dialogues of the player meeting kronos
  */
-export class GameCompleted extends Phaser.Scene 
+export class GameCompleted extends BaseScene 
 {
     constructor() 
     {
@@ -70,18 +71,21 @@ export class GameCompleted extends Phaser.Scene
         this.events.on('Finished', () => {
             this.playerData.GameCompleted = true;
             this.transitionController.startFadeOutTransition(() => {
-                // Assuming you have a credits scene to transition to after the game is completed.
+                this.resetPlayerData();
                 this.scene.start('CreditsScene', this.playerData);
                 }, 400);
         });
 
     }
-    openOptionMenu()
+
+    resetPlayerData()
     {
-        if (this.scene.isActive('OptionMenu')) return;
-            this.scene.pause();
-            this.playerData.SceneToResume = this.scene.key;
-            this.scene.launch('OptionMenu', this.playerData);
+        for (const key in this.playerData) {
+            if (typeof this.playerData[key] === 'boolean') {
+                this.playerData[key] = false;
+            }
+        }
+
     }
         
 }

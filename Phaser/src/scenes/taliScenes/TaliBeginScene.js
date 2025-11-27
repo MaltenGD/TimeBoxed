@@ -1,12 +1,12 @@
 import Tali from '../../tali/tali.js';
 import { OptionMenuScene } from '../OptionMenuScene.js';
 import TransitionController, {RGBColor} from '../../misc/transitioncontroller.js';
-
+import { BaseScene } from '../BaseScene.js';
 /**
  * @class TaliBeginScene
  * The scene for the initial rolls for Tali.
  */
-export class TaliBeginScene extends Phaser.Scene {
+export class TaliBeginScene extends BaseScene {
     GAME_STATE = {
         PLAYER_ROLL: 'PLAYER_ROLL',
         ENEMY_ROLL: 'ENEMY_ROLL',

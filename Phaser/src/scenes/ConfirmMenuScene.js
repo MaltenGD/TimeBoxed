@@ -1,10 +1,10 @@
 import TransitionController, {RGBColor} from "../misc/transitioncontroller.js";
-
+import { BaseScene } from "./BaseScene.js";
 /**
  * @file ConfirmMenuScene.js
  * @description Scene to pause the game and show options to the player
  */
-export class ConfirmMenuScene extends Phaser.Scene {
+export class ConfirmMenuScene extends BaseScene {
     constructor() {
         super('ConfirmMenu');
     }
@@ -24,6 +24,10 @@ export class ConfirmMenuScene extends Phaser.Scene {
     create(data) {
         const { width, height } = this.scale;
         this.transitionController = new TransitionController(this);
+
+        this.DisableOptionMenu();
+
+        this.playerData = data.playerData;
 
         /**
          * Background

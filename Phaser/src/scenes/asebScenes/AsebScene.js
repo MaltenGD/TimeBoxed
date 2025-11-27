@@ -3,7 +3,7 @@ import AsebBoard from '../../aseb/AsebBoard.js';
 import { OptionMenuScene } from '../OptionMenuScene.js';
 import { PIECE_TYPE } from '../../aseb/AsebPiece.js';
 import TransitionController, {RGBColor} from "../../misc/transitioncontroller.js";
-
+import { BaseScene } from '../BaseScene.js';
 
 
 
@@ -12,7 +12,7 @@ import TransitionController, {RGBColor} from "../../misc/transitioncontroller.js
  * @description The main scene for the actual Aseb game.
  * This scene manages the game flow, and the board events.
  */
-export class AsebScene extends Phaser.Scene {
+export class AsebScene extends BaseScene {
         constructor() {
             super('AsebScene'); 
             this.debugMode = false;
@@ -24,6 +24,8 @@ export class AsebScene extends Phaser.Scene {
          * @param {boolean} [data.playerFirst] - Determines if the player takes the first turn.
          */
         init(playerData) {
+            super.init(playerData);
+
             // Default to player going first if no data is passed.
             if (playerData !== undefined) this.playerFirst = playerData.AsebPlayerFirst
             else this.playerFirst = true;
@@ -62,10 +64,6 @@ export class AsebScene extends Phaser.Scene {
 
         this.background = this.add.image(this.width / 2, this.height / 2, 'asebBackgroundPlaceholder').setDisplaySize(this.width, this.height);
         this.infoBoard = this.add.image(this.width/2, this.height/2, 'StickBoard').setOrigin(0.5).setScale(1.5,2.25).setRotation(Phaser.Math.DegToRad(90));
-
-        this.input.keyboard.on('keydown-ESC', () => {
-           this.openOptionMenu();
-        });
 
         const backBtnImage = this.add.image(0, 0, 'AsebButton').setScale(0.3,0.5);
         const backBtnText = this.add.text(0, 0, 'Back', { fontSize: 48, fill: '#000000ff', fontFamily: "Anubismythicalserif"}).setOrigin(0.5);
@@ -346,6 +344,7 @@ export class AsebScene extends Phaser.Scene {
 
     setTextWithAnimation(textObject, newText, AnimDuration = 175)
     {
+        this.sound.play('TextPop', { volume: 0.5 * this.playerData.sfxVolume });
         textObject.setText(newText);
         this.tweens.add({
             targets: textObject,
@@ -400,13 +399,5 @@ export class AsebScene extends Phaser.Scene {
                 }
             });
         }
-    }
-
-    openOptionMenu()
-    {
-        if (this.scene.isActive('OptionMenu')) return;
-            this.scene.pause();
-            this.playerData.SceneToResume = this.scene.key;
-            this.scene.launch('OptionMenu', this.playerData);
     }
 }

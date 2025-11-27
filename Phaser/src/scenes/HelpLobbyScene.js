@@ -1,8 +1,9 @@
+import { BaseScene } from "./BaseScene.js";
 /**
  * @file HelpLobbyScene.js
  * @description A scene to display all 3 game tutorials in the form of buttons.
  */
-export class HelpLobbyScene extends Phaser.Scene {
+export class HelpLobbyScene extends BaseScene {
     constructor() {
         super('HelpLobbyScene');
        
@@ -17,6 +18,8 @@ export class HelpLobbyScene extends Phaser.Scene {
 
          this.playerData = playerData;
         console.log(this.playerData)
+
+        this.DisableOptionMenu();
         
         const { width, height } = this.scale;
 

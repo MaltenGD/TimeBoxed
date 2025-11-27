@@ -1,7 +1,7 @@
 import DialogueController from "../../DialogueController.js";
 import TransitionController, {RGBColor} from "../../misc/transitioncontroller.js";
-
-export class IntroAseb extends Phaser.Scene
+import { BaseScene } from "../BaseScene.js";
+export class IntroAseb extends BaseScene
 {
     constructor(){super('IntroAseb');}
 
@@ -18,9 +18,15 @@ export class IntroAseb extends Phaser.Scene
         // Get the canvas width and height to use when giving a position to an object
         let { width, height } = this.sys.game.canvas;
 
-        this.input.keyboard.on('keydown-ESC', () => {
-            this.openOptionMenu();
-        });
+
+         // background music
+            this.music = this.sound.add('egyptMusic', { loop: true, volume: 0.25 * this.playerData.musicVolume });
+            this.soundInstances.push(this.music);
+            this.music.play();
+        
+
+        // Unlock audio on the first user interaction
+        this.sound.pauseOnBlur = false; // Keep audio playing even when the window loses focus.
 
         //creating the background
         this.background = this.add.image(width / 2, height / 2, 'asebBackgroundPlaceholder').setDisplaySize(width, height);
@@ -86,12 +92,4 @@ export class IntroAseb extends Phaser.Scene
             });
             
     }
-    openOptionMenu()
-    {
-        if (this.scene.isActive('OptionMenu')) return;
-            this.scene.pause();
-            this.playerData.SceneToResume = this.scene.key;
-            this.scene.launch('OptionMenu', this.playerData);
-    }
-            
 }

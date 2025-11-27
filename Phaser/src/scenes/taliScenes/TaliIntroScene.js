@@ -1,7 +1,8 @@
 import DialogueController from "../../DialogueController.js";
 import TransitionController, {RGBColor} from "../../misc/transitioncontroller.js";
+import { BaseScene } from "../BaseScene.js";
 
-export class TaliIntroScene extends Phaser.Scene
+export class TaliIntroScene extends BaseScene
 {
     constructor(){super('TaliIntroScene');}
 

@@ -1,5 +1,5 @@
 import TransitionController, {RGBColor} from "../misc/transitioncontroller.js";
-
+import { BaseScene } from "./BaseScene.js";
 
 const IMAGE_KEYS = {
     'Egypt': 'asebVerticalBackground', 
@@ -14,7 +14,7 @@ const IMAGE_KEYS = {
  * shows in the different levels of the game, so the player can choose
  */
 
-export class SelectionMenuScene extends Phaser.Scene {
+export class SelectionMenuScene extends BaseScene {
     constructor() {
         super('SelectionMenuScene');
     }
@@ -214,7 +214,8 @@ export class SelectionMenuScene extends Phaser.Scene {
         box.on('pointerdown', () => {
             if (deployed) return;
             deployed = true;
-
+            this.time.delayedCall(100, () => { this.sound.play('boxClickedSFX', { volume: 0.5 * this.playerData.sfxVolume });});
+            
             // Stop the floating animation
             floatingBoxAnim.stop();
 
@@ -261,7 +262,7 @@ export class SelectionMenuScene extends Phaser.Scene {
                     x: finalPositions[index].x,
                     y: finalPositions[index].y,
                     alpha: 1,
-                    duration: 1000,
+                    duration: 800,
                     ease: 'Sine.easeOut',
                     onComplete: () => { // this is done so buttons are interactive only when the animation is complete
                         /**

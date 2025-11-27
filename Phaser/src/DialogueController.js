@@ -30,6 +30,9 @@ export default class DialogueController
 
         /** @property current dialogue being shown */
         this.currentDialogue = null;
+
+        /** @property {Phaser.Sound.BaseSound} sound for the dialogue text animation */
+        this.dialogueTextSound = null;
     }
    
     /**
@@ -37,7 +40,12 @@ export default class DialogueController
     */
     iniDialogue()
     {   
-        // Remove any existing event listeners to prevent stacking
+
+        this.scene.events.on('shutdown', this.shutdown, this);
+
+        this.scene.events.on('pause', this.pause, this);
+        this.scene.events.on('resume', this.resume, this);
+
         this.scene.events.removeListener('nextDialog');
         this.scene.events.removeListener('Finished');
         this.scene.events.removeListener('changeTutoImage');
@@ -45,6 +53,9 @@ export default class DialogueController
         // Reset dialogue state to prevent skipping issues
         this.nextID = null;
         this.currentDialogue = null;
+
+        // Add the sound for the dialogue text
+        this.dialogueTextSound = this.scene.sound.add('DialogueTextSFX', { loop: true , volume: 0.15 * this.scene.playerData.sfxVolume});
 
         if(this.era == 'Intro')
         {
@@ -183,6 +194,9 @@ export default class DialogueController
      */
     endDialogueBlock()
     {
+        if (this.dialogueTextSound && this.dialogueTextSound.isPlaying) {
+            this.dialogueTextSound.stop();
+        }
         this.scene.events.emit('Finished');
     }
 
@@ -194,5 +208,47 @@ export default class DialogueController
         const dialogue = this.currentDialogue;
         const displayText = dialogue.speaker.name + ":\n" + dialogue.text;
         this.dialogBox.setText(displayText, dialogue.animated);
+
+        if (dialogue.animated) {
+            if (this.dialogueTextSound && !this.dialogueTextSound.isPlaying) {
+                this.dialogueTextSound.play();
+            }
+            
+            this.scene.events.once('typingComplete', () => {
+                if (this.dialogueTextSound && this.dialogueTextSound.isPlaying) {
+                    this.dialogueTextSound.stop();
+                }
+            });
+        }
+    }
+
+    /**
+     * @method shutdown cleans up resources when the scene is shut down
+     */
+    shutdown() {
+        if (this.dialogueTextSound) {
+            this.dialogueTextSound.stop();
+        }
+        this.scene.events.removeListener('shutdown', this.shutdown, this);
+    }
+
+    /**
+     * @method pause handles scene pause events
+     */
+    pause() {
+        if (this.dialogueTextSound && this.dialogueTextSound.isPlaying) {
+            this.dialogueTextSound.pause();
+        }
+    }
+
+    /**
+     * @method resume handles scene resume events
+     */
+    resume() {
+        // Only resume the sound if it was paused.
+        // This prevents the sound from starting on resume if it wasn't playing before.
+        if (this.dialogueTextSound && this.dialogueTextSound.isPaused) {
+            this.dialogueTextSound.resume();
+        }
     }
 }

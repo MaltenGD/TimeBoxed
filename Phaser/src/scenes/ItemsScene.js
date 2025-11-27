@@ -1,8 +1,9 @@
+import { BaseScene } from "./BaseScene.js";
 /**
  * @file ItemsScene.js
  * @description A scene to display the player's achievements or badges.
  */
-export class ItemsScene extends Phaser.Scene {
+export class ItemsScene extends BaseScene {
     constructor() {
         super('ItemsScene');
        
@@ -12,6 +13,8 @@ export class ItemsScene extends Phaser.Scene {
 
          this.playerData = playerData;
         console.log(this.playerData)
+
+        this.DisableOptionMenu();
 
         const { width, height } = this.scale;
         this.width = width;
