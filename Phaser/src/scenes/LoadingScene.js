@@ -42,6 +42,7 @@ export class LoadingScene extends Phaser.Scene
         this.loadHanafudaAssets();
         this.loadCreditsAssets();
         this.loadInisgniaAssets();
+        this.loadAudioAssets();
         this.loadDialogues();
         
         this.load.json('achievements', 'Phaser/assets/achievements.json');
@@ -65,18 +66,18 @@ export class LoadingScene extends Phaser.Scene
 
             progressBar.destroy();
             progressBox.destroy();
-        })
-        this.load.on('fileprogress', (file) => {
-            console.log(file.src);
-            loadingInfo.setText("Loading: " + file.key +"\nFrom: " + file.src);
-        });
-        this.load.on('complete', () => {
-            console.log('complete');
-
-            progressBar.destroy();
-            progressBox.destroy();
+            loadingText.setText("Click or Press any key to start");
+            loadingInfo.destroy();
             
-            this.scene.start("Start");  
+            this.input.once('pointerdown', () => {
+                this.scene.start('Start');
+            });
+            this.input.keyboard.once('keydown', () => {
+                this.scene.start('Start');
+            });
+            
+
+
         });
     }
     
@@ -91,6 +92,13 @@ export class LoadingScene extends Phaser.Scene
         this.load.image('teamLogo', 'Phaser/assets/teamLogo.png');
         this.load.spritesheet('playButton', 'Phaser/assets/playButton.png', { frameWidth: 186, frameHeight: 92 });
         this.load.json('playerData', 'Phaser/src/playerData.json');
+    }
+
+    loadAudioAssets()
+    {
+        // Audio comun, que es usado en varias escenas
+        this.load.audio('startMenuMusic', 'Phaser/assets/audio/mainmenuScene/Floating Beyond-OliverMix.mp3');
+        this.load.audio('buttonHover', 'Phaser/assets/audio/Buttons/ButtonHoverLowLatency.wav');
     }
 
     /**

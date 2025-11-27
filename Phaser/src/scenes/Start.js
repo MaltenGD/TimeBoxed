@@ -18,7 +18,6 @@ export class Start extends Phaser.Scene {
     }
 
 
-
     /**
      * Crea los elemnetos visuales e interactivos de la escena
      * @method create
@@ -37,6 +36,16 @@ export class Start extends Phaser.Scene {
 
         this.transitionController = new TransitionController(this);
         this.transitionController.startFadeInTransition();
+
+        this.sound.unlock();
+        // background music
+            this.music = this.sound.add('startMenuMusic', { loop: true, volume: 0.5 });
+            this.music.play();
+        
+
+        // Unlock audio on the first user interaction
+        this.sound.pauseOnBlur = false; // Keep audio playing even when the window loses focus.
+        
        
         
 
@@ -81,15 +90,18 @@ export class Start extends Phaser.Scene {
 
         //efecto hover del boton play
         playButton.on('pointerover', () => {
+            this.sound.play('buttonHover', { volume: 0.5 });
             playButton.setFrame(1);
         });
         playButton.on('pointerout', () => {
+
             playButton.setFrame(0);
         });
 
         //accion click
         playButton.on('pointerup', () => {
             this.transitionController.startFadeOutTransition(() => {
+                this.shutdownMusic();
                 if (this.playerData.IntroCompleted) {
                     this.scene.start('SelectionMenuScene', this.playerData);
                 } else if (this.playerData.StartedIntro) {
@@ -107,7 +119,11 @@ export class Start extends Phaser.Scene {
         //CREDITS BUTTON INTERACTIONS
 
         //efecto hover del boton Creditos
-        creditsButton.on('pointerover', () => creditsButton.setStyle({ fill: '#62a6ffff' }));
+        creditsButton.on('pointerover', () => {
+            this.sound.play('buttonHover', { volume: 0.5 });
+            creditsButton.setStyle({ fill: '#62a6ffff' })
+    
+        });
         creditsButton.on('pointerout', () => creditsButton.setStyle({ fill: '#000000ff' }));
 
     
@@ -148,6 +164,13 @@ export class Start extends Phaser.Scene {
         //.setTint(0xffffffff);
 
 
+    }
+
+    shutdownMusic() {
+        // Stop the music when the scene is shut down
+        if (this.music && this.music.isPlaying) {
+            this.music.stop();
+        }
     }
 
     changeTimeboxedMode(state)
