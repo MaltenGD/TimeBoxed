@@ -73,19 +73,8 @@ export class Start extends Phaser.Scene {
             }).setOrigin(0.5)
             .setInteractive();
 
-        this.TimeboxedButton = this.add.text(1500, 900, '',
-            {
-                fontSize: '30px',
-                fill: '#000000',
-                backgroundColor: '#ffffffff',
-                padding: { x: 40, y: 40 },
-                
-            }).setOrigin(0.5)
-        if (this.playerData.TimeboxedMode) this.TimeboxedButton.setText('   DISABLE\nTIMEBOXED MODE')
-        else this.TimeboxedButton.setText('   ENABLE\nTIMEBOXED MODE')
 
-        if (!this.playerData.IntroCompleted) this.TimeboxedButton.setInteractive(); 
-        else this.TimeboxedButton.setAlpha(0.5);
+
         
 
         //PLAY BUTTON INTERACTIONS
@@ -101,10 +90,17 @@ export class Start extends Phaser.Scene {
         //accion click
         playButton.on('pointerup', () => {
             this.transitionController.startFadeOutTransition(() => {
-                
-                if (this.playerData.IntroCompleted) this.scene.start('SelectionMenuScene', this.playerData)
-                else this.scene.start('Intro', this.playerData)
-            
+                if (this.playerData.IntroCompleted) {
+                    this.scene.start('SelectionMenuScene', this.playerData);
+                } else if (this.playerData.StartedIntro) {
+                    this.scene.start('Intro', this.playerData);
+                }
+                else {
+                     if (this.scene.isActive('GameModeSelection')) return;
+                    
+                    this.scene.pause('Start');
+                    this.scene.launch('GameModeSelection', { PausedScene: 'Start', playerData: this.playerData });
+                }
             }, 400);
         });
 
@@ -114,9 +110,7 @@ export class Start extends Phaser.Scene {
         creditsButton.on('pointerover', () => creditsButton.setStyle({ fill: '#62a6ffff' }));
         creditsButton.on('pointerout', () => creditsButton.setStyle({ fill: '#000000ff' }));
 
-        //efecto hover del boton Timeboxed
-        this.TimeboxedButton.on('pointerover', () => this.TimeboxedButton.setStyle({ fill: '#62a6ffff' }));
-        this.TimeboxedButton.on('pointerout', () => this.TimeboxedButton.setStyle({ fill: '#000000ff' }));
+    
 
         //accion click
         creditsButton.on('pointerdown', () => {
@@ -129,40 +123,7 @@ export class Start extends Phaser.Scene {
             
         });
         
-        this.TimeboxedButton.on('pointerdown', () => {
-
-            if (this.playerData.showedTBwarn == true)
-            {
-                this.changeTimeboxedMode(!this.playerData.TimeboxedMode);
-            }
-            else{
-
-            
-
-            if (this.scene.isActive('ConfirmMenu')) return;
-
-            this.scene.pause();
-            this.scene.launch('ConfirmMenu',{
-                sceneToPause: this.scene.key,
-                text: "Are you sure you want to activate TimeBoxed mode?\n\n When playing with this enabled, if you lose any game, the entire game will restart. \nCompleting the entire game in this mode will grant an exclusive achievement",
-                onYes: () => {
-                    this.transitionController.startFadeInTransition();
-                    this.scene.resume(this);
-                    this.scene.stop('ConfirmMenu');
-                
-                    this.changeTimeboxedMode(true);
-                    this.playerData.showedTBwarn = true;
-                },
-                onNo: () => {
-                    this.scene.resume(this);
-                    this.scene.stop('ConfirmMenu');
-                }
-            });
-
-            }
-
-          
-        });
+        
 
 
          

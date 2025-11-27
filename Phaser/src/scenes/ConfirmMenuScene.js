@@ -15,6 +15,10 @@ export class ConfirmMenuScene extends Phaser.Scene {
      * @param {string} [data.text='Do you want to go back?'] - The text to display in the menu.
      * @param {function} data.onYes - The function to call when the 'Yes' button is pressed.
      * @param {function} data.onNo - The function to call when the 'No' button is pressed.
+     * @param {function} [data.onHoverYes] - The function to call when the pointer hovers over the 'Yes' button.
+     * @param {function} [data.onHoverNo] - The function to call when the pointer hovers over the 'No' button.
+     * @param {string} [data.yesText='Yes'] - The text for the 'Yes' (left) button.
+     * @param {string} [data.noText='No'] - The text for the 'No' (right) button.
      * @param {string} [data.PausedScene] - The key of the scene that is being paused.
      */
     create(data) {
@@ -64,22 +68,13 @@ export class ConfirmMenuScene extends Phaser.Scene {
         /**
          * Yes botton
          */
-        this.yesBtn = this.add.text(width / 2 - 100, height / 2 + 120, 'Yes', {
+        const yesButtonText = (data && data.yesText) ? data.yesText : 'Yes';
+        this.yesBtn = this.add.text(width / 2 - 100, height / 2 + 120, yesButtonText, {
             fontSize: '30px',
             fill: '#fff',
             backgroundColor: '#8B0000',
             padding: { x: 20, y: 10 }
         }).setOrigin(0.5).setInteractive()
-        .on('pointerover', () => {
-
-            this.tweens.add({
-                targets: this.yesBtn,
-                scaleX: 1.2,
-                scaleY: 1.2,
-                duration: 100,
-                ease: 'Power1',
-            });
-        })
         .on('pointerout', () => {
             this.tweens.add({
                 targets: this.yesBtn,
@@ -92,22 +87,13 @@ export class ConfirmMenuScene extends Phaser.Scene {
         /**
          * No botton
          */
-        this.noBtn = this.add.text(width / 2 + 100, height / 2 + 120, 'No', {
+        const noButtonText = (data && data.noText) ? data.noText : 'No';
+        this.noBtn = this.add.text(width / 2 + 100, height / 2 + 120, noButtonText, {
             fontSize: '30px',
             fill: '#fff',
             backgroundColor: '#107310',
             padding: { x: 20, y: 10 }
         }).setOrigin(0.5).setInteractive()
-        .on('pointerover', () => {
-
-            this.tweens.add({
-                targets: this.noBtn,
-                scaleX: 1.2,
-                scaleY: 1.2,
-                duration: 100,
-                ease: 'Power1',
-            });
-        })
         .on('pointerout', () => {
             this.tweens.add({
                 targets: this.noBtn,
@@ -115,7 +101,30 @@ export class ConfirmMenuScene extends Phaser.Scene {
                 duration: 100,
                 ease: 'Power1',
             });
-        });;
+        });
+
+        const hoverTween = (target) => {
+            this.tweens.add({
+                targets: target,
+                scale: 1.2,
+                duration: 100,
+                ease: 'Power1',
+            });
+        };
+
+        this.yesBtn.on('pointerover', () => {
+            hoverTween(this.yesBtn);
+            if (data && data.onHoverYes) {
+                data.onHoverYes();
+            }
+        });
+
+        this.noBtn.on('pointerover', () => {
+            hoverTween(this.noBtn);
+            if (data && data.onHoverNo) {
+                data.onHoverNo();
+            }
+        });
 
         /**
          * Events of the buttons
@@ -147,13 +156,17 @@ export class ConfirmMenuScene extends Phaser.Scene {
         this.input.keyboard.once('keydown-ESC', () => {
             noAction();
         });
-
-        // this.tweens.add({
-        //     targets: [this.box, this.titleText, this.yesBtn, this.noBtn],
-        //     alpha: { from: 0, to: 1 },
-        //     duration: 400,
-        //     ease: 'Sine.easeInOut'
-        // });
+        
+        const elementsToAnimate = [this.box, this.titleText, this.yesBtn, this.noBtn];
+        elementsToAnimate.forEach(el => el.setScale(0.8).setAlpha(0));
+        this.tweens.add({
+            targets: elementsToAnimate,
+            scale: 1,
+            alpha: 1,
+            duration: 300,
+            ease: 'Back.Out',
+            delay: 100
+        });
         
     }
 

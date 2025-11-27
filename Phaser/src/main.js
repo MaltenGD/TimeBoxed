@@ -21,6 +21,7 @@ import { HanafudaGame} from './scenes/HanafudaScenes/HanafudaGame.js'
 import { TutorialAseb } from './scenes/asebScenes/TutorialAseb.js';
 import { TaliIntroScene } from './scenes/taliScenes/TaliIntroScene.js';
 import { TaliTutorial } from './scenes/taliScenes/TaliTutorialScene.js';
+import { GameModeSelectionScene } from './scenes/GameModeSelectionScene.js';
 
 
 
@@ -57,6 +58,7 @@ const config = {
         HelpLobbyScene,
         TaliTutorial,
         TutorialAseb,
+        GameModeSelectionScene,
         ConfirmMenuScene
     ],
     scale: {

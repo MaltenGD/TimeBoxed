@@ -50,6 +50,7 @@ export class OptionMenuScene extends Phaser.Scene {
         /**Button Hovering Behaviour */
 
         resumeBtn.on('pointerover', () => {
+            this.tweens.killTweensOf(resumeBtn);
             resumeBtn.setTexture('ResumeButtonHovered');
             this.tweens.add({
                 targets: resumeBtn,
@@ -59,6 +60,7 @@ export class OptionMenuScene extends Phaser.Scene {
             });
         });
         resumeBtn.on('pointerout', () => {
+            this.tweens.killTweensOf(resumeBtn);
             resumeBtn.setTexture('ResumeButtonNormal');
             this.tweens.add({
                 targets: resumeBtn,
@@ -70,6 +72,7 @@ export class OptionMenuScene extends Phaser.Scene {
 
 
         helpBtn.on('pointerover', () => {
+            this.tweens.killTweensOf(helpBtn);
             helpBtn.setTexture('HelpButtonHovered');
             this.tweens.add({
                 targets: helpBtn,
@@ -79,6 +82,7 @@ export class OptionMenuScene extends Phaser.Scene {
             });
         });
         helpBtn.on('pointerout', () => {
+            this.tweens.killTweensOf(helpBtn);
             helpBtn.setTexture('HelpButtonNormal');
             this.tweens.add({
                 targets: helpBtn,
@@ -90,6 +94,7 @@ export class OptionMenuScene extends Phaser.Scene {
 
 
         itemsBtn.on('pointerover', () => {
+            this.tweens.killTweensOf(itemsBtn);
             itemsBtn.setTexture('ItemsButtonHovered');
             this.tweens.add({
                 targets: itemsBtn,
@@ -99,6 +104,7 @@ export class OptionMenuScene extends Phaser.Scene {
             });
         });
         itemsBtn.on('pointerout', () => {
+            this.tweens.killTweensOf(itemsBtn);
             itemsBtn.setTexture('ItemsButtonNormal');
             this.tweens.add({
                 targets: itemsBtn,
@@ -110,6 +116,7 @@ export class OptionMenuScene extends Phaser.Scene {
 
 
         exitBtn.on('pointerover', () => {
+            this.tweens.killTweensOf(exitBtn);
             exitBtn.setTexture('ExitButtonHovered');
             this.tweens.add({
                 targets: exitBtn,
@@ -119,6 +126,7 @@ export class OptionMenuScene extends Phaser.Scene {
             });
         });
         exitBtn.on('pointerout', () => {
+            this.tweens.killTweensOf(exitBtn);
             exitBtn.setTexture('ExitButtonNormal');
             this.tweens.add({
                 targets: exitBtn,

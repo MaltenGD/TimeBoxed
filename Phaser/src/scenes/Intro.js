@@ -17,6 +17,7 @@ export class Intro extends Phaser.Scene
     {
 
         this.playerData = playerData;
+        this.playerData.StartedIntro = true;
         console.log(this.playerData)
 
         this.transitionController = new TransitionController(this);

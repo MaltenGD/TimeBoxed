@@ -28,6 +28,10 @@ export class SelectionMenuScene extends Phaser.Scene {
         this.transitionController = new TransitionController(this);
 
         this.transitionController.startFadeInTransition();
+
+        this.input.keyboard.on('keydown-ESC', () => {
+             this.openOptionMenu()
+        });
         
         const { width, height } = this.sys.game.canvas;  //width and height of the canvas
         if (this.playerData.TimeboxedMode) this.background = this.add.image(width / 2, height / 2, 'backgroundTB').setDisplaySize(width, height);
@@ -331,7 +335,7 @@ export class SelectionMenuScene extends Phaser.Scene {
                     onComplete: () => {
                         this.tweens.add({
                             targets: btn,
-                            y: finalPositions[index].y - 15,
+                            y: finalPositions[index].y - 25,
                             duration: 2000 + (index * 300),
                             ease: 'Sine.easeInOut',
                             yoyo: true,
@@ -387,5 +391,12 @@ export class SelectionMenuScene extends Phaser.Scene {
                 });
             }
         });
+    }
+    openOptionMenu()
+    {
+        if (this.scene.isActive('OptionMenu')) return;
+            this.scene.pause();
+            this.playerData.SceneToResume = this.scene.key;
+            this.scene.launch('OptionMenu', this.playerData);
     }
 }
