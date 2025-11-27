@@ -1,0 +1,58 @@
+{
+    "GameCompletedDialogue": {
+        "start": {
+            "speaker": "Kronos",
+            "text": "Well, well... The hands of my clock have spun their last for these little games. And you... you stand victorious.",
+            "animation": "true",
+            "next": "GCD2"
+        },
+        "GCD2": {
+            "speaker": "Kronos",
+            "text": "Impressive. You have danced through the currents of time, untangled my messes, and proven your worth.",
+            "animation": "true",
+            "next": "GCD3"
+        },
+        "GCD3": {
+            "speaker": "Player",
+            "text": "I just wanted my yarn ball back. You certainly have a strange way of asking for help.",
+            "animation": "true",
+            "next": "GCD4"
+        },
+        "GCD4": {
+            "speaker": "Kronos",
+            "text": "Hah! A direct approach is so... linear. It's been eons since I've had such a delightful spectacle. Watching you outwit those old fools was marvelous fun.",
+            "animation": "true",
+            "next": "GCD5"
+        },
+        "GCD5": {
+            "speaker": "Kronos",
+            "text": "But a promise is a promise, even for one who stands outside of time. You have earned your reward.",
+            "animation": "true",
+            "next": "GCD6"
+        },
+        "GCD6": {
+            "speaker": "Kronos",
+            "text": "Here. Your precious ball of yarn, as agreed.",
+            "animation": "true",
+            "next": "GCD7"
+        },
+        "GCD7": {
+            "speaker": "Player",
+            "text": "Finally! After all that, I can just be a normal cat again.",
+            "animation": "true",
+            "next": "GCD8"
+        },
+        "GCD8": {
+            "speaker": "Kronos",
+            "text": "Ah, but has this adventure not changed the very thread of your existence? Thank you, little cat, for this grand diversion.",
+            "animation": "true",
+            "next": "end"
+        },
+        "end": {
+            "speaker": "Kronos",
+            "text": "Now... your own path awaits. Farewell.",
+            "animation": "true",
+            "next": null
+        }
+    }
+}

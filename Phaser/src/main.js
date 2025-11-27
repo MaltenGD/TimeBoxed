@@ -22,6 +22,7 @@ import { TutorialAseb } from './scenes/asebScenes/TutorialAseb.js';
 import { TaliIntroScene } from './scenes/taliScenes/TaliIntroScene.js';
 import { TaliTutorial } from './scenes/taliScenes/TaliTutorialScene.js';
 import { GameModeSelectionScene } from './scenes/GameModeSelectionScene.js';
+import { GameCompleted } from './scenes/GameCompleted.js';
 
 
 
@@ -53,6 +54,7 @@ const config = {
         HanafudaBeginScene,
         HanafudaGame,
         TimeBoxedDefeat,
+        GameCompleted,
         OptionMenuScene,
         ItemsScene,
         HelpLobbyScene,

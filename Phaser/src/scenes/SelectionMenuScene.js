@@ -25,6 +25,11 @@ export class SelectionMenuScene extends Phaser.Scene {
         this.playerData = playerData;
         console.log(this.playerData)
 
+        if (this.playerData.AsebCompleted && this.playerData.TaliCompleted && this.playerData.HanafudaCompleted) {
+            this.scene.start('GameCompleted', this.playerData);
+            return;
+        }
+
         this.transitionController = new TransitionController(this);
 
         this.transitionController.startFadeInTransition();

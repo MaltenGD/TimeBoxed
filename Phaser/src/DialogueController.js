@@ -83,6 +83,10 @@ export default class DialogueController
         {
             this.dialogueGroup = this.dialogueData.TimeBoxedDefeatDialogue;
         }
+        else if (this.era == 'GameCompleted')
+        {
+            this.dialogueGroup = this.dialogueData.GameCompletedDialogue;
+        }
         
 
         /**creates the dialog box */

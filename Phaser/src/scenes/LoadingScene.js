@@ -43,7 +43,6 @@ export class LoadingScene extends Phaser.Scene
         this.loadCreditsAssets();
         this.loadInisgniaAssets();
         this.loadAudioAssets();
-        this.loadDialogues();
         
         this.load.json('achievements', 'Phaser/assets/achievements.json');
 
@@ -248,6 +247,12 @@ export class LoadingScene extends Phaser.Scene
         * @param {string} url - The URL of the JSON file to load.
         */
         this.load.json('AsebWinDialogue', 'Phaser/DialoguesJson/AsebWinDialogue.json');
+
+        /** Load the json file for the Game Completed Dialogue, when the player completes the game.
+        * @param {string} key - The key to reference the loaded JSON data.
+        * @param {string} url - The URL of the JSON file to load.
+        */
+        this.load.json('GameCompletedDialogue', 'Phaser/DialoguesJson/GameCompletedDialogue.json');
     }
 
     create() {
