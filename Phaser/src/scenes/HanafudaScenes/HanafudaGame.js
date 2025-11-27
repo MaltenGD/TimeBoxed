@@ -43,6 +43,9 @@ export class HanafudaGame extends Phaser.Scene{
         this.rows = 2;
         /**Initial table columns */
         this.cols = 4;
+
+        this.gamePaused=false;
+
     }
 
     create(playerData){
@@ -347,6 +350,7 @@ export class HanafudaGame extends Phaser.Scene{
            
             this.playerPairs.push(this.tableCards[tablecardPos[0].row].splice(tablecardPos[0].col, 1)[0]);
             this.renderPlayerPairs();
+            this.checkYakus(true);
         }
         else {
             if(this.refill === false) { this.opponentPairs.push(this.opponentCards.splice(cardpos, 1)[0]);}
@@ -354,6 +358,7 @@ export class HanafudaGame extends Phaser.Scene{
 
             this.opponentPairs.push(this.tableCards[tablecardPos[0].row].splice(tablecardPos[0].col, 1)[0]); //Coloca 
             this.renderOpponentPairs();
+            this.checkYakus(false);
         }
     }
 
@@ -371,6 +376,11 @@ export class HanafudaGame extends Phaser.Scene{
     }
 
     handlesTurns(){
+
+         if (this.gamePaused) 
+        {
+        return;
+        }
         if (this.playerCards.length === 0 && this.opponentCards.length === 0) {
             this.infoText.setText("Round Finished");
             this.round++;
@@ -441,46 +451,51 @@ export class HanafudaGame extends Phaser.Scene{
         return;
     }
 
-    const lastYAkus= result.yakus[result.yakus.length-1];
+    const lastYaku= result.yakus[result.yakus.length-1];
     const points= result.totalPoints;
     if(isPlayer)
     {
-        
+        this.showYakuPlayer(lastYaku, points);
     }
-    
+    else this.enemyYaku(lastYaku, points);
 }
     showYakuPlayer(yaku, points)
     {
 
-        const overlay = this.add.rectangle(this.width/2, this.height/2,this.width,this.height, 0x00000, 0,5);
-        const box = this.add.rectangle(this.width/2, this.height/2, 600, 350, 0xfffff).setStrokeStyle(5,0xaa0000);
+        this.gamePaused = true;
+
+        const overlay = this.add.rectangle(this.width/2, this.height/2,this.width, this.height,0x000000, 0.6
+        ).setDepth(9000).setInteractive();;
+
+    const box = this.add.rectangle(this.width/2, this.height/2, 900, 500, 0xD0C8C8,1).setStrokeStyle(6,0xaa0000).setDepth(10000);
         
         const title = this.add.text(this.width / 2, this.height / 2 - 100,
         "¡Has conseguido un Yaku!",
         { fontSize: "40px", color: "#000" }
-        ).setOrigin(0.5);
+        ).setOrigin(0.5).setDepth(10001);
         
         const yakuText = this.add.text(this.width / 2, this.height / 2 - 20,
         "Combination: " + yaku,
         { fontSize: "32px", color: "#000" }
-        ).setOrigin(0.5);
+        ).setOrigin(0.5).setDepth(10001);
 
         const pointsText = this.add.text(this.width / 2, this.height / 2 + 40,
         "Points: " + points,
         { fontSize: "28px", color: "#333" }
-        ).setOrigin(0.5);
+        ).setOrigin(0.5).setDepth(10001);
 
     const koikoiBtn = this.add.text(this.width / 2 - 120, this.height / 2 + 120,
         "KoiKoi",
-        { fontSize: "32px", backgroundColor: "#0077cc", padding: 10, color: "#fff" }
-        ).setOrigin(0.5).setInteractive();
+        { fontSize: "32px", backgroundColor: "#29a235ff", padding: 10, color: "#fff" }
+        ).setOrigin(0.5).setInteractive().setDepth(10001);
 
         const shobuBtn = this.add.text(this.width / 2 + 120, this.height / 2 + 120,
         "Shobu",
-        { fontSize: "32px", backgroundColor: "#cc0044", padding: 10, color: "#fff" }
-    ).setOrigin(0.5).setInteractive();
+        { fontSize: "32px", backgroundColor: "#822525ff", padding: 10, color: "#fff" }
+    ).setOrigin(0.5).setInteractive().setDepth(10001);
 
         koikoiBtn.on("pointerdown", () => {
+            this.gamePaused = false;
             console.log("El jugador elige koikoo, el juego sigue");
             overlay.destroy();
             box.destroy();
@@ -505,26 +520,74 @@ export class HanafudaGame extends Phaser.Scene{
     });
     }
 
-    enemyYaku(yaku, points)
-    {
-    console.log("El enemigo consiguio un Yaku:", yaku, points, "puntos");
+    showYakuEnemy(yaku, points) {
+        this.gamePaused = true;
 
+        const overlay = this.add.rectangle(this.width/2, this.height/2, this.width, this.height, 0x000000, 0.6
+        ).setDepth(9000).setInteractive();
+
+        const box = this.add.rectangle(this.width/2, this.height/2,900, 500,0xffffff, 1
+        ).setStrokeStyle(6, 0xaa0000).setDepth(10000);
+
+        const title = this.add.text(this.width/2, this.height/2 - 130,
+            "El oponente consiguio un Yaku",
+            {
+                fontSize: "40px", color: "#000" 
+            }
+        ).setOrigin(0.5).setDepth(10001);
+
+        const yakuText = this.add.text(this.width/2, this.height/2 - 30,
+            "Combination: " + yaku,
+            {
+                fontSize: "32px", color: "#000" 
+            }
+        ).setOrigin(0.5)
+        .setDepth(10001);
+
+        const pointsText = this.add.text(this.width/2, this.height/2 + 40,
+            "Puntos: " + points,
+            {
+                fontSize: "28px", color: "#333" 
+            }
+        ).setOrigin(0.5)
+        .setDepth(10001);
+
+        const okBtn = this.add.text(this.width/2, this.height/2 + 150,
+            "Continuar",
+            {
+                fontSize: "36px", backgroundColor: "#444", padding: 10, color: "#fff"
+            }
+        ).setOrigin(0.5)
+        .setInteractive()
+        .setDepth(10001);
+
+        okBtn.on("pointerdown", () => {overlay.destroy();
+            box.destroy();
+            title.destroy();
+            yakuText.destroy();
+            pointsText.destroy();
+            okBtn.destroy();
+
+            this.gamePaused = false;
+            this.handlesTurns(); 
+        });
+}
+
+
+    enemyYaku(yaku, points)
+{
     const random = Math.random();
 
     if (random < 0.5) {
-        console.log("El enemigo elige Koikoi");
-        this.handlesTurns();
+        console.log("El enemigo elige Koi-Koi");
+        this.showYakuEnemy(yaku, points);
+    } 
+    else {
+        console.log("El enemigo elige Shōbu (fin de ronda)");
+        this.showYakuEnemy(yaku, points);
 
-    } else {
-        console.log("El enemigo elige Shobu, ronda termina");
+        this.gamePaused = true;
     }
-    }
+}
 
-    openOptionMenu()
-    {
-        if (this.scene.isActive('OptionMenu')) return;
-        this.scene.pause();
-        this.playerData.SceneToResume = this.scene.key;
-        this.scene.launch('OptionMenu', this.playerData);
-    }
 }
