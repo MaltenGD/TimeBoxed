@@ -7,11 +7,11 @@
     "EgyptIntroCompleted": false,
     "AsebPlayerFirst" : false,
     "TaliPlayerFirst" : false,
-    "AsebCompleted": true,
+    "AsebCompleted": false,
     "AsebNoCapturesCompletion": false,
     "AsebLandedOnEverySpecial": false,
-    "TaliCompleted": true,
-    "HanafudaCompleted": true,
+    "TaliCompleted": false,
+    "HanafudaCompleted": false,
     "SceneToResume" : null,
     "comingFromMenu": false
 }
