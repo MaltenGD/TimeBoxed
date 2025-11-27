@@ -460,7 +460,7 @@ checkYakus(isPlayer) {
     }
 
     const lastYaku = result.yakus[result.yakus.length - 1];
-    const points = result.pointsTotal ?? result.totalPoints ?? result.points ?? 0;
+    const points = result.totalPoints;
 
     if (isPlayer) {
         this.showYakuPlayer(lastYaku, points);
@@ -481,10 +481,10 @@ showYakuPlayer(yaku, points) {
         .setStrokeStyle(6, 0xaa0000)
         .setDepth(10000);
 
-    const title = this.add.text(this.width/2, this.height/2 - 140, "¡Has conseguido un Yaku!", { fontSize: "48px", color: "#000" })
+    const title = this.add.text(this.width/2, this.height/2 - 140, "Has conseguido un Yaku", { fontSize: "48px", color: "#000" })
         .setOrigin(0.5).setDepth(10001);
 
-    const yakuText = this.add.text(this.width/2, this.height/2 - 40, "Combinación: " + yaku, { fontSize: "38px", color: "#000" })
+    const yakuText = this.add.text(this.width/2, this.height/2 - 40, "Combination: " + yaku, { fontSize: "38px", color: "#000" })
         .setOrigin(0.5).setDepth(10001);
 
     const pointsText = this.add.text(this.width/2, this.height/2 + 40, "Puntos: " + points, { fontSize: "32px", color: "#444" })
@@ -515,7 +515,7 @@ showYakuPlayer(yaku, points) {
             this.endRoundForShobu('player', points);
         } else {
             this.gamePaused = true;
-            this.infoText.setText("Round ended (SHŌBU)");
+            this.infoText.setText("Round ended (shobu)");
         }
     });
 }
