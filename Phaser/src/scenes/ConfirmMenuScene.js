@@ -137,7 +137,6 @@ export class ConfirmMenuScene extends Phaser.Scene {
             this.scene.stop('ConfirmMenu');
             this.scene.start('SelectionMenuScene');
         };
-
         const yesAction = (data && data.onYes) ? data.onYes : defaultYes;
         const noAction = (data && data.onNo) ? data.onNo : () => this.closeMenu();
 
