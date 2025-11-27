@@ -66,7 +66,7 @@ export class AsebVictoryScene extends Phaser.Scene
 
         this.events.on('Finished', () => {
             this.transitionController.startFadeOutTransition(() => {
-            this.scene.start('SelectionMenuScene');
+            this.scene.start('SelectionMenuScene', this.playerData);
                 }, 400);
             console.log("cambia de escena");
         });

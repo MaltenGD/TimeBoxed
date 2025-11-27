@@ -1,4 +1,5 @@
 {
+    "DebugMode": false,
     "TimeboxedMode": false,
     "showedTBwarn" : false,
     "IntroCompleted": false,

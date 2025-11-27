@@ -30,7 +30,9 @@ export default class AsebBoard extends Phaser.GameObjects.Image
     this.createPositions();
     this.createPieces();
 
-    //this.debugDrawPositions();
+    this.on('pieceAnimComplete', (piece, IsSpecialPosition, row, col) =>{
+      this.checkNewPosition(IsSpecialPosition, piece, row, col);
+    });
   }
 
   /**
@@ -245,19 +247,16 @@ export default class AsebBoard extends Phaser.GameObjects.Image
 
         piece.setBoardVariables(row, col);
 
+        piece.MoveInScreen(boardTargetPos.x, boardTargetPos.y, isNextPositionValid.isSpecialPosition, row, col);
+        boardTargetPos.SetPiece(piece);
 
-        if (piece.Ended())
-        {
-          this.emit('pieceReachesEnd', piece);
-          piece.destroy();
-        }
-        else{
-          piece.MoveInScreen(boardTargetPos.x, boardTargetPos.y);
-          boardTargetPos.SetPiece(piece);
+        return true;
+    }
 
-        }
-        
-        if (isNextPositionValid.isSpecialPosition)
+
+    checkNewPosition(isSpecialPosition, piece, row, col)
+    {
+      if (isSpecialPosition)
         {
           this.emit('SpecialPosition' ,piece.type);
           if (piece.type === PIECE_TYPE.PLAYER) 
@@ -267,11 +266,14 @@ export default class AsebBoard extends Phaser.GameObjects.Image
             }
           
         }
+        else if (piece.Ended())
+        {
+          this.emit('pieceReachesEnd', piece);
+          this.positions[row][col].SetPiece(null);
+          piece.destroy();
+        }
         else this.emit('pieceMoved', piece); // Emit an event to notify the scene.
-
-        return true;
     }
-
     /**
      * Manages the AI's turn. It gets a throw result and attempts to make a valid move with a random piece.
      * @param {number} StickResultSum - The result of the AI's stick throw.
@@ -279,11 +281,10 @@ export default class AsebBoard extends Phaser.GameObjects.Image
     doRandomMovement(StickResultSum)
     {
         console.log(`Anubis threw a ${StickResultSum}`);
-
         // If the throw is 0, the turn is skipped.
         if (StickResultSum === 0) {
-            console.log("Anubis threw a 0. Turn skipped.");
-            this.scene.infoText.setText("Anubis threw a 0!\nTurn is skipped.");
+            console.log("Anubis got 0 points. Turn skipped.");
+            this.scene.infoText.setText("Anubis got 0 points!\nTurn is skipped.");
             this.scene.time.addEvent({
             delay: this.scene.pauseTime,
             callback: () => {
@@ -293,7 +294,7 @@ export default class AsebBoard extends Phaser.GameObjects.Image
             return; 
         }
 
-        this.scene.infoText.setText(`Anubis threw a ${StickResultSum}!`);
+        this.scene.infoText.setText(`Anubis got ${StickResultSum} points!`);
 
         this.scene.time.addEvent({
             delay: this.scene.pauseTime,
@@ -316,7 +317,7 @@ export default class AsebBoard extends Phaser.GameObjects.Image
 
               // If the loop completes, no valid moves were found.
               console.log("Anubis has no valid moves.");
-              this.scene.infoText.setText(`Anubis threw a ${throwResult}\nbut has no valid moves!`);
+              this.scene.infoText.setText(`Anubis got ${throwResult} points\nbut has no valid moves!`);
               this.scene.time.addEvent({
                   delay: this.scene.pauseTime,
                   callback: () => {

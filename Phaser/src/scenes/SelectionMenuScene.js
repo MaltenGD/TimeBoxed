@@ -270,7 +270,7 @@ export class SelectionMenuScene extends Phaser.Scene {
                                     scaleX: 0.42,
                                     scaleY: 0.42,
                                     duration: 200,
-                                    ease: 'Back.easeOut'
+                                    ease: 'Power1'
                                 });
                             })
                             .on('pointerout', () => {
@@ -280,7 +280,7 @@ export class SelectionMenuScene extends Phaser.Scene {
                                     scaleX: 0.4,
                                     scaleY: 0.4,
                                     duration: 200,
-                                    ease: 'Back.easeIn'
+                                    ease: 'Power1'
                                 });
                             })
                             .on('pointerdown', () => {

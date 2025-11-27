@@ -69,7 +69,25 @@ export class ConfirmMenuScene extends Phaser.Scene {
             fill: '#fff',
             backgroundColor: '#8B0000',
             padding: { x: 20, y: 10 }
-        }).setOrigin(0.5).setInteractive();
+        }).setOrigin(0.5).setInteractive()
+        .on('pointerover', () => {
+
+            this.tweens.add({
+                targets: this.yesBtn,
+                scaleX: 1.2,
+                scaleY: 1.2,
+                duration: 100,
+                ease: 'Power1',
+            });
+        })
+        .on('pointerout', () => {
+            this.tweens.add({
+                targets: this.yesBtn,
+                scale: 1.0,
+                duration: 100,
+                ease: 'Power1',
+            });
+        });
 
         /**
          * No botton
@@ -79,7 +97,25 @@ export class ConfirmMenuScene extends Phaser.Scene {
             fill: '#fff',
             backgroundColor: '#107310',
             padding: { x: 20, y: 10 }
-        }).setOrigin(0.5).setInteractive();
+        }).setOrigin(0.5).setInteractive()
+        .on('pointerover', () => {
+
+            this.tweens.add({
+                targets: this.noBtn,
+                scaleX: 1.2,
+                scaleY: 1.2,
+                duration: 100,
+                ease: 'Power1',
+            });
+        })
+        .on('pointerout', () => {
+            this.tweens.add({
+                targets: this.noBtn,
+                scale: 1.0,
+                duration: 100,
+                ease: 'Power1',
+            });
+        });;
 
         /**
          * Events of the buttons

@@ -16,13 +16,13 @@ export class AsebBeginScene extends Phaser.Scene {
      * @property {string} GAME_STATE.RECEIVING_STATE - Initial state.
      * @property {string} GAME_STATE.PLAYER_THROWS - State for when the player is throwing.
      * @property {string} GAME_STATE.ENEMY_THROWS - State for when the enemy is throwing.
-     * @property {string} GAME_STATE.DECISSION - State for deciding the winner.
+     * @property {string} GAME_STATE.DECISION - State for deciding the winner.
      */
     GAME_STATE = {
         RECEIVING_STATE: 'RECEIVING_STATE',
         PLAYER_THROWS: 'PLAYER_THROWS',
         ENEMY_THROWS: 'ENEMY_THROWS',
-        DECISSION: 'DECISSION'
+        DECISION: 'DECISION'
     };
     constructor() {
         super('AsebBeginScene');
@@ -48,13 +48,13 @@ export class AsebBeginScene extends Phaser.Scene {
     createGameObjects() {
         
         /** @type {Phaser.GameObjects.Image} */
-        this.infoBoard = this.add.image(this.width/2, this.height/2, 'StickBoard').setOrigin(0.5).setScale(1.5,2).setRotation(Phaser.Math.DegToRad(90));
+        this.infoBoard = this.add.image(this.width/2, this.height/2, 'StickBoard').setOrigin(0.5).setScale(1.5).setRotation(Phaser.Math.DegToRad(90));
         
         //The text that guides the player
         /** @type {Phaser.GameObjects.Text} */
-        this.infoText = this.add.text(this.width/2,250, "Lets see who goes first!", {fontSize: 64, color: '#000000ff', fontFamily: "Anubismythicalserif"}).setOrigin(0.5);
+        this.infoText = this.add.text(this.width/2,250, "Let's see who goes first!", {fontSize: 64, color: '#000000ff', fontFamily: "Anubismythicalserif", align: 'center'}).setOrigin(0.5);
         /** @type {Phaser.GameObjects.Text} */
-        this.scoreText = this.add.text(this.width/2,350, "", {fontSize: 64, color: '#000000ff', fontFamily: "Anubismythicalserif"}).setOrigin(0.5);
+        this.scoreText = this.add.text(this.width/2,350, "", {fontSize: 64, color: '#000000ff', fontFamily: "Anubismythicalserif", align: 'center'}).setOrigin(0.5);
         
     }
 
@@ -63,25 +63,49 @@ export class AsebBeginScene extends Phaser.Scene {
      */
     createButtons() {
 
- 
-        /** @type {Phaser.GameObjects.Text} */
-        this.backBtn = this.add.text(0, 0, 'Back', { fontSize: 64, fill: '#000000ff', fontFamily: "Anubismythicalserif"})
-        .setInteractive()
-        .on('pointerover', () => this.backBtn.setStyle({fill: 'rgba(104, 35, 35, 1)'}))
-        .on('pointerout', () => this.backBtn.setStyle({fill: '#000000ff'}))
-        .on('pointerdown', () => {
-            this.openOptionMenu();
-        });
-        
-        /** @type {Phaser.GameObjects.Text} */
-        this.throwBtn = this.add.text(this.width/2 -100, this.height -300, 'Throw', { fontSize: 64, fill: '#000000ff', fontFamily: "Anubismythicalserif"})
-        .setInteractive()
-        .on('pointerover', () => this.throwBtn.setStyle({fill: '#0f0'}))
-        .on('pointerout', () => this.throwBtn.setStyle({fill: '#000000ff'}))
+        // --- Back Button ---
+        const backBtnImage = this.add.image(0, 0, 'AsebButton').setScale(0.3,0.5);
+        const backBtnText = this.add.text(0, 0, 'Back', { fontSize: 48, fill: '#000000ff', fontFamily: "Anubismythicalserif"}).setOrigin(0.5);
+
+        this.backBtn = this.add.container(140, 80, [ backBtnImage, backBtnText ]);
+        this.backBtn.setSize(backBtnImage.width * 0.5, backBtnImage.height * 0.5).setInteractive()
+            .on('pointerover', () => {
+                this.tweens.add({ targets: this.backBtn, scale: 1.1, duration: 100, ease: 'Power1' });
+            })
+            .on('pointerout', () => {
+                this.tweens.add({ targets: this.backBtn, scale: 1.0, duration: 100, ease: 'Power1' });
+            })
+            .on('pointerdown', () => this.openOptionMenu());
+
+        // --- Throw Button ---
+        this.throwBtnImage = this.add.image(0, 0, 'AsebButton').setScale(0.6);
+        this.throwBtnText = this.add.text(0, 0, 'Throw', { fontSize: 68, fill: '#000000ff', fontFamily: "Anubismythicalserif"}).setOrigin(0.5);
+
+        /** @type {Phaser.GameObjects.Container} */
+        this.throwBtn = this.add.container(this.width/2, this.height - 300, [ this.throwBtnImage, this.throwBtnText ]);
+        this.throwBtn.setSize(this.throwBtnImage.width, this.throwBtnImage.height).setInteractive()
+            .on('pointerover', () => {
+                if (this.throwBtn.active) {
+                    this.tweens.add({
+                        targets: this.throwBtn,
+                        scale: 1.1,
+                        duration: 100,
+                        ease: 'Power1',
+                    });
+                }
+        })
+        .on('pointerout', () => {
+            if (this.throwBtn.active) {
+                this.tweens.add({
+                    targets: this.throwBtn,
+                    scale: 1.0,
+                    duration: 100,
+                    ease: 'Power1',
+                }); 
+            }
+        })
         .on('pointerdown', () => this.continue(this.GAME_STATE.PLAYER_THROWS));
-
-       
-
+        
     }
  
     /**
@@ -90,8 +114,7 @@ export class AsebBeginScene extends Phaser.Scene {
      */
     continue(newState)
     {
-        this.throwBtn.setText('')
-        .off('pointerdown')
+        this.setObjectState(this.throwBtn, false);
         this.gameState = newState;
         
         if (this.gameState === this.GAME_STATE.PLAYER_THROWS) {
@@ -99,7 +122,7 @@ export class AsebBeginScene extends Phaser.Scene {
         } else if (this.gameState === this.GAME_STATE.ENEMY_THROWS) {
             this.enemyInitialThrow();
         }
-        else if (this.gameState === this.GAME_STATE.DECISSION) {
+        else if (this.gameState === this.GAME_STATE.DECISION) {
             this.announceBeginner();
         }
 
@@ -108,10 +131,13 @@ export class AsebBeginScene extends Phaser.Scene {
     /**
      * The main creation function for the scene. Sets up game objects and buttons.
      */
-    create(playerData) 
+    async create(playerData)  // El async se debe a que quiero esperar a que cargue la font, en caso de no usar async, la font puede no cargar a tiempo
     {
 
         this.playerData = playerData;
+
+        // Hasta que no se haya cargado la font en esta escena no continua
+        await document.fonts.load('64px Anubismythicalserif');
         console.log(this.playerData)
 
         this.playerData.EgyptIntroCompleted = true;
@@ -137,18 +163,17 @@ export class AsebBeginScene extends Phaser.Scene {
      */
     playerInitialThrow() {
         this.playerStickResult = this.asebGame.getThrow();
-        this.infoText.setText("You threw the sticks")
+        this.setTextWithAnimation(this.infoText, "You threw the sticks");
         
-        this.throwBtn.off('pointerdown')
-        this.throwBtn.setText("");
-
         this.time.addEvent({
             delay: 1000,
             callback: () => {
                 
             this.showSticks(this.playerStickResult.throwResult);
-            this.scoreText.setText("You got " + this.playerStickResult.Sum)
-            this.throwBtn.setText('Continue')
+            this.setTextWithAnimation(this.scoreText, "You got " + this.playerStickResult.Sum + " points");
+            this.throwBtnText.setText('Continue');
+            this.setObjectState(this.throwBtn, true);
+            this.throwBtn
                 .on('pointerdown', () => this.continue(this.GAME_STATE.ENEMY_THROWS));
             
         
@@ -163,20 +188,18 @@ export class AsebBeginScene extends Phaser.Scene {
         this.clearSticks();
         this.scoreText.setText("");
         this.enemyStickResult = this.asebGame.getThrow();
-        this.infoText.setText("Anubis threw the sticks")
+        this.setTextWithAnimation(this.infoText, "Anubis threw the sticks");
 
-        this.throwBtn.off('pointerdown')
-        this.throwBtn.setText("");
-        
         this.time.addEvent({
             delay: 1000,
             callback: () => {
                 
             this.showSticks(this.enemyStickResult.throwResult);
-            this.scoreText.setText("Anubis got " + this.enemyStickResult.Sum)
-            this.throwBtn.setText('Continue')
-                .off('pointerdown') // Remove existing listeners
-                .on('pointerdown', () => this.continue(this.GAME_STATE.DECISSION));
+            this.setTextWithAnimation(this.scoreText, "Anubis got " + this.enemyStickResult.Sum + " points");
+            this.setObjectState(this.throwBtn, true);
+            this.throwBtn
+                .off('pointerdown')
+                .on('pointerdown', () => this.continue(this.GAME_STATE.DECISION));
             
             }
      });
@@ -192,23 +215,24 @@ export class AsebBeginScene extends Phaser.Scene {
         this.clearSticks();
         this.scoreText.setText("");
 
-        this.throwBtn.off('pointerdown')
-
         if (this.playerStickResult.Sum > this.enemyStickResult.Sum) {
-            this.infoText.setText('You begin!');
+            this.setTextWithAnimation(this.infoText, 'You begin!');
             this.playerData.AsebPlayerFirst = true;
         } else if (this.enemyStickResult.Sum > this.playerStickResult.Sum) {
-            this.infoText.setText('Anubis begins!');
+            this.setTextWithAnimation(this.infoText, 'Anubis begins!');
             this.playerData.AsebPlayerFirst = false;
         } else {
-            this.infoText.setText("It's a tie! You start anyways.");
+            this.setTextWithAnimation(this.infoText, "It's a tie!\nYou start anyway.");
             this.playerData.AsebPlayerFirst = true;
         }
 
         this.time.addEvent({
             delay: 1000,
             callback: () => {
-                this.throwBtn.setText('Continue')
+                this.throwBtnImage.setScale(0.8);
+                this.throwBtnText.setText('Start Game');
+                this.setObjectState(this.throwBtn, true);
+                this.throwBtn
                 .off('pointerdown')
                 .on('pointerdown', () => this.startActualGame());
             }
@@ -295,11 +319,56 @@ export class AsebBeginScene extends Phaser.Scene {
      * @param {Phaser.GameObjects.GameObject} object - The game object to modify.
      * @param {boolean} state - The desired state (true for interactive/active, false for non-interactive/inactive).
      */
-    setObjectState(object, state)
-    {
-        object.setInteractive(state);
-        object.setActive(state);
+    setObjectState(object, state) {
+        if (object === this.throwBtn) {
+            this.animateButtonState(object, state);
+        } else {
+            object.setActive(state);
+            object.setVisible(state);
+        }
+    }
 
+    /**
+     * Animates a button's appearance or disappearance.
+     * @param {Phaser.GameObjects.Container} button - The button container to animate.
+     * @param {boolean} show - True to animate in, false to animate out.
+     * @param {number} [duration=300] - The duration of the animation.
+     */
+    animateButtonState(button, show, duration = 300) {
+        if (show) {
+            button.setActive(true).setVisible(true);
+            this.tweens.add({
+                targets: button,
+                scale: 1,
+                alpha: 1,
+                duration: duration,
+                ease: 'Power2'
+            });
+        } else {
+            button.off('pointerdown'); // Disable clicks immediately
+            this.tweens.add({
+                targets: button,
+                scale: 0,
+                alpha: 0,
+                duration: duration,
+                ease: 'Power2',
+                onComplete: () => {
+                    button.setActive(false).setVisible(false);
+                }
+            });
+        }
+    }
+    setTextWithAnimation(textObject, newText, AnimDuration = 175)
+    {
+        textObject.setText(newText);
+        this.tweens.add({
+            targets: textObject,
+            scaleX: 1.1,
+            scaleY: 1.1,
+            yoyo: true,
+            duration: AnimDuration,
+            ease: 'Power2',
+        });
     }
 
     openOptionMenu()

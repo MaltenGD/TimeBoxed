@@ -55,7 +55,7 @@ export class OptionMenuScene extends Phaser.Scene {
                 targets: resumeBtn,
                 scale: 1.1,
                 duration: 200,
-                ease: 'Sine.easeOut'
+                ease: 'Power1'
             });
         });
         resumeBtn.on('pointerout', () => {
@@ -64,7 +64,7 @@ export class OptionMenuScene extends Phaser.Scene {
                 targets: resumeBtn,
                 scale: 1.0,
                 duration: 150,
-                ease: 'Sine.easeOut'
+                ease: 'Power1'
             });
         });
 
@@ -75,7 +75,7 @@ export class OptionMenuScene extends Phaser.Scene {
                 targets: helpBtn,
                 scale: 1.1,
                 duration: 200,
-                ease: 'Sine.easeOut'
+                ease: 'Power1'
             });
         });
         helpBtn.on('pointerout', () => {
@@ -84,7 +84,7 @@ export class OptionMenuScene extends Phaser.Scene {
                 targets: helpBtn,
                 scale: 1.0,
                 duration: 150,
-                ease: 'Sine.easeOut'
+                ease: 'Power1'
             });
         });
 
@@ -95,7 +95,7 @@ export class OptionMenuScene extends Phaser.Scene {
                 targets: itemsBtn,
                 scale: 1.1,
                 duration: 200,
-                ease: 'Sine.easeOut'
+                ease: 'Power1'
             });
         });
         itemsBtn.on('pointerout', () => {
@@ -104,7 +104,7 @@ export class OptionMenuScene extends Phaser.Scene {
                 targets: itemsBtn,
                 scale: 1.0,
                 duration: 150,
-                ease: 'Sine.easeOut'
+                ease: 'Power1'
             });
         });
 
@@ -115,7 +115,7 @@ export class OptionMenuScene extends Phaser.Scene {
                 targets: exitBtn,
                 scale: 1.1,
                 duration: 200,
-                ease: 'Sine.easeOut'
+                ease: 'Power1'
             });
         });
         exitBtn.on('pointerout', () => {
@@ -124,7 +124,7 @@ export class OptionMenuScene extends Phaser.Scene {
                 targets: exitBtn,
                 scale: 1.0,
                 duration: 150,
-                ease: 'Sine.easeOut'
+                ease: 'Power1'
             });
         });
 
