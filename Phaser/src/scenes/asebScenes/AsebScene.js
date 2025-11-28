@@ -18,18 +18,6 @@ export class AsebScene extends BaseScene {
             this.debugMode = false;
         }
 
-        /**
-         * Initializes scene data.
-         * @param {object} data - Data passed from the previous scene.
-         * @param {boolean} [data.playerFirst] - Determines if the player takes the first turn.
-         */
-        init(playerData) {
-            super.init(playerData);
-
-            // Default to player going first if no data is passed.
-            if (playerData !== undefined) this.playerFirst = playerData.AsebPlayerFirst
-            else this.playerFirst = true;
-        }
 
         preload() {
             let {width, height} = this.sys.game.canvas;
@@ -51,6 +39,10 @@ export class AsebScene extends BaseScene {
 
         this.playerData = playerData;
         console.log(this.playerData)
+
+        // Default to player going first if no data is passed.
+            if (playerData !== undefined) this.playerFirst = playerData.AsebPlayerFirst
+            else this.playerFirst = true;
 
         // Wait for the custom font to be loaded before creating any text
         // The font size here doesn't matter, it just ensures the font family is ready.
