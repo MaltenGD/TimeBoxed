@@ -470,10 +470,53 @@ checkYakus(isPlayer) {
     const points = result.totalPoints;
 
     if (isPlayer) {
-        this.showYakuPlayer(lastYaku, points);
-    } else {
-        this.enemyYaku(lastYaku, points);
-    }
+        this.showYakuPlayer(lastYaku, points)
+        .setStrokeStyle(6, 0xaa0000)
+        .setDepth(10000);
+
+        const title = this.add.text(this.width/2, this.height/2 - 140, "Has conseguido un Yaku", { fontSize: "48px", color: "#000" })
+        .setOrigin(0.5).setDepth(10001);
+
+        const yakuText = this.add.text(this.width/2, this.height/2 - 40, "Combination: " + yaku, { fontSize: "38px", color: "#000" })
+        .setOrigin(0.5).setDepth(10001);
+
+        const pointsText = this.add.text(this.width/2, this.height/2 + 40, "Puntos: " + points, { fontSize: "32px", color: "#444" })
+         this.endRoundForShobu('player', points);
+        
+        const koiBtn = this.add.text(this.width/2 - 170, this.height/2 + 150, "Koi-Koi", {
+            fontSize: "36px", backgroundColor: "#0077cc", padding: { x: 25, y: 10 }, color: "#fff"
+        }).setOrigin(0.5).setInteractive().setDepth(10002);
+
+        const shobuBtn = this.add.text(this.width/2 + 170, this.height/2 + 150, "Shōbu", {
+            fontSize: "36px", backgroundColor: "#cc0044", padding: { x: 25, y: 10 }, color: "#fff"
+        }).setOrigin(0.5).setInteractive().setDepth(10002);
+
+        this.yakuPopup = { overlay, box, title, yakuText, pointsText, koiBtn, shobuBtn };
+        koiBtn.removeAllListeners?.();
+        shobuBtn.removeAllListeners?.();
+
+        koiBtn.on("pointerdown", () => {
+            this.gamePaused = false;
+            this.closeYakuPopup();
+            this.handlesTurns();
+        });
+
+        shobuBtn.on("pointerdown", () => {
+            console.log("Jugador elige Shobu (termina la ronda)");
+            this.closeYakuPopup();
+            if (this.endRoundForShobu) {
+                this.endRoundForShobu('player', points);
+            } else {
+                this.gamePaused = true;
+                this.infoText.setText("Round ended (shobu)");
+            }
+        });
+    } 
+    // else {
+    //     this.gamePaused = true;
+    //     this.infoText.setText("Round ended (shobu)");
+    // }
+
 }
 
 showYakuPlayer(yaku, points) {
