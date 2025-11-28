@@ -30,9 +30,6 @@ export class TaliBeginScene extends BaseScene {
 
     constructor() {
         super('TaliBeginScene');
-    }
-
-    preload() {
         let {width, height} = this.sys.game.canvas;
         this.width = width;
         this.height = height;
