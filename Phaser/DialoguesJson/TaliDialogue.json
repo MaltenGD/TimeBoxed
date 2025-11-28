@@ -583,5 +583,28 @@
         "animation": "true",
         "next": null
     }
+},
+
+"DistractMercuryDialogue": {
+    "start": {
+        "speaker": "Mercury",
+        "text": "",
+        "animation":"true",
+        "next": "DM1"
+    },
+
+    "DM1": {
+        "speaker": "Mercury",
+        "text": "",
+        "animation":"true",
+        "next": "end"
+    },
+
+    "end": {
+        "speaker": "Mercury",
+        "text": "",
+        "animation":"true",
+        "next": null
+    }
 }
 }

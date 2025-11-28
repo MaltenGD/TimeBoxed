@@ -42,7 +42,6 @@ export default class DialogueController
     */
     iniDialogue()
     {   
-
         this.scene.events.on('shutdown', this.shutdown, this);
 
         this.scene.events.on('pause', this.pause, this);
@@ -91,6 +90,9 @@ export default class DialogueController
         }
         else if (this.era == 'TaliTutorial') {
             this.dialogueGroup = this.dialogueData.TaliTutorialDialogue;
+        }
+        else if (this.era == 'DistractMercury') {
+            this.dialogueGroup = this.dialogueData.DistractMercuryDialogue;
         }
         else if (this.era == 'TimeBoxedDefeat')
         {

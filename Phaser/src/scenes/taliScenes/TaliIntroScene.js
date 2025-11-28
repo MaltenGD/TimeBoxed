@@ -74,9 +74,7 @@ export class TaliIntroScene extends BaseScene
                 }
             });
             
-        });  
-                
-            
+        }); 
             }, 400);
      
     

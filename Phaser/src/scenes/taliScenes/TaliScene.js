@@ -32,8 +32,6 @@ export class TaliScene extends BaseScene {
     }
 
     create(playerData) {
-        
-
         this.playerData = playerData;
         console.log(this.playerData)
 
@@ -53,6 +51,9 @@ export class TaliScene extends BaseScene {
         this.transitionController.startFadeInTransition(() => this.startGame());
     }
 
+    /**
+     * Creates the UI
+     */
     createUI() {
         this.addImages();
         this.createButtons();
@@ -129,9 +130,7 @@ export class TaliScene extends BaseScene {
     {
         object.setVisible(state).setActive(state).setAlpha(state ? 1 : 0);
     }
-
-
-    
+ 
     /**
      * Adds all the text to the scene.
      */
@@ -161,6 +160,11 @@ export class TaliScene extends BaseScene {
 
     onStateChange(state) {
         console.log('State changed to: ' + state);
+
+        // TODO: add state for distracting mercury. will pause scene, 
+        // launch distract scene on top, and then back again, passing to the next state
+
+        // TODO: make mercury's rolls show without having to press a button
 
         switch (state) {
             case GAME_STATE.PLAYER_START:
