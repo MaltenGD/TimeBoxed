@@ -33,6 +33,8 @@ export default class DialogueController
 
         /** @property {Phaser.Sound.BaseSound} sound for the dialogue text animation */
         this.dialogueTextSound = null;
+
+        this.dialogueTextVolume = 0.15;
     }
    
     /**
@@ -55,7 +57,7 @@ export default class DialogueController
         this.currentDialogue = null;
 
         // Add the sound for the dialogue text
-        this.dialogueTextSound = this.scene.sound.add('DialogueTextSFX', { loop: true , volume: 0.15 * this.scene.playerData.sfxVolume});
+        this.dialogueTextSound = this.scene.sound.add('DialogueTextSFX', { loop: true , volume: this.dialogueTextVolume * this.scene.playerData.sfxVolume});
 
         if(this.era == 'Intro')
         {
@@ -194,10 +196,23 @@ export default class DialogueController
      */
     endDialogueBlock()
     {
-        if (this.dialogueTextSound && this.dialogueTextSound.isPlaying) {
-            this.dialogueTextSound.stop();
-        }
+        this.fadeOutSound();
         this.scene.events.emit('Finished');
+    }
+
+    fadeOutSound(duration = 400) {
+        // If the dialogue text sound is playing, fade it out
+        if (this.dialogueTextSound && this.dialogueTextSound.isPlaying) {
+            this.scene.tweens.add({
+                targets: this.dialogueTextSound,
+                volume: 0,
+                duration: duration,
+                ease: 'Linear',
+                onComplete: () => {
+                    this.dialogueTextSound.stop();
+                }
+            });
+        }
     }
 
     /**
@@ -245,6 +260,9 @@ export default class DialogueController
      * @method resume handles scene resume events
      */
     resume() {
+        // Update volume in case it was changed in the options menu
+        this.dialogueTextSound.setVolume(this.dialogueTextVolume * this.scene.playerData.sfxVolume);
+
         // Only resume the sound if it was paused.
         // This prevents the sound from starting on resume if it wasn't playing before.
         if (this.dialogueTextSound && this.dialogueTextSound.isPaused) {

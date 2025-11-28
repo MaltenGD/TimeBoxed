@@ -46,9 +46,14 @@ export class Start extends BaseScene {
         this.transitionController.startFadeInTransition();
 
         this.sound.unlock();
-        // background music
-            this.music = this.sound.add('startMenuMusic', { loop: true, volume: 0.3 * this.playerData.musicVolume });
-            this.soundInstances.push(this.music);
+        // Background music
+            const baseMusicVolume = 0.3;
+            this.music = this.sound.add('startMenuMusic', { loop: true, volume: baseMusicVolume * this.playerData.musicVolume });
+            this.soundInstances.push({ 
+                sound: this.music, 
+                type: 'music', 
+                baseVolume: baseMusicVolume 
+            });
             this.music.play();
         
 

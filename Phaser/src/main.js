@@ -24,6 +24,7 @@ import { TaliTutorial } from './scenes/taliScenes/TaliTutorialScene.js';
 import { GameModeSelectionScene } from './scenes/GameModeSelectionScene.js';
 import { GameCompleted } from './scenes/GameCompleted.js';
 import { BaseScene } from './scenes/BaseScene.js';
+import { SettingsScene } from './scenes/SettingsScene.js';
 
 
 
@@ -63,6 +64,7 @@ const config = {
         TaliTutorial,
         TutorialAseb,
         GameModeSelectionScene,
+        SettingsScene,
         ConfirmMenuScene
     ],
     scale: {

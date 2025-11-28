@@ -128,6 +128,8 @@ export class LoadingScene extends Phaser.Scene
         this.load.image('ItemsButtonHovered', 'Phaser/assets/OptionMenu/ItemsHovered.png');
         this.load.image('ExitButtonNormal', 'Phaser/assets/OptionMenu/ExitNormal.png');
         this.load.image('ExitButtonHovered', 'Phaser/assets/OptionMenu/ExitHovered.png');
+        this.load.image('SettingsIcon', 'Phaser/assets/OptionMenu/SettingsIcon.png');
+        this.load.image('SettingsIconHovered', 'Phaser/assets/OptionMenu/SettingsIconHovered.png');
 
         
     }

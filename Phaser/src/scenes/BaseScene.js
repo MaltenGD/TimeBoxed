@@ -39,7 +39,7 @@ export class BaseScene extends Phaser.Scene {
      * This is typically called before transitioning to a new scene.
      */
     KillSounds() {
-        for (const sound of this.soundInstances) {
+        for (const { sound } of this.soundInstances) {
             if (sound && sound.isPlaying) {
                 sound.stop();
             }
@@ -49,7 +49,12 @@ export class BaseScene extends Phaser.Scene {
 
     fadeOutAndKillSounds(duration = 400) {
         // Filter for sounds that are currently playing.
-        const soundsToFade = this.soundInstances.filter(sound => sound && sound.isPlaying);
+        const soundsToFade = [];
+        for (const { sound } of this.soundInstances) {
+            if (sound && sound.isPlaying) {
+            soundsToFade.push(sound);
+            }
+        }
 
         // If there are sounds to fade, create a tween for them.
         if (soundsToFade.length > 0) {
@@ -68,7 +73,7 @@ export class BaseScene extends Phaser.Scene {
      * This is called automatically when the scene is paused.
      */
     pauseSounds() {
-        for (const sound of this.soundInstances) {
+        for (const { sound } of this.soundInstances) {
             if (sound && sound.isPlaying) {
                 sound.pause();
             }
@@ -80,7 +85,15 @@ export class BaseScene extends Phaser.Scene {
      * This is called automatically when the scene is resumed.
      */
     resumeSounds() {
-        for (const sound of this.soundInstances) {
+        for (const soundItem of this.soundInstances) {
+            const { sound, type, baseVolume } = soundItem;
+
+            // Adjust volume based on the latest playerData settings
+            if (type === 'music') {
+                sound.setVolume(baseVolume * this.playerData.musicVolume);
+            }
+            // You can add more types like 'sfx' here if needed
+
             if (sound && sound.isPaused) {
                 sound.resume();
             }

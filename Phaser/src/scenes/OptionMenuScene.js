@@ -34,6 +34,10 @@ export class OptionMenuScene extends BaseScene {
             x : width / 2 + 225,
             y : height / 2 + 300
         }
+        let settingsBtnCoords = {
+            x : width / 2 + 600,
+            y : height / 2 + 450
+        }
 
 
 
@@ -45,6 +49,7 @@ export class OptionMenuScene extends BaseScene {
         let helpBtn = this.add.image(helpBtnCoords.x, helpBtnCoords.y, 'HelpButtonNormal').setInteractive();
         let itemsBtn = this.add.image(itemsBtnCoords.x, itemsBtnCoords.y, 'ItemsButtonNormal').setInteractive();
         let exitBtn = this.add.image(exitBtnCoords.x, exitBtnCoords.y, 'ExitButtonNormal').setInteractive();
+        let settingsBtn = this.add.image(settingsBtnCoords.x, settingsBtnCoords.y, 'SettingsIcon').setInteractive().setScale(0.15);
 
 
         /**Button Hovering Behaviour */
@@ -140,6 +145,35 @@ export class OptionMenuScene extends BaseScene {
             });
         });
 
+        settingsBtn.on('pointerover', () => {
+            this.sound.play('buttonHover', { volume: 2 * this.playerData.sfxVolume });
+            this.tweens.killTweensOf(settingsBtn);
+            settingsBtn.setTexture('SettingsIconHovered');
+            this.tweens.add({
+                targets: settingsBtn,
+                scale: 0.20,
+                duration: 200,
+                ease: 'Power1'
+            });
+        });
+        settingsBtn.on('pointerout', () => {
+            this.tweens.killTweensOf(settingsBtn);
+            settingsBtn.setTexture('SettingsIcon');
+            this.tweens.add({
+                targets: settingsBtn,
+                scale: 0.15,
+                duration: 150,
+                ease: 'Power1'
+            });
+        });
+
+        settingsBtn.on('pointerdown', () => {
+            this.scene.pause();
+            this.scene.launch('SettingsScene', {
+                fromScene: 'OptionMenu',
+                playerData: this.playerData
+            });
+        });
 
         /**Button Click Behaviour */
 

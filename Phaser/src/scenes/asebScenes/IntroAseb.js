@@ -19,9 +19,14 @@ export class IntroAseb extends BaseScene
         let { width, height } = this.sys.game.canvas;
 
 
-         // background music
-            this.music = this.sound.add('egyptMusic', { loop: true, volume: 0.25 * this.playerData.musicVolume });
-            this.soundInstances.push(this.music);
+         // Background music
+            const baseMusicVolume = 0.25;
+            this.music = this.sound.add('egyptMusic', { loop: true, volume: baseMusicVolume * this.playerData.musicVolume });
+            this.soundInstances.push({ 
+                sound: this.music, 
+                type: 'music', 
+                baseVolume: baseMusicVolume 
+            });
             this.music.play();
         
 
@@ -69,6 +74,7 @@ export class IntroAseb extends BaseScene
              this.transitionController.startFadeOutTransition(() => {
                 this.scene.launch('ConfirmMenu',{
                 sceneToPause: this.scene.key,
+                playerData: this.playerData,
                 text: "Is your first time playing Aseb?\n Do you want to go through an explanation?",
                 onYes: () => {         
                     this.scene.stop(this.playerData.SceneToResume);
