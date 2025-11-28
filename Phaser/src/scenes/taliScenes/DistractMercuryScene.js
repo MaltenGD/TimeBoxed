@@ -30,7 +30,7 @@ export class DistractMercuryScene extends BaseScene {
         this.transitionController.startFadeInTransition();
 
         this.addImages();
-        this.createButtons();
+        this.addButtons();
         this.createAndBeginDialogue();
 
         this.addListeners();
@@ -46,8 +46,34 @@ export class DistractMercuryScene extends BaseScene {
     /**
      * Creates the necessary buttons for the scene.
     */
-    createButtons() {
+    addButtons() {
+        this.optionOne = this.createButton(this.width / 2, this.height / 2, "Option1");
+        this.optionTwo = this.createButton(this.width / 2, this.height / 2, "Option2");
+    }
 
+        /**
+     * Creates a button with the given specifications.
+     * @param {number} x X position
+     * @param {number} y Y position
+     * @param {string} label The text inside the button
+     * @param {() => void} [onClick=() => {}] The event run on click
+     * @param {*} style The style (fontSize, fill...)
+     * @param {*} pointeroverStyle Style when hovering over the button
+     * @returns 
+     */
+    createButton(x, y, label, onClick = () => {}, style = {backgroundColor: '#fff', fill: '#000', fontSize: 80}, pointeroverStyle = {fill: 'rgba(116, 8, 9, 1)'}) {
+        const btn = this.add.text(x, y, label, {
+            fontSize: style.fontSize,
+            fill: style.fill,
+            backgroundColor: style.backgroundColor
+        })
+        .setOrigin(0.5)
+        .setInteractive()
+        .on('pointerover', () => btn.setStyle({ fill: pointeroverStyle.fill }))
+        .on('pointerout', () => btn.setStyle({ fill: style.fill }))
+        .on('pointerdown', onClick);
+
+        return btn;
     }
 
     /**
