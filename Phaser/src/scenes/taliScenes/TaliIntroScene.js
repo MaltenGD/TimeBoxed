@@ -40,11 +40,7 @@ export class TaliIntroScene extends BaseScene
         .on('pointerover', () => skipBtn.setStyle({ backgroundColor: '#bbbaba' }))
         .on('pointerout', () => skipBtn.setStyle({ backgroundColor: '#f7f7f7' }))
         .on('pointerdown', () => {
-           this.transitionController.startFadeOutTransition(() => {
-                
-                 this.dialogueController.skipToEnd();
-            
-            }, 400);
+            this.dialogueController.skipToEnd();
         });
 
         /** variable json*/
@@ -62,6 +58,7 @@ export class TaliIntroScene extends BaseScene
              this.transitionController.startFadeOutTransition(() => {
                 this.scene.launch('ConfirmMenu',{
                 sceneToPause: this.scene.key,
+                playerData: this.playerData,
                 text: "Is your first time playing Tali?\n Do you want to go through an explanation?",
                 onYes: () => {         
                     this.scene.stop(this.playerData.SceneToResume);

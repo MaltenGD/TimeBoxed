@@ -24,5 +24,12 @@ export class DistractMercuryScene extends BaseScene {
         super.init(playerData);
     }
 
-    
+    create() {
+        // Creates transitin controller and fades in.
+        this.transitionController = new TransitionController(this);
+        this.transitionController.startFadeInTransition();
+
+        this.background = this.add.image(width / 2, height / 2, 'taliBackgroundPlaceholder').setDisplaySize(width, height);
+    }
+
 }
