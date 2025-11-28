@@ -27,9 +27,6 @@ export class Intro extends BaseScene
         // Get the canvas width and height to use when giving a position to an object
         let { width, height } = this.sys.game.canvas;
 
-        this.input.keyboard.on('keydown-ESC', () => {
-             this.openOptionMenu()
-        });
 
         //creating the background
         this.background = this.add.image(width / 2, height / 2, 'IntroBackgroundPlaceholder').setDisplaySize(width, height);
@@ -77,13 +74,6 @@ export class Intro extends BaseScene
             console.log("cambia de escena");
         });
 
-    }
-    openOptionMenu()
-    {
-        if (this.scene.isActive('OptionMenu')) return;
-            this.scene.pause();
-            this.playerData.SceneToResume = this.scene.key;
-            this.scene.launch('OptionMenu', this.playerData);
     }
         
 }

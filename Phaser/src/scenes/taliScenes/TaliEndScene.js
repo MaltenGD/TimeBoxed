@@ -37,12 +37,7 @@ export class TaliEndScene extends BaseScene {
         this.transitionController.startFadeInTransition();
         
         this.createUI();
-        this.setInput();
         this.setDialogue();
-
-        this.input.keyboard.on('keydown-ESC', () => {
-            this.openOptionMenu();
-        });
     }
 
     /**
@@ -54,11 +49,6 @@ export class TaliEndScene extends BaseScene {
         this.addText();
     }
 
-    setInput() {
-        this.input.keyboard.on('keydown-ESC', () => {
-            this.openOptionMenu();
-        });
-    }
 
     setDialogue() {
         let taliDialogue = this.cache.json.get('TaliDialogue'), taliDialogueGroup;
@@ -155,14 +145,4 @@ export class TaliEndScene extends BaseScene {
         this.victoryText = this.add.text(this.width/2, this.height/5, this.playerWon ? 'You won!' : 'You lost!', { fontSize: 64, fill: '#000'}).setOrigin(0.5);
     }
     
-    /**
-     * Opens the option menu.
-     */
-    openOptionMenu()
-    {
-        if (this.scene.isActive('OptionMenu')) return;
-            this.scene.pause();
-            this.playerData.SceneToResume = this.scene.key;
-            this.scene.launch('OptionMenu', this.playerData);
-    }
 }

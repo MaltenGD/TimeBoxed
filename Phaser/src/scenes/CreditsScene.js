@@ -14,6 +14,8 @@ export class CreditsScene extends BaseScene {
         this.playerData = playerData;
         console.log(this.playerData)
 
+        this.DisableOptionMenu();
+
         this.transitionController = new TransitionController(this);
         this.transitionController.startFadeInTransition();
 

@@ -34,9 +34,6 @@ export class SelectionMenuScene extends BaseScene {
 
         this.transitionController.startFadeInTransition();
 
-        this.input.keyboard.on('keydown-ESC', () => {
-             this.openOptionMenu()
-        });
         
         const { width, height } = this.sys.game.canvas;  //width and height of the canvas
         if (this.playerData.TimeboxedMode) this.background = this.add.image(width / 2, height / 2, 'backgroundTB').setDisplaySize(width, height);
@@ -397,12 +394,5 @@ export class SelectionMenuScene extends BaseScene {
                 });
             }
         });
-    }
-    openOptionMenu()
-    {
-        if (this.scene.isActive('OptionMenu')) return;
-            this.scene.pause();
-            this.playerData.SceneToResume = this.scene.key;
-            this.scene.launch('OptionMenu', this.playerData);
     }
 }

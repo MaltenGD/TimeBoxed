@@ -17,6 +17,8 @@ export class GameModeSelectionScene extends BaseScene {
         const { width, height } = this.scale;
         this.transitionController = new TransitionController(this);
 
+        this.DisableOptionMenu();
+
         this.playerData = data.playerData;
         /**
          * Background

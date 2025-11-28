@@ -45,9 +45,6 @@ export class TaliBeginScene extends BaseScene {
 
         this.background = this.add.image(this.width / 2, this.height / 2, 'taliBackgroundPlaceholder').setDisplaySize(this.width, this.height);
 
-        this.input.keyboard.on('keydown-ESC', () => {
-            this.openOptionMenu();
-        });
 
         this.taliGame = new Tali(this, this.width, this.height);
 
@@ -258,12 +255,5 @@ export class TaliBeginScene extends BaseScene {
         this.rollBtn.setText('Start Game!').once('pointerdown', ()=> {
             this.transitionController.startFadeOutTransition(() => {this.scene.start('TaliScene', this.playerData)});
         });
-    }
-    openOptionMenu()
-    {
-        if (this.scene.isActive('OptionMenu')) return;
-            this.scene.pause();
-            this.playerData.SceneToResume = this.scene.key;
-            this.scene.launch('OptionMenu', this.playerData);
     }
 }
