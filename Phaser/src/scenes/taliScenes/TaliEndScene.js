@@ -67,8 +67,10 @@ export class TaliEndScene extends BaseScene {
         });
 
         this.events.on('Finished', () => {
-            this.scene.start('SelectionMenuScene', this.playerData);
-            console.log("cambia de escena");
+            this.transitionController.startFadeOutTransition(()=> {
+                if (this.playerData.TimeboxedMode && !this.playerWon) this.scene.start('TimeBoxedDefeat', this.playerData);
+                else this.scene.start('SelectionMenuScene', this.playerData);
+            }, 400);
         });
     }
 
