@@ -33,6 +33,7 @@ export class Start extends BaseScene {
 
         console.log('playerData:', Object.keys(playerData).length);
 
+        
         this.DisableOptionMenu();
 
         if (Object.keys(playerData).length == 0) // La primera vez que se inicia el juego (PlayerData es vacío)
