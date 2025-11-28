@@ -48,9 +48,9 @@ export class HanafudaGame extends Phaser.Scene{
 
     }
 
-    create(playerData){
+    create(data){
         //For optionsMenu and other stuff
-        this.playerData = playerData;
+        this.playerData = data.playerData;
 
         //For transitions
         this.transitionController = new TransitionController(this);
@@ -64,7 +64,7 @@ export class HanafudaGame extends Phaser.Scene{
         this.width = this.scale.width;
         this.height = this.scale.height;
 
-        //Bakcground
+        //Background
         this.background = this.add.image(this.width/2, this.height/2, 'HanafudaBackgroundPlaceholder');
 
         //Back button
@@ -270,21 +270,30 @@ export class HanafudaGame extends Phaser.Scene{
 
 
     table(card, cardpos){
-        this.infoText.setText("Searching pairs...")
-        this.searchesPair(card, cardpos); //Looks for a pairs for the chosen card with cards on the table
-        this.infoText.setText("Refilling table...");
-        this.refill = true; //The refill of the table only happens one time per turn and after the chosen card has found a pair or has been added to the table
+        this.infoText.setText("Searching pairs...");
+        this.time.delayedCall(1000, () => {
 
-        if(this.tableCards[0].length < 7 && this.tableCards[1].length < 7){
-        this.cardFromDeck = this.deck.splice(0,1)[0];
-        console.log("anotherpair");
-        console.log("cardFromDeck", this.cardFromDeck);
-        this.searchesPair(this.cardFromDeck, 0);
-        }
+            this.searchesPair(card, cardpos); //Looks for a pairs for the chosen card with cards on the table
+            this.infoText.setText("Refilling table...");
 
-        this.refill = false; //Reset the variable for next turn
-        this.infoText.setText("turn finished");
-        console.log("oponentPairss", this.opponentPairs); 
+            this.time.delayedCall(1000, () => {
+                this.refill = true; //The refill of the table only happens one time per turn and after the chosen card has found a pair or has been added to the table
+
+                if(this.tableCards[0].length < 7 && this.tableCards[1].length < 7)
+                {
+                this.cardFromDeck = this.deck.splice(0,1)[0];
+                console.log("anotherpair");
+                console.log("cardFromDeck", this.cardFromDeck);
+                this.searchesPair(this.cardFromDeck, 0);
+                }
+
+                this.refill = false; //Reset the variable for next turn
+                this.infoText.setText("turn finished");
+                console.log("oponentPairss", this.opponentPairs);
+                this.playerTurn = !this.playerTurn;
+                this.handlesTurns();
+            })
+        });
     }
 
     searchesPair(card, cardpos){//Good
@@ -391,7 +400,7 @@ export class HanafudaGame extends Phaser.Scene{
         if(this.playerTurn == false) {
             this.infoText.setText("Opponent's turn");
             this.time.addEvent({
-                delay: 1000/2,
+                delay: 500,
                 callback: this.handleOpponentTurn,
                 callbackScope: this
             });  
@@ -419,8 +428,8 @@ export class HanafudaGame extends Phaser.Scene{
         });
         console.log("Player selected:", card);
         this.table(card, cardPos);
-        this.playerTurn = false;
-        this.handlesTurns();
+        
+        
     }
 
     handleOpponentTurn(){
@@ -429,8 +438,6 @@ export class HanafudaGame extends Phaser.Scene{
             this.time.delayedCall(1000, ()=>{
                 let opponentChoice = Math.floor(Math.random() * this.opponentCards.length);
                 this.table(this.opponentCards[opponentChoice], opponentChoice);
-                this.playerTurn = true;
-                this.handlesTurns();
             });
         });
     }

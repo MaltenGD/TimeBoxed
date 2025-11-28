@@ -18,6 +18,7 @@ import { ItemsScene } from './scenes/ItemsScene.js';
 import { TimeBoxedDefeat } from './scenes/TimeBoxedDefeat.js'
 import { HanafudaBeginScene} from './scenes/HanafudaScenes/HanafudaBeginScene.js'
 import { HanafudaGame} from './scenes/HanafudaScenes/HanafudaGame.js'
+import { HanafudaGameState} from './scenes/HanafudaScenes/HanafudaGameState.js';
 
 
 
@@ -46,6 +47,7 @@ const config = {
         TaliBeginScene,
         TaliEndScene,
         HanafudaBeginScene,
+        HanafudaGameState,
         HanafudaGame,
         TimeBoxedDefeat,
         OptionMenuScene,
