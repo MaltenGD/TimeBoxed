@@ -98,6 +98,7 @@ export class GameModeSelectionScene extends BaseScene {
             padding: { x: 20, y: 10 }
         }).setOrigin(0.5).setInteractive()
         .on('pointerover', () => {
+            this.sound.play('buttonHover', { volume: 2 * this.playerData.sfxVolume });
             hoverTween(this.NormalBtn);
             updateDescriptionText('Normal Mode: Enjoy the normal pace without the risk of losing progress upon failure.');
            
@@ -126,6 +127,7 @@ export class GameModeSelectionScene extends BaseScene {
             padding: { x: 20, y: 10 }
         }).setOrigin(0.5).setInteractive()
         .on('pointerover', () => {
+            this.sound.play('buttonHover', { volume: 2 * this.playerData.sfxVolume });
             hoverTween(this.TimeboxedBtn);
             updateDescriptionText('TimeBoxed Mode: A high-risk experience where losing a game means starting over from the beginning. Complete the game in this mode to earn an exclusive achievement!');
             

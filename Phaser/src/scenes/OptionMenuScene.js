@@ -50,6 +50,7 @@ export class OptionMenuScene extends BaseScene {
         /**Button Hovering Behaviour */
 
         resumeBtn.on('pointerover', () => {
+            this.sound.play('buttonHover', { volume: 2 * this.playerData.sfxVolume });
             this.tweens.killTweensOf(resumeBtn);
             resumeBtn.setTexture('ResumeButtonHovered');
             this.tweens.add({
@@ -72,6 +73,7 @@ export class OptionMenuScene extends BaseScene {
 
 
         helpBtn.on('pointerover', () => {
+            this.sound.play('buttonHover', { volume: 2 * this.playerData.sfxVolume });
             this.tweens.killTweensOf(helpBtn);
             helpBtn.setTexture('HelpButtonHovered');
             this.tweens.add({
@@ -94,6 +96,7 @@ export class OptionMenuScene extends BaseScene {
 
 
         itemsBtn.on('pointerover', () => {
+            this.sound.play('buttonHover', { volume: 2 * this.playerData.sfxVolume });
             this.tweens.killTweensOf(itemsBtn);
             itemsBtn.setTexture('ItemsButtonHovered');
             this.tweens.add({
@@ -116,6 +119,7 @@ export class OptionMenuScene extends BaseScene {
 
 
         exitBtn.on('pointerover', () => {
+            this.sound.play('buttonHover', { volume: 2 * this.playerData.sfxVolume });
             this.tweens.killTweensOf(exitBtn);
             exitBtn.setTexture('ExitButtonHovered');
             this.tweens.add({
@@ -166,6 +170,7 @@ export class OptionMenuScene extends BaseScene {
             this.scene.pause();
             this.scene.launch('ConfirmMenu',{
                 sceneToPause: this.scene.key,
+                playerData: this.playerData,
                 text: "Do you want to go to the main menu?",
                 onYes: () => {         
                     this.scene.stop(this.playerData.SceneToResume);

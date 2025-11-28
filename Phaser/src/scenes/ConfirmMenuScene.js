@@ -117,6 +117,7 @@ export class ConfirmMenuScene extends BaseScene {
         };
 
         this.yesBtn.on('pointerover', () => {
+            this.sound.play('buttonHover', { volume: 2 * this.playerData.sfxVolume });
             hoverTween(this.yesBtn);
             if (data && data.onHoverYes) {
                 data.onHoverYes();
@@ -124,6 +125,7 @@ export class ConfirmMenuScene extends BaseScene {
         });
 
         this.noBtn.on('pointerover', () => {
+            this.sound.play('buttonHover', { volume: 2 * this.playerData.sfxVolume });
             hoverTween(this.noBtn);
             if (data && data.onHoverNo) {
                 data.onHoverNo();

@@ -99,7 +99,7 @@ export class Start extends BaseScene {
 
         //efecto hover del boton play
         playButton.on('pointerover', () => {
-            this.sound.play('buttonHover', { volume: 0.5 * this.playerData.sfxVolume });
+            this.sound.play('buttonHover', { volume: 2 * this.playerData.sfxVolume });
             playButton.setFrame(1);
         });
         playButton.on('pointerout', () => {
@@ -129,7 +129,7 @@ export class Start extends BaseScene {
 
         //efecto hover del boton Creditos
         creditsButton.on('pointerover', () => {
-            this.sound.play('buttonHover', { volume: 0.5 });
+            this.sound.play('buttonHover', { volume: 2 * this.playerData.sfxVolume });
             creditsButton.setStyle({ fill: '#62a6ffff' })
     
         });

@@ -187,7 +187,10 @@ export class SelectionMenuScene extends BaseScene {
         .setOrigin(0.5)
         .setInteractive({ cursor: 'pointer' })
         .on('pointerover', () => backBtn.setStyle({ backgroundColor: '#bbbaba' }))
-        .on('pointerout', () => backBtn.setStyle({ backgroundColor: '#f7f7f7' }))
+        .on('pointerout', () => backBtn.setStyle({ backgroundColor: '#f7f7f7' }));
+
+        backBtn.on('pointerover', () => { this.sound.play('buttonHover', { volume: 2 * this.playerData.sfxVolume }); })
+
         .on('pointerdown', () => {
             this.transitionController.startFadeOutTransition(() => {
                 
@@ -271,6 +274,7 @@ export class SelectionMenuScene extends BaseScene {
                          */
                         btn.setInteractive({ cursor: 'pointer' })
                             .on('pointerover', () => {
+                                this.sound.play('buttonHover', { volume: 2 * this.playerData.sfxVolume });
                                
                                 this.tweens.add({
                                     targets: btn,
@@ -356,6 +360,7 @@ export class SelectionMenuScene extends BaseScene {
         */
         box.on('pointerover', () => {
             if (!deployed) {
+                this.sound.play('buttonHover', { volume: 2 * this.playerData.sfxVolume });
 
                 /**
                  * Box scaling effect when hovering
