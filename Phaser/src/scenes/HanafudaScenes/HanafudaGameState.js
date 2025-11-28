@@ -68,9 +68,11 @@ export class HanafudaGameState extends Phaser.Scene{
         this.board = this.add.rectangle(300, 20, 1030, 1040, 0x000000, 0.7).setOrigin(0, 0);
         this.opponentPairZone = this.add.rectangle(this.width/ 2+ 400, 30, 530, 470 , 0x000000, 0.6).setOrigin(0, 0);
         this.playerPairZone = this.add.rectangle(this.width/ 2+ 400, this.height/2 + 20, 530, 470, 0x000000, 0.6).setOrigin(0, 0);
+        this.deckZone = this.add.rectangle(110, this.height/2 - 140, 180, 560, 0x000000, 0.6).setOrigin(0, 0);
         this.infoText = this.add.text(370, this.height / 2 + 200, "Start!", {fontSize: '56px', fill: '#ffffffff'}); //Text
         this.roundText = this.add.text(40, 1000, `round:${this.round}/4`, {fontSize: "30px",color: "#ffffff"});
-        this.deckObject = this.add.rectangle(200, this.height/2, 200, 350, 0x00000).setScale(0.6);
+        this.deckObject = this.add.rectangle(200, this.height/2, 200, 350, 0x609C86).setScale(0.6);
+        this.deckCardObject = null;
 
         this.transitionTo(HANAFUDA_STATE.START_ROUND);
     }
@@ -112,8 +114,9 @@ export class HanafudaGameState extends Phaser.Scene{
                     .on('pointerdown', () => {
                         this.chosenCardPos = index;
                         this.card = this.playerCards[index];
-                        this.OncardSelected();
-                        this.infoText.setText("searching pairs...");
+                        this.playerCardObjects.forEach(obj => obj.setInteractive(false).off('pointerdown')
+                        .off('pointerover')
+                        .off('pointerout'));
                         this.transitionTo(HANAFUDA_STATE.TABLE_ACTIONS);
                     });
                 });
@@ -139,6 +142,7 @@ export class HanafudaGameState extends Phaser.Scene{
                 },this);
             break;
             case HANAFUDA_STATE.TABLE_ACTIONS:
+                this.infoText.setText("searching pairs...");
                 
                 this.refill = false;
                 this.numberOfPairs = 0;
@@ -154,23 +158,25 @@ export class HanafudaGameState extends Phaser.Scene{
                         
                         //refill
                         this.refill = true;
-
                         this.time.delayedCall(800, ()=> {
-                            this.infoText.setText("Refilling table");
+                            this.infoText.setText("Getting card from deck");
                             this.card = this.deck.splice(0,1)[0];
                             this.tweens.add({
                                 targets: this.deckObject,
                                 scaleX: 0.7,
                                 scaleY: 0.7,
-                                duration: 300,
+                                duration: 200,
                                 ease: 'Power2',
                                 yoyo: true,
                             });
+
+                            this.render.renderDeckCard();
                             console.log("deckcard", this.card);
 
                             this.time.delayedCall(1800, ()=> {
                                 this.tableAction.searchesPair(this.card);
                                 this.selectPair();
+                                this.deckCardObject.destroy();
                                 this.renderCards();
                                 this.transitionTo(HANAFUDA_STATE.CHECK_END_ROUND);
 
@@ -228,10 +234,6 @@ export class HanafudaGameState extends Phaser.Scene{
         }
     }
 
-    OncardSelected(){
-        this.playerCardObjects.forEach(obj => obj.setInteractive(false));
-    }
-
     selectPair(){
         if(this.numberOfPairs === 1){ //Cuando solo hay una carta del mismo mes en la mesa
             this.infoText.setText("Pair Found");
@@ -244,7 +246,8 @@ export class HanafudaGameState extends Phaser.Scene{
             this.tableAction.foundPair(this.card, this.chosenCardPos, this.finalPos);
         }
         else if (this.numberOfPairs < 1){
-            this.infoText.setText("No pair found");
+            if(this.refill)this.infoText.setText("Table is refilled");
+            else {this.infoText.setText("No pair found");}
             this.tableAction.pairNotFound(this.chosenCardPos);
             //this.render.renderNewCardToTable(this.card, this.tableCards[this.emptyRow].length, this.emptyRow);
         }

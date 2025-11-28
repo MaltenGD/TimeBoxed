@@ -64,14 +64,12 @@ export default class HanafudaRender{
         const cardsPerRow = 7;
         const existingCardCount = this.scene.playerPairsObjects.length;
 
-        // Loop only through the new cards that haven't been rendered yet
         for (let i = existingCardCount; i < this.scene.playerPairs.length; i++) {
             const card = this.scene.playerPairs[i];
             const col = i % cardsPerRow;
             const row = Math.floor(i / cardsPerRow);
             const image = this.scene.add.image((this.width / 2 + 450) + (col * 70), (this.height / 2 + 90)+ (row * 100), `Card${card.number}`).setScale(0.1);
             
-            // Apply tween only to the new card
             this.pairsTweens(image);
             this.scene.playerPairsObjects.push(image);
         }
@@ -103,6 +101,16 @@ export default class HanafudaRender{
             targets: newCardImage,
             scaleX: 0.23,
             scaleY: 0.23,
+            duration: 200,
+            ease: 'Power2',
+        });
+    }
+
+    renderDeckCard(){
+        this.scene.deckCardObject = this.scene.add.image(200, this.height/2 + 100,`Card${this.scene.card.number}`).setScale(0.2);
+        this.scene.tweens.add({
+            targets: this.scene.deckCardObject,
+            y: this.scene.deckCardObject.y + 150,
             duration: 200,
             ease: 'Power2',
         });
