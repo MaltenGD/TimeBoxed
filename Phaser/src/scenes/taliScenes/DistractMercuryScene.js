@@ -13,11 +13,17 @@ export class DistractMercuryScene extends BaseScene {
     }
 
     create(data) {
+        // Takes data that was passed to scene.
         this.playerData = data.playerData;
+        this.mercuryRoll = data.mercuryRoll;
+
         // Sets the class variables width and height.
         let {width, height} = this.sys.game.canvas;
         this.width = width;
         this.height = height;
+
+        this.diceImages = [0, 0, 0, 0];
+        this.dice = [0, 0, 0, 0];
 
         // Creates transitin controller and fades in.
         this.transitionController = new TransitionController(this);
@@ -33,6 +39,7 @@ export class DistractMercuryScene extends BaseScene {
         ];
 
         this.addImages();
+        this.addText();
         this.addButtons();
         this.createAndBeginDialogue();
         this.addListeners();
@@ -43,6 +50,19 @@ export class DistractMercuryScene extends BaseScene {
      */
     addImages() {
         this.background = this.add.rectangle(0, 0, this.width, this.height, '0x000000', 0.5).setDisplaySize(this.width, this.height).setScale(2);
+    }
+
+    addText() {
+        this.infoText = this.add.text(this.width/2, this.height/4, "", {fontSize: 64}).setOrigin(0.5);
+    }
+
+    /**
+     * Creates and begins the first dialogue block.
+     */
+    createAndBeginDialogue() {
+        const dialogueData = this.cache.json.get('TaliDialogue');
+        this.dialogueController = new DialogueController(this, "DistractMercury", dialogueData);
+        this.dialogueController.iniDialogue();
     }
 
     /**
@@ -85,16 +105,6 @@ export class DistractMercuryScene extends BaseScene {
     }
 
     /**
-     * Checks if the button pressed is the correct answer or not
-     * @param {button} option Dialogue option pressed 
-     */
-    checkOption(option) {
-        this.hideOptions();
-        if (option.correct) console.log('correct');
-        else console.log("incorrect");
-    }
-
-    /**
      * Hides the dialogue options.
      */
     hideOptions() {
@@ -111,13 +121,50 @@ export class DistractMercuryScene extends BaseScene {
     }
 
     /**
-     * Creates and begins the first dialogue block.
+     * Checks if the button pressed is the correct answer or not
+     * @param {button} option Dialogue option pressed 
      */
-    createAndBeginDialogue() {
-        const dialogueData = this.cache.json.get('TaliDialogue');
-        this.dialogueController = new DialogueController(this, "DistractMercury", dialogueData);
-        this.dialogueController.iniDialogue();
+    checkOption(option) {
+        this.hideOptions();
+        if (option.correct) this.onCorrectOption();
+        else this.onIncorrectOption();
     }
+
+    onCorrectOption() {
+        console.log("Correct option picked.");
+        this.showMercuryDice();
+        
+    }
+
+    showMercuryDice() {
+        this.infoText.setText("Choose one of Mercury's dice to change: ");
+        
+        for (let i = 0, j = -this.width/12; i < 4; i++, j+=this.width/12) { 
+            this.diceImages[i] = this.add.image(this.width/2 - j, this.height/2, 'dice' + this.mercuryRoll[i]).setOrigin(0, 0.5).setScale(0.3).setAlpha(1).setInteractive();
+            this.diceImages[i].on('pointerdown', () => {this.onDiceClicked(i);});
+        }
+    }
+
+    onDiceClicked(diceIndex) {
+        this.diceImages[diceIndex].off('pointerdown');
+        this.showDiceOptions();
+    }
+
+    showDiceOptions() {
+        for (let i = 0, j = -this.width/12; i < 4; i++, j+=this.width/12) {
+            this.dice[i] = this.add.image(this.width/2 - j, this.height/3, 'dice' + i).setOrigin(0, 0.5).setScale(0.3).setAlpha(1).setInteractive()
+            .on('pointerdown', ()=>this.changeDice());
+        }
+    }
+
+    changeDice() {
+
+    }
+
+    onIncorrectOption() {
+        console.log("Incorrect option picked.");
+    }
+
 
     /**
      * Adds all the listeners in this scene.
