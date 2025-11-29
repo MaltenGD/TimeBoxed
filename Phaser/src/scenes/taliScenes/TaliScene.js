@@ -182,6 +182,9 @@ export class TaliScene extends BaseScene {
             case GAME_STATE.ENEMY_ROLLED:
                 this.onEnemyRolled();
                 break;
+            case GAME_STATE.ENEMY_DISTRACT:
+                this.onEnemyDistract();
+                break;
             case GAME_STATE.ENEMY_THROWN:
                 this.onEnemyThrown();
                 break;
@@ -231,6 +234,11 @@ export class TaliScene extends BaseScene {
             this.turnText.setText("Mercury's combinations:");
             this.taliGame.nextTurn();
         })
+    }
+
+    onEnemyDistract() {
+        this.scene.pause();
+        this.scene.launch('DistractMercuryScene', {playerData: this.playerData, mercuryRoll: this.taliGame.currentRoll})
     }
 
     onEnemyThrown() {

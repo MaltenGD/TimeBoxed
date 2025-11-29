@@ -11,6 +11,7 @@ export const GAME_STATE = {
     PLAYER_THROWN: 'PLAYER_THROWN',
     ENEMY_START: 'ENEMY_START',
     ENEMY_ROLLED: 'ENEMY_ROLLED',
+    ENEMY_DISTRACT: 'ENEMY_DISTRACT',
     ENEMY_THROWN: 'ENEMY_THROWN',
     GAME_OVER: 'GAME_OVER'
 };
@@ -141,8 +142,12 @@ export default class Tali {
                     this.generalRoll(this.enemy);
                     this.emitter.once('diceIn', () => {
                         this.emitState();
-                        this.state = GAME_STATE.ENEMY_THROWN;
+                        this.state = GAME_STATE.ENEMY_DISTRACT;
                     })
+                    break;
+                case GAME_STATE.ENEMY_DISTRACT:
+                    this.emitState();
+                    this.state = GAME_STATE.ENEMY_THROWN;
                     break;
                 case GAME_STATE.ENEMY_THROWN:
                     this.hideDice();

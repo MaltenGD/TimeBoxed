@@ -1,5 +1,6 @@
 import { BaseScene } from '../BaseScene.js';
 import DialogueController from '../../DialogueController.js';
+import TransitionController, { RGBColor } from '../../misc/transitioncontroller.js';
 
 /**
  * @class DistractMercuryScene
@@ -10,29 +11,21 @@ export class DistractMercuryScene extends BaseScene {
     constructor() {
         super('DistractMercuryScene');
     }
-    
-    /**
-     * Initializes scene data.
-     * @param {object} data - Data passed from the previous scene.
-     */
-    init(playerData) {
-        super.init(playerData);
 
+    create(data) {
+        this.playerData = data.playerData;
         // Sets the class variables width and height.
         let {width, height} = this.sys.game.canvas;
         this.width = width;
         this.height = height;
-    }
 
-    create() {
         // Creates transitin controller and fades in.
         this.transitionController = new TransitionController(this);
-        this.transitionController.startFadeInTransition();
+        // this.transitionController.startFadeInTransition(()=> {this.createAndBeginDialogue()}, 400, new RGBColor(0, 0, 0, 0.5));
 
         this.addImages();
         this.addButtons();
         this.createAndBeginDialogue();
-
         this.addListeners();
     }
 
@@ -40,7 +33,7 @@ export class DistractMercuryScene extends BaseScene {
      * Adds all necessary images to the scene.
      */
     addImages() {
-        this.background = this.add.rectangle(0, 0, this.width, this.height, '0x000000', 128);
+        this.background = this.add.rectangle(0, 0, this.width, this.height, '0x000000', 0.5).setDisplaySize(this.width, this.height).setScale(2);
     }
 
     /**
