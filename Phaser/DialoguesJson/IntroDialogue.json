@@ -87,164 +87,158 @@
     },
     "ID13": 
     {
-        "speaker": "Kronos",
-        "text": "He points to your yarn ball. If you bring me that meat from the alley I was thinking of, I'll give you this thing in return.",
+        "speaker": "Narrator",
+        "text": "kronos suddenly makes YOUR yarn ball appear next to him, while you were distracted he took the opportunity to stole it.",
         "animation": "true",
         "next": "ID14"
     },
     "ID14": 
     {
-        "speaker": "Narrator",
-        "text": "kronos suddenly makes YOUR yarn ball appear next to him, while you were distracted he took the opportunity to stole it.",
+        "speaker": "Player",
+        "text": "*in pure disbelief* YOU!! How do you have my yarn ball!?",
         "animation": "true",
         "next": "ID15"
     },
     "ID15": 
     {
-        "speaker": "Player",
-        "text": "*in pure disbelief* YOU!! How do you have my yarn ball!?",
+        "speaker": "Kronos",
+        "text": "Oh well the hows and whats aren't important here my friend, the thing is *pauses* I'm not giving it back to you MUAHAHA *evil laugh*.",
         "animation": "true",
         "next": "ID16"
     },
     "ID16": 
     {
-        "speaker": "Kronos",
-        "text": "Oh well the hows and whats aren't important here my friend, the thing is *pauses* I'm not giving it back to you MUAHAHA *evil laugh*.",
+        "speaker": "Player",
+        "text": "you rat!... No, scratch that, you are even worse than a rat! give it back or else!",
         "animation": "true",
         "next": "ID17"
     },
     "ID17": 
     {
-        "speaker": "Player",
-        "text": "you rat!... No, scratch that, you are even worse than a rat! give it back or else!",
+        "speaker": "Kronos",
+        "text": "first, don't compare me to filthy rats. I'm above that AND above you too. But I'll let it slide this time. You see, I'm a really generous creature that means no harm.",
         "animation": "true",
         "next": "ID18"
     },
     "ID18": 
     {
         "speaker": "Kronos",
-        "text": "first, don't compare me to filthy rats. I'm above that AND above you too. But I'll let it slide this time. You see, I'm a really generous creature that means no harm.",
+        "text": "so I guess if you insist, I have no other option but to offer you a deal. Everything goes back to last week, when I accidentally and tragically lost my most priced belongings.",
         "animation": "true",
         "next": "ID19"
     },
     "ID19": 
     {
         "speaker": "Kronos",
-        "text": "so I guess if you insist, I have no other option but to offer you a deal. Everything goes back to last week, when I accidentally and tragically lost my most priced belongings.",
+        "text": "the thing is, I need someone to recover them. Don't worry it's only three objects, no biggie for something as smart as you.",
         "animation": "true",
         "next": "ID20"
     },
     "ID20": 
     {
-        "speaker": "Kronos",
-        "text": "the thing is, I need someone to recover them. Don't worry it's only three objects, no biggie for something as smart as you.",
+        "speaker": "Player",
+        "text": "why can't you do it yourself, if you want them back soooo badly?",
         "animation": "true",
         "next": "ID21"
     },
     "ID21": 
     {
-        "speaker": "Player",
-        "text": "why can't you do it yourself, if you want them back soooo badly?",
+        "speaker": "Kronos",
+        "text": "because I can't, it's more complicated than that you peasant!",
         "animation": "true",
         "next": "ID22"
     },
     "ID22": 
     {
-        "speaker": "Kronos",
-        "text": "because I can't, it's more complicated than that you peasant!",
+        "speaker": "Player",
+        "text": "ugh, alr so what do I have to do to recover them so I can get my yarn back?",
         "animation": "true",
         "next": "ID23"
     },
     "ID23": 
     {
-        "speaker": "Player",
-        "text": "ugh, alr so what do I have to do to recover them so I can get my yarn back?",
+        "speaker": "Kronos",
+        "text": "Pretty easy! you only have to win three games.",
         "animation": "true",
         "next": "ID24"
     },
     "ID24": 
     {
-        "speaker": "Kronos",
-        "text": "Pretty easy! you only have to win three games.",
+        "speaker": "Player",
+        "text": "against you? and can I choose the games? (with all his ego I guess he will be an easy opponent).",
         "animation": "true",
         "next": "ID25"
     },
     "ID25": 
     {
-        "speaker": "Player",
-        "text": "against you? and can I choose the games? (with all his ego I guess he will be an easy opponent).",
+        "speaker": "Kronos",
+        "text": "Oh no no, you? playing against the almighty kronos? no, no that can't be, I don't play with brats. Besides I don't have the objects duh if you win against me you would gain nothing.",
         "animation": "true",
         "next": "ID26"
     },
     "ID26": 
     {
         "speaker": "Kronos",
-        "text": "Oh no no, you? playing against the almighty kronos? no, no that can't be, I don't play with brats. Besides I don't have the objects duh if you win against me you would gain nothing.",
+        "text": "*sighs* what you have to do is win against some of my *ehem* friends, who happened to recover them for me. However, for reasons you little brain won't understand I can't ask them to return them.",
         "animation": "true",
         "next": "ID27"
     },
     "ID27": 
     {
         "speaker": "Kronos",
-        "text": "*sighs* what you have to do is win against some of my *ehem* friends, who happened to recover them for me. However, for reasons you little brain won't understand I can't ask them to return them.",
+        "text": "Anyway, win the games, I get my objects back and you get your beloved yarn. Do we have a deal?",
         "animation": "true",
         "next": "ID28"
     },
     "ID28": 
     {
-        "speaker": "Kronos",
-        "text": "Anyway, win the games, I get my objects back and you get your beloved yarn. Do we have a deal?",
+        "speaker": "Player",
+        "text": "(He seems shaddy, but I really want my yarn back ugh). Alr, we have a deal",
         "animation": "true",
         "next": "ID29"
     },
     "ID29": 
     {
-        "speaker": "Player",
-        "text": "(He seems shaddy, but I really want my yarn back ugh). Alr, we have a deal",
+        "speaker": "Narrator",
+        "text": "kronos and you, paw with paw together and a there's a faint glow that goes away as fast as it came, this mean the deal has been sealed.",
         "animation": "true",
         "next": "ID30"
     },
     "ID30": 
     {
-        "speaker": "Narrator",
-        "text": "kronos and you, paw with paw together and a there's a faint glow that goes away as fast as it came, this mean the deal has been sealed.",
+        "speaker": "Kronos",
+        "text": "Well, it's done, but first you have to get with me in my box, this is how we will get around.",
         "animation": "true",
         "next": "ID31"
     },
     "ID31": 
     {
-        "speaker": "Kronos",
-        "text": "Well, it's done, but first you have to get with me in my box, this is how we will get around.",
+        "speaker": "Player",
+        "text": "The box? how are we supposed to get around in that junk?",
         "animation": "true",
         "next": "ID32"
     },
     "ID32":
     {
-        "speaker": "Player",
-        "text": "The box? how are we supposed to get around in that junk?",
+        "speaker": "Kronos",
+        "text": "Oh, just shut it and get on!",
         "animation": "true",
         "next": "ID33"
     },
     "ID33":
-    {
-        "speaker": "Kronos",
-        "text": "Oh, just shut it and get on!",
-        "animation": "true",
-        "next": "ID34"
-    },
-    "ID34":
     {
         "speaker": "Narrator",
         "text": "you reluctantly get in the box, and when you're inside, you're shocked to see it has a lot more space than it appeared to have from the outside.",
         "animation": "true",
         "next": "end"
     },
-    "end":
+     "end":
     {
         "speaker": "Kronos",
         "text": "Well, welcome to my 'little' home haha. Now, because I'm the kindest cat around here, I'll let you choose where you wanna go first.",
         "animation": "true",
         "next": null
     }
+   
 }
 }

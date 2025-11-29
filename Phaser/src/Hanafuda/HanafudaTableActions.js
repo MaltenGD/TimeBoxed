@@ -5,8 +5,8 @@ export default class HanafudaTableActions{
         this.tablepos = [];
     }
 
-    searchesPair(card){//Good
-        //Contador para saber cuantas cartas del mismo mes hay en la mesa
+    /**@method searchesPair : it Compares the month of the card received with the month of the cards on the table, if they match the number of pair counter increases */
+    searchesPair(card){
         this.scene.pos1 = {row: 0, col: 0};
         this.scene.pos2 = {row: 0, col: 0};
         this.scene.pos3 = {row: 0, col: 0};
@@ -15,7 +15,7 @@ export default class HanafudaTableActions{
 
         for(let i = 0; i < this.scene.tableCards.length; ++i){
             for(let j = 0; j < this.scene.tableCards[i].length; ++j){
-                if(card.month === this.scene.tableCards[i][j].month){ //Comprueba si la carta elegida tiene algun par en la mesa (los meses deben coincidir)
+                if(card.month === this.scene.tableCards[i][j].month){
                     this.scene.numberOfPairs++;
                     if(this.scene.numberOfPairs === 1){this.scene.pos1 = {row: i, col: j}}
                     else if(this.scene.numberOfPairs === 2){this.scene.pos2 = {row: i, col: j}}
@@ -27,6 +27,11 @@ export default class HanafudaTableActions{
         console.log("positions", this.scene.pos1, this.scene.pos2, this.scene.pos3);
     }
 
+    /**
+     *  @param {number} pairs :number of different pairs on the table
+     *  @method selectTablePair 
+     * :It chooses a position randomly of the different positions of pairs on the table 
+     * */
     selectTablePair(pairs){
         let randomChoice = 0;
         if(pairs === 2){randomChoice = Math.floor(Math.random() * 2);}
@@ -37,6 +42,12 @@ export default class HanafudaTableActions{
         else if(randomChoice === 2){this.scene.finalPos = this.scene.pos3;}
     }
 
+    /** 
+     * @param {number} cardpos :position of the chosen card inside it's respective array
+     * @param {tablecardPos} tablecardPos:position of the chosen table card
+     * @method foundPair :Depending on whose turn it is, it only changes the origin and final arrays. Before refilling the table it will add the card chosen by the player/opponent 
+     * from the player/opponent array to the player/opponent pairs array, and if it's refilling, it will add the deck card to the player/opponent pairs array. 
+     * In both cases the pair card on the table will be added to the pairs array.*/
     foundPair(card, cardpos, tablecardPos){
         if(this.scene.playerTurn){
             if(this.scene.refill == false) {this.scene.playerPairs.push(this.scene.playerCards.splice(cardpos, 1)[0]);}
@@ -46,12 +57,15 @@ export default class HanafudaTableActions{
         }
         else {
             if(this.scene.refill === false) { this.scene.opponentPairs.push(this.scene.opponentCards.splice(cardpos, 1)[0]);}
-            else {this.scene.opponentPairs.push(this.scene.card);} //Pone la carta del deck
+            else {this.scene.opponentPairs.push(this.scene.card);}
 
-            this.scene.opponentPairs.push(this.scene.tableCards[tablecardPos.row].splice(tablecardPos.col, 1)[0]); //Coloca 
+            this.scene.opponentPairs.push(this.scene.tableCards[tablecardPos.row].splice(tablecardPos.col, 1)[0]);
         }
     }
 
+    /**
+     * @method pairNotFound :Before refilling the table, It eliminates the chosen card from it's original array and adds it to the table array. 
+     * If during the table refill this method is called, it will add the card from the deck to the table.*/
     pairNotFound(cardpos){
         this.scene.emptyRow = 0;
         if(this.scene.tableCards[0].length < this.scene.tableCards[1].length){this.scene.emptyRow = 0;}
@@ -63,5 +77,4 @@ export default class HanafudaTableActions{
         }
         else{this.scene.tableCards[this.scene.emptyRow].push(this.scene.card);} //If The table is refilling then add deck card 
     }
-
 }
