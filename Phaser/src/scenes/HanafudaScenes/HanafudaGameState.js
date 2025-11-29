@@ -142,8 +142,9 @@ export class HanafudaGameState extends Phaser.Scene{
                 this.time.delayedCall(1000, ()=> {
                     this.infoText.setText("Opponent has chosen a card!"); //
 
+                    let chosenCardObject = this.opponentCardObjects[this.chosenCardPos];
                     this.tweens.add({ //card poking out of the opponent hand animation
-                        targets: this.card, y: chosenCardObject.y + 50,duration: 300, ease: 'Power2',
+                        targets: chosenCardObject, y: chosenCardObject.y + 50,duration: 300, ease: 'Power2',
                     });
                     
                     this.time.delayedCall(1000, ()=> {
