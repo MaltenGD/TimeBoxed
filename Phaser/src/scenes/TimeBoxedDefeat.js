@@ -1,6 +1,8 @@
 import DialogueController from "../DialogueController.js";
+import TransitionController, {RGBColor} from "../misc/transitioncontroller.js";
+import { BaseScene } from "./BaseScene.js";
 
-export class TimeBoxedDefeat extends Phaser.Scene
+export class TimeBoxedDefeat extends BaseScene
 {
     constructor(){super('TimeBoxedDefeat');}
 
@@ -21,9 +23,13 @@ export class TimeBoxedDefeat extends Phaser.Scene
         // Get the canvas width and height to use when giving a position to an object
         let { width, height } = this.sys.game.canvas;
 
+        this.DisableOptionMenu();
+
+        this.transitionController = new TransitionController(this);
+        this.transitionController.startFadeInTransition();
 
         //creating the background
-      this.background = this.add.image(width / 2, height / 2, 'backgroundTB').setDisplaySize(width, height);
+        this.background = this.add.image(width / 2, height / 2, 'backgroundTB').setDisplaySize(width, height);
 
         /**Skip button */
         const skipBtn = this.add.text(width - 100, height - 1000 , 'SKIP', {
@@ -67,11 +73,12 @@ export class TimeBoxedDefeat extends Phaser.Scene
 
     resetPlayerData()
     {
-        this.playerData.IntroCompleted = false;
-        this.playerData.EgyptIntroCompleted = false;
-        this.playerData.AsebCompleted = false;
-        this.playerData.TaliCompleted = false;
-        this.playerData.HanafudaCompleted = false;
+        for (const key in this.playerData) {
+            if (typeof this.playerData[key] === 'boolean') {
+                this.playerData[key] = false;
+            }
+        }
+
     }
             
 }

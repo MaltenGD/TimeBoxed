@@ -1,0 +1,587 @@
+{
+    "TaliIntroDialogue":
+{
+    "start":
+    {
+        "speaker": "Narrator",
+        "text": "You leave the box with Kronos and see a room full of cats doing something you weren't expecting: partying--",
+        "animation": "true",
+        "next": "TI1"
+    },
+
+    "TI1":
+    {
+        "speaker": "Narrator",
+        "text": "--clinking cups, cheering, spilling milk on their brown furs and metal shields, discarded at their feet. Some of them are talking, others are throwing dice and calculating throws.",
+        "animation": "true",
+        "next": "TI2"
+    },
+
+    "TI2":
+    {
+        "speaker": "Narrator",
+        "text": "They look like soldiers just returned from a war, celebrating a great victory.",
+        "animation": "true",
+        "next": "TI3"
+    },
+
+    "TI3":
+    {
+        "speaker": "Narrator",
+        "text": "Kronos puts a paw around your shoulders and guides you through the multitude.",
+        "animation": "true",
+        "next": "TI4"
+    },
+    
+    "TI4":
+    {
+        "speaker": "Narrator",
+        "text": "He whispers in your ear...",
+        "animation": "true",
+        "next": "TI5"
+    },
+    
+    "TI5":
+    {
+        "speaker": "Kronos",
+        "text": "Don't get drunk or you'll lose. No one can hold their alcohol like Mercury.",
+        "animation": "true",
+        "next": "TI6"
+    },
+    
+    "TI6":
+    {
+        "speaker": "Kronos",
+        "text": "...except me, of course.",
+        "animation": "true",
+        "next": "TI7"
+    },
+    
+    "TI7":
+    {
+        "speaker": "Narrator",
+        "text": "Kronos looks very proud of himself.",
+        "animation": "true",
+        "next": "TI8"
+    },
+    
+    "TI8":
+    {
+        "speaker": "Player",
+        "text": "Is that why you lost?",
+        "animation": "true",
+        "next": "TI9"
+    },
+    
+    "TI9":
+    {
+        "speaker": "Kronos",
+        "text": "Hmph.",
+        "animation": "true",
+        "next": "TI10"
+    },
+    
+    "TI10":
+    {
+        "speaker": "Narrator",
+        "text": "Kronos opens his mouth-",
+        "animation": "true",
+        "next": "TI11"
+    },
+    
+    "TI11":
+    {
+        "speaker": "???",
+        "text": "GOD OF TIME!",
+        "animation": "true",
+        "next": "TI12"
+    },
+    
+    "TI12":
+    {
+        "speaker": "Narrator",
+        "text": "A booming voice interrupts your conversation.",
+        "animation": "true",
+        "next": "TI13"
+    },
+    
+    "TI13":
+    {
+        "speaker": "Kronos",
+        "text": "Tsk. There he is. Be careful, kitty.",
+        "animation": "true",
+        "next": "TI14"
+    },
+    
+    "TI14":
+    {
+        "speaker": "Narrator",
+        "text": "You are about to protest when Kronos pushes you forward and you stumble at the feet of a very...",
+        "animation": "true",
+        "next": "TI15"
+    },
+    
+    "TI15":
+    {
+        "speaker": "Narrator",
+        "text": "...small, fluffy, spiky cat with tiny eyes and brown fur.",
+        "animation": "true",
+        "next": "TI16"
+    },
+    
+    "TI16":
+    {
+        "speaker": "Narrator",
+        "text": "You glance back, but Kronos has disappeared. ",
+        "animation": "true",
+        "next": "TI17"
+    },
+    
+    "TI17":
+    {
+        "speaker": "Player",
+        "text": "You son of a-",
+        "animation": "true",
+        "next": "TI18"
+    },
+    
+    "TI18":
+    {
+        "speaker": "???",
+        "text": "Who's this little kitty? A follower of Kronos's?",
+        "animation": "true",
+        "next": "TI19"
+    },
+    
+    "TI19":
+    {
+        "speaker": "Player",
+        "text": "I- Uh- I-",
+        "animation": "true",
+        "next": "TI20"
+    },
+    
+    "TI20":
+    {
+        "speaker": "Narrator",
+        "text": "Mercury, the trickster, God of commerce and thieves, laughs in your face.",
+        "animation": "true",
+        "next": "TI21"
+    },
+    
+    "TI21":
+    {
+        "speaker": "Narrator",
+        "text": "You can smell the alcohol in his breath.",
+        "animation": "true",
+        "next": "TI22"
+    },
+    
+    "TI22":
+    {
+        "speaker": "Mercury",
+        "text": "You're here for the can of tuna ol' Kronos lost? I'm surprised you would wager your soul for him!",
+        "animation": "true",
+        "next": "TI23"
+    },
+    
+    "TI23":
+    {
+        "speaker": "Narrator",
+        "text": "Mercury slams his paw into the table and interrupts your thoughts about the soul-trading. Four stone dice on the table shake.",
+        "animation": "true",
+        "next": "end"
+    },
+    
+    "end":
+    {
+        "speaker": "Mercury",
+        "text": "Then join me for a round of Tali, and let the dice decide your fate!",
+        "animation": "true",
+        "next": null
+    }
+},
+
+"TaliTutorialDialogue": {
+    "start":{
+        "speaker": "Mercury",
+        "text": "So your friend has left you, huh?",
+        "animation":"true",
+        "next": "TT1",
+        "image": ""
+    },
+
+    "TT1":{
+        "speaker": "Mercury",
+        "text": "Typical Kronos.",
+        "animation":"true",
+        "next": "TT2",
+        "image": ""
+    },
+
+    "TT2":{
+        "speaker": "Mercury",
+        "text": "Do not worry, *I* will teach you!",
+        "animation":"true",
+        "next": "TT3",
+        "image": ""
+    },
+
+    "TT3":{
+        "speaker": "Mercury",
+        "text": "Tali is a game that revolves around dice. The rules are simple:",
+        "animation":"true",
+        "next": "TT4",
+        "image": ""
+    },
+
+    "TT4":{
+        "speaker": "Mercury",
+        "text": "Each of us rolls the dice once. Whoever gets a higher score begins.",
+        "animation":"true",
+        "next": "TT5",
+        "image": ""
+    },
+
+    "TT5":{
+        "speaker": "Mercury",
+        "text": "On your turn, you throw the dice and get points based on the combinations they form.",
+        "animation":"true",
+        "next": "TT6",
+        "image": ""
+    },
+
+    "TT6":{
+        "speaker": "Mercury",
+        "text": "Let me tell you about them!",
+        "animation":"true",
+        "next": "TT7",
+        "image": ""
+    },
+
+    "TT7":{
+        "speaker": "Mercury",
+        "text": "Venus: all the dice rolled different numbers.",
+        "animation":"true",
+        "next": "TT8",
+        "image": ""
+    },
+
+    "TT8":{
+        "speaker": "Mercury",
+        "text": "Marte: you rolled at least one dice with the number 6 on it.",
+        "animation":"true",
+        "next": "TT9",
+        "image": ""
+    },
+
+    "TT9":{
+        "speaker": "Mercury",
+        "text": "Jupiter: all the dice rolled the same number.",
+        "animation":"true",
+        "next": "TT10",
+        "image": ""
+    },
+
+    "TT10":{
+        "speaker": "Mercury",
+        "text": "Neptune: all the dice landed on 1. This is an unlucky throw, so it gives you no points.",
+        "animation":"true",
+        "next": "TT11",
+        "image": ""
+    },
+
+    "TT11":{
+        "speaker": "Mercury",
+        "text": "I saved the best for last! Luna: you rolled at least 3 dice with the number 3.",
+        "animation":"true",
+        "next": "TT12",
+        "image": ""
+    },
+
+    "TT12":{
+        "speaker": "Mercury",
+        "text": "If you roll a Luna, you get another turn! How cool is that?",
+        "animation":"true",
+        "next": "TT13",
+        "image": ""
+    },
+
+    "TT13":{
+        "speaker": "Mercury",
+        "text": "We're going to play three rounds. May the dice be in your favor!",
+        "animation":"true",
+        "next": "TT14",
+        "image": ""
+    },
+
+    "TT14":{
+        "speaker": "Kronos",
+        "text": "Psst, friend!",
+        "animation":"true",
+        "next": "TT15",
+        "image": ""
+    },
+
+    "TT15":{
+        "speaker": "Kronos",
+        "text": "I don't trust the fates to be in your favor in this game, so I'll help you.",
+        "animation":"true",
+        "next": "TT16",
+        "image": ""
+    },
+
+    "TT16":{
+        "speaker": "Kronos",
+        "text": "Each time before Mercury's turn, you should try distracting him.",
+        "animation":"true",
+        "next": "TT17",
+        "image": ""
+    },
+
+    "TT17":{
+        "speaker": "Kronos",
+        "text": "How? Just say something about the alcohol, or compliment his eyes. You'll figure it out!",
+        "animation":"true",
+        "next": "end",
+        "image": ""
+    },
+
+    "end":{
+        "speaker": "Mercury",
+        "text": "I think we're ready now. Let's start!",
+        "animation":"true",
+        "next": null,
+        "image": "none"
+    }
+},
+
+"TaliWinDialogue": {
+    "start":
+    {
+        "speaker": "Narrator",
+        "text": "The last dice lands.",
+        "animation": "true",
+        "next": "TW1"
+    },
+
+    "TW1":
+    {
+        "speaker": "Narrator",
+        "text": "You lean over the table, eagerly calculating the last points of the game...",
+        "animation": "true",
+        "next": "TW2"
+    },
+
+    "TW2":
+    {
+        "speaker": "Mercury",
+        "text": "NOOOOOO!",
+        "animation": "true",
+        "next": "TW3"
+    },
+
+    "TW3":
+    {
+        "speaker": "Narrator",
+        "text": "The drunk Mercury slumps over the table and sniffles.",
+        "animation": "true",
+        "next": "TW4"
+    },
+
+    "TW4":
+    {
+        "speaker": "Mercury",
+        "text": "I can't believe I lost...",
+        "animation": "true",
+        "next": "TW5"
+    },
+
+    "TW5":
+    {
+        "speaker": "Narrator",
+        "text": "He raises his head and takes a big gulp from his cup of fermented milk drink, descending even more into drunkenness.",
+        "animation": "true",
+        "next": "TW6"
+    },
+
+    "TW6":
+    {
+        "speaker": "Player",
+        "text": "So about the can-",
+        "animation": "true",
+        "next": "TW7"
+    },
+
+    "TW7":
+    {
+        "speaker": "Kronos",
+        "text": "Kitty!",
+        "animation": "true",
+        "next": "TW8"
+    },
+
+    "TW8":
+    {
+        "speaker": "Narrator",
+        "text": "Kronos appears next to you and slings his paw over your shoulder.",
+        "animation": "true",
+        "next": "TW9"
+    },
+
+    "TW9":
+    {
+        "speaker": "Kronos",
+        "text": "I knew you could do it.",
+        "animation": "true",
+        "next": "TW10"
+    },
+
+    "TW10":
+    {
+        "speaker": "Player",
+        "text": "You abandoned me, Kronos, what the fu-",
+        "animation": "true",
+        "next": "TW11"
+    },
+
+    "TW11":
+    {
+        "speaker": "Kronos",
+        "text": "Ay-oh-kay, we're going to take my dear tuna can and leave! Bye, Mercury!",
+        "animation": "true",
+        "next": "end"
+    }, 
+
+    "end":
+    {
+        "speaker": "Narrator",
+        "text": "You jump back into the box, leaving a drunk Mercury to sob on the table.",
+        "animation": "true",
+        "next": null
+    }
+},
+
+"TaliLoseDialogue":
+{
+    "start":
+    {
+        "speaker": "Narrator",
+        "text": "The last dice lands.",
+        "animation": "true",
+        "next": "TW1"
+    },
+
+    "TW1":
+    {
+        "speaker": "Narrator",
+        "text": "You lean over the table, eagerly calculating the last points of the game...",
+        "animation": "true",
+        "next": "TW2"
+    },
+
+    "TW2":
+    {
+        "speaker": "Mercury",
+        "text": "YES! Whoop!",
+        "animation": "true",
+        "next": "TW3"
+    },
+
+    "TW3":
+    {
+        "speaker": "Narrator",
+        "text": "The drunk Mercury raises his paws up high and cheers.",
+        "animation": "true",
+        "next": "TW4"
+    },
+
+    "TW4":
+    {
+        "speaker": "Mercury",
+        "text": "You lose!",
+        "animation": "true",
+        "next": "TW5"
+    },
+
+    "TW5":
+    {
+        "speaker": "Narrator",
+        "text": "He points a claw at your face.",
+        "animation": "true",
+        "next": "TW6"
+    },
+
+    "TW6":
+    {
+        "speaker": "Mercury",
+        "text": "Now your soul is mine!",
+        "animation": "true",
+        "next": "TW7"
+    },
+    
+    "TW7":
+    {
+        "speaker": "Narrator",
+        "text": "Mercury takes a swig of his fermented milk and orders another drink.",
+        "animation": "true",
+        "next": "TW8"
+    },
+
+    "TW8":
+    {
+        "speaker": "Player",
+        "text": "Soul? No one said anything about a soul-",
+        "animation": "true",
+        "next": "TW9"
+    },
+
+    "TW9":
+    {
+        "speaker": "Mercury",
+        "text": "You're a mortal, you lose, you give me your soul.",
+        "animation": "true",
+        "next": "TW10"
+    },
+
+    "TW10":
+    {
+        "speaker": "Narrator",
+        "text": "You stumble back. Kronos appears behind you and drags you into the crowds.",
+        "animation": "true",
+        "next": "TW11"
+    },
+
+    "TW11":
+    {
+        "speaker":"Narrator",
+        "text": "Fortunately for you, Mercury is too drunk to notice right away.",
+        "animation": "true",
+        "next": "TW12"
+    },
+
+    "TW12":
+    {
+        "speaker":"Kronos",
+        "text": "Ok, kitty, we'll have to redo this. But promise me you'll win next time, alright?",
+        "animation": "true",
+        "next": "TW13"
+    },
+
+    "TW13":
+    {
+        "speaker":"Narrator",
+        "text": "The world dissolves into a swirl of colors and fades to black.",
+        "animation": "true",
+        "next": "end"
+    },
+
+    "end":
+    {
+        "speaker":"Narrator",
+        "text":"The hands of time turn back and you forget this ever happened...",
+        "animation": "true",
+        "next": null
+    }
+}
+}

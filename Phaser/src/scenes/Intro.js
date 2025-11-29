@@ -1,11 +1,12 @@
 import DialogueController from "../DialogueController.js";
 import TransitionController, {RGBColor} from "../misc/transitioncontroller.js";
+import { BaseScene } from "./BaseScene.js";
 
 /**  
  *  @class Intro
  *  This class/scene shows the intro background and dialogues of the player meeting kronos
  */
-export class Intro extends Phaser.Scene 
+export class Intro extends BaseScene 
 {
     constructor() 
     {
@@ -17,6 +18,7 @@ export class Intro extends Phaser.Scene
     {
 
         this.playerData = playerData;
+        this.playerData.StartedIntro = true;
         console.log(this.playerData)
 
         this.transitionController = new TransitionController(this);
@@ -25,9 +27,6 @@ export class Intro extends Phaser.Scene
         // Get the canvas width and height to use when giving a position to an object
         let { width, height } = this.sys.game.canvas;
 
-        this.input.keyboard.on('keydown-ESC', () => {
-             this.openOptionMenu()
-        });
 
         //creating the background
         this.background = this.add.image(width / 2, height / 2, 'IntroBackgroundPlaceholder').setDisplaySize(width, height);
@@ -52,11 +51,8 @@ export class Intro extends Phaser.Scene
         .on('pointerover', () => skipBtn.setStyle({ backgroundColor: '#bbbaba' }))
         .on('pointerout', () => skipBtn.setStyle({ backgroundColor: '#f7f7f7' }))
         .on('pointerdown', () => {
-             this.transitionController.startFadeOutTransition(() => {
-                
-                 this.dialogueController.skipToEnd();
-            
-            }, 400);
+                this.dialogueController.skipToEnd();
+
           
         });
 
@@ -72,17 +68,12 @@ export class Intro extends Phaser.Scene
 
         this.events.on('Finished', () => {
             this.playerData.IntroCompleted = true
+            this.transitionController.startFadeOutTransition(() => {
             this.scene.start('SelectionMenuScene', this.playerData);
+                }, 400);
             console.log("cambia de escena");
         });
 
-    }
-    openOptionMenu()
-    {
-        if (this.scene.isActive('OptionMenu')) return;
-            this.scene.pause();
-            this.playerData.SceneToResume = this.scene.key;
-            this.scene.launch('OptionMenu', this.playerData);
     }
         
 }

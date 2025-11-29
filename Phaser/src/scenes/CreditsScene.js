@@ -1,5 +1,6 @@
 import TransitionController, {RGBColor} from "../misc/transitioncontroller.js";
-export class CreditsScene extends Phaser.Scene {
+import { BaseScene } from "./BaseScene.js";
+export class CreditsScene extends BaseScene {
     constructor() {
         super('CreditsScene');
     }
@@ -12,6 +13,8 @@ export class CreditsScene extends Phaser.Scene {
 
         this.playerData = playerData;
         console.log(this.playerData)
+
+        this.DisableOptionMenu();
 
         this.transitionController = new TransitionController(this);
         this.transitionController.startFadeInTransition();

@@ -30,6 +30,11 @@ export default class DialogueController
 
         /** @property current dialogue being shown */
         this.currentDialogue = null;
+
+        /** @property {Phaser.Sound.BaseSound} sound for the dialogue text animation */
+        this.dialogueTextSound = null;
+
+        this.dialogueTextVolume = 0.15;
     }
    
     /**
@@ -37,6 +42,23 @@ export default class DialogueController
     */
     iniDialogue()
     {   
+
+        this.scene.events.on('shutdown', this.shutdown, this);
+
+        this.scene.events.on('pause', this.pause, this);
+        this.scene.events.on('resume', this.resume, this);
+
+        this.scene.events.removeListener('nextDialog');
+        this.scene.events.removeListener('Finished');
+        this.scene.events.removeListener('changeTutoImage');
+        
+        // Reset dialogue state to prevent skipping issues
+        this.nextID = null;
+        this.currentDialogue = null;
+
+        // Add the sound for the dialogue text
+        this.dialogueTextSound = this.scene.sound.add('DialogueTextSFX', { loop: true , volume: this.dialogueTextVolume * this.scene.playerData.sfxVolume});
+
         if(this.era == 'Intro')
         {
             this.dialogueGroup = this.dialogueData.IntroDialogue;
@@ -44,6 +66,11 @@ export default class DialogueController
         else if(this.era == 'Aseb')
         {
             this.dialogueGroup = this.dialogueData.EgyptDialogue;
+        }
+        else if(this.era == 'AsebTutorial')
+        {
+            this.dialogueGroup = this.dialogueData.AsebTutorialDialogue;
+            this.isTutorial = true;
         }
         else if (this.era == 'AsebWin')
         {
@@ -53,9 +80,25 @@ export default class DialogueController
         {
             this.dialogueGroup = this.dialogueData.AsebDefeatDialogue;
         }
+        else if (this.era == 'Tali') {
+            this.dialogueGroup = this.dialogueData.TaliIntroDialogue;
+        }
+        else if (this.era == 'TaliWin') {
+            this.dialogueGroup = this.dialogueData.TaliWinDialogue;
+        }
+        else if (this.era == 'TaliLose') {
+            this.dialogueGroup = this.dialogueData.TaliLoseDialogue;
+        }
+        else if (this.era == 'TaliTutorial') {
+            this.dialogueGroup = this.dialogueData.TaliTutorialDialogue;
+        }
         else if (this.era == 'TimeBoxedDefeat')
         {
             this.dialogueGroup = this.dialogueData.TimeBoxedDefeatDialogue;
+        }
+        else if (this.era == 'GameCompleted')
+        {
+            this.dialogueGroup = this.dialogueData.GameCompletedDialogue;
         }
         
 
@@ -70,7 +113,7 @@ export default class DialogueController
 			windowHeight: 150,
 			padding: 32,
 			closeBtnColor: 'darkgoldenrod',
-			dialogSpeed: 3,
+			dialogSpeed: 3.5,
 			fontSize: 34,
             fontFamily: 'rimouski',
             radius: 20
@@ -80,6 +123,7 @@ export default class DialogueController
         if (!this.dialogBox.visible) {
             this.dialogBox.toggleWindow();
         }
+
 
         /**starts the dialogue block */
         this.startDialogueBlock('start');
@@ -106,6 +150,12 @@ export default class DialogueController
         const text = element.text;
         /**gets if the dialogue is animated */
         const isAnimated = element.animation === 'true';
+
+        const imageKey = element.image;
+        if(imageKey)
+        {
+            this.scene.events.emit('changeTutoImage', imageKey);
+        }
         
         /**creates the dialogue with all the necessary parameters*/
         this.currentDialogue = new Dialogue(speaker, text, isAnimated);
@@ -146,7 +196,23 @@ export default class DialogueController
      */
     endDialogueBlock()
     {
+        this.fadeOutSound();
         this.scene.events.emit('Finished');
+    }
+
+    fadeOutSound(duration = 400) {
+        // If the dialogue text sound is playing, fade it out
+        if (this.dialogueTextSound && this.dialogueTextSound.isPlaying) {
+            this.scene.tweens.add({
+                targets: this.dialogueTextSound,
+                volume: 0,
+                duration: duration,
+                ease: 'Linear',
+                onComplete: () => {
+                    this.dialogueTextSound.stop();
+                }
+            });
+        }
     }
 
     /**
@@ -157,5 +223,50 @@ export default class DialogueController
         const dialogue = this.currentDialogue;
         const displayText = dialogue.speaker.name + ":\n" + dialogue.text;
         this.dialogBox.setText(displayText, dialogue.animated);
+
+        if (dialogue.animated) {
+            if (this.dialogueTextSound && !this.dialogueTextSound.isPlaying) {
+                this.dialogueTextSound.play();
+            }
+            
+            this.scene.events.once('typingComplete', () => {
+                if (this.dialogueTextSound && this.dialogueTextSound.isPlaying) {
+                    this.dialogueTextSound.stop();
+                }
+            });
+        }
+    }
+
+    /**
+     * @method shutdown cleans up resources when the scene is shut down
+     */
+    shutdown() {
+        if (this.dialogueTextSound) {
+            this.dialogueTextSound.stop();
+        }
+        this.scene.events.removeListener('shutdown', this.shutdown, this);
+    }
+
+    /**
+     * @method pause handles scene pause events
+     */
+    pause() {
+        if (this.dialogueTextSound && this.dialogueTextSound.isPlaying) {
+            this.dialogueTextSound.pause();
+        }
+    }
+
+    /**
+     * @method resume handles scene resume events
+     */
+    resume() {
+        // Update volume in case it was changed in the options menu
+        this.dialogueTextSound.setVolume(this.dialogueTextVolume * this.scene.playerData.sfxVolume);
+
+        // Only resume the sound if it was paused.
+        // This prevents the sound from starting on resume if it wasn't playing before.
+        if (this.dialogueTextSound && this.dialogueTextSound.isPaused) {
+            this.dialogueTextSound.resume();
+        }
     }
 }

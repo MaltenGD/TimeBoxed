@@ -19,6 +19,13 @@ import { TimeBoxedDefeat } from './scenes/TimeBoxedDefeat.js'
 import { HanafudaBeginScene} from './scenes/HanafudaScenes/HanafudaBeginScene.js'
 import { HanafudaGame} from './scenes/HanafudaScenes/HanafudaGame.js'
 import { HanafudaGameState} from './scenes/HanafudaScenes/HanafudaGameState.js';
+import { TutorialAseb } from './scenes/asebScenes/TutorialAseb.js';
+import { TaliIntroScene } from './scenes/taliScenes/TaliIntroScene.js';
+import { TaliTutorial } from './scenes/taliScenes/TaliTutorialScene.js';
+import { GameModeSelectionScene } from './scenes/GameModeSelectionScene.js';
+import { GameCompleted } from './scenes/GameCompleted.js';
+import { BaseScene } from './scenes/BaseScene.js';
+import { SettingsScene } from './scenes/SettingsScene.js';
 
 
 
@@ -34,6 +41,7 @@ const config = {
     scene: 
     [
         LoadingScene,
+        BaseScene,
         Start,
         Intro,
         CreditsScene,
@@ -44,16 +52,22 @@ const config = {
         AsebVictoryScene,
         AsebDefeatScene,
         TaliScene,
+        TaliIntroScene,
         TaliBeginScene,
         TaliEndScene,
         HanafudaBeginScene,
         HanafudaGameState,
         HanafudaGame,
         TimeBoxedDefeat,
+        GameCompleted,
         OptionMenuScene,
-        ConfirmMenuScene,
         ItemsScene,
-        HelpLobbyScene
+        HelpLobbyScene,
+        TaliTutorial,
+        TutorialAseb,
+        GameModeSelectionScene,
+        SettingsScene,
+        ConfirmMenuScene
     ],
     scale: {
         mode: Phaser.Scale.FIT,

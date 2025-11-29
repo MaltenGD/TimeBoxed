@@ -1,10 +1,10 @@
 import TransitionController, {RGBColor} from "../misc/transitioncontroller.js";
-
+import { BaseScene } from "./BaseScene.js";
 /**
  * @file OptionMenuSene.js
  * @description Scene to pause the game and show options to the player
  */
-export class OptionMenuScene extends Phaser.Scene {
+export class OptionMenuScene extends BaseScene {
     constructor() {
         super('OptionMenu');
     }
@@ -34,6 +34,10 @@ export class OptionMenuScene extends Phaser.Scene {
             x : width / 2 + 225,
             y : height / 2 + 300
         }
+        let settingsBtnCoords = {
+            x : width / 2 + 600,
+            y : height / 2 + 450
+        }
 
 
 
@@ -45,41 +49,131 @@ export class OptionMenuScene extends Phaser.Scene {
         let helpBtn = this.add.image(helpBtnCoords.x, helpBtnCoords.y, 'HelpButtonNormal').setInteractive();
         let itemsBtn = this.add.image(itemsBtnCoords.x, itemsBtnCoords.y, 'ItemsButtonNormal').setInteractive();
         let exitBtn = this.add.image(exitBtnCoords.x, exitBtnCoords.y, 'ExitButtonNormal').setInteractive();
+        let settingsBtn = this.add.image(settingsBtnCoords.x, settingsBtnCoords.y, 'SettingsIcon').setInteractive().setScale(0.15);
 
 
         /**Button Hovering Behaviour */
 
         resumeBtn.on('pointerover', () => {
+            this.sound.play('buttonHover', { volume: 2 * this.playerData.sfxVolume });
+            this.tweens.killTweensOf(resumeBtn);
             resumeBtn.setTexture('ResumeButtonHovered');
+            this.tweens.add({
+                targets: resumeBtn,
+                scale: 1.1,
+                duration: 200,
+                ease: 'Power1'
+            });
         });
         resumeBtn.on('pointerout', () => {
+            this.tweens.killTweensOf(resumeBtn);
             resumeBtn.setTexture('ResumeButtonNormal');
+            this.tweens.add({
+                targets: resumeBtn,
+                scale: 1.0,
+                duration: 150,
+                ease: 'Power1'
+            });
         });
 
 
         helpBtn.on('pointerover', () => {
+            this.sound.play('buttonHover', { volume: 2 * this.playerData.sfxVolume });
+            this.tweens.killTweensOf(helpBtn);
             helpBtn.setTexture('HelpButtonHovered');
+            this.tweens.add({
+                targets: helpBtn,
+                scale: 1.1,
+                duration: 200,
+                ease: 'Power1'
+            });
         });
         helpBtn.on('pointerout', () => {
+            this.tweens.killTweensOf(helpBtn);
             helpBtn.setTexture('HelpButtonNormal');
+            this.tweens.add({
+                targets: helpBtn,
+                scale: 1.0,
+                duration: 150,
+                ease: 'Power1'
+            });
         });
 
 
         itemsBtn.on('pointerover', () => {
+            this.sound.play('buttonHover', { volume: 2 * this.playerData.sfxVolume });
+            this.tweens.killTweensOf(itemsBtn);
             itemsBtn.setTexture('ItemsButtonHovered');
+            this.tweens.add({
+                targets: itemsBtn,
+                scale: 1.1,
+                duration: 200,
+                ease: 'Power1'
+            });
         });
         itemsBtn.on('pointerout', () => {
+            this.tweens.killTweensOf(itemsBtn);
             itemsBtn.setTexture('ItemsButtonNormal');
+            this.tweens.add({
+                targets: itemsBtn,
+                scale: 1.0,
+                duration: 150,
+                ease: 'Power1'
+            });
         });
 
 
         exitBtn.on('pointerover', () => {
+            this.sound.play('buttonHover', { volume: 2 * this.playerData.sfxVolume });
+            this.tweens.killTweensOf(exitBtn);
             exitBtn.setTexture('ExitButtonHovered');
+            this.tweens.add({
+                targets: exitBtn,
+                scale: 1.1,
+                duration: 200,
+                ease: 'Power1'
+            });
         });
         exitBtn.on('pointerout', () => {
+            this.tweens.killTweensOf(exitBtn);
             exitBtn.setTexture('ExitButtonNormal');
+            this.tweens.add({
+                targets: exitBtn,
+                scale: 1.0,
+                duration: 150,
+                ease: 'Power1'
+            });
         });
 
+        settingsBtn.on('pointerover', () => {
+            this.sound.play('buttonHover', { volume: 2 * this.playerData.sfxVolume });
+            this.tweens.killTweensOf(settingsBtn);
+            settingsBtn.setTexture('SettingsIconHovered');
+            this.tweens.add({
+                targets: settingsBtn,
+                scale: 0.20,
+                duration: 200,
+                ease: 'Power1'
+            });
+        });
+        settingsBtn.on('pointerout', () => {
+            this.tweens.killTweensOf(settingsBtn);
+            settingsBtn.setTexture('SettingsIcon');
+            this.tweens.add({
+                targets: settingsBtn,
+                scale: 0.15,
+                duration: 150,
+                ease: 'Power1'
+            });
+        });
+
+        settingsBtn.on('pointerdown', () => {
+            this.scene.pause();
+            this.scene.launch('SettingsScene', {
+                fromScene: 'OptionMenu',
+                playerData: this.playerData
+            });
+        });
 
         /**Button Click Behaviour */
 
@@ -110,6 +204,7 @@ export class OptionMenuScene extends Phaser.Scene {
             this.scene.pause();
             this.scene.launch('ConfirmMenu',{
                 sceneToPause: this.scene.key,
+                playerData: this.playerData,
                 text: "Do you want to go to the main menu?",
                 onYes: () => {         
                     this.scene.stop(this.playerData.SceneToResume);

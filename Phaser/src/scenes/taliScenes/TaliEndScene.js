@@ -1,13 +1,16 @@
 import TransitionController, {RGBColor} from '../../misc/transitioncontroller.js';
+import DialogueController from '../../DialogueController.js';
 import { OptionMenuScene } from '../OptionMenuScene.js';
+import { BaseScene } from '../BaseScene.js';
 
 /**
  * @class TaliEndScene
  * The scene for the end of the Tali game.
  */
-export class TaliEndScene extends Phaser.Scene {
+export class TaliEndScene extends BaseScene {
     constructor() {
         super('TaliEndScene');
+        this.dialogueController;
     }
 
     preload() {
@@ -20,7 +23,7 @@ export class TaliEndScene extends Phaser.Scene {
 
         this.playerData = playerData;
         console.log(this.playerData);
-        this.playerWon = this.playerData.TaliPlayerWon;
+        this.playerWon = this.playerData.TaliCompleted;
 
         this.achManager = this.registry.get('AchievementManager');
         if (this.playerWon) {
@@ -31,18 +34,44 @@ export class TaliEndScene extends Phaser.Scene {
         this.registry.set('AchievementManager', this.achManager);
         
         this.transitionController = new TransitionController(this);
+        this.transitionController.startFadeInTransition();
         
         this.createUI();
-
-        this.input.keyboard.on('keydown-ESC', () => {
-            this.openOptionMenu();
-        });
+        this.setDialogue();
     }
 
+    /**
+     * Creates the UI.
+     */
     createUI() {
         this.addImages();
         this.createButtons();
         this.addText();
+    }
+
+
+    setDialogue() {
+        let taliDialogue = this.cache.json.get('TaliDialogue'), taliDialogueGroup;
+        if (this.playerWon) {
+            taliDialogueGroup = "TaliWin";
+        }
+        else {
+            taliDialogueGroup = "TaliLose";
+        }
+        this.dialogueController = new DialogueController(this, taliDialogueGroup, taliDialogue);
+        this.dialogueController.iniDialogue();
+        
+        this.events.on('nextDialog',()=>
+        {
+            this.dialogueController.handleInteraction();
+        });
+
+        this.events.on('Finished', () => {
+            this.transitionController.startFadeOutTransition(()=> {
+                if (this.playerData.TimeboxedMode && !this.playerWon) this.scene.start('TimeBoxedDefeat', this.playerData);
+                else this.scene.start('SelectionMenuScene', this.playerData);
+            }, 400);
+        });
     }
 
     /**
@@ -57,12 +86,32 @@ export class TaliEndScene extends Phaser.Scene {
      * Creates and places all the buttons for the scene.
      */
     createButtons() {
+        /**Back button */
        this.backBtn = this.add.text(0, 0, 'Back', { fontSize: 64, fill: '#000000ff'})
         .setInteractive()
         .on('pointerover', () => this.backBtn.setStyle({fill: 'rgba(104, 35, 35, 1)'}))
         .on('pointerout', () => this.backBtn.setStyle({fill: '#000000ff'}))
         .on('pointerdown', () => {
             this.openOptionMenu();
+        });
+
+        /**Skip button */
+        const skipBtn = this.add.text(this.width - 100, this.height - 1000 , 'SKIP', {
+            fontSize: '30px',
+            fill: '#000000',
+            backgroundColor: '#f7f7f7',
+            padding: { x: 20, y: 10 }
+        })
+        .setOrigin(0.5)
+        .setInteractive({ cursor: 'pointer' })
+        .on('pointerover', () => skipBtn.setStyle({ backgroundColor: '#bbbaba' }))
+        .on('pointerout', () => skipBtn.setStyle({ backgroundColor: '#f7f7f7' }))
+        .on('pointerdown', () => {
+           this.transitionController.startFadeOutTransition(() => {
+                
+                 this.dialogueController.skipToEnd();
+            
+            }, 400);
         });
     }
 
@@ -90,51 +139,6 @@ export class TaliEndScene extends Phaser.Scene {
 
         return btn;
     }
-
-    /**
-     * Removes the listeners and resets the text of the given button.
-     * @param {button} btn the button to reset
-     * @param {string} label the new text
-     * @param {*} onClick the new event on click
-     */
-    resetButton(btn, label, onClick) {
-        btn.removeAllListeners('pointerdown')
-            .setText(label)
-            .setInteractive()
-            .once('pointerdown', onClick);
-        this.setObjectState(btn, true);
-    }
-
-    /**
-     * Changes visibility and state of an object.
-     * @param object The object to change the state of.
-     * @param {boolean} state The state.
-     */
-    setObjectState(object, state)
-    {
-        object.setVisible(state).setActive(state).setAlpha(state ? 1 : 0);
-    }
-
-    /**
-     * Opens the pause menu.
-     */
-    openPauseMenu() {
-        if (this.scene.isActive('ConfirmMenu')) return;
-        this.scene.pause();
-        this.scene.launch('ConfirmMenu', {
-            text: 'Do you want to go back to the menu?',
-            sceneToPause: this.scene.key,
-            onYes: () => {
-                this.scene.stop(this.scene.key);
-                this.scene.stop('ConfirmMenu');
-                this.scene.start('SelectionMenuScene');
-            },
-            onNo: () => {
-                this.scene.resume(this.scene.key);
-                this.scene.stop('ConfirmMenu');
-            }
-        });
-    }
     
     /**
      * Adds all the text to the scene.
@@ -142,11 +146,5 @@ export class TaliEndScene extends Phaser.Scene {
     addText() {
         this.victoryText = this.add.text(this.width/2, this.height/5, this.playerWon ? 'You won!' : 'You lost!', { fontSize: 64, fill: '#000'}).setOrigin(0.5);
     }
-    openOptionMenu()
-    {
-        if (this.scene.isActive('OptionMenu')) return;
-            this.scene.pause();
-            this.playerData.SceneToResume = this.scene.key;
-            this.scene.launch('OptionMenu', this.playerData);
-    }
+    
 }

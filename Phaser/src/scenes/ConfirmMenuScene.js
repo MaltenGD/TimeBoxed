@@ -1,10 +1,10 @@
 import TransitionController, {RGBColor} from "../misc/transitioncontroller.js";
-
+import { BaseScene } from "./BaseScene.js";
 /**
  * @file ConfirmMenuScene.js
  * @description Scene to pause the game and show options to the player
  */
-export class ConfirmMenuScene extends Phaser.Scene {
+export class ConfirmMenuScene extends BaseScene {
     constructor() {
         super('ConfirmMenu');
     }
@@ -15,11 +15,19 @@ export class ConfirmMenuScene extends Phaser.Scene {
      * @param {string} [data.text='Do you want to go back?'] - The text to display in the menu.
      * @param {function} data.onYes - The function to call when the 'Yes' button is pressed.
      * @param {function} data.onNo - The function to call when the 'No' button is pressed.
+     * @param {function} [data.onHoverYes] - The function to call when the pointer hovers over the 'Yes' button.
+     * @param {function} [data.onHoverNo] - The function to call when the pointer hovers over the 'No' button.
+     * @param {string} [data.yesText='Yes'] - The text for the 'Yes' (left) button.
+     * @param {string} [data.noText='No'] - The text for the 'No' (right) button.
      * @param {string} [data.PausedScene] - The key of the scene that is being paused.
      */
     create(data) {
         const { width, height } = this.scale;
         this.transitionController = new TransitionController(this);
+
+        this.DisableOptionMenu();
+
+        this.playerData = data.playerData;
 
         /**
          * Background
@@ -64,27 +72,70 @@ export class ConfirmMenuScene extends Phaser.Scene {
         /**
          * Yes botton
          */
-        this.yesBtn = this.add.text(width / 2 - 100, height / 2 + 120, 'Yes', {
+        const yesButtonText = (data && data.yesText) ? data.yesText : 'Yes';
+        this.yesBtn = this.add.text(width / 2 - 100, height / 2 + 120, yesButtonText, {
             fontSize: '30px',
             fill: '#fff',
             backgroundColor: '#8B0000',
             padding: { x: 20, y: 10 }
-        }).setOrigin(0.5).setInteractive();
+        }).setOrigin(0.5).setInteractive()
+        .on('pointerout', () => {
+            this.tweens.add({
+                targets: this.yesBtn,
+                scale: 1.0,
+                duration: 100,
+                ease: 'Power1',
+            });
+        });
 
         /**
          * No botton
          */
-        this.noBtn = this.add.text(width / 2 + 100, height / 2 + 120, 'No', {
+        const noButtonText = (data && data.noText) ? data.noText : 'No';
+        this.noBtn = this.add.text(width / 2 + 100, height / 2 + 120, noButtonText, {
             fontSize: '30px',
             fill: '#fff',
             backgroundColor: '#107310',
             padding: { x: 20, y: 10 }
-        }).setOrigin(0.5).setInteractive();
+        }).setOrigin(0.5).setInteractive()
+        .on('pointerout', () => {
+            this.tweens.add({
+                targets: this.noBtn,
+                scale: 1.0,
+                duration: 100,
+                ease: 'Power1',
+            });
+        });
+
+        const hoverTween = (target) => {
+            this.tweens.add({
+                targets: target,
+                scale: 1.2,
+                duration: 100,
+                ease: 'Power1',
+            });
+        };
+
+        this.yesBtn.on('pointerover', () => {
+            this.sound.play('buttonHover', { volume: 2 * this.playerData.sfxVolume });
+            hoverTween(this.yesBtn);
+            if (data && data.onHoverYes) {
+                data.onHoverYes();
+            }
+        });
+
+        this.noBtn.on('pointerover', () => {
+            this.sound.play('buttonHover', { volume: 2 * this.playerData.sfxVolume });
+            hoverTween(this.noBtn);
+            if (data && data.onHoverNo) {
+                data.onHoverNo();
+            }
+        });
 
         /**
          * Events of the buttons
          */
-        // Prepare yes and no callbacks, ensuring we always run a fade-out before executing the yes action.
+        
         const defaultYes = () => {
             if (this.sceneToPause) {
                 this.scene.stop(this.sceneToPause);
@@ -92,12 +143,11 @@ export class ConfirmMenuScene extends Phaser.Scene {
             this.scene.stop('ConfirmMenu');
             this.scene.start('SelectionMenuScene');
         };
-
         const yesAction = (data && data.onYes) ? data.onYes : defaultYes;
         const noAction = (data && data.onNo) ? data.onNo : () => this.closeMenu();
 
         this.yesBtn.on('pointerdown', () => {
-            // Always perform a fade-out transition before running the yesAction.
+           
             this.transitionController.startFadeOutTransition(() => {
                 yesAction();
                
@@ -108,17 +158,20 @@ export class ConfirmMenuScene extends Phaser.Scene {
             noAction();
         });
 
-        // Wire ESC key to the computed noAction
         this.input.keyboard.once('keydown-ESC', () => {
             noAction();
         });
-
-        // this.tweens.add({
-        //     targets: [this.box, this.titleText, this.yesBtn, this.noBtn],
-        //     alpha: { from: 0, to: 1 },
-        //     duration: 400,
-        //     ease: 'Sine.easeInOut'
-        // });
+        
+        const elementsToAnimate = [this.box, this.titleText, this.yesBtn, this.noBtn];
+        elementsToAnimate.forEach(el => el.setScale(0.8).setAlpha(0));
+        this.tweens.add({
+            targets: elementsToAnimate,
+            scale: 1,
+            alpha: 1,
+            duration: 300,
+            ease: 'Back.Out',
+            delay: 100
+        });
         
     }
 

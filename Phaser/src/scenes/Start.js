@@ -1,12 +1,13 @@
 import TransitionController from "../misc/transitioncontroller.js";
 import { ConfirmMenuScene } from "./ConfirmMenuScene.js";
+import { BaseScene } from "./BaseScene.js";
 
 /**
  * @file Start.js
  * @description Escena inicial del juego. Desde aqui el jugador puede incial la partida 
  * y ver los creditos
  */
-export class Start extends Phaser.Scene {
+export class Start extends BaseScene {
 
     /**
      * Crea una nueva instancia de la escena Start
@@ -15,8 +16,8 @@ export class Start extends Phaser.Scene {
     constructor() {
         super('Start');
         this.firstAccess = true;
-    }
 
+    }
 
 
     /**
@@ -26,7 +27,14 @@ export class Start extends Phaser.Scene {
      */
     create(playerData) {
 
+        // This scene does not use the options menu, so we remove the listener.
+        // Note: super.create() is not called, so the listener is never added.
+        // If it were, we would use: this.input.keyboard.removeListener('keydown-ESC');
+
         console.log('playerData:', Object.keys(playerData).length);
+
+        
+        this.DisableOptionMenu();
 
         if (Object.keys(playerData).length == 0) // La primera vez que se inicia el juego (PlayerData es vacío)
         {
@@ -37,6 +45,22 @@ export class Start extends Phaser.Scene {
 
         this.transitionController = new TransitionController(this);
         this.transitionController.startFadeInTransition();
+
+        this.sound.unlock();
+        // Background music
+            const baseMusicVolume = 0.3;
+            this.music = this.sound.add('startMenuMusic', { loop: true, volume: baseMusicVolume * this.playerData.musicVolume });
+            this.soundInstances.push({ 
+                sound: this.music, 
+                type: 'music', 
+                baseVolume: baseMusicVolume 
+            });
+            this.music.play();
+        
+
+        // Unlock audio on the first user interaction
+        this.sound.pauseOnBlur = false; // Keep audio playing even when the window loses focus.
+        
        
         
 
@@ -73,17 +97,7 @@ export class Start extends Phaser.Scene {
             }).setOrigin(0.5)
             .setInteractive();
 
-        this.TimeboxedButton = this.add.text(1500, 900, '',
-            {
-                fontSize: '30px',
-                fill: '#000000',
-                backgroundColor: '#ffffffff',
-                padding: { x: 40, y: 40 },
-                
-            }).setOrigin(0.5)
-            .setInteractive();
-        if (this.playerData.TimeboxedMode) this.TimeboxedButton.setText('   DISABLE\nTIMEBOXED MODE')
-        else this.TimeboxedButton.setText('   ENABLE\nTIMEBOXED MODE')
+
 
         
 
@@ -91,31 +105,43 @@ export class Start extends Phaser.Scene {
 
         //efecto hover del boton play
         playButton.on('pointerover', () => {
+            this.sound.play('buttonHover', { volume: 2 * this.playerData.sfxVolume });
             playButton.setFrame(1);
         });
         playButton.on('pointerout', () => {
+
             playButton.setFrame(0);
         });
 
         //accion click
         playButton.on('pointerup', () => {
             this.transitionController.startFadeOutTransition(() => {
-                
-                if (this.playerData.IntroCompleted) this.scene.start('SelectionMenuScene', this.playerData)
-                else this.scene.start('HanafudaBeginScene', this.playerData)
-            
+                this.KillSounds();
+                if (this.playerData.IntroCompleted) {
+                    this.scene.start('SelectionMenuScene', this.playerData);
+                } else if (this.playerData.StartedIntro) {
+                    this.scene.start('Intro', this.playerData);
+                }
+                else {
+                     if (this.scene.isActive('GameModeSelection')) return;
+                    
+                    this.scene.pause('Start');
+                    this.scene.launch('GameModeSelection', { PausedScene: 'Start', playerData: this.playerData });
+                }
             }, 400);
         });
 
         //CREDITS BUTTON INTERACTIONS
 
         //efecto hover del boton Creditos
-        creditsButton.on('pointerover', () => creditsButton.setStyle({ fill: '#62a6ffff' }));
+        creditsButton.on('pointerover', () => {
+            this.sound.play('buttonHover', { volume: 2 * this.playerData.sfxVolume });
+            creditsButton.setStyle({ fill: '#62a6ffff' })
+    
+        });
         creditsButton.on('pointerout', () => creditsButton.setStyle({ fill: '#000000ff' }));
 
-        //efecto hover del boton Timeboxed
-        this.TimeboxedButton.on('pointerover', () => this.TimeboxedButton.setStyle({ fill: '#62a6ffff' }));
-        this.TimeboxedButton.on('pointerout', () => this.TimeboxedButton.setStyle({ fill: '#000000ff' }));
+    
 
         //accion click
         creditsButton.on('pointerdown', () => {
@@ -128,39 +154,7 @@ export class Start extends Phaser.Scene {
             
         });
         
-        this.TimeboxedButton.on('pointerdown', () => {
-
-            if (this.playerData.showedTBwarn == true)
-            {
-                this.changeTimeboxedMode(!this.playerData.TimeboxedMode);
-            }
-            else{
-
-            
-
-            if (this.scene.isActive('ConfirmMenu')) return;
-
-            this.scene.pause();
-            this.scene.launch('ConfirmMenu',{
-                sceneToPause: this.scene.key,
-                text: "Are you sure you want to activate TimeBoxed mode?\n\n When playing with this enabled, if you lose any game, the entire game will restart. \nCompleting the entire game in this mode will grant an exclusive achievement",
-                onYes: () => {
-                    this.scene.resume(this);
-                    this.scene.stop('ConfirmMenu');
-                
-                    this.changeTimeboxedMode(true);
-                    this.playerData.showedTBwarn = true;
-                },
-                onNo: () => {
-                    this.scene.resume(this);
-                    this.scene.stop('ConfirmMenu');
-                }
-            });
-
-            }
-
-          
-        });
+        
 
 
          

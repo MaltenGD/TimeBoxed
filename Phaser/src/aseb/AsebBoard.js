@@ -30,7 +30,9 @@ export default class AsebBoard extends Phaser.GameObjects.Image
     this.createPositions();
     this.createPieces();
 
-    //this.debugDrawPositions();
+    this.on('pieceAnimComplete', (piece, IsSpecialPosition, row, col) =>{
+      this.checkNewPosition(IsSpecialPosition, piece, row, col);
+    });
   }
 
   /**
@@ -70,6 +72,7 @@ export default class AsebBoard extends Phaser.GameObjects.Image
     // All positions that matches the specialBoxes positions now are special positions
     this.specialBoxes.forEach(position => {
       this.positions[position.row][position.col].isSpecial = true;
+      this.positions[position.row][position.col].playerlandedHere = false;
     });
   }
 
@@ -181,7 +184,7 @@ export default class AsebBoard extends Phaser.GameObjects.Image
     /**
      * Validates a potential move for a piece to a target row and column.
      * @param {AsebPiece} piece - The piece that is intended to move.
-     * @param {{row: number, col: number}} The target destination with row and column.
+     * @param {{row: number, col: number}} position - The target destination with row and column.
      * @returns {{isValid: boolean, piece: AsebPiece|null, isSpecialPosition: boolean, msg: string}} An object describing the validity of the move.
      */
     IsValidMove(piece, {row, col})
@@ -229,6 +232,7 @@ export default class AsebBoard extends Phaser.GameObjects.Image
       {
         console.log("Landed on an opponent's piece. Sending it back to spawn.");
         isNextPositionValid.piece.ReturnToSpawn();
+        this.emit('pieceCaptured', isNextPositionValid.piece);
       }
 
       
@@ -243,27 +247,34 @@ export default class AsebBoard extends Phaser.GameObjects.Image
 
         piece.setBoardVariables(row, col);
 
-
-        if (piece.Ended())
-        {
-          this.emit('pieceReachesEnd', piece);
-          piece.destroy();
-        }
-        else{
-          piece.MoveInScreen(boardTargetPos.x, boardTargetPos.y);
-          boardTargetPos.SetPiece(piece);
-
-        }
-        
-        if (isNextPositionValid.isSpecialPosition)
-        {
-          this.emit('SpecialPosition' ,piece.type);
-        }
-        else this.emit('pieceMoved', piece); // Emit an event to notify the scene.
+        piece.MoveInScreen(boardTargetPos.x, boardTargetPos.y, isNextPositionValid.isSpecialPosition, row, col);
+        this.scene.sound.play('boxClickedSFX', { volume: 0.5 * this.scene.playerData.sfxVolume }); // The sound when a piece is moved is the same as when a box is clicked in the selection menu
+        boardTargetPos.SetPiece(piece);
 
         return true;
     }
 
+
+    checkNewPosition(isSpecialPosition, piece, row, col)
+    {
+      if (isSpecialPosition)
+        {
+          this.emit('SpecialPosition' ,piece.type);
+          if (piece.type === PIECE_TYPE.PLAYER) 
+            {
+              this.positions[row][col].playerlandedHere = true;
+              console.log("Player landed on a special position. position: " + row + "," + col);
+            }
+          
+        }
+        else if (piece.Ended())
+        {
+          this.emit('pieceReachesEnd', piece);
+          this.positions[row][col].SetPiece(null);
+          piece.destroy();
+        }
+        else this.emit('pieceMoved', piece); // Emit an event to notify the scene.
+    }
     /**
      * Manages the AI's turn. It gets a throw result and attempts to make a valid move with a random piece.
      * @param {number} StickResultSum - The result of the AI's stick throw.
@@ -271,11 +282,10 @@ export default class AsebBoard extends Phaser.GameObjects.Image
     doRandomMovement(StickResultSum)
     {
         console.log(`Anubis threw a ${StickResultSum}`);
-
         // If the throw is 0, the turn is skipped.
         if (StickResultSum === 0) {
-            console.log("Anubis threw a 0. Turn skipped.");
-            this.scene.infoText.setText("Anubis threw a 0!\nTurn is skipped.");
+            console.log("Anubis got 0 points. Turn skipped.");
+            this.scene.infoText.setText("Anubis got 0 points!\nTurn is skipped.");
             this.scene.time.addEvent({
             delay: this.scene.pauseTime,
             callback: () => {
@@ -285,7 +295,7 @@ export default class AsebBoard extends Phaser.GameObjects.Image
             return; 
         }
 
-        this.scene.infoText.setText(`Anubis threw a ${StickResultSum}!`);
+        this.scene.infoText.setText(`Anubis got ${StickResultSum} points!`);
 
         this.scene.time.addEvent({
             delay: this.scene.pauseTime,
@@ -308,7 +318,7 @@ export default class AsebBoard extends Phaser.GameObjects.Image
 
               // If the loop completes, no valid moves were found.
               console.log("Anubis has no valid moves.");
-              this.scene.infoText.setText(`Anubis threw a ${throwResult}\nbut has no valid moves!`);
+              this.scene.infoText.setText(`Anubis got ${throwResult} points\nbut has no valid moves!`);
               this.scene.time.addEvent({
                   delay: this.scene.pauseTime,
                   callback: () => {
@@ -324,21 +334,16 @@ export default class AsebBoard extends Phaser.GameObjects.Image
 
 
 
-  /**
-   * A debug method to visualize the board positions.
-   * It draws a circle on each position, colored by its validity.
-   * Green = Valid, Red = Invalid.
-   */
-  debugDrawPositions() {
-    const graphics = this.scene.add.graphics();
-    for (let row = 0; row < this.rows; row++) {
-      for (let col = 0; col < this.cols; col++) {
-        const pos = this.positions[row][col];
-        const color = pos.validPos ? 0x00ff00 : 0xff0000; // Green for valid, Red for invalid
-        graphics.fillStyle(color, 0.5); // Color with 50% alpha
-        graphics.fillCircle(pos.x, pos.y, 15); // Draw a circle of radius 15
+  checkLandedAllSpecialPositions() {
+    for (let position of this.specialBoxes) {
+      if (position.row != 0 && !this.positions[position.row][position.col].playerlandedHere) { // position.row != 0 to skip the first special box that the player cannot reach (is the enemy lane)
+        return false;
+        console.log("Not all special positions have been landed on yet by the player.");
       }
     }
+    return true;
   }
+
+  
 
 }

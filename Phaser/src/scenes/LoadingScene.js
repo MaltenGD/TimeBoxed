@@ -34,6 +34,7 @@ export class LoadingScene extends Phaser.Scene
         let loadingInfo = this.add.text(progressBoxPosX + progressBoxWidth/2, progressBoxPosY + progressBoxHeight + 40 , "Starting game...", {fontSize:35}).setOrigin(0.5);
 
         this.loadMainMenuAssets();
+        this.loadDialogues();
         this.loadIntroAssets();
         this.loadSelectionMenuAssets();
         this.loadAsebAssets();
@@ -41,7 +42,7 @@ export class LoadingScene extends Phaser.Scene
         this.loadHanafudaAssets();
         this.loadCreditsAssets();
         this.loadInisgniaAssets();
-        this.loadTestAssets();
+        this.loadAudioAssets();
         
         this.load.json('achievements', 'Phaser/assets/achievements.json');
 
@@ -64,18 +65,18 @@ export class LoadingScene extends Phaser.Scene
 
             progressBar.destroy();
             progressBox.destroy();
-        })
-        this.load.on('fileprogress', (file) => {
-            //console.log(file.src);
-            loadingInfo.setText("Loading: " + file.key +"\nFrom: " + file.src);
-        });
-        this.load.on('complete', () => {
-            //console.log('complete');
-
-            progressBar.destroy();
-            progressBox.destroy();
+            loadingText.setText("Click or Press any key to start");
+            loadingInfo.destroy();
             
-            this.scene.start("Start");  
+            this.input.once('pointerdown', () => {
+                this.scene.start('Start');
+            });
+            this.input.keyboard.once('keydown', () => {
+                this.scene.start('Start');
+            });
+            
+
+
         });
     }
     
@@ -90,6 +91,17 @@ export class LoadingScene extends Phaser.Scene
         this.load.image('teamLogo', 'Phaser/assets/teamLogo.png');
         this.load.spritesheet('playButton', 'Phaser/assets/playButton.png', { frameWidth: 186, frameHeight: 92 });
         this.load.json('playerData', 'Phaser/src/playerData.json');
+    }
+
+    loadAudioAssets()
+    {
+        // Audio comun, que es usado en varias escenas
+        this.load.audio('startMenuMusic', 'Phaser/assets/audio/mainmenuScene/Floating Beyond-OliverMix.mp3');
+        this.load.audio('buttonHover', 'Phaser/assets/audio/Buttons/ButtonHoverLowLatency.wav');
+        this.load.audio('egyptMusic', 'Phaser/assets/audio/Egypt-Aseb/desert-wastes-327321.mp3');
+        this.load.audio('TextPop', 'Phaser/assets/audio/Egypt-Aseb/TextPop.mp3');
+        this.load.audio('DialogueTextSFX', 'Phaser/assets/audio/Dialogues/DialogueTextSFX.mp3');
+        this.load.audio('boxClickedSFX', 'Phaser/assets/audio/SelectionMenuScene/BoxClickedSFX.mp3');
     }
 
     /**
@@ -116,12 +128,10 @@ export class LoadingScene extends Phaser.Scene
         this.load.image('ItemsButtonHovered', 'Phaser/assets/OptionMenu/ItemsHovered.png');
         this.load.image('ExitButtonNormal', 'Phaser/assets/OptionMenu/ExitNormal.png');
         this.load.image('ExitButtonHovered', 'Phaser/assets/OptionMenu/ExitHovered.png');
+        this.load.image('SettingsIcon', 'Phaser/assets/OptionMenu/SettingsIcon.png');
+        this.load.image('SettingsIconHovered', 'Phaser/assets/OptionMenu/SettingsIconHovered.png');
 
-        /** Load the json file for the Intro Dialogue 
-        * @param {string} key - The key to reference the loaded JSON data.
-        * @param {string} url - The URL of the JSON file to load.
-        */
-        this.load.json('IntroDialogue', 'Phaser/DialoguesJson/IntroDialogue.json');
+        
     }
 
     loadSelectionMenuAssets()
@@ -140,12 +150,28 @@ export class LoadingScene extends Phaser.Scene
         this.load.image('asebBackgroundPlaceholder', 'Phaser/assets/aseb/Egipcio.png');
 
         this.load.image('StickBoard', 'Phaser/assets/aseb/stickBoard.png');
+        this.load.image('AsebButton', 'Phaser/assets/aseb/AsebButton.png');
+        this.load.image('AsebButtonHovered', 'Phaser/assets/aseb/AsebButtonHovered.png');
+        this.load.image('AsebButtonDisabled', 'Phaser/assets/aseb/AsebButtonDisabled.png');
         this.load.image('StickLight', 'Phaser/assets/aseb/AsebStickLight.png');
         this.load.image('StickDark', 'Phaser/assets/aseb/AsebStickDark.png');
 
         this.load.image('asebBoard', 'Phaser/assets/aseb/AsebBoard.png');
         this.load.image('redPiece', 'Phaser/assets/aseb/redPiece.png');
         this.load.image('bluePiece', 'Phaser/assets/aseb/bluePiece.png');
+
+        // Related to Aseb tutorial
+        this.load.image('AsebTuto_AsebBoard', 'Phaser/assets/aseb/Tutorial/AsebTuto_AsebBoard.png');
+        this.load.image('AsebTuto_ThrowingSticks', 'Phaser/assets/aseb/Tutorial/AsebTuto_ThrowingSticks.png');
+        this.load.image('AsebTuto_SpecialSquares', 'Phaser/assets/aseb/Tutorial/AsebTuto_SpecialSquares.png');
+        this.load.image('AsebTuto_SpecialSquares', 'Phaser/assets/aseb/Tutorial/AsebTuto_SpecialSquares.png');
+        this.load.image('AsebTuto_KillingPieces', 'Phaser/assets/aseb/Tutorial/AsebTuto_KillingPieces.png');
+        this.load.image('AsebTuto_ReachingEnd', 'Phaser/assets/aseb/Tutorial/AsebTuto_ReachingEnd.png');
+        this.load.image('AsebTuto_Pieces', 'Phaser/assets/aseb/Tutorial/AsebTuto_Pieces.png');
+        this.load.image('AsebTuto_Paths', 'Phaser/assets/aseb/Tutorial/AsebTuto_Paths.png');
+        this.load.image('AsebTuto_HelpMenu', 'Phaser/assets/aseb/Tutorial/AsebTuto_HelpMenu.png');
+
+        
     }
 
     /**
@@ -225,16 +251,58 @@ export class LoadingScene extends Phaser.Scene
     }
 
     loadInisgniaAssets() {
-        this.load.image('tempInsignia1', 'Phaser/assets/insignias/tempInsignia1.png');
-        this.load.image('tempInsignia2', 'Phaser/assets/insignias/tempInsignia2.png');
+        this.load.image('tempInsignia3', 'Phaser/assets/insignias/tempInsignia3.png');
+        this.load.image('Underworld_Conqueror', 'Phaser/assets/insignias/Underworld_Conqueror.png');
+        this.load.image('Square_Master', 'Phaser/assets/insignias/Square_Master.png');
+        this.load.image('Wonder_of_Egypt', 'Phaser/assets/insignias/Wonder_of_Egypt.png');
+        this.load.image('Dice_Ruler', 'Phaser/assets/insignias/Dice_Ruler.png');
+        this.load.image('Master_of_Time', 'Phaser/assets/insignias/Master_of_Time.png');
+        this.load.image('God_of_Time', 'Phaser/assets/insignias/God_of_Time.png');
+
     }
 
-    /**
-     * Loads test assets.
-     * Only exists to make loading slower, otherwise we wouldn't be able to see the loading screen.
-     */
-    loadTestAssets() {
-        
+    loadDialogues() {
+        /** Load the json file for the Intro Dialogue 
+        * @param {string} key - The key to reference the loaded JSON data.
+        * @param {string} url - The URL of the JSON file to load.
+        */
+        this.load.json('TaliDialogue', 'Phaser/DialoguesJson/TaliDialogue.json');
+
+        /** Load the json file for the Intro Dialogue 
+        * @param {string} key - The key to reference the loaded JSON data.
+        * @param {string} url - The URL of the JSON file to load.
+        */
+        this.load.json('IntroDialogue', 'Phaser/DialoguesJson/IntroDialogue.json');
+
+         /** Load the json file for the Intro Dialogue 
+        * @param {string} key - The key to reference the loaded JSON data.
+        * @param {string} url - The URL of the JSON file to load.
+        */
+        this.load.json('AsebTutorialDialogue', 'Phaser/DialoguesJson/AsebTutorialDialogue.json');
+
+        /** Load the json file for the Egypt/Aseb Intro Dialogue 
+        * @param {string} key - The key to reference the loaded JSON data.
+        * @param {string} url - The URL of the JSON file to load.
+        */
+        this.load.json('AsebIntroDialogue', 'Phaser/DialoguesJson/EgyptDialogue.json');
+
+        /** Load the json file for the Aseb Defeat Dialogue, when the player loses. 
+        * @param {string} key - The key to reference the loaded JSON data.
+        * @param {string} url - The URL of the JSON file to load.
+        */
+        this.load.json('AsebDefeatDialogue', 'Phaser/DialoguesJson/AsebDefeatDialogue.json');
+
+        /** Load the json file for the Aseb Winning Dialogue, when the player wins.
+        * @param {string} key - The key to reference the loaded JSON data.
+        * @param {string} url - The URL of the JSON file to load.
+        */
+        this.load.json('AsebWinDialogue', 'Phaser/DialoguesJson/AsebWinDialogue.json');
+
+        /** Load the json file for the Game Completed Dialogue, when the player completes the game.
+        * @param {string} key - The key to reference the loaded JSON data.
+        * @param {string} url - The URL of the JSON file to load.
+        */
+        this.load.json('GameCompletedDialogue', 'Phaser/DialoguesJson/GameCompletedDialogue.json');
     }
 
     create() {

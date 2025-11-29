@@ -1,12 +1,12 @@
 import Tali from '../../tali/tali.js';
 import { OptionMenuScene } from '../OptionMenuScene.js';
 import TransitionController, {RGBColor} from '../../misc/transitioncontroller.js';
-
+import { BaseScene } from '../BaseScene.js';
 /**
  * @class TaliBeginScene
  * The scene for the initial rolls for Tali.
  */
-export class TaliBeginScene extends Phaser.Scene {
+export class TaliBeginScene extends BaseScene {
     GAME_STATE = {
         PLAYER_ROLL: 'PLAYER_ROLL',
         ENEMY_ROLL: 'ENEMY_ROLL',
@@ -45,9 +45,6 @@ export class TaliBeginScene extends Phaser.Scene {
 
         this.background = this.add.image(this.width / 2, this.height / 2, 'taliBackgroundPlaceholder').setDisplaySize(this.width, this.height);
 
-        this.input.keyboard.on('keydown-ESC', () => {
-            this.openOptionMenu();
-        });
 
         this.taliGame = new Tali(this, this.width, this.height);
 
@@ -256,14 +253,7 @@ export class TaliBeginScene extends Phaser.Scene {
      */
     endGame() {
         this.rollBtn.setText('Start Game!').once('pointerdown', ()=> {
-            this.transitionController.startFadeOutTransition(() => {this.scene.start('TaliScene', {playerFirst: this.playerFirst})});
+            this.transitionController.startFadeOutTransition(() => {this.scene.start('TaliScene', this.playerData)});
         });
-    }
-    openOptionMenu()
-    {
-        if (this.scene.isActive('OptionMenu')) return;
-            this.scene.pause();
-            this.playerData.SceneToResume = this.scene.key;
-            this.scene.launch('OptionMenu', this.playerData);
     }
 }

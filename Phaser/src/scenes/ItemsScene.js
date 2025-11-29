@@ -1,22 +1,20 @@
+import { BaseScene } from "./BaseScene.js";
 /**
  * @file ItemsScene.js
  * @description A scene to display the player's achievements or badges.
  */
-export class ItemsScene extends Phaser.Scene {
+export class ItemsScene extends BaseScene {
     constructor() {
         super('ItemsScene');
        
-    }
-
-
-
-    preload() {
     }
 
     create(playerData) {
 
          this.playerData = playerData;
         console.log(this.playerData)
+
+        this.DisableOptionMenu();
 
         const { width, height } = this.scale;
         this.width = width;
@@ -30,13 +28,6 @@ export class ItemsScene extends Phaser.Scene {
             fill: '#ffffff',
             fontStyle: 'bold'
         }).setOrigin(0.5);
-
-        // this.add.text(width / 2, height / 2 - 250, 'This is your inventory, where you can view your achievements and badges.\n\nPress ESC or click Back to return.', {
-        //     fontSize: '24px',
-        //     fill: '#dddddd',
-        //     align: 'center',
-        //     wordWrap: { width: width - 100 }
-        // }).setOrigin(0.5);
 
         const backButton = this.add.text(width / 2, height - 100, 'Back', {
             fontSize: '32px',
@@ -87,7 +78,7 @@ export class ItemsScene extends Phaser.Scene {
 
         const achievements = Array.from(this.achManager.achievementMap.values());
         const maxAchPerRow = 6;
-        const distance = 120;
+        const distance = 200;
         const startY = this.height/3 + distance;
 
         achievements.forEach((ach, index) => {
@@ -105,7 +96,7 @@ export class ItemsScene extends Phaser.Scene {
             const x = startX + col * distance;
             const y = startY + row * distance;
 
-            this.add.image(x, y, ach.image).setScale(0.5).setOrigin(0.5);
+            this.add.image(x, y, ach.image).setScale(0.3).setOrigin(0.5);
             if (ach.awarded) {
                 this.add.text(x + 5, y + 80, 'Awarded!', {fontSize: '24px'}).setOrigin(0.5);
             }
