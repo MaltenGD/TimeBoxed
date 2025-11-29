@@ -1,9 +1,9 @@
 import HanafudaRender from '../../Hanafuda/HanafudaRender.js';
 import HanafudaTableActions from '../../Hanafuda/HanafudaTableActions.js';
 import HanafudaPrepareRound from '../../Hanafuda/HanafudaPrepareRound.js';
-import TransitionController, {RGBColor} from "../../misc/transitioncontroller.js";
+import TransitionController from "../../misc/transitioncontroller.js";
 import { calculateYakus } from '../HanafudaScenes/HanafudaScore.js';
-import HanafudaPoints from '../Hanafuda/HanafudaPoints.js';
+import HanafudaPoints from '../../Hanafuda/HanafudaPoints.js';
 
 
 /**

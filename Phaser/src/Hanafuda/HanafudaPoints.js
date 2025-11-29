@@ -1,4 +1,4 @@
-import { getCardFlags } from '../HanafudaScenes/HanafudaCardType.js';
+import { getCardFlags } from '../scenes/HanafudaScenes/HanafudaCardType.js';
 export default class HanafudaPoints {
 
     constructor(scene) {
