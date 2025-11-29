@@ -21,7 +21,16 @@ export class DistractMercuryScene extends BaseScene {
 
         // Creates transitin controller and fades in.
         this.transitionController = new TransitionController(this);
-        // this.transitionController.startFadeInTransition(()=> {this.createAndBeginDialogue()}, 400, new RGBColor(0, 0, 0, 0.5));
+        
+        // Keeps track of which round we are in.
+        this.roundIndex = 0;
+
+        // The text for both options in all three rounds.
+        this.optionText = [
+            {one: {text: "Option 1", correct: true}, two: {text: "Option 2", correct: false}},
+            {one: {text: "Option 1 2", correct: false}, two: {text: "Option 2 2", correct: true}},
+            {one: {text: "Option 1 3", correct: true}, two: {text: "Option 2 3", correct: true}}
+        ];
 
         this.addImages();
         this.addButtons();
@@ -40,11 +49,17 @@ export class DistractMercuryScene extends BaseScene {
      * Creates the necessary buttons for the scene.
     */
     addButtons() {
-        this.optionOne = this.createButton(this.width / 2, this.height / 2, "Option1");
-        this.optionTwo = this.createButton(this.width / 2, this.height / 2, "Option2");
+        this.optionOne = this.createButton(this.width / 2, this.height / 3, this.optionText[this.roundIndex].one.text, () => {
+            this.checkOption(this.optionText[this.roundIndex].one);
+        });
+        this.optionTwo = this.createButton(this.width / 2, this.height / 2, this.optionText[this.roundIndex].two.text, () => {
+            this.checkOption(this.optionText[this.roundIndex].two);
+        });
+
+        this.hideOptions();
     }
 
-        /**
+    /**
      * Creates a button with the given specifications.
      * @param {number} x X position
      * @param {number} y Y position
@@ -70,6 +85,32 @@ export class DistractMercuryScene extends BaseScene {
     }
 
     /**
+     * Checks if the button pressed is the correct answer or not
+     * @param {button} option Dialogue option pressed 
+     */
+    checkOption(option) {
+        this.hideOptions();
+        if (option.correct) console.log('correct');
+        else console.log("incorrect");
+    }
+
+    /**
+     * Hides the dialogue options.
+     */
+    hideOptions() {
+        this.setObjectState(this.optionOne, false);
+        this.setObjectState(this.optionTwo, false);
+    }
+
+    /**
+     * Shows the dialogue options.
+     */
+    showOptions() {
+        this.setObjectState(this.optionOne, true);
+        this.setObjectState(this.optionTwo, true);
+    }
+
+    /**
      * Creates and begins the first dialogue block.
      */
     createAndBeginDialogue() {
@@ -83,19 +124,12 @@ export class DistractMercuryScene extends BaseScene {
      */
     addListeners() {
         this.events.on('nextDialog', () => {
-            this.displayOptions();
+            this.showOptions();
         })
 
         this.events.on('Finished', ()=> {
             // TODO
         })
-    }
-
-    /**
-     * Shows the response options for the current dialogue.
-     */
-    displayOptions() {
-        
     }
 
     /**
