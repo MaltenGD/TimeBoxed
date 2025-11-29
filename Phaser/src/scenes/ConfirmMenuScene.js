@@ -38,8 +38,9 @@ export class ConfirmMenuScene extends BaseScene {
         /**
          * Central box
          */
+        const strokeColor = this.playerData.TimeboxedMode ? 0xAA0000 : 0x0055CC;
         this.box = this.add.rectangle(width / 2, height / 2, 800, 500, 0x111111, 1)
-            .setStrokeStyle(4, 0xAA0000)
+            .setStrokeStyle(4, strokeColor)
             .setOrigin(0.5);
         
         /**

@@ -1,7 +1,7 @@
 import TransitionController, {RGBColor} from "../misc/transitioncontroller.js";
 import { BaseScene } from "./BaseScene.js";
 /**
- * @file ConfirmMenuScene.js
+ * @file GameModeSelectionScene.js
  * @description Scene to pause the game and show options to the player
  */
 export class GameModeSelectionScene extends BaseScene {
@@ -30,7 +30,7 @@ export class GameModeSelectionScene extends BaseScene {
          * Central box
          */
         this.box = this.add.rectangle(width / 2, height / 2, 1100, 800, 0x111111, 1)
-            .setStrokeStyle(4, 0xAA0000)
+            .setStrokeStyle(4, 0x0055CC)
             .setOrigin(0.5);
         
         /**
@@ -94,24 +94,9 @@ export class GameModeSelectionScene extends BaseScene {
         this.NormalBtn = this.add.text(width / 2 - 200, height / 2 + 240, NormalButtonText, {
             fontSize: '60px',
             fill: '#fff',
-            backgroundColor: '#107310',
+            backgroundColor: '#0055cc',
             padding: { x: 20, y: 10 }
-        }).setOrigin(0.5).setInteractive()
-        .on('pointerover', () => {
-            this.sound.play('buttonHover', { volume: 2 * this.playerData.sfxVolume });
-            hoverTween(this.NormalBtn);
-            updateDescriptionText('Normal Mode: Enjoy the normal pace without the risk of losing progress upon failure.');
-           
-        })
-        .on('pointerout', () => {
-            this.tweens.add({
-                targets: this.NormalBtn,
-                scale: 1.0,
-                duration: 100,
-                ease: 'Power1',
-            });
-            updateDescriptionText(defaultDescText);
-        });
+        }).setOrigin(0.5).setInteractive();
 
 
         
@@ -125,43 +110,12 @@ export class GameModeSelectionScene extends BaseScene {
             fill: '#fff',
             backgroundColor: '#8B0000',
             padding: { x: 20, y: 10 }
-        }).setOrigin(0.5).setInteractive()
-        .on('pointerover', () => {
-            this.sound.play('buttonHover', { volume: 2 * this.playerData.sfxVolume });
-            hoverTween(this.TimeboxedBtn);
-            updateDescriptionText('TimeBoxed Mode: A high-risk experience where losing a game means starting over from the beginning. Complete the game in this mode to earn an exclusive achievement!');
-            
-        })
-        .on('pointerout', () => {
-            this.tweens.add({
-                targets: this.TimeboxedBtn,
-                scale: 1.0,
-                duration: 100,
-                ease: 'Power1',
-            });
-            updateDescriptionText(defaultDescText);
-        });
+        }).setOrigin(0.5).setInteractive();
+        
 
         
 
-
-
-        this.NormalBtn.on('pointerdown', () => {
-           
-            this.transitionController.startFadeOutTransition(() => {
-                this.playerData.TimeboxedMode = false;
-                this.scene.start('Intro', this.playerData);
-               
-            }, 400);
-        });
-
-        this.TimeboxedBtn.on('pointerdown', () => {
-            this.transitionController.startFadeOutTransition(() => {
-                this.playerData.TimeboxedMode = true;
-                this.scene.start('Intro', this.playerData);
-               
-            }, 400);
-        });
+        
 
         // --- Pop-up Animation ---
 
@@ -174,14 +128,60 @@ export class GameModeSelectionScene extends BaseScene {
             alpha: 1,
             duration: 300,
             ease: 'Back.Out',
-            delay: 100
+            delay: 100,
+            onComplete: () => {
+
+            this.NormalBtn.on('pointerover', () => {
+            this.sound.play('buttonHover', { volume: 2 * this.playerData.sfxVolume });
+            hoverTween(this.NormalBtn);
+            updateDescriptionText('Normal Mode: Enjoy the normal pace without the risk of losing progress upon failure.');
+           
+            })
+            .on('pointerout', () => {
+                this.tweens.add({
+                    targets: this.NormalBtn,
+                    scale: 1.0,
+                    duration: 100,
+                    ease: 'Power1',
+                });
+                updateDescriptionText(defaultDescText);
+            })
+            .on('pointerdown', () => {
+           
+            this.transitionController.startFadeOutTransition(() => {
+                this.playerData.TimeboxedMode = false;
+                this.scene.start('Intro', this.playerData);
+               
+            }, 400);
+            });
+
+            this.TimeboxedBtn.on('pointerover', () => {
+                this.sound.play('buttonHover', { volume: 2 * this.playerData.sfxVolume });
+                hoverTween(this.TimeboxedBtn);
+                updateDescriptionText('TimeBoxed Mode: A high-risk experience where losing a game means starting over from the beginning. Complete the game in this mode to earn an exclusive achievement!');
+                
+            })
+            .on('pointerout', () => {
+                this.tweens.add({
+                    targets: this.TimeboxedBtn,
+                    scale: 1.0,
+                    duration: 100,
+                    ease: 'Power1',
+                });
+                updateDescriptionText(defaultDescText)
+            }) .on('pointerdown', () => {
+           
+            this.transitionController.startFadeOutTransition(() => {
+                this.playerData.TimeboxedMode = true;
+                this.scene.start('Intro', this.playerData);
+               
+            }, 400);
+            });
+            }
         });
         
     }
 
-    /**
-     * Configure the name of the scene that is being paused
-     */
     setPausedScene(sceneName) {
         this.sceneToPause = sceneName;
     }
