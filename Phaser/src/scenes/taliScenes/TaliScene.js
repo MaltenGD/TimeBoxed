@@ -19,8 +19,6 @@ export class TaliScene extends BaseScene {
     playerFirst;
     playerWon = true;
 
-    currentTurn = 0;
-
     constructor() {
         super('TaliScene');
     }
@@ -42,8 +40,6 @@ export class TaliScene extends BaseScene {
         console.log(this.playerFirst ? "Player starts." : "Mercury starts.");
 
         this.taliGame = new Tali(this, this.width, this.height, this.playerFirst);
-
-        this.currentTurn = 1;
         
         this.createUI();
         this.registerEvents();
@@ -229,7 +225,7 @@ export class TaliScene extends BaseScene {
     }
 
     onEnemyRolled() {
-        this.resetButton(this.rollBtn, 'Show combinations', () => {
+        this.resetButton(this.rollBtn, 'Distract Mercury!', () => {
             this.setObjectState(this.rollBtn, false);
             this.turnText.setText("Mercury's combinations:");
             this.taliGame.nextTurn();
@@ -237,8 +233,19 @@ export class TaliScene extends BaseScene {
     }
 
     onEnemyDistract() {
+        console.log("TURNCOUNT " + this.taliGame.turnCount);
         this.scene.pause();
-        this.scene.launch('DistractMercuryScene', {playerData: this.playerData, mercuryRoll: this.taliGame.currentRoll})
+        this.scene.launch('DistractMercuryScene', {playerData: this.playerData, mercuryRoll: this.taliGame.currentRoll, roundIndex: Math.round(this.taliGame.turnCount/2)});
+        this.events.once("resume", (scene, data) => {
+            this.taliGame.currentRoll = data.mercuryResultRoll;
+            this.taliGame.setDiceImages();
+            console.log("Resumed game.");
+            this.resetButton(this.rollBtn, 'Show combinations', () => {
+                this.setObjectState(this.rollBtn, false);
+                this.turnText.setText("Mercury's combinations:");
+                this.taliGame.nextTurn();
+            })    
+        });
     }
 
     onEnemyThrown() {

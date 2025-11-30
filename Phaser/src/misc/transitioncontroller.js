@@ -39,8 +39,9 @@ export default class TransitionController {
     startFadeInTransition(callback = () => {}, time = 1000, color = new RGBColor(0, 0, 0)) {
         this.scene.input.enabled = false;
         this.camera.fadeIn(time, color.red, color.green, color.blue, (camera, progress) => {
-            if (progress === 1) {
+            if (progress > 0.5) 
                 this.scene.input.enabled = true;
+            if (progress === 1) {
                 callback();
             }
         });

@@ -120,6 +120,7 @@ export default class Tali {
                     break;
                 case GAME_STATE.PLAYER_THROWN:
                     this.hideDice();
+                    this.identifyRoll(this.player);
                     this.animateThrows();
                     this.emitter.once('throwsIn', () => {
                         this.emitState();
@@ -148,9 +149,11 @@ export default class Tali {
                 case GAME_STATE.ENEMY_DISTRACT:
                     this.emitState();
                     this.state = GAME_STATE.ENEMY_THROWN;
+                    this.hideDice();
                     break;
                 case GAME_STATE.ENEMY_THROWN:
                     this.hideDice();
+                    this.identifyRoll(this.enemy);
                     this.animateThrows();
                     this.emitter.once('throwsIn', () => {
                         this.emitState();
@@ -180,7 +183,7 @@ export default class Tali {
 
         this.setDiceImages();
         
-        this.identifyRoll(player);
+        // this.identifyRoll(player);
     }
 
     /**
@@ -306,8 +309,8 @@ export default class Tali {
      * Positions the dice images according to the current roll.
      */
     setDiceImages() {
-        for (let i = 0, j = -this.width/12; i < Tali.NUMBER_OF_DICE; i++, j+=this.width/12) { 
-            this.diceImages[i] = this.scene.add.image(this.width/2 - j, this.height/2, 'dice' + this.currentRoll[i]).setOrigin(0, 0.5).setScale(0.3).setAlpha(0);
+        for (let i = 0, j = -2*this.width/12; i < Tali.NUMBER_OF_DICE; i++, j+=this.width/12) { 
+            this.diceImages[i] = this.scene.add.image(this.width/2 + j, this.height/2, 'dice' + this.currentRoll[i]).setOrigin(0, 0.5).setScale(0.3).setAlpha(0);
         }
         this.animateDice();
     }

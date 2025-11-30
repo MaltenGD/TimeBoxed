@@ -29,7 +29,7 @@ export class DistractMercuryScene extends BaseScene {
         this.transitionController = new TransitionController(this);
         
         // Keeps track of which round we are in.
-        this.roundIndex = 0;
+        this.roundIndex = data.roundIndex;
 
         // The text for both options in all three rounds.
         this.optionText = [
@@ -43,6 +43,8 @@ export class DistractMercuryScene extends BaseScene {
         this.addButtons();
         this.createAndBeginDialogue();
         this.addListeners();
+
+        console.log("TURN " + this.roundIndex);
     }
 
     /**
@@ -125,44 +127,89 @@ export class DistractMercuryScene extends BaseScene {
      * @param {button} option Dialogue option pressed 
      */
     checkOption(option) {
+        console.log("Current round: " + this.roundIndex);
         this.hideOptions();
+        this.roundIndex += 1;
         if (option.correct) this.onCorrectOption();
         else this.onIncorrectOption();
     }
 
+    /**
+     * Handles event where correct answer is picked.
+     */
     onCorrectOption() {
         console.log("Correct option picked.");
         this.showMercuryDice();
         
     }
 
+    /**
+     * Displas Mercury's roll.
+     */
     showMercuryDice() {
         this.infoText.setText("Choose one of Mercury's dice to change: ");
-        
-        for (let i = 0, j = -this.width/12; i < 4; i++, j+=this.width/12) { 
-            this.diceImages[i] = this.add.image(this.width/2 - j, this.height/2, 'dice' + this.mercuryRoll[i]).setOrigin(0, 0.5).setScale(0.3).setAlpha(1).setInteractive();
-            this.diceImages[i].on('pointerdown', () => {this.onDiceClicked(i);});
+        console.log("Showing Mercury's dice.");
+        // Arranges the dice on the screen. 
+        // mercuryRoll contains the indexes of the dice images (0 - 1, 1 - 3, 2 - 4, 3 - 6).
+        for (let i = 0, j = -2*this.width/12; i < 4; i++, j+=this.width/12) { 
+            this.diceImages[i] = this.add.image(this.width/2 + j, this.height/2, 'dice' + this.mercuryRoll[i]).setOrigin(0, 0.5).setScale(0.3).setAlpha(1).setInteractive();
+            this.diceImages[i].on('pointerdown', () => {this.onDiceClicked(i);
+            });
         }
     }
 
+    /**
+     * Handles dice click.
+     * @param {number} diceIndex the dice from Mercury's rolls picked to be changed. 
+     */
     onDiceClicked(diceIndex) {
-        this.diceImages[diceIndex].off('pointerdown');
-        this.showDiceOptions();
+        this.diceImages.forEach(element => {
+            element.off('pointerdown');
+            
+        });
+        console.log("Clicked dice " + diceIndex + ".");
+        this.showDiceOptions(diceIndex);
     }
 
-    showDiceOptions() {
-        for (let i = 0, j = -this.width/12; i < 4; i++, j+=this.width/12) {
-            this.dice[i] = this.add.image(this.width/2 - j, this.height/3, 'dice' + i).setOrigin(0, 0.5).setScale(0.3).setAlpha(1).setInteractive()
-            .on('pointerdown', ()=>this.changeDice());
+    /**
+     * 
+     * @param {number} diceIndex shows the dice you can change to.
+     */
+    showDiceOptions(diceIndex) {
+        for (let i = 0, j = -2*this.width/12; i < 4; i++, j+=this.width/12) {
+            this.dice[i] = this.add.image(this.width/2 + j, this.height/3, 'dice' + i).setOrigin(0, 0.5).setScale(0.3).setAlpha(1).setInteractive()
+            .on('pointerdown', ()=>this.changeDice(diceIndex, i));
         }
     }
 
-    changeDice() {
-        
+    /**
+     * 
+     * @param {number} diceToChange the index of the die from Mercury's rolls to change. 
+     * @param {number} changeToIndex the index of the die to which the diceToChange will be set.
+     */
+    changeDice(diceToChange, changeToIndex) {
+        this.mercuryRoll[diceToChange] = changeToIndex;
+        console.log("Changing dice in index " + diceToChange + " to index " + changeToIndex + ".");
+        this.returnToGame();
     }
 
+    /**
+     * Handles event where incorrect option is picked.
+     * Returns to game with no changes.
+     */
     onIncorrectOption() {
         console.log("Incorrect option picked.");
+        this.returnToGame();
+    }
+
+    /**
+     * Sleeps the current scene and resumes the game scene.
+     * Passes to the game scene the new roll set.
+     */
+    returnToGame() {
+        this.addListeners();
+        this.scene.sleep(); 
+        this.scene.resume('TaliScene', {playerData: this.playerData, mercuryResultRoll: this.mercuryRoll});
     }
 
 
@@ -170,7 +217,7 @@ export class DistractMercuryScene extends BaseScene {
      * Adds all the listeners in this scene.
      */
     addListeners() {
-        this.events.on('nextDialog', () => {
+        this.events.once('nextDialog', () => {
             this.showOptions();
         })
 
