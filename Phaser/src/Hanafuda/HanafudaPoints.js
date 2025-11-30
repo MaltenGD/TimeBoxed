@@ -1,5 +1,6 @@
 import { getCardFlags } from '../scenes/HanafudaScenes/HanafudaCardType.js';
 import { calculateYakus } from '../scenes/HanafudaScenes/HanafudaScore.js';
+import { HANAFUDA_STATE } from '../scenes/HanafudaScenes/HanafudaGameState.js';
 export default class HanafudaPoints {
 
     constructor(scene) {
@@ -15,6 +16,10 @@ export default class HanafudaPoints {
 
     showPlayer(yaku, points, onKoiKoi, onShobu) {
         this.close();
+
+         this.scene.currentState = "POPUP_BLOCK";
+this.scene.time.removeAllEvents();
+
 
         const overlay = this.scene.add.rectangle(this.scene.width/2, this.scene.height/2, this.scene.width, this.scene.height, 0x000000, 0.6)
             .setDepth(9000).setInteractive();
@@ -42,14 +47,17 @@ export default class HanafudaPoints {
             fontSize: "36px", backgroundColor: "#aa0022", padding: 8, color:"#fff"
         }).setOrigin(0.5).setInteractive().setDepth(10002);
 
-        koi.on("pointerdown", () => { this.close(); onKoiKoi(); });
-        shobu.on("pointerdown", () => { this.close(); onShobu(points); });
+        koi.on("pointerdown", () => {console.log("player Elige KoiKoi"); this.close();this.scene.currentState = null; this.scene.transitionTo(HANAFUDA_STATE.CHECK_END_ROUND);});
+        shobu.on("pointerdown", () => {console.log("player Elige shobu"); this.close();this.scene.currentState = null; this.scene.transitionTo(HANAFUDA_STATE.FINISH_ROUND); });
 
         this.popup = { overlay, box, title, yText, pText, koi, shobu };
     }
 
     showEnemy(yaku, points, onContinue) {
         this.close();
+        this.scene.currentState = "POPUP_BLOCK";
+this.scene.time.removeAllEvents();
+
 
         const overlay = this.scene.add.rectangle(this.scene.width/2, this.scene.height/2, this.scene.width, this.scene.height, 0x000000, 0.6)
             .setDepth(9000).setInteractive();
@@ -76,6 +84,7 @@ export default class HanafudaPoints {
 
         this.scene.time.delayedCall(1200, () => { this.close(); onContinue(); });
     }
+
      checkYakus(isPlayer) {
     const cards = isPlayer ? this.scene.playerPairs : this.scene.opponentPairs;
     const { yakus, points } = calculateYakus(cards);
@@ -85,21 +94,42 @@ export default class HanafudaPoints {
     const last = yakus[yakus.length - 1];
 
     if (isPlayer) {
-        this.showPlayer(last,points,() => {
-                this.scene.gamePaused = false;
-                this.scene.handlesTurns();
-            },() => {
-                this.scene.gamePaused = true;
+        this.showPlayer(
+            last,
+            points,
+            () => { 
+                this.close();
+                this.scene.transitionTo(HANAFUDA_STATE.CHECK_END_ROUND);
+            },
+            () => {
+                this.close();
                 this.scene.transitionTo(HANAFUDA_STATE.FINISH_ROUND);
             }
         );
     } else {
         const shobu = Math.random() < 0.5;
+        console.log("enemy decision Yaku:", shobu ? "Shobu" : "Koikoi");
 
         if (shobu) {
-            this.showEnemy(last,points,() => this.scene.transitionTo(HANAFUDA_STATE.FINISH_ROUND));
-        } else {this.showEnemy(last,points,() => { this.scene.gamePaused = false; this.scene.handlesTurns(); });
+            this.showEnemy(
+                last,
+                points,
+                () => {
+                    this.close();
+                    this.scene.transitionTo(HANAFUDA_STATE.FINISH_ROUND);
+                }
+            );
+        } else {
+            this.showEnemy(
+                last,
+                points,
+                () => {
+                    this.close();
+                    this.scene.transitionTo(HANAFUDA_STATE.CHECK_END_ROUND);
+                }
+            );
         }
     }
 }
+
 }

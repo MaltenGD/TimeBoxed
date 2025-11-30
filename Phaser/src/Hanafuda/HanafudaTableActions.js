@@ -15,8 +15,16 @@ export default class HanafudaTableActions{
 
         for(let i = 0; i < this.scene.tableCards.length; ++i){
             for(let j = 0; j < this.scene.tableCards[i].length; ++j){
-                if(card.month === this.scene.tableCards[i][j].month){
-                    this.scene.numberOfPairs++;
+                const tableCard = this.scene.tableCards[i][j];
+
+            //evitar error si la carta no existe
+            if (!tableCard) {
+                console.warn(" tableCard es null/undefined en", i, j);
+                continue;
+            }
+
+            if (card.month === tableCard.month) {
+                this.scene.numberOfPairs++;
                     if(this.scene.numberOfPairs === 1){this.scene.pos1 = {row: i, col: j}}
                     else if(this.scene.numberOfPairs === 2){this.scene.pos2 = {row: i, col: j}}
                     else if(this.scene.numberOfPairs === 3){this.scene.pos3 = {row: i, col: j}}
@@ -80,30 +88,30 @@ export default class HanafudaTableActions{
         else{this.scene.tableCards[this.scene.emptyRow].push(this.scene.card);} //If The table is refilling then add deck card 
     }
 
-    checkYakus(isPlayer) {
-    const cards = isPlayer ? this.playerPairs : this.opponentPairs;
-    const { yakus, points } = calculateYakus(cards);
+//     checkYakus(isPlayer) {
+//     const cards = isPlayer ? this.playerPairs : this.opponentPairs;
+//     const { yakus, points } = calculateYakus(cards);
 
-    if (yakus.length === 0) return;
+//     if (yakus.length === 0) return;
 
-    const last = yakus[yakus.length - 1];
+//     const last = yakus[yakus.length - 1];
 
-    if (isPlayer) {
-        this.pointsUI.showPlayer(last,points,() => {
-                this.gamePaused = false;
-                this.handlesTurns();
-            },() => {
-                this.gamePaused = true;
-                this.transitionTo(HANAFUDA_STATE.FINISH_ROUND);
-            }
-        );
-    } else {
-        const shobu = Math.random() < 0.5;
+//     if (isPlayer) {
+//         this.pointsUI.showPlayer(last,points,() => {
+//                 this.gamePaused = false;
+//                 this.handlesTurns();
+//             },() => {
+//                 this.gamePaused = true;
+//                 this.transitionTo(HANAFUDA_STATE.FINISH_ROUND);
+//             }
+//         );
+//     } else {
+//         const shobu = Math.random() < 0.5;
 
-        if (shobu) {
-            this.pointsUI.showEnemy(last,points,() => this.transitionTo(HANAFUDA_STATE.FINISH_ROUND));
-        } else {this.pointsUI.showEnemy(last,points,() => { this.gamePaused = false; this.handlesTurns(); });
-        }
-    }
-}
+//         if (shobu) {
+//             this.pointsUI.showEnemy(last,points,() => this.transitionTo(HANAFUDA_STATE.FINISH_ROUND));
+//         } else {this.pointsUI.showEnemy(last,points,() => { this.gamePaused = false; this.handlesTurns(); });
+//         }
+//     }
+// }
 }

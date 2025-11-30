@@ -3,6 +3,9 @@ import { getCardFlags } from "./HanafudaCardType.js";
 
 export function calculateYakus(pairs) 
 {
+     if (!pairs || pairs.length === 0) {
+        return { yakus: [], points: 0 };
+    }
     let specialCount = 0;
     let ribbonCount  = 0;
     let basicCount   = 0;
@@ -11,6 +14,7 @@ export function calculateYakus(pairs)
 
     for (const card of pairs) {
         const { special, ribbon, basic } = getCardFlags(card);
+         if (!card) continue;
         if (special)
             {
                 specialCount++;

@@ -9,6 +9,10 @@ export default class HanafudaRender{
     }
 
     renderTable(){
+         if (!this.scene.tableCards || this.scene.tableCards.length === 0) {
+        console.warn("renderTable() called but tableCards is empty");
+        return;
+    }
         this.scene.tableCardObjects.forEach((row) =>{ //Destroy old objects so they don't linger on scene 
             row.forEach((obj) => { obj.destroy();})
         });
@@ -17,6 +21,11 @@ export default class HanafudaRender{
         for(let i = 0; i < this.scene.tableCards.length; ++i){
             this.scene.tableCardObjects[i] = [];
             for(let j = 0; j < this.scene.tableCards[i].length; ++j){
+                let cardData = this.scene.tableCards[i][j];
+            if (!cardData) {
+                console.warn("Table card undefined en posición", i, j);
+                continue;
+            }
 
                 let playerCard = this.scene.add.image(400 + (j * 120), (this.height / 2 - 150) + (i * 200), `Card${this.scene.tableCards[i][j].number}`)
                 .setScale(0.2);
@@ -107,6 +116,15 @@ export default class HanafudaRender{
     }
 
     renderDeckCard(){
+        if (!this.scene.card) {
+        console.warn("renderDeckCard() llamado sin this.scene.card");
+        return;
+    }
+
+    if (typeof this.scene.card.number !== "number") {
+        console.warn("this.scene.card.number es invalido:", this.scene.card);
+        return;
+    }
         this.scene.deckCardObject = this.scene.add.image(200, this.height/2 + 100,`Card${this.scene.card.number}`).setScale(0.2);
         this.scene.tweens.add({
             targets: this.scene.deckCardObject,

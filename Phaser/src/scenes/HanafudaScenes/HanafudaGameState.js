@@ -103,6 +103,11 @@ export class HanafudaGameState extends Phaser.Scene{
      * make the opponent choose a card, search pairs and refill the table, check combinations,end the game.
     */
     handleGameState(){
+        if (this.currentState === "POPUP_BLOCK") {
+        console.log("FSM pausada por popup");
+        return;
+    }
+
         switch(this.currentState){
             case HANAFUDA_STATE.START_ROUND:
                 this.round++; //The round counter is increased when a new round begins
@@ -179,6 +184,11 @@ export class HanafudaGameState extends Phaser.Scene{
                         this.time.delayedCall(800, ()=> {
                             this.infoText.setText("Getting card from deck");//it changes the text on screen
                             this.card = this.deck.splice(0,1)[0]; // It gets last card from the deck
+                            if (!this.card) {
+                console.warn("⚠ Se intentó coger carta del deck pero estaba vacío");
+                this.transitionTo(HANAFUDA_STATE.CHECK_END_ROUND);
+                return;
+            }
                             this.tweens.add({ //deck chosen card getting out of the deck animation
                                 targets: this.deckObject, scaleX: 0.7, scaleY: 0.7, duration: 200, ease: 'Power2',yoyo: true,
                             });
