@@ -63,7 +63,7 @@ export class DistractMercuryScene extends BaseScene {
      */
     createAndBeginDialogue() {
         const dialogueData = this.cache.json.get('TaliDialogue');
-        this.dialogueController = new DialogueController(this, "DistractMercury", dialogueData);
+        this.dialogueController = new DialogueController(this, "DM" + this.roundIndex, dialogueData);
         this.dialogueController.iniDialogue();
     }
 

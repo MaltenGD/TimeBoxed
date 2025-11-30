@@ -107,7 +107,8 @@ export default class Tali {
             switch(this.state) {
                 case GAME_STATE.PLAYER_START:
                     this.hideThrows();
-                    this.turnCount++;
+                    if (!this.lunaThrow) this.turnCount++;
+                    else this.lunaThrow = false;
                     this.emitState();
                     this.state = GAME_STATE.PLAYER_ROLLED;
                     break; 
@@ -126,7 +127,6 @@ export default class Tali {
                         this.emitState();
                         if (this.lunaThrow) {
                             this.state = GAME_STATE.PLAYER_START;
-                            this.lunaThrow = false;
                         }
                         else {
                             this.state = GAME_STATE.ENEMY_START;
@@ -135,7 +135,8 @@ export default class Tali {
                     break;
                 case GAME_STATE.ENEMY_START:
                     this.hideThrows();
-                    this.turnCount++;
+                    if (!this.lunaThrow) this.turnCount++;
+                    else this.lunaThrow = false;
                     this.emitState();
                     this.state = GAME_STATE.ENEMY_ROLLED;
                     break;
@@ -159,7 +160,6 @@ export default class Tali {
                         this.emitState();
                         if (this.lunaThrow) {
                             this.state = GAME_STATE.ENEMY_START;
-                            this.lunaThrow = false;
                         }
                         else {
                             this.state = GAME_STATE.PLAYER_START;

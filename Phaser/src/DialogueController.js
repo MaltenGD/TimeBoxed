@@ -91,8 +91,14 @@ export default class DialogueController
         else if (this.era == 'TaliTutorial') {
             this.dialogueGroup = this.dialogueData.TaliTutorialDialogue;
         }
-        else if (this.era == 'DistractMercury') {
-            this.dialogueGroup = this.dialogueData.DistractMercuryDialogue;
+        else if (this.era == 'DM0') {
+            this.dialogueGroup = this.dialogueData.DistractMercuryDialogue0;
+        }
+        else if (this.era == 'DM1') {
+            this.dialogueGroup = this.dialogueData.DistractMercuryDialogue1;
+        }
+        else if (this.era == 'DM2') {
+            this.dialogueGroup = this.dialogueData.DistractMercuryDialogue2;
         }
         else if (this.era == 'TimeBoxedDefeat')
         {

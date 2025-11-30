@@ -235,7 +235,7 @@ export class TaliScene extends BaseScene {
     onEnemyDistract() {
         console.log("TURNCOUNT " + this.taliGame.turnCount);
         this.scene.pause();
-        this.scene.launch('DistractMercuryScene', {playerData: this.playerData, mercuryRoll: this.taliGame.currentRoll, roundIndex: Math.round(this.taliGame.turnCount/2)});
+        this.scene.launch('DistractMercuryScene', {playerData: this.playerData, mercuryRoll: this.taliGame.currentRoll, roundIndex: Math.round(this.taliGame.turnCount/2) -1});
         this.events.once("resume", (scene, data) => {
             this.taliGame.currentRoll = data.mercuryResultRoll;
             this.taliGame.setDiceImages();
