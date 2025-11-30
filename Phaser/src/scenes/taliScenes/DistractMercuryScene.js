@@ -158,7 +158,7 @@ export class DistractMercuryScene extends BaseScene {
     }
 
     changeDice() {
-
+        
     }
 
     onIncorrectOption() {
