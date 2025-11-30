@@ -360,7 +360,7 @@ export class HanafudaGame extends Phaser.Scene{
            
             this.playerPairs.push(this.tableCards[tablecardPos[0].row].splice(tablecardPos[0].col, 1)[0]);
             this.renderPlayerPairs();
-            this.checkYakus(true);
+            //this.checkYakus(true);
         }
         else {
             if(this.refill === false) { this.opponentPairs.push(this.opponentCards.splice(cardpos, 1)[0]);}
@@ -368,7 +368,7 @@ export class HanafudaGame extends Phaser.Scene{
 
             this.opponentPairs.push(this.tableCards[tablecardPos[0].row].splice(tablecardPos[0].col, 1)[0]); //Coloca 
             this.renderOpponentPairs();
-            this.checkYakus(false);
+            //this.checkYakus(false);
         }
     }
 
@@ -443,32 +443,32 @@ export class HanafudaGame extends Phaser.Scene{
         });
     }
 
-    checkYakus(isPlayer) {
-    const cards = isPlayer ? this.playerPairs : this.opponentPairs;
-    const { yakus, points } = calculateYakus(cards);
+//     checkYakus(isPlayer) {
+//     const cards = isPlayer ? this.playerPairs : this.opponentPairs;
+//     const { yakus, points } = calculateYakus(cards);
 
-    if (yakus.length === 0) return;
+//     if (yakus.length === 0) return;
 
-    const last = yakus[yakus.length - 1];
+//     const last = yakus[yakus.length - 1];
 
-    if (isPlayer) {
-        this.pointsUI.showPlayer(last,points,() => {
-                this.gamePaused = false;
-                this.handlesTurns();
-            },() => {
-                this.gamePaused = true;
-                this.transitionTo(HANAFUDA_STATE.FINISH_ROUND);
-            }
-        );
-    } else {
-        const shobu = Math.random() < 0.5;
+//     if (isPlayer) {
+//         this.pointsUI.showPlayer(last,points,() => {
+//                 this.gamePaused = false;
+//                 this.handlesTurns();
+//             },() => {
+//                 this.gamePaused = true;
+//                 this.transitionTo(HANAFUDA_STATE.FINISH_ROUND);
+//             }
+//         );
+//     } else {
+//         const shobu = Math.random() < 0.5;
 
-        if (shobu) {
-            this.pointsUI.showEnemy(last,points,() => this.transitionTo(HANAFUDA_STATE.FINISH_ROUND));
-        } else {this.pointsUI.showEnemy(last,points,() => { this.gamePaused = false; this.handlesTurns(); });
-        }
-    }
-}
+//         if (shobu) {
+//             this.pointsUI.showEnemy(last,points,() => this.transitionTo(HANAFUDA_STATE.FINISH_ROUND));
+//         } else {this.pointsUI.showEnemy(last,points,() => { this.gamePaused = false; this.handlesTurns(); });
+//         }
+//     }
+// }
 
 
 }

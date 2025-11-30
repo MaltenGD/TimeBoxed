@@ -54,12 +54,14 @@ export default class HanafudaTableActions{
             else {this.scene.playerPairs.push(this.scene.card);}
            
             this.scene.playerPairs.push(this.scene.tableCards[tablecardPos.row].splice(tablecardPos.col, 1)[0]);
+            this.scene.points.checkYakus(true);
         }
         else {
             if(this.scene.refill === false) { this.scene.opponentPairs.push(this.scene.opponentCards.splice(cardpos, 1)[0]);}
             else {this.scene.opponentPairs.push(this.scene.card);}
 
             this.scene.opponentPairs.push(this.scene.tableCards[tablecardPos.row].splice(tablecardPos.col, 1)[0]);
+            this.scene.points.checkYakus(false);
         }
     }
 
@@ -77,4 +79,31 @@ export default class HanafudaTableActions{
         }
         else{this.scene.tableCards[this.scene.emptyRow].push(this.scene.card);} //If The table is refilling then add deck card 
     }
+
+    checkYakus(isPlayer) {
+    const cards = isPlayer ? this.playerPairs : this.opponentPairs;
+    const { yakus, points } = calculateYakus(cards);
+
+    if (yakus.length === 0) return;
+
+    const last = yakus[yakus.length - 1];
+
+    if (isPlayer) {
+        this.pointsUI.showPlayer(last,points,() => {
+                this.gamePaused = false;
+                this.handlesTurns();
+            },() => {
+                this.gamePaused = true;
+                this.transitionTo(HANAFUDA_STATE.FINISH_ROUND);
+            }
+        );
+    } else {
+        const shobu = Math.random() < 0.5;
+
+        if (shobu) {
+            this.pointsUI.showEnemy(last,points,() => this.transitionTo(HANAFUDA_STATE.FINISH_ROUND));
+        } else {this.pointsUI.showEnemy(last,points,() => { this.gamePaused = false; this.handlesTurns(); });
+        }
+    }
+}
 }

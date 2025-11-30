@@ -2,7 +2,7 @@ import HanafudaRender from '../../Hanafuda/HanafudaRender.js';
 import HanafudaTableActions from '../../Hanafuda/HanafudaTableActions.js';
 import HanafudaPrepareRound from '../../Hanafuda/HanafudaPrepareRound.js';
 import TransitionController from "../../misc/transitioncontroller.js";
-import { calculateYakus } from '../HanafudaScenes/HanafudaScore.js';
+//import { calculateYakus } from './HanafudaScore.js';
 import HanafudaPoints from '../../Hanafuda/HanafudaPoints.js';
 
 
@@ -83,7 +83,7 @@ export class HanafudaGameState extends Phaser.Scene{
 
         this.transitionTo(HANAFUDA_STATE.START_ROUND);
 
-        this.pointsUI = new HanafudaPoints(this);
+        this.points = new HanafudaPoints(this);
 
     }
 
