@@ -119,6 +119,7 @@ export class LoadingScene extends Phaser.Scene
          // loads the background
         this.load.image('IntroBackgroundPlaceholder', 'Phaser/assets/Intro/IntroBackgroundPlaceholder.jpeg');
         
+        // Normal mode assets
         this.load.image('OptionMenuBase', 'Phaser/assets/OptionMenu/OptionMenuBase.png');
         this.load.image('ResumeButtonNormal', 'Phaser/assets/OptionMenu/ResumeNormal.png');
         this.load.image('ResumeButtonHovered', 'Phaser/assets/OptionMenu/ResumeHovered.png');
@@ -130,6 +131,19 @@ export class LoadingScene extends Phaser.Scene
         this.load.image('ExitButtonHovered', 'Phaser/assets/OptionMenu/ExitHovered.png');
         this.load.image('SettingsIcon', 'Phaser/assets/OptionMenu/SettingsIcon.png');
         this.load.image('SettingsIconHovered', 'Phaser/assets/OptionMenu/SettingsIconHovered.png');
+        
+        // Timeboxed mode assets
+        this.load.image('OptionMenuBaseTB', 'Phaser/assets/OptionMenu/TimeboxedMode/OptionMenuBase.png');
+        this.load.image('ResumeButtonNormalTB', 'Phaser/assets/OptionMenu/TimeboxedMode/ResumeNormal.png');
+        this.load.image('ResumeButtonHoveredTB', 'Phaser/assets/OptionMenu/TimeboxedMode/ResumeHovered.png');
+        this.load.image('HelpButtonNormalTB', 'Phaser/assets/OptionMenu/TimeboxedMode/HelpNormal.png');
+        this.load.image('HelpButtonHoveredTB', 'Phaser/assets/OptionMenu/TimeboxedMode/HelpHovered.png');
+        this.load.image('ItemsButtonNormalTB', 'Phaser/assets/OptionMenu/TimeboxedMode/ItemsNormal.png');
+        this.load.image('ItemsButtonHoveredTB', 'Phaser/assets/OptionMenu/TimeboxedMode/ItemsHovered.png');
+        this.load.image('ExitButtonNormalTB', 'Phaser/assets/OptionMenu/TimeboxedMode/ExitNormal.png');
+        this.load.image('ExitButtonHoveredTB', 'Phaser/assets/OptionMenu/TimeboxedMode/ExitHovered.png');
+        this.load.image('SettingsIconTB', 'Phaser/assets/OptionMenu/TimeboxedMode/SettingsIcon.png');
+        this.load.image('SettingsIconHoveredTB', 'Phaser/assets/OptionMenu/TimeboxedMode/SettingsIconHovered.png');
 
         
     }

@@ -39,17 +39,28 @@ export class OptionMenuScene extends BaseScene {
             y : height / 2 + 450
         }
 
+        const baseImageKey = this.playerData.TimeboxedMode ? 'OptionMenuBaseTB' : 'OptionMenuBase';
+        const resumeButtonKey = this.playerData.TimeboxedMode ? 'ResumeButtonNormalTB' : 'ResumeButtonNormal';
+        const resumeButtonHoveredKey = this.playerData.TimeboxedMode ? 'ResumeButtonHoveredTB' : 'ResumeButtonHovered';
+        const helpButtonKey = this.playerData.TimeboxedMode ? 'HelpButtonNormalTB' : 'HelpButtonNormal';
+        const helpButtonHoveredKey = this.playerData.TimeboxedMode ? 'HelpButtonHoveredTB' : 'HelpButtonHovered';
+        const itemsButtonKey = this.playerData.TimeboxedMode ? 'ItemsButtonNormalTB' : 'ItemsButtonNormal';
+        const itemsButtonHoveredKey = this.playerData.TimeboxedMode ? 'ItemsButtonHoveredTB' : 'ItemsButtonHovered';
+        const exitButtonKey = this.playerData.TimeboxedMode ? 'ExitButtonNormalTB' : 'ExitButtonNormal';
+        const exitButtonHoveredKey = this.playerData.TimeboxedMode ? 'ExitButtonHoveredTB' : 'ExitButtonHovered';
+        const settingsButtonKey = this.playerData.TimeboxedMode ? 'SettingsIconTB' : 'SettingsIcon';
+        const settingsButtonHoveredKey = this.playerData.TimeboxedMode ? 'SettingsIconHoveredTB' : 'SettingsIconHovered';
 
 
         this.transitionController = new TransitionController(this);
 
-        const base = this.add.image(width / 2, height / 2, 'OptionMenuBase')
+        const base = this.add.image(width / 2, height / 2, baseImageKey);
 
-        let resumeBtn = this.add.image(resumeBtnCoords.x, resumeBtnCoords.y, 'ResumeButtonNormal').setInteractive();
-        let helpBtn = this.add.image(helpBtnCoords.x, helpBtnCoords.y, 'HelpButtonNormal').setInteractive();
-        let itemsBtn = this.add.image(itemsBtnCoords.x, itemsBtnCoords.y, 'ItemsButtonNormal').setInteractive();
-        let exitBtn = this.add.image(exitBtnCoords.x, exitBtnCoords.y, 'ExitButtonNormal').setInteractive();
-        let settingsBtn = this.add.image(settingsBtnCoords.x, settingsBtnCoords.y, 'SettingsIcon').setInteractive().setScale(0.15);
+        let resumeBtn = this.add.image(resumeBtnCoords.x, resumeBtnCoords.y, resumeButtonKey).setInteractive();
+        let helpBtn = this.add.image(helpBtnCoords.x, helpBtnCoords.y, helpButtonKey).setInteractive();
+        let itemsBtn = this.add.image(itemsBtnCoords.x, itemsBtnCoords.y, itemsButtonKey).setInteractive();
+        let exitBtn = this.add.image(exitBtnCoords.x, exitBtnCoords.y, exitButtonKey).setInteractive();
+        let settingsBtn = this.add.image(settingsBtnCoords.x, settingsBtnCoords.y, settingsButtonKey).setInteractive().setScale(0.15);
 
 
         /**Button Hovering Behaviour */
@@ -57,7 +68,7 @@ export class OptionMenuScene extends BaseScene {
         resumeBtn.on('pointerover', () => {
             this.sound.play('buttonHover', { volume: 2 * this.playerData.sfxVolume });
             this.tweens.killTweensOf(resumeBtn);
-            resumeBtn.setTexture('ResumeButtonHovered');
+            resumeBtn.setTexture(resumeButtonHoveredKey);
             this.tweens.add({
                 targets: resumeBtn,
                 scale: 1.1,

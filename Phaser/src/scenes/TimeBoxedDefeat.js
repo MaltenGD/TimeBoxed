@@ -64,12 +64,6 @@ export class TimeBoxedDefeat extends BaseScene
         });
     
     }
-    openOptionMenu()
-    {
-        if (this.scene.isActive('OptionMenu')) return;
-            this.scene.pause();
-            this.scene.launch('OptionMenu', { sceneToPause: this.scene.key });
-    }
 
     resetPlayerData()
     {

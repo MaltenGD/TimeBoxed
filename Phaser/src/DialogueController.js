@@ -104,11 +104,13 @@ export default class DialogueController
         }
         
 
+        const borderColor = this.scene.playerData.TimeboxedMode ? 0xcb3234 : 0x0055CC;
+
         /**creates the dialog box */
         this.dialogBox = new DialogBox(this.scene,
         {
             borderThickness: 6,
-			borderColor: 0xcb3234,
+			borderColor: borderColor,
 			borderAlpha: 1,
 			windowAlpha: 0.8,
 			windowColor: 0x000000,
