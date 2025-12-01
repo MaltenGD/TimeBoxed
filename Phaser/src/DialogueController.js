@@ -42,7 +42,6 @@ export default class DialogueController
     */
     iniDialogue()
     {   
-
         this.scene.events.on('shutdown', this.shutdown, this);
 
         this.scene.events.on('pause', this.pause, this);
@@ -59,47 +58,21 @@ export default class DialogueController
         // Add the sound for the dialogue text
         this.dialogueTextSound = this.scene.sound.add('DialogueTextSFX', { loop: true , volume: this.dialogueTextVolume * this.scene.playerData.sfxVolume});
 
-        if(this.era == 'Intro')
-        {
-            this.dialogueGroup = this.dialogueData.IntroDialogue;
-        }
-        else if(this.era == 'Aseb')
-        {
-            this.dialogueGroup = this.dialogueData.EgyptDialogue;
-        }
-        else if(this.era == 'AsebTutorial')
-        {
+        if(this.era == 'Intro')this.dialogueGroup = this.dialogueData.IntroDialogue;
+        else if(this.era == 'Aseb')this.dialogueGroup = this.dialogueData.EgyptDialogue;
+        else if(this.era == 'AsebTutorial'){
             this.dialogueGroup = this.dialogueData.AsebTutorialDialogue;
             this.isTutorial = true;
         }
-        else if (this.era == 'AsebWin')
-        {
-            this.dialogueGroup = this.dialogueData.AsebWinDialogue;
-        }
-        else if (this.era == 'AsebDefeat')
-        {
-            this.dialogueGroup = this.dialogueData.AsebDefeatDialogue;
-        }
-        else if (this.era == 'Tali') {
-            this.dialogueGroup = this.dialogueData.TaliIntroDialogue;
-        }
-        else if (this.era == 'TaliWin') {
-            this.dialogueGroup = this.dialogueData.TaliWinDialogue;
-        }
-        else if (this.era == 'TaliLose') {
-            this.dialogueGroup = this.dialogueData.TaliLoseDialogue;
-        }
-        else if (this.era == 'TaliTutorial') {
-            this.dialogueGroup = this.dialogueData.TaliTutorialDialogue;
-        }
-        else if (this.era == 'TimeBoxedDefeat')
-        {
-            this.dialogueGroup = this.dialogueData.TimeBoxedDefeatDialogue;
-        }
-        else if (this.era == 'GameCompleted')
-        {
-            this.dialogueGroup = this.dialogueData.GameCompletedDialogue;
-        }
+        else if (this.era == 'AsebWin') this.dialogueGroup = this.dialogueData.AsebWinDialogue;
+        else if (this.era == 'AsebDefeat') this.dialogueGroup = this.dialogueData.AsebDefeatDialogue;
+        else if (this.era == 'Tali') this.dialogueGroup = this.dialogueData.TaliIntroDialogue;
+        else if (this.era == 'TaliWin')  this.dialogueGroup = this.dialogueData.TaliWinDialogue;
+        else if (this.era == 'TaliLose') this.dialogueGroup = this.dialogueData.TaliLoseDialogue;
+        else if (this.era == 'TaliTutorial') this.dialogueGroup = this.dialogueData.TaliTutorialDialogue; 
+        else if (this.era == 'HanafudaIntro') this.dialogueGroup = this.dialogueData.HanafudaIntroDialogue;
+        else if (this.era == 'TimeBoxedDefeat')  this.dialogueGroup = this.dialogueData.TimeBoxedDefeatDialogue;
+        else if (this.era == 'GameCompleted') this.dialogueGroup = this.dialogueData.GameCompletedDialogue;
         
 
         /**creates the dialog box */

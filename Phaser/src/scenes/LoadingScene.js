@@ -302,6 +302,12 @@ export class LoadingScene extends Phaser.Scene
         * @param {string} key - The key to reference the loaded JSON data.
         * @param {string} url - The URL of the JSON file to load.
         */
+        this.load.json('HanafudaIntroDialogue', 'Phaser/DialoguesJson/HanafudaIntroDialogue.json');
+
+        /** Load the json file for the Game Completed Dialogue, when the player completes the game.
+        * @param {string} key - The key to reference the loaded JSON data.
+        * @param {string} url - The URL of the JSON file to load.
+        */
         this.load.json('GameCompletedDialogue', 'Phaser/DialoguesJson/GameCompletedDialogue.json');
     }
 
