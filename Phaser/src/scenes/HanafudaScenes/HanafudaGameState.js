@@ -50,7 +50,8 @@ export class HanafudaGameState extends Phaser.Scene{
         this.render = new HanafudaRender(this,this.width,this.height);
         this.tableAction = new HanafudaTableActions(this);
         this.prepareRound = new HanafudaPrepareRound(this);
-
+        this.points = new HanafudaPoints(this);
+        
         this.cleanUp(); //Initializes the variables that will be used in the game.
         /** @type {number} It counts the number of rounds*/
         this.round = 0;
@@ -82,9 +83,6 @@ export class HanafudaGameState extends Phaser.Scene{
         this.deckCardObject = null;
 
         this.transitionTo(HANAFUDA_STATE.START_ROUND);
-
-        this.points = new HanafudaPoints(this);
-
     }
 
     /**
@@ -104,9 +102,9 @@ export class HanafudaGameState extends Phaser.Scene{
     */
     handleGameState(){
         if (this.currentState === "POPUP_BLOCK") {
-        console.log("FSM pausada por popup");
-        return;
-    }
+            console.log("FSM pausada por popup");
+            return;
+        }
 
         switch(this.currentState){
             case HANAFUDA_STATE.START_ROUND:
@@ -116,10 +114,7 @@ export class HanafudaGameState extends Phaser.Scene{
                 this.prepareRound.createDeck(); //It creates the deck with all the cards
                 this.prepareRound.shuffleDeck(); //It suffles the cards, so the probablity of getting pairs together is lower
                 this.prepareRound.dealCards(); //It deals cards to the player, the opponent and the table
-
-                this.render.renderOpponentCards();
-                this.render.renderPlayerCards();
-                this.render.renderTable();
+                this.renderCards(); //Initial render
 
                 //Based on whose turn it is, it will go to the state for the player, or the state for the opponent
                 this.time.delayedCall(1000, ()=> {
@@ -147,15 +142,16 @@ export class HanafudaGameState extends Phaser.Scene{
             break;
             case HANAFUDA_STATE.OPPONENT_TURN:
                 this.infoText.setText("Opponent is thinking");//it changes the text on screen
+
                 this.chosenCardPos = Math.floor(Math.random() * this.opponentCards.length); //random selection
                 this.card = this.opponentCards[this.chosenCardPos];//selected card
 
                 this.time.delayedCall(1000, ()=> {
-                    this.infoText.setText("Opponent has chosen a card!"); //
+                    this.infoText.setText("Opponent has chosen a card!"); //it changes the text on screen
 
                     let chosenCardObject = this.opponentCardObjects[this.chosenCardPos];
-                    this.tweens.add({ //card poking out of the opponent hand animation
-                        targets: chosenCardObject, y: chosenCardObject.y + 50,duration: 300, ease: 'Power2',
+                    this.tweens.add({ 
+                        targets: chosenCardObject, y: chosenCardObject.y + 50,duration: 300, ease: 'Power2', //card poking out of the opponent hand animation
                     });
                     
                     this.time.delayedCall(1000, ()=> {
@@ -174,21 +170,24 @@ export class HanafudaGameState extends Phaser.Scene{
 
                 this.time.delayedCall(2000, ()=>{
                     this.selectPair();
-                
+
                     this.time.delayedCall(1000, ()=>{
                         this.infoText.setText("arranging cards");//it changes the text on screen
                         this.renderCards(); //render of updated cards
+
+                        //Aqui deberia ver una funcion que recibe como parametro un array de pares (sea el del jugador o el del oponente) y te devuelve true o false si el
+                        //array tiene alguna combinacion, y dependiendo de esa respuesta se llamara a la funcion que pausa el juego o no
                         
                         //The refill happens, second search is done but with a card from the deck
                         this.refill = true;
                         this.time.delayedCall(800, ()=> {
+
                             this.infoText.setText("Getting card from deck");//it changes the text on screen
                             this.card = this.deck.splice(0,1)[0]; // It gets last card from the deck
                             if (!this.card) {
-                console.warn("⚠ Se intentó coger carta del deck pero estaba vacío");
-                this.transitionTo(HANAFUDA_STATE.CHECK_END_ROUND);
-                return;
-            }
+                                console.log(" Se intentó coger carta del deck pero estaba vacío");
+                                this.transitionTo(HANAFUDA_STATE.CHECK_END_ROUND);
+                            }
                             this.tweens.add({ //deck chosen card getting out of the deck animation
                                 targets: this.deckObject, scaleX: 0.7, scaleY: 0.7, duration: 200, ease: 'Power2',yoyo: true,
                             });
@@ -231,7 +230,6 @@ export class HanafudaGameState extends Phaser.Scene{
                 }, this);
             break;
             case HANAFUDA_STATE.FINISH_ROUND:
-                console.log('roundFinished');
 
                 //Destroy the objects on scene, so it can prepare for a new round or the end of the game
                 this.opponentCardObjects.forEach(obj => obj.destroy())
@@ -279,6 +277,9 @@ export class HanafudaGameState extends Phaser.Scene{
         }
     }
 
+    /**
+     * @method cleanUp :It sets each variable inside it to its original values
+     */
     cleanUp(){
         /**@type {Array} deck cards */
         this.deck = [];
