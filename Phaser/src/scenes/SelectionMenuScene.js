@@ -300,6 +300,7 @@ export class SelectionMenuScene extends BaseScene {
                             if (this.playerData[completionFlag]) {
                                     this.scene.pause();
                                     this.scene.launch('ConfirmMenu',{
+                                    playerData: this.playerData,
                                     sceneToPause: this.scene.key,
                                     text: "You've already beaten this level. Completing it again won't grant you additional achievements. \n\n Are you sure you want to replay it?",
                                     onYes: () => {         
