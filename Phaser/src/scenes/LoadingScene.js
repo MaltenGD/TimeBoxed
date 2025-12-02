@@ -88,6 +88,7 @@ export class LoadingScene extends Phaser.Scene
         this.load.image('StartMenuKronos', 'Phaser/assets/StartMenu/kittykronos.png')
         this.load.image('BoxOpen', 'Phaser/assets/StartMenu/cardboardbox.png')
         this.load.image('logo', 'Phaser/assets/titlelogo.png');
+        this.load.image('creditsButton', 'Phaser/assets/StartMenu/creditsButton.png');
         this.load.image('teamLogo', 'Phaser/assets/teamLogo.png');
         this.load.spritesheet('playButton', 'Phaser/assets/playButton.png', { frameWidth: 186, frameHeight: 92 });
         this.load.json('playerData', 'Phaser/src/playerData.json');
