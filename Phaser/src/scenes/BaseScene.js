@@ -137,6 +137,8 @@ export class BaseScene extends Phaser.Scene {
         if (this.scene.isActive('OptionMenu') || !this.OptionMenuCanBeOpened) return;
         this.scene.pause();
         this.playerData.SceneToResume = this.scene.key;
+        this.playerData.FromSelectionMenu = this.scene.key === 'SelectionMenuScene'
+        if (this.playerData.FromSelectionMenu) console.log("Opening Option Menu from Selection Menu");
         this.scene.launch('OptionMenu', this.playerData);
     }
 }

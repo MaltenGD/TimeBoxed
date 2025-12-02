@@ -1,5 +1,6 @@
 {
     "DebugMode": true,
+    "FromSelectionMenu": false,
     "StartedIntro": false,
     "TimeboxedMode": false,
     "showedTBwarn" : false,

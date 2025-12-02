@@ -47,12 +47,14 @@ export class GameModeSelectionScene extends BaseScene {
         this.titleText = this.add.text(width / 2, height / 2 - 250, titleText, {
             fontSize: '40px',
             fill: '#ffffff',
+            fontFamily: 'rimouski',
             align: 'center',
             wordWrap: { width: maxTextWidth, useAdvancedWrap: true }
         }).setOrigin(0.5);
         this.descText = this.add.text(width / 2, height / 2 -100, defaultDescText, {
             fontSize: '36px',
             fill: '#ffffff',
+            fontFamily: 'rimouski',
             align: 'center',
             wordWrap: { width: maxTextWidth - 100, useAdvancedWrap: true }
         }).setOrigin(0.5);
@@ -94,6 +96,7 @@ export class GameModeSelectionScene extends BaseScene {
         this.NormalBtn = this.add.text(width / 2 - 200, height / 2 + 240, NormalButtonText, {
             fontSize: '60px',
             fill: '#fff',
+            fontFamily: 'rimouski',
             backgroundColor: '#0055cc',
             padding: { x: 20, y: 10 }
         }).setOrigin(0.5).setInteractive();
@@ -108,6 +111,7 @@ export class GameModeSelectionScene extends BaseScene {
         this.TimeboxedBtn = this.add.text(width / 2 + 200, height / 2 + 240, TimeboxedButtonText, {
             fontSize: '60px',
             fill: '#fff',
+            fontFamily: 'rimouski',
             backgroundColor: '#8B0000',
             padding: { x: 20, y: 10 }
         }).setOrigin(0.5).setInteractive();

@@ -110,10 +110,17 @@ export class Start extends BaseScene {
         const playButtonR = this.add.image(normalPositions.R.x, normalPositions.R.y, 'playButtonR').setOrigin(0.5)
         const playButtonT2 = this.add.image(normalPositions.T2.x, normalPositions.T2.y, 'playButtonT2').setOrigin(0.5)
 
+        const startLetters = [
+            { letter: playButtonS, key: 'S', pos: normalPositions.S },
+            { letter: playButtonT, key: 'T', pos: normalPositions.T1 },
+            { letter: playButtonA, key: 'A', pos: normalPositions.A },
+            { letter: playButtonR, key: 'R', pos: normalPositions.R },
+            { letter: playButtonT2, key: 'T2', pos: normalPositions.T2 }
+        ];
+
         this.wanderingTweens = [];
-        this.startWandering(playButtonS, playButtonT, playButtonA, playButtonR, playButtonT2, normalPositions);
-
-
+        this.arrangementTweens = [];
+        this.startWandering(startLetters);
         const playButton = this.add.container(width / 2 + 200, height - 200, [playButtonS, playButtonT, playButtonA, playButtonR, playButtonT2]).setSize(600, 150).setInteractive();
         //boton de creditos
         const creditsButton = this.add.image( width - 150, height - 150, 'creditsButton').setOrigin(0.5).setScale(0.15).setInteractive();
@@ -126,58 +133,40 @@ export class Start extends BaseScene {
             
             this.sound.play('buttonHover', { volume: 2 * this.playerData.sfxVolume });
 
-
             // Stop wandering tweens
             this.wanderingTweens.forEach(tween => tween.stop());
+            this.wanderingTweens = [];
 
-            // Rearrange letters
-            this.tweens.add({
-                targets: playButtonS,
-                x: normalPositions.S.x,
-                y: normalPositions.S.y,
-                duration: 500,
-                ease: 'Power2'
-            });
-            this.tweens.add({
-                targets: playButtonT,
-                x: normalPositions.T1.x,
-                y: normalPositions.T1.y,
-                duration: 500,
-                ease: 'Power2'
-            });
-            this.tweens.add({
-                targets: playButtonA,
-                x: normalPositions.A.x,
-                y: normalPositions.A.y,
-                duration: 500,
-                ease: 'Power2'
-            });
-            this.tweens.add({
-                targets: playButtonR,
-                x: normalPositions.R.x,
-                y: normalPositions.R.y,
-                duration: 500,
-                ease: 'Power2'
-            });
-            this.tweens.add({
-                targets: playButtonT2,
-                x: normalPositions.T2.x,
-                y: normalPositions.T2.y,
-                duration: 500,
-                ease: 'Power2',
-                onComplete: () => {
-                    this.arranged = true;
-                }
-            });
-
+            // Change textures to hovered version
+            startLetters.forEach(item => item.letter.setTexture(`playButton${item.key}Hovered`));
             
+            // Rearrange letters
+            this.arrangementTweens.forEach(tween => tween.remove());
+            this.arrangementTweens = [];
+
+            startLetters.forEach((item, index) => {
+                const tween = this.tweens.add({
+                    targets: item.letter,
+                    x: item.pos.x,
+                    y: item.pos.y,
+                    duration: 500,
+                    ease: 'Power2',
+                    onComplete: (index === startLetters.length - 1) ? () => { this.arranged = true; } : null
+                });
+                this.arrangementTweens.push(tween);
+            });
         });
 
         playButton.on('pointerout', () => {
-            if (!this.arranged) return;
+            // Stop any arranging tweens immediately
+            this.arrangementTweens.forEach(tween => tween.stop());
+            this.arrangementTweens = [];
+
+            // Revert textures to normal
+            startLetters.forEach(item => item.letter.setTexture(`playButton${item.key}`));
 
             // Restart the wandering with new random destinations
-            this.startWandering(playButtonS, playButtonT, playButtonA, playButtonR, playButtonT2, normalPositions);
+            this.startWandering(startLetters);
 
             this.arranged = false;
         });
@@ -269,30 +258,16 @@ export class Start extends BaseScene {
 
     /**
      * Starts the wandering animation for the START button letters.
-     * It removes any existing wandering tweens and creates new ones with random destinations.
-     * @param {Phaser.GameObjects.Image} playButtonS 
-     * @param {Phaser.GameObjects.Image} playButtonT 
-     * @param {Phaser.GameObjects.Image} playButtonA 
-     * @param {Phaser.GameObjects.Image} playButtonR 
-     * @param {Phaser.GameObjects.Image} playButtonT2 
-     * @param {object} normalPositions 
+     * It stops any existing wandering tweens and creates new ones.
+     * @param {Array<object>} letters - Array of letter objects to animate.
      */
-    startWandering(playButtonS, playButtonT, playButtonA, playButtonR, playButtonT2, normalPositions) {
-        // Last tweens need to be removed first.
-        this.wanderingTweens.forEach(tween => tween.remove());
+    startWandering(letters) {
+        this.wanderingTweens.forEach(tween => tween.stop());
         this.wanderingTweens = [];
-
-        const letters = [
-            { target: playButtonS, pos: normalPositions.S },
-            { target: playButtonT, pos: normalPositions.T1 },
-            { target: playButtonA, pos: normalPositions.A },
-            { target: playButtonR, pos: normalPositions.R },
-            { target: playButtonT2, pos: normalPositions.T2 }
-        ];
 
         letters.forEach(letter => {
             const newTween = this.tweens.add({
-                targets: letter.target,
+                targets: letter.letter,
                 x: letter.pos.x + Phaser.Math.Between(-5, 5),
                 y: letter.pos.y + 20,
                 duration: Phaser.Math.Between(2000, 4000),

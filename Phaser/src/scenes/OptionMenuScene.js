@@ -18,17 +18,20 @@ export class OptionMenuScene extends BaseScene {
         this.playerData = playerData;
         const { width, height } = this.scale;
 
+        this.FromSelectionMenuOffset = this.playerData.FromSelectionMenu ? 100 : 0;
+        console.log("FromSelectionMenu: " + this.playerData.FromSelectionMenu);
+
         let resumeBtnCoords = {
-            x : width / 2 - 160,
-            y : height / 2 - 300
+            x : width / 2 - 160 + this.FromSelectionMenuOffset,
+            y : height / 2 - 300 + this.FromSelectionMenuOffset
         }
         let helpBtnCoords = {
-            x : width / 2 - 60,
-            y : height / 2 - 100
+            x : width / 2 - 60 + this.FromSelectionMenuOffset,
+            y : height / 2 - 100 + this.FromSelectionMenuOffset
         }
         let itemsBtnCoords = {
-            x : width / 2 + 80,
-            y : height / 2 + 100
+            x : width / 2 + 80 + this.FromSelectionMenuOffset,
+            y : height / 2 + 100 + this.FromSelectionMenuOffset
         }
         let exitBtnCoords = {
             x : width / 2 + 225,
@@ -59,10 +62,12 @@ export class OptionMenuScene extends BaseScene {
         let resumeBtn = this.add.image(resumeBtnCoords.x, resumeBtnCoords.y, resumeButtonKey).setInteractive();
         let helpBtn = this.add.image(helpBtnCoords.x, helpBtnCoords.y, helpButtonKey).setInteractive();
         let itemsBtn = this.add.image(itemsBtnCoords.x, itemsBtnCoords.y, itemsButtonKey).setInteractive();
-        let exitBtn = this.add.image(exitBtnCoords.x, exitBtnCoords.y, exitButtonKey).setInteractive();
-        let settingsBtn = this.add.image(settingsBtnCoords.x, settingsBtnCoords.y, settingsButtonKey).setInteractive().setScale(0.15);
+        let exitBtn = this.add.image(exitBtnCoords.x, exitBtnCoords.y, exitButtonKey)
+        let settingsBtn = this.add.image(settingsBtnCoords.x, settingsBtnCoords.y, settingsButtonKey).setScale(0.15).setInteractive();
 
-
+        if (this.playerData.FromSelectionMenu) exitBtn.setAlpha(0);
+        else exitBtn.setInteractive();
+            
         /**Button Hovering Behaviour */
 
         resumeBtn.on('pointerover', () => {
@@ -216,12 +221,12 @@ export class OptionMenuScene extends BaseScene {
             this.scene.launch('ConfirmMenu',{
                 sceneToPause: this.scene.key,
                 playerData: this.playerData,
-                text: "Do you want to go to the main menu?",
+                text: "Do you want to go back to the present?\n Your current progress will be lost.",
                 onYes: () => {         
                     this.scene.stop(this.playerData.SceneToResume);
                     this.scene.stop('ConfirmMenu');
                     this.scene.stop('OptionMenu');
-                    this.scene.start('Start');
+                    this.scene.start('SelectionMenuScene', this.playerData);
 
                     
                 },

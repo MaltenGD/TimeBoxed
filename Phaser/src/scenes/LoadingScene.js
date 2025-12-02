@@ -34,6 +34,7 @@ export class LoadingScene extends Phaser.Scene
         let loadingInfo = this.add.text(progressBoxPosX + progressBoxWidth/2, progressBoxPosY + progressBoxHeight + 40 , "Starting game...", {fontSize:35}).setOrigin(0.5);
 
         this.loadMainMenuAssets();
+        this.loadOptionMenuAssets();
         this.loadDialogues();
         this.loadIntroAssets();
         this.loadSelectionMenuAssets();
@@ -96,6 +97,12 @@ export class LoadingScene extends Phaser.Scene
         this.load.image('playButtonA', 'Phaser/assets/StartMenu/StartButtonA.png');
         this.load.image('playButtonR', 'Phaser/assets/StartMenu/StartButtonR.png');
         this.load.image('playButtonT2', 'Phaser/assets/StartMenu/StartButtonT2.png');
+
+        this.load.image('playButtonSHovered', 'Phaser/assets/StartMenu/StartButtonSHovered.png');
+        this.load.image('playButtonTHovered', 'Phaser/assets/StartMenu/StartButtonTHovered.png');
+        this.load.image('playButtonAHovered', 'Phaser/assets/StartMenu/StartButtonAHovered.png');
+        this.load.image('playButtonRHovered', 'Phaser/assets/StartMenu/StartButtonRHovered.png');
+        this.load.image('playButtonT2Hovered', 'Phaser/assets/StartMenu/StartButtonT2Hovered.png');
     }
 
     loadAudioAssets()
@@ -109,12 +116,7 @@ export class LoadingScene extends Phaser.Scene
         this.load.audio('boxClickedSFX', 'Phaser/assets/audio/SelectionMenuScene/BoxClickedSFX.mp3');
     }
 
-    /**
-     * Loads all option menu assets.
-     */
-    loadOptionMenuAssets()
-    {
-    }
+    
 
     /**
      * Loads all intro assets.
@@ -124,6 +126,16 @@ export class LoadingScene extends Phaser.Scene
          // loads the background
         this.load.image('IntroBackgroundPlaceholder', 'Phaser/assets/Intro/IntroBackgroundPlaceholder.jpeg');
         
+        
+
+        
+    }
+
+    /**
+     * Loads all option menu assets.
+     */
+    loadOptionMenuAssets()
+    {
         // Normal mode assets
         this.load.image('OptionMenuBase', 'Phaser/assets/OptionMenu/OptionMenuBase.png');
         this.load.image('ResumeButtonNormal', 'Phaser/assets/OptionMenu/ResumeNormal.png');
@@ -150,13 +162,16 @@ export class LoadingScene extends Phaser.Scene
         this.load.image('SettingsIconTB', 'Phaser/assets/OptionMenu/TimeboxedMode/SettingsIcon.png');
         this.load.image('SettingsIconHoveredTB', 'Phaser/assets/OptionMenu/TimeboxedMode/SettingsIconHovered.png');
 
-        
+        // Settings Menu Assets
+        this.load.image('SettingsBackButton', 'Phaser/assets/Settings/SettingsBackButton.png');
     }
 
     loadSelectionMenuAssets()
     {
 
         this.load.image('BoxClosed', 'Phaser/assets/SelectionMenu/BoxClosed.png');
+        this.load.image('BackToStartNormal', 'Phaser/assets/SelectionMenu/BackToStartNormal.png');
+        this.load.image('BackToStartHovered', 'Phaser/assets/SelectionMenu/BackToStartHovered.png');
 
     }
 
