@@ -29,14 +29,14 @@ export class BaseScene extends Phaser.Scene {
      * Sets the cursor to change when hovering over all the interactive objects.
      */
     setInteractiveCursor() {
-        this.input.setDefaultCursor('url(../../../images/cursor_normal_small.png) 10 5, auto');
+        this.input.setDefaultCursor('url(../../../images/cursor_normal_small_v2.png) 10 5, auto');
 
         this.input.on('gameobjectover', () => {
-            this.input.setDefaultCursor('url(../../../images/cursor_open_small.png) 10 5, auto');
+            this.input.setDefaultCursor('url(../../../images/cursor_open_small_v2.png) 10 5, auto');
         })
 
         this.input.on('gameobjectout', () => {
-            this.input.setDefaultCursor('url(../../../images/cursor_normal_small.png) 10 5, auto');
+            this.input.setDefaultCursor('url(../../../images/cursor_normal_small_v2.png) 10 5, auto');
         })
     }
 

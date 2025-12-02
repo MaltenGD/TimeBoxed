@@ -8,11 +8,11 @@ body{
 }
 
 html, body {
-  cursor: url("images/cursor_normal_small.png") 10 5, auto;
+  cursor: url("images/cursor_normal_small_v2.png") 10 5, auto;
 }
 
 a, button, [role="button"], input[type="button"], input[type="submit"] {
-  cursor: url("images/cursor_open_small.png") 10 5, auto;
+  cursor: url("images/cursor_open_small_v2.png") 10 5, auto;
 }
 
 #game-container {
