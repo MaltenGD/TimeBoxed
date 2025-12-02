@@ -92,21 +92,94 @@ export class Start extends BaseScene {
         });
 
         const logo = this.add.image(1300, 150, 'logo').setOrigin(0.5);
-        const playButton = this.add.sprite(1150, 900, 'playButton', 0).setInteractive().setOrigin(0.5).setScale(1.4);
 
+        // Define final positions for the letters
+        const letterSpacing = 100;
+        const normalPositions = {
+            S: { x: -2 * letterSpacing - 20 , y: 0 },
+            T1: { x: -1 * letterSpacing - 20, y: 0 },
+            A: { x: -20, y: 0 },
+            R: { x: letterSpacing + 40, y: 0 },
+            T2: { x: 3 * letterSpacing + 40, y: 0 }
+        };
+
+        // letter images
+        const playButtonS = this.add.image(normalPositions.S.x, normalPositions.S.y, 'playButtonS').setOrigin(0.5)
+        const playButtonT = this.add.image(normalPositions.T1.x, normalPositions.T1.y, 'playButtonT').setOrigin(0.5)
+        const playButtonA = this.add.image(normalPositions.A.x, normalPositions.A.y, 'playButtonA').setOrigin(0.5)
+        const playButtonR = this.add.image(normalPositions.R.x, normalPositions.R.y, 'playButtonR').setOrigin(0.5)
+        const playButtonT2 = this.add.image(normalPositions.T2.x, normalPositions.T2.y, 'playButtonT2').setOrigin(0.5)
+
+        this.wanderingTweens = [];
+        this.startWandering(playButtonS, playButtonT, playButtonA, playButtonR, playButtonT2, normalPositions);
+
+
+        const playButton = this.add.container(width / 2 + 200, height - 200, [playButtonS, playButtonT, playButtonA, playButtonR, playButtonT2]).setSize(600, 150).setInteractive();
         //boton de creditos
         const creditsButton = this.add.image( width - 150, height - 150, 'creditsButton').setOrigin(0.5).setScale(0.15).setInteractive();
 
         //PLAY BUTTON INTERACTIONS
-
+        this.arranged = false;
         //efecto hover del boton play
         playButton.on('pointerover', () => {
+            if (this.arranged) return;
+            
             this.sound.play('buttonHover', { volume: 2 * this.playerData.sfxVolume });
-            playButton.setFrame(1);
-        });
-        playButton.on('pointerout', () => {
 
-            playButton.setFrame(0);
+
+            // Stop wandering tweens
+            this.wanderingTweens.forEach(tween => tween.stop());
+
+            // Rearrange letters
+            this.tweens.add({
+                targets: playButtonS,
+                x: normalPositions.S.x,
+                y: normalPositions.S.y,
+                duration: 500,
+                ease: 'Power2'
+            });
+            this.tweens.add({
+                targets: playButtonT,
+                x: normalPositions.T1.x,
+                y: normalPositions.T1.y,
+                duration: 500,
+                ease: 'Power2'
+            });
+            this.tweens.add({
+                targets: playButtonA,
+                x: normalPositions.A.x,
+                y: normalPositions.A.y,
+                duration: 500,
+                ease: 'Power2'
+            });
+            this.tweens.add({
+                targets: playButtonR,
+                x: normalPositions.R.x,
+                y: normalPositions.R.y,
+                duration: 500,
+                ease: 'Power2'
+            });
+            this.tweens.add({
+                targets: playButtonT2,
+                x: normalPositions.T2.x,
+                y: normalPositions.T2.y,
+                duration: 500,
+                ease: 'Power2',
+                onComplete: () => {
+                    this.arranged = true;
+                }
+            });
+
+            
+        });
+
+        playButton.on('pointerout', () => {
+            if (!this.arranged) return;
+
+            // Restart the wandering with new random destinations
+            this.startWandering(playButtonS, playButtonT, playButtonA, playButtonR, playButtonT2, normalPositions);
+
+            this.arranged = false;
         });
 
         //accion click
@@ -193,5 +266,43 @@ export class Start extends BaseScene {
         }
 
     }
+
+    /**
+     * Starts the wandering animation for the START button letters.
+     * It removes any existing wandering tweens and creates new ones with random destinations.
+     * @param {Phaser.GameObjects.Image} playButtonS 
+     * @param {Phaser.GameObjects.Image} playButtonT 
+     * @param {Phaser.GameObjects.Image} playButtonA 
+     * @param {Phaser.GameObjects.Image} playButtonR 
+     * @param {Phaser.GameObjects.Image} playButtonT2 
+     * @param {object} normalPositions 
+     */
+    startWandering(playButtonS, playButtonT, playButtonA, playButtonR, playButtonT2, normalPositions) {
+        // Last tweens need to be removed first.
+        this.wanderingTweens.forEach(tween => tween.remove());
+        this.wanderingTweens = [];
+
+        const letters = [
+            { target: playButtonS, pos: normalPositions.S },
+            { target: playButtonT, pos: normalPositions.T1 },
+            { target: playButtonA, pos: normalPositions.A },
+            { target: playButtonR, pos: normalPositions.R },
+            { target: playButtonT2, pos: normalPositions.T2 }
+        ];
+
+        letters.forEach(letter => {
+            const newTween = this.tweens.add({
+                targets: letter.target,
+                x: letter.pos.x + Phaser.Math.Between(-5, 5),
+                y: letter.pos.y + 20,
+                duration: Phaser.Math.Between(2000, 4000),
+                ease: 'Sine.easeInOut',
+                yoyo: true,
+                loop: -1
+            });
+            this.wanderingTweens.push(newTween);
+        });
+    }
+
 
 }

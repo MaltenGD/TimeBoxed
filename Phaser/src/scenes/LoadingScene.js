@@ -90,8 +90,12 @@ export class LoadingScene extends Phaser.Scene
         this.load.image('logo', 'Phaser/assets/titlelogo.png');
         this.load.image('creditsButton', 'Phaser/assets/StartMenu/creditsButton.png');
         this.load.image('teamLogo', 'Phaser/assets/teamLogo.png');
-        this.load.spritesheet('playButton', 'Phaser/assets/playButton.png', { frameWidth: 186, frameHeight: 92 });
         this.load.json('playerData', 'Phaser/src/playerData.json');
+        this.load.image('playButtonS', 'Phaser/assets/StartMenu/StartButtonS.png');
+        this.load.image('playButtonT', 'Phaser/assets/StartMenu/StartButtonT.png');
+        this.load.image('playButtonA', 'Phaser/assets/StartMenu/StartButtonA.png');
+        this.load.image('playButtonR', 'Phaser/assets/StartMenu/StartButtonR.png');
+        this.load.image('playButtonT2', 'Phaser/assets/StartMenu/StartButtonT2.png');
     }
 
     loadAudioAssets()

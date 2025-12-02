@@ -78,7 +78,7 @@ export class OptionMenuScene extends BaseScene {
         });
         resumeBtn.on('pointerout', () => {
             this.tweens.killTweensOf(resumeBtn);
-            resumeBtn.setTexture('ResumeButtonNormal');
+            resumeBtn.setTexture(resumeButtonKey);
             this.tweens.add({
                 targets: resumeBtn,
                 scale: 1.0,
@@ -91,7 +91,7 @@ export class OptionMenuScene extends BaseScene {
         helpBtn.on('pointerover', () => {
             this.sound.play('buttonHover', { volume: 2 * this.playerData.sfxVolume });
             this.tweens.killTweensOf(helpBtn);
-            helpBtn.setTexture('HelpButtonHovered');
+            helpBtn.setTexture(helpButtonHoveredKey);
             this.tweens.add({
                 targets: helpBtn,
                 scale: 1.1,
@@ -101,7 +101,7 @@ export class OptionMenuScene extends BaseScene {
         });
         helpBtn.on('pointerout', () => {
             this.tweens.killTweensOf(helpBtn);
-            helpBtn.setTexture('HelpButtonNormal');
+            helpBtn.setTexture(helpButtonKey);
             this.tweens.add({
                 targets: helpBtn,
                 scale: 1.0,
@@ -114,7 +114,7 @@ export class OptionMenuScene extends BaseScene {
         itemsBtn.on('pointerover', () => {
             this.sound.play('buttonHover', { volume: 2 * this.playerData.sfxVolume });
             this.tweens.killTweensOf(itemsBtn);
-            itemsBtn.setTexture('ItemsButtonHovered');
+            itemsBtn.setTexture(itemsButtonHoveredKey);
             this.tweens.add({
                 targets: itemsBtn,
                 scale: 1.1,
@@ -124,7 +124,7 @@ export class OptionMenuScene extends BaseScene {
         });
         itemsBtn.on('pointerout', () => {
             this.tweens.killTweensOf(itemsBtn);
-            itemsBtn.setTexture('ItemsButtonNormal');
+            itemsBtn.setTexture(itemsButtonKey);
             this.tweens.add({
                 targets: itemsBtn,
                 scale: 1.0,
@@ -137,7 +137,7 @@ export class OptionMenuScene extends BaseScene {
         exitBtn.on('pointerover', () => {
             this.sound.play('buttonHover', { volume: 2 * this.playerData.sfxVolume });
             this.tweens.killTweensOf(exitBtn);
-            exitBtn.setTexture('ExitButtonHovered');
+            exitBtn.setTexture(exitButtonHoveredKey);
             this.tweens.add({
                 targets: exitBtn,
                 scale: 1.1,
@@ -147,7 +147,7 @@ export class OptionMenuScene extends BaseScene {
         });
         exitBtn.on('pointerout', () => {
             this.tweens.killTweensOf(exitBtn);
-            exitBtn.setTexture('ExitButtonNormal');
+            exitBtn.setTexture(exitButtonKey);
             this.tweens.add({
                 targets: exitBtn,
                 scale: 1.0,
@@ -159,7 +159,7 @@ export class OptionMenuScene extends BaseScene {
         settingsBtn.on('pointerover', () => {
             this.sound.play('buttonHover', { volume: 2 * this.playerData.sfxVolume });
             this.tweens.killTweensOf(settingsBtn);
-            settingsBtn.setTexture('SettingsIconHovered');
+            settingsBtn.setTexture(settingsButtonHoveredKey);
             this.tweens.add({
                 targets: settingsBtn,
                 scale: 0.20,
@@ -169,7 +169,7 @@ export class OptionMenuScene extends BaseScene {
         });
         settingsBtn.on('pointerout', () => {
             this.tweens.killTweensOf(settingsBtn);
-            settingsBtn.setTexture('SettingsIcon');
+            settingsBtn.setTexture(settingsButtonKey);
             this.tweens.add({
                 targets: settingsBtn,
                 scale: 0.15,
