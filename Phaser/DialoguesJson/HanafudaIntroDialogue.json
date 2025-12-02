@@ -171,77 +171,70 @@
     "HI25": 
     {
         "speaker": "Benten",
-        "text": "Oh, you're most welcome. I am really fond of you, however there's a little inconvenience here. You see, I ",
+        "text": "Oh, you're most welcome. However there's a little inconvenience here. You see, I don't want to give back the artifact.",
         "animation": "true",
         "next": "HI26"
     },
     "HI26": 
     {
         "speaker": "Kronos",
-        "text": "Oh no no, you? playing against the almighty kronos? no, no that can't be, I don't play with brats. Besides I don't have the objects duh if you win against me you would gain nothing.",
+        "text": "Tsk. dammit ",
         "animation": "true",
         "next": "HI27"
     },
     "HI27": 
     {
-        "speaker": "Kronos",
-        "text": "*sighs* what you have to do is win against some of my *ehem* friends, who happened to recover them for me. However, for reasons you little brain won't understand I can't ask them to return them.",
+        "speaker": "Player",
+        "text": "But miss Benten, I'm the one who needs the artifact.",
         "animation": "true",
         "next": "HI28"
     },
     "HI28": 
     {
-        "speaker": "Kronos",
-        "text": "Anyway, win the games, I get my objects back and you get your beloved yarn. Do we have a deal?",
+        "speaker": "Benten",
+        "text": "Is that so?",
         "animation": "true",
         "next": "HI29"
     },
     "HI29": 
     {
-        "speaker": "Player",
-        "text": "(He seems shaddy, but I really want my yarn back ugh). Alr, we have a deal",
+        "speaker": "Narrator",
+        "text": "Benten walks around you, sliding her tail below your jaw",
         "animation": "true",
         "next": "HI30"
     },
     "HI30": 
     {
-        "speaker": "Narrator",
-        "text": "kronos and you, paw with paw together and a there's a faint glow that goes away as fast as it came, this mean the deal has been sealed.",
+        "speaker": "Benten",
+        "text": "Well, I'm really fond of you, so I want to play a little game with you and if you win I'll give you the artifact.",
         "animation": "true",
         "next": "HI31"
     },
     "HI31": 
     {
-        "speaker": "Kronos",
-        "text": "Well, it's done, but first you have to get with me in my box, this is how we will get around.",
+        "speaker": "Player",
+        "text": "Ok, I'll play with you",
         "animation": "true",
         "next": "HI32"
     },
     "HI32":
     {
-        "speaker": "Player",
-        "text": "The box? how are we supposed to get around in that junk?",
+        "speaker": "Benten",
+        "text": "oh, this is exciting. Now for what are we going to play....Oh yes my favorite game, Hanafuda. Wait here ,darlinig, until I arrage the table.",
         "animation": "true",
         "next": "HI33"
     },
     "HI33":
     {
-        "speaker": "Kronos",
-        "text": "Oh, just shut it and get on!",
-        "animation": "true",
-        "next": "HI34"
-    },
-    "HI34":
-    {
         "speaker": "Narrator",
-        "text": "you reluctantly get in the box, and when you're inside, you're shocked to see it has a lot more space than it appeared to have from the outside.",
+        "text": "Kronos slowly walks towards you and hastily whispers to you.",
         "animation": "true",
         "next": "end"
     },
     "end":
     {
         "speaker": "Kronos",
-        "text": "Well, welcome to my 'little' home haha. Now, because I'm the kindest cat around here, I'll let you choose where you wanna go first.",
+        "text": "I had a hunch she was going to choose that. I think that's the only game she knows. I'll explain to you the game rules if you wish.",
         "animation": "true",
         "next": null
     }
