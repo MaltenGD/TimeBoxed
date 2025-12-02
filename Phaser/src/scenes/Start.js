@@ -60,9 +60,6 @@ export class Start extends BaseScene {
 
         // Unlock audio on the first user interaction
         this.sound.pauseOnBlur = false; // Keep audio playing even when the window loses focus.
-        
-       
-        
 
         console.log('playerData:', this.playerData);
 
@@ -99,10 +96,6 @@ export class Start extends BaseScene {
 
         //boton de creditos
         const creditsButton = this.add.image( width - 150, height - 150, 'creditsButton').setOrigin(0.5).setScale(0.15).setInteractive();
-
-
-
-        
 
         //PLAY BUTTON INTERACTIONS
 
@@ -158,8 +151,6 @@ export class Start extends BaseScene {
            
         });
 
-    
-
         //accion click
         creditsButton.on('pointerdown', () => {
 
@@ -171,11 +162,6 @@ export class Start extends BaseScene {
             
         });
         
-        
-
-
-         
-
         logo.setScale(0.5);
 
         //animacion del nombre del juego
@@ -187,8 +173,6 @@ export class Start extends BaseScene {
             yoyo: true,
             loop: -1
         });
-
-
 
     }
 
@@ -209,7 +193,5 @@ export class Start extends BaseScene {
         }
 
     }
-
-
 
 }

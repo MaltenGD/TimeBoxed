@@ -21,6 +21,23 @@ export class BaseScene extends Phaser.Scene {
         // Listen for scene pause and resume events to manage sounds.
         this.events.on('pause', this.pauseSounds, this);
         this.events.on('resume', this.resumeSounds, this);
+
+        this.setInteractiveCursor();
+    }
+
+    /**
+     * Sets the cursor to change when hovering over all the interactive objects.
+     */
+    setInteractiveCursor() {
+        this.input.setDefaultCursor('url(../../../images/cursor_normal_small.png) 10 5, auto');
+
+        this.input.on('gameobjectover', () => {
+            this.input.setDefaultCursor('url(../../../images/cursor_open_small.png) 10 5, auto');
+        })
+
+        this.input.on('gameobjectout', () => {
+            this.input.setDefaultCursor('url(../../../images/cursor_normal_small.png) 10 5, auto');
+        })
     }
 
     DisableOptionMenu() {
