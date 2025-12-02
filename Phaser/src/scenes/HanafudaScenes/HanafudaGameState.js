@@ -15,11 +15,11 @@ export const HANAFUDA_STATE = {
     START_ROUND: 'START_ROUND',
     WAITING_PLAYER: 'WAITING_PLAYER',
     OPPONENT_TURN: 'OPPONENT_TURN',
-    TABLE_ACTIONS: 'TABLE_ACTIONS',
-    CHECK_END_ROUND: 'CHECK_END_ROUND',
-    COMBINATIONS: 'COMBINATIONS',
-    FINISH_ROUND: 'FINISH_ROUND',
+    SEARCH_ACTION: 'SEARCH_ACTION',
+    REFILL_ACTION: 'REFILL_ACTION',
     SHOW_YAKUS: 'SHOW_YAKUS',
+    CHECK_END_ROUND: 'CHECK_END_ROUND',
+    FINISH_ROUND: 'FINISH_ROUND',
     END_GAME: 'END_GAME',
 };
 
@@ -74,12 +74,13 @@ export class HanafudaGameState extends Phaser.Scene{
         });
 
         //render the zones for the board (table, player and opponent cards are here), and two for where the player and opponent collected pairs will be
-        this.board = this.add.rectangle(300, 20, 1030, 1040, 0x000000, 0.7).setOrigin(0, 0);
-        this.opponentPairZone = this.add.rectangle(this.width/ 2+ 400, 30, 530, 470 , 0x000000, 0.6).setOrigin(0, 0);
-        this.playerPairZone = this.add.rectangle(this.width/ 2+ 400, this.height/2 + 20, 530, 470, 0x000000, 0.6).setOrigin(0, 0);
-        this.deckZone = this.add.rectangle(110, this.height/2 - 140, 180, 560, 0x000000, 0.6).setOrigin(0, 0);
-        this.infoText = this.add.text(370, this.height / 2 + 200, "Start!", {fontSize: '56px', fill: '#ffffffff'}); //Text
-        this.roundText = this.add.text(40, 1000, `round:${this.round}/4`, {fontSize: "30px",color: "#ffffff"});
+        this.render.renderZones();
+
+        //Text
+        this.infoText = this.add.text(370, this.height / 2 + 200, "Start!", {fontSize: '56px', fill: '#ffffffff'}).setDepth(1); //Text
+        this.roundText = this.add.text(40, 1000, `Round:${this.round}/4`, {fontSize: "30px",color: "#ffffff"});
+
+        //Deck render
         this.deckObject = this.add.rectangle(200, this.height/2, 200, 350, 0x609C86).setScale(0.6);
         this.deckCardObject = null;
 
@@ -91,9 +92,7 @@ export class HanafudaGameState extends Phaser.Scene{
      * @method transitionTo : It updates the current state of the game according to the parameter, and calls the state machine method.
      */
     transitionTo(newState) {
-        //console.log(`Transition: ${this.currentState} -> ${newState}`);
         this.currentState = newState;
-        //console.log(`State: ${this.currentState}`);
         this.handleGameState();
     }
 
@@ -102,15 +101,10 @@ export class HanafudaGameState extends Phaser.Scene{
      * make the opponent choose a card, search pairs and refill the table, check combinations,end the game.
     */
     handleGameState(){
-        if (this.currentState === "POPUP_BLOCK") {
-            console.log("FSM pausada por popup");
-            return;
-        }
-
         switch(this.currentState){
             case HANAFUDA_STATE.START_ROUND:
                 this.round++; //The round counter is increased when a new round begins
-                this.roundText.setText(`round:${this.round}/4`) //The text that shows the number of rounds is updated
+                this.roundText.setText(`Round:${this.round}/4`) //The text that shows the number of rounds is updated
 
                 this.prepareRound.createDeck(); //It creates the deck with all the cards
                 this.prepareRound.shuffleDeck(); //It suffles the cards, so the probablity of getting pairs together is lower
@@ -137,7 +131,7 @@ export class HanafudaGameState extends Phaser.Scene{
                         this.playerCardObjects.forEach(obj => obj.setInteractive(false).off('pointerdown') //deactivates interactive so the player can't select another card
                         .off('pointerover')
                         .off('pointerout'));
-                        this.transitionTo(HANAFUDA_STATE.TABLE_ACTIONS); //when a card is selected, the tbale mechanics come in
+                        this.transitionTo(HANAFUDA_STATE.SEARCH_ACTION); //when a card is selected, the tbale mechanics come in
                     });
                 });
             break;
@@ -147,7 +141,7 @@ export class HanafudaGameState extends Phaser.Scene{
                 this.chosenCardPos = Math.floor(Math.random() * this.opponentCards.length); //random selection
                 this.card = this.opponentCards[this.chosenCardPos];//selected card
 
-                this.time.delayedCall(1000, ()=> {
+                this.time.delayedCall(800, ()=> {
                     this.infoText.setText("Opponent has chosen a card!"); //it changes the text on screen
 
                     let chosenCardObject = this.opponentCardObjects[this.chosenCardPos];
@@ -156,13 +150,12 @@ export class HanafudaGameState extends Phaser.Scene{
                     });
                     
                     this.time.delayedCall(1000, ()=> {
-                        this.infoText.setText("searching pairs...");//it changes the text on screen
-                        this.transitionTo(HANAFUDA_STATE.TABLE_ACTIONS);
-                    }, this);
-                },this);
+                        this.infoText.setText("Searching pairs...");//it changes the text on screen
+                        this.transitionTo(HANAFUDA_STATE.SEARCH_ACTION);
+                    });
+                });
             break;
-            case HANAFUDA_STATE.TABLE_ACTIONS:
-                this.infoText.setText("searching pairs...");//it changes the text on screen
+            case HANAFUDA_STATE.SEARCH_ACTION:
                 
                 this.refill = false;//no refill yet, it only search for matches of selected card with table pair
                 this.numberOfPairs = 0;
@@ -173,59 +166,52 @@ export class HanafudaGameState extends Phaser.Scene{
                     this.selectPair();
 
                     this.time.delayedCall(1000, ()=>{
-                        this.infoText.setText("arranging cards");//it changes the text on screen
+                        this.infoText.setText("Arranging cards");//it changes the text on screen
                         this.renderCards(); //render of updated cards
 
-                        //Aqui deberia ver una funcion que recibe como parametro un array de pares (sea el del jugador o el del oponente) y te devuelve true o false si el
-                        //array tiene alguna combinacion, y dependiendo de esa respuesta se llamara a la funcion que pausa el juego o no
-                        const pairs = this.playerTurn ? this.playerPairs : this.opponentPairs;
+                        this.time.delayedCall(1000, ()=>{
+                            this.previousState = this.currentState;
+                            this.combinationAction();
+                        });
+                    });
+                });
+            break;
+            case HANAFUDA_STATE.REFILL_ACTION:
+                //The refill happens, second search is done but with a card from the deck
+                this.refill = true;
 
-                        if (this.points.hasCombinations(pairs)) {
-                            this.pauseGame();
-                            this.points.checkYakus(this.playerTurn);  
-                            return;
-                        }
+                this.time.delayedCall(800, ()=> {
 
-                        //The refill happens, second search is done but with a card from the deck
-                        this.refill = true;
+                    this.infoText.setText("Getting card from deck");//it changes the text on screen
+                    this.card = this.deck.splice(0,1)[0]; // It gets last card from the deck
 
-                        const pairs2 = this.playerTurn ? this.playerPairs : this.opponentPairs;
+                    if (!this.card) {
+                        console.log(" Se intentó coger carta del deck pero estaba vacío");
+                        this.transitionTo(HANAFUDA_STATE.CHECK_END_ROUND);
+                    }
+                    this.tweens.add({ //deck chosen card getting out of the deck animation
+                        targets: this.deckObject, scaleX: 0.7, scaleY: 0.7, duration: 200, ease: 'Power2',yoyo: true,
+                    });
 
-                        if (this.points.hasCombinations(pairs2)) {
-                            this.pauseGame();
-                            this.points.checkYakus(this.playerTurn);
-                            return;
-                        }
+                    this.render.renderDeckCard(); //renders the card selected from deck, for visual purposes
+                    console.log("deckcard", this.card);
 
-                        //this.transitionTo(HANAFUDA_STATE.CHECK_END_ROUND);
+                    this.time.delayedCall(1800, ()=> {
+                        this.tableAction.searchesPair(this.card);
+                        this.selectPair();
+                        this.deckCardObject.destroy(); //destroy deck card, so it doesn't linger on scene because it is added to the table or the pairs
+                        this.renderCards();
 
-                        this.time.delayedCall(800, ()=> {
-
-                            this.infoText.setText("Getting card from deck");//it changes the text on screen
-                            this.card = this.deck.splice(0,1)[0]; // It gets last card from the deck
-                            if (!this.card) {
-                                console.log(" Se intentó coger carta del deck pero estaba vacío");
-                                this.transitionTo(HANAFUDA_STATE.CHECK_END_ROUND);
-                            }
-                            this.tweens.add({ //deck chosen card getting out of the deck animation
-                                targets: this.deckObject, scaleX: 0.7, scaleY: 0.7, duration: 200, ease: 'Power2',yoyo: true,
-                            });
-
-                            this.render.renderDeckCard(); //renders the card selected from deck, for visual purposes
-                            console.log("deckcard", this.card);
-
-                            this.time.delayedCall(1800, ()=> {
-                                this.tableAction.searchesPair(this.card);
-                                this.selectPair();
-                                this.deckCardObject.destroy(); //destroy deck card, so it doesn't linger on scene because it is added to the table or the pairs
-                                this.renderCards();
-                                this.transitionTo(HANAFUDA_STATE.CHECK_END_ROUND);
-
-                            },this);
-                        }, this);
-                    }, this);
-                }, this);
-                
+                        this.time.delayedCall(2000, ()=>{
+                            this.previousState = this.currentState;
+                            this.combinationAction();
+                        });
+                    });
+                });   
+            break;
+            case HANAFUDA_STATE.SHOW_YAKUS:
+                console.log("combination"); 
+                this.points.checkYakus();
             break;
             case HANAFUDA_STATE.CHECK_END_ROUND:
 
@@ -249,6 +235,9 @@ export class HanafudaGameState extends Phaser.Scene{
                 }, this);
             break;
             case HANAFUDA_STATE.FINISH_ROUND:
+                this.transitionController.startFadeInTransition();
+                this.blackScreen =this.add.rectangle(0, 0, this.width, this.height, 0x000000).setOrigin(0, 0);
+                this.infoText.setText("Starting next round");
 
                 //Destroy the objects on scene, so it can prepare for a new round or the end of the game
                 this.opponentCardObjects.forEach(obj => obj.destroy())
@@ -256,26 +245,21 @@ export class HanafudaGameState extends Phaser.Scene{
                 this.playerCardObjects.forEach(obj => obj.destroy());
                 this.playerPairsObjects.forEach(obj => obj.destroy());
                 this.opponentPairsObjects.forEach(obj => obj.destroy());
-                this.cleanUp();
+                this.cleanUp(); 
 
                 console.log("roundCounter",this.round);
-                this.time.delayedCall(1000, ()=> {
+                this.time.delayedCall(2000, ()=> {
+
                     if(this.round < 4){ //a new round will start unless all the set rounds are completed, in which case the game ends
-                    this.transitionController.startFadeInTransition();
                     this.transitionController.startFadeOutTransition();
                     this.transitionController.startFadeInTransition();
+                    this.blackScreen.destroy();
                     this.transitionTo(HANAFUDA_STATE.START_ROUND);
                     }
                     else{this.transitionTo(HANAFUDA_STATE.END_GAME);}
                 }, this)
                
             break;
-            case HANAFUDA_STATE.SHOW_YAKUS:
-                this.infoText.setText("You got a combination!");
-                this.points.showYakusPopup(this.playerTurn);
-
-                break;
-
             case HANAFUDA_STATE.END_GAME:
                 console.log("Game done");
                 this.infoText.setText("Game Finished!")
@@ -283,6 +267,10 @@ export class HanafudaGameState extends Phaser.Scene{
         }
     }
 
+    /**
+     * @method selectPair :Depending on the number of pairs found in the array table, it will call founPair, selectTablepair
+     * or pairnotfound methods
+     */
     selectPair(){
         if(this.numberOfPairs === 1){
             this.infoText.setText("Pair Found");
@@ -336,11 +324,21 @@ export class HanafudaGameState extends Phaser.Scene{
         this.refill = false;
         /** @type {number} : It indicates which row of the table a new card should go to*/
         this.emptyRow = 0;
-    }
-    pauseGame() {
-    this.transitionTo(HANAFUDA_STATE.SHOW_YAKUS);
-}
 
+        this.previousState = null;
+    }
+
+    /**
+     * @method combinationAction : Checks if there's a combination formed within a pair array, in case there is one
+     * it will change the state to Show_Yakus, if not if will continue to the next state of the current scene*/
+    combinationAction(){
+        const pairs = this.playerTurn ? this.playerPairs : this.opponentPairs;
+        if (this.points.hasCombinations(pairs)) this.transitionTo(HANAFUDA_STATE.SHOW_YAKUS);
+        else{
+            if(this.currentState === HANAFUDA_STATE.SEARCH_ACTION) this.transitionTo(HANAFUDA_STATE.REFILL_ACTION);
+            else this.transitionTo(HANAFUDA_STATE.CHECK_END_ROUND);
+        }
+    }
 
     openOptionMenu(){
         if (this.scene.isActive('OptionMenu')) return;

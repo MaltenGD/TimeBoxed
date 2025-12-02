@@ -144,4 +144,12 @@ export default class HanafudaRender{
             yoyo: true,
         });
     }
+
+    renderZones(){
+        const color = 0x002016;
+        this.scene.board = this.scene.add.rectangle(300, 20, 1030, 1040, color, 0.7).setOrigin(0, 0);
+        this.scene.opponentPairZone = this.scene.add.rectangle(this.width/ 2+ 400, 30, 530, 470 , color, 0.6).setOrigin(0, 0);
+        this.scene.playerPairZone = this.scene.add.rectangle(this.width/ 2+ 400, this.height/2 + 20, 530, 470, color, 0.6).setOrigin(0, 0);
+        this.scene.deckZone = this.scene.add.rectangle(110, this.height/2 - 140, 180, 560, color, 0.6).setOrigin(0, 0);
+    }
 }
