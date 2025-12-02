@@ -95,7 +95,7 @@ export class Start extends BaseScene {
         });
 
         const logo = this.add.image(1300, 150, 'logo').setOrigin(0.5);
-        const playButton = this.add.sprite(1150, 900, 'playButton', 0).setInteractive().setOrigin(0.5).setScale(1.4).setAlpha(0);
+        const playButton = this.add.sprite(1150, 900, 'playButton', 0).setInteractive().setOrigin(0.5).setScale(1.4);
 
         //boton de creditos
         const creditsButton = this.add.image( width - 150, height - 150, 'creditsButton').setOrigin(0.5).setScale(0.15).setInteractive();
