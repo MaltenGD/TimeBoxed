@@ -19,6 +19,7 @@ export const HANAFUDA_STATE = {
     CHECK_END_ROUND: 'CHECK_END_ROUND',
     COMBINATIONS: 'COMBINATIONS',
     FINISH_ROUND: 'FINISH_ROUND',
+    SHOW_YAKUS: 'SHOW_YAKUS',
     END_GAME: 'END_GAME',
 };
 
@@ -177,9 +178,27 @@ export class HanafudaGameState extends Phaser.Scene{
 
                         //Aqui deberia ver una funcion que recibe como parametro un array de pares (sea el del jugador o el del oponente) y te devuelve true o false si el
                         //array tiene alguna combinacion, y dependiendo de esa respuesta se llamara a la funcion que pausa el juego o no
-                        
+                        const pairs = this.playerTurn ? this.playerPairs : this.opponentPairs;
+
+                        if (this.points.hasCombinations(pairs)) {
+                            this.pauseGame();
+                            this.points.checkYakus(this.playerTurn);  
+                            return;
+                        }
+
                         //The refill happens, second search is done but with a card from the deck
                         this.refill = true;
+
+                        const pairs2 = this.playerTurn ? this.playerPairs : this.opponentPairs;
+
+                        if (this.points.hasCombinations(pairs2)) {
+                            this.pauseGame();
+                            this.points.checkYakus(this.playerTurn);
+                            return;
+                        }
+
+                        //this.transitionTo(HANAFUDA_STATE.CHECK_END_ROUND);
+
                         this.time.delayedCall(800, ()=> {
 
                             this.infoText.setText("Getting card from deck");//it changes the text on screen
@@ -251,6 +270,12 @@ export class HanafudaGameState extends Phaser.Scene{
                 }, this)
                
             break;
+            case HANAFUDA_STATE.SHOW_YAKUS:
+                this.infoText.setText("You got a combination!");
+                this.points.showYakusPopup(this.playerTurn);
+
+                break;
+
             case HANAFUDA_STATE.END_GAME:
                 console.log("Game done");
                 this.infoText.setText("Game Finished!")
@@ -312,6 +337,10 @@ export class HanafudaGameState extends Phaser.Scene{
         /** @type {number} : It indicates which row of the table a new card should go to*/
         this.emptyRow = 0;
     }
+    pauseGame() {
+    this.transitionTo(HANAFUDA_STATE.SHOW_YAKUS);
+}
+
 
     openOptionMenu(){
         if (this.scene.isActive('OptionMenu')) return;

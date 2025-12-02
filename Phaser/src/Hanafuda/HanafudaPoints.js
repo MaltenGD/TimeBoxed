@@ -47,11 +47,31 @@ this.scene.time.removeAllEvents();
             fontSize: "36px", backgroundColor: "#aa0022", padding: 8, color:"#fff"
         }).setOrigin(0.5).setInteractive().setDepth(10002);
 
-        koi.on("pointerdown", () => {console.log("player Elige KoiKoi"); this.close();this.scene.currentState = null; this.scene.transitionTo(HANAFUDA_STATE.CHECK_END_ROUND);});
-        shobu.on("pointerdown", () => {console.log("player Elige shobu"); this.close();this.scene.currentState = null; this.scene.transitionTo(HANAFUDA_STATE.FINISH_ROUND); });
+        koi.on("pointerdown", () => {
+            console.log("player Elige KoiKoi");
+            this.close();
+            this.scene.currentState = null;
+            onKoiKoi();
+        });
+
+        shobu.on("pointerdown", () => {
+            console.log("player Elige Shobu");
+            this.close();
+            this.scene.currentState = null;
+            onShobu();
+        });
 
         this.popup = { overlay, box, title, yText, pText, koi, shobu };
     }
+        onShobu() {
+            this.scene.resumeGame();
+            this.scene.shobuWinner = this.scene.playerTurn ? "player" : "opponent";
+            this.scene.transitionTo(HANAFUDA_STATE.FINISH_ROUND);
+        }
+
+        onKoikoi() {
+            this.scene.resumeGame();
+        }
 
     showEnemy(yaku, points, onContinue) {
         this.close();
@@ -131,5 +151,14 @@ this.scene.time.removeAllEvents();
         }
     }
 }
+
+hasCombinations(pairsArray) {
+    const result = calculateYakus(pairsArray);
+
+    if (!result || !Array.isArray(result.yakus)) return false;
+
+    return result.yakus.length > 0;
+}
+
 
 }
