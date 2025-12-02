@@ -38,8 +38,9 @@ export class ConfirmMenuScene extends BaseScene {
         /**
          * Central box
          */
+        const strokeColor = this.playerData.TimeboxedMode ? 0xAA0000 : 0x0055CC;
         this.box = this.add.rectangle(width / 2, height / 2, 800, 500, 0x111111, 1)
-            .setStrokeStyle(4, 0xAA0000)
+            .setStrokeStyle(4, strokeColor)
             .setOrigin(0.5);
         
         /**
@@ -56,6 +57,7 @@ export class ConfirmMenuScene extends BaseScene {
         this.titleText = this.add.text(width / 2, height / 2 - 100, titleText, {
             fontSize: '34px',
             fill: '#ffffff',
+            fontFamily: 'rimouski',
             align: 'center',
             wordWrap: { width: maxTextWidth, useAdvancedWrap: true }
         }).setOrigin(0.5);
@@ -65,7 +67,7 @@ export class ConfirmMenuScene extends BaseScene {
             const baseSize = 34;
             const scale = maxTextHeight / this.titleText.height;
             const newSize = Math.max(14, Math.floor(baseSize * scale)); // don't go below 14px
-            this.titleText.setStyle({ fontSize: newSize + 'px', wordWrap: { width: maxTextWidth, useAdvancedWrap: true } });
+            this.titleText.setStyle({ fontSize: newSize + 'px', fontFamily: 'rimouski', wordWrap: { width: maxTextWidth, useAdvancedWrap: true } });
             this.titleText.setOrigin(0.5);
         }
 
@@ -76,6 +78,7 @@ export class ConfirmMenuScene extends BaseScene {
         this.yesBtn = this.add.text(width / 2 - 100, height / 2 + 120, yesButtonText, {
             fontSize: '30px',
             fill: '#fff',
+            fontFamily: 'rimouski',
             backgroundColor: '#8B0000',
             padding: { x: 20, y: 10 }
         }).setOrigin(0.5).setInteractive()
@@ -95,6 +98,7 @@ export class ConfirmMenuScene extends BaseScene {
         this.noBtn = this.add.text(width / 2 + 100, height / 2 + 120, noButtonText, {
             fontSize: '30px',
             fill: '#fff',
+            fontFamily: 'rimouski',
             backgroundColor: '#107310',
             padding: { x: 20, y: 10 }
         }).setOrigin(0.5).setInteractive()

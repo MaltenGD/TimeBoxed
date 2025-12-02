@@ -21,6 +21,23 @@ export class BaseScene extends Phaser.Scene {
         // Listen for scene pause and resume events to manage sounds.
         this.events.on('pause', this.pauseSounds, this);
         this.events.on('resume', this.resumeSounds, this);
+
+        this.setInteractiveCursor();
+    }
+
+    /**
+     * Sets the cursor to change when hovering over all the interactive objects.
+     */
+    setInteractiveCursor() {
+        this.input.setDefaultCursor('url(../../../images/cursor_normal_small_v2.png) 10 5, auto');
+
+        this.input.on('gameobjectover', () => {
+            this.input.setDefaultCursor('url(../../../images/cursor_open_small_v2.png) 10 5, auto');
+        })
+
+        this.input.on('gameobjectout', () => {
+            this.input.setDefaultCursor('url(../../../images/cursor_normal_small_v2.png) 10 5, auto');
+        })
     }
 
     DisableOptionMenu() {
@@ -120,6 +137,8 @@ export class BaseScene extends Phaser.Scene {
         if (this.scene.isActive('OptionMenu') || !this.OptionMenuCanBeOpened) return;
         this.scene.pause();
         this.playerData.SceneToResume = this.scene.key;
+        this.playerData.FromSelectionMenu = this.scene.key === 'SelectionMenuScene'
+        if (this.playerData.FromSelectionMenu) console.log("Opening Option Menu from Selection Menu");
         this.scene.launch('OptionMenu', this.playerData);
     }
 }

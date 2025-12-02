@@ -20,9 +20,11 @@ export default class TransitionController {
      * @param {RGBColor} color - color to fade to.
      */
     startFadeOutTransition(callback = () => {}, time = 1000, color = new RGBColor(0, 0, 0)) {
-        //this.scene.fadeOutAndKillSounds(time);
+        this.scene.input.enabled = false;
+        this.scene.fadeOutAndKillSounds(time);
         this.camera.fadeOut(time, color.red, color.green, color.blue, (camera, progress) => {
             if (progress === 1) {
+                this.scene.input.enabled = true;
                 callback();
             }
         });
@@ -35,7 +37,10 @@ export default class TransitionController {
      * @param {() => void} [callback=() => {}] The function to be called when the transition is finished.
      */
     startFadeInTransition(callback = () => {}, time = 1000, color = new RGBColor(0, 0, 0)) {
+        this.scene.input.enabled = false;
         this.camera.fadeIn(time, color.red, color.green, color.blue, (camera, progress) => {
+            if (progress > 0.5) 
+                this.scene.input.enabled = true;
             if (progress === 1) {
                 callback();
             }

@@ -11,6 +11,7 @@ export const GAME_STATE = {
     PLAYER_THROWN: 'PLAYER_THROWN',
     ENEMY_START: 'ENEMY_START',
     ENEMY_ROLLED: 'ENEMY_ROLLED',
+    ENEMY_DISTRACT: 'ENEMY_DISTRACT',
     ENEMY_THROWN: 'ENEMY_THROWN',
     GAME_OVER: 'GAME_OVER'
 };
@@ -106,7 +107,8 @@ export default class Tali {
             switch(this.state) {
                 case GAME_STATE.PLAYER_START:
                     this.hideThrows();
-                    this.turnCount++;
+                    if (!this.lunaThrow) this.turnCount++;
+                    else this.lunaThrow = false;
                     this.emitState();
                     this.state = GAME_STATE.PLAYER_ROLLED;
                     break; 
@@ -119,12 +121,12 @@ export default class Tali {
                     break;
                 case GAME_STATE.PLAYER_THROWN:
                     this.hideDice();
+                    this.identifyRoll(this.player);
                     this.animateThrows();
                     this.emitter.once('throwsIn', () => {
                         this.emitState();
                         if (this.lunaThrow) {
                             this.state = GAME_STATE.PLAYER_START;
-                            this.lunaThrow = false;
                         }
                         else {
                             this.state = GAME_STATE.ENEMY_START;
@@ -133,7 +135,8 @@ export default class Tali {
                     break;
                 case GAME_STATE.ENEMY_START:
                     this.hideThrows();
-                    this.turnCount++;
+                    if (!this.lunaThrow) this.turnCount++;
+                    else this.lunaThrow = false;
                     this.emitState();
                     this.state = GAME_STATE.ENEMY_ROLLED;
                     break;
@@ -141,17 +144,22 @@ export default class Tali {
                     this.generalRoll(this.enemy);
                     this.emitter.once('diceIn', () => {
                         this.emitState();
-                        this.state = GAME_STATE.ENEMY_THROWN;
+                        this.state = GAME_STATE.ENEMY_DISTRACT;
                     })
+                    break;
+                case GAME_STATE.ENEMY_DISTRACT:
+                    this.emitState();
+                    this.state = GAME_STATE.ENEMY_THROWN;
+                    this.hideDice();
                     break;
                 case GAME_STATE.ENEMY_THROWN:
                     this.hideDice();
+                    this.identifyRoll(this.enemy);
                     this.animateThrows();
                     this.emitter.once('throwsIn', () => {
                         this.emitState();
                         if (this.lunaThrow) {
                             this.state = GAME_STATE.ENEMY_START;
-                            this.lunaThrow = false;
                         }
                         else {
                             this.state = GAME_STATE.PLAYER_START;
@@ -175,7 +183,7 @@ export default class Tali {
 
         this.setDiceImages();
         
-        this.identifyRoll(player);
+        // this.identifyRoll(player);
     }
 
     /**
@@ -301,8 +309,8 @@ export default class Tali {
      * Positions the dice images according to the current roll.
      */
     setDiceImages() {
-        for (let i = 0, j = -this.width/12; i < Tali.NUMBER_OF_DICE; i++, j+=this.width/12) { 
-            this.diceImages[i] = this.scene.add.image(this.width/2 - j, this.height/2, 'dice' + this.currentRoll[i]).setOrigin(0, 0.5).setScale(0.3).setAlpha(0);
+        for (let i = 0, j = -2*this.width/12; i < Tali.NUMBER_OF_DICE; i++, j+=this.width/12) { 
+            this.diceImages[i] = this.scene.add.image(this.width/2 + j, this.height/2, 'dice' + this.currentRoll[i]).setOrigin(0, 0.5).setScale(0.3).setAlpha(0);
         }
         this.animateDice();
     }

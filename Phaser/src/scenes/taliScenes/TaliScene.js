@@ -19,8 +19,6 @@ export class TaliScene extends BaseScene {
     playerFirst;
     playerWon = true;
 
-    currentTurn = 0;
-
     constructor() {
         super('TaliScene');
     }
@@ -32,8 +30,6 @@ export class TaliScene extends BaseScene {
     }
 
     create(playerData) {
-        
-
         this.playerData = playerData;
         console.log(this.playerData)
 
@@ -44,8 +40,6 @@ export class TaliScene extends BaseScene {
         console.log(this.playerFirst ? "Player starts." : "Mercury starts.");
 
         this.taliGame = new Tali(this, this.width, this.height, this.playerFirst);
-
-        this.currentTurn = 1;
         
         this.createUI();
         this.registerEvents();
@@ -53,6 +47,9 @@ export class TaliScene extends BaseScene {
         this.transitionController.startFadeInTransition(() => this.startGame());
     }
 
+    /**
+     * Creates the UI
+     */
     createUI() {
         this.addImages();
         this.createButtons();
@@ -129,9 +126,7 @@ export class TaliScene extends BaseScene {
     {
         object.setVisible(state).setActive(state).setAlpha(state ? 1 : 0);
     }
-
-
-    
+ 
     /**
      * Adds all the text to the scene.
      */
@@ -162,6 +157,11 @@ export class TaliScene extends BaseScene {
     onStateChange(state) {
         console.log('State changed to: ' + state);
 
+        // TODO: add state for distracting mercury. will pause scene, 
+        // launch distract scene on top, and then back again, passing to the next state
+
+        // TODO: make mercury's rolls show without having to press a button
+
         switch (state) {
             case GAME_STATE.PLAYER_START:
                 this.onPlayerTurn();
@@ -177,6 +177,9 @@ export class TaliScene extends BaseScene {
                 break;
             case GAME_STATE.ENEMY_ROLLED:
                 this.onEnemyRolled();
+                break;
+            case GAME_STATE.ENEMY_DISTRACT:
+                this.onEnemyDistract();
                 break;
             case GAME_STATE.ENEMY_THROWN:
                 this.onEnemyThrown();
@@ -222,11 +225,27 @@ export class TaliScene extends BaseScene {
     }
 
     onEnemyRolled() {
-        this.resetButton(this.rollBtn, 'Show combinations', () => {
+        this.resetButton(this.rollBtn, 'Distract Mercury!', () => {
             this.setObjectState(this.rollBtn, false);
             this.turnText.setText("Mercury's combinations:");
             this.taliGame.nextTurn();
         })
+    }
+
+    onEnemyDistract() {
+        console.log("TURNCOUNT " + this.taliGame.turnCount);
+        this.scene.pause();
+        this.scene.launch('DistractMercuryScene', {playerData: this.playerData, mercuryRoll: this.taliGame.currentRoll, roundIndex: Math.round(this.taliGame.turnCount/2) -1});
+        this.events.once("resume", (scene, data) => {
+            this.taliGame.currentRoll = data.mercuryResultRoll;
+            this.taliGame.setDiceImages();
+            console.log("Resumed game.");
+            this.resetButton(this.rollBtn, 'Show combinations', () => {
+                this.setObjectState(this.rollBtn, false);
+                this.turnText.setText("Mercury's combinations:");
+                this.taliGame.nextTurn();
+            })    
+        });
     }
 
     onEnemyThrown() {

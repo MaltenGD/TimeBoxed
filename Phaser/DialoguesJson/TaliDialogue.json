@@ -583,5 +583,32 @@
         "animation": "true",
         "next": null
     }
+},
+
+"DistractMercuryDialogue0": {
+    "start": {
+        "speaker": "Mercury",
+        "text": "Temporary dialogue 1.",
+        "animation":"true",
+        "next": null
+    }
+},
+
+"DistractMercuryDialogue1": {
+    "start": {
+        "speaker": "Mercury",
+        "text": "Temporary dialogue 2.",
+        "animation":"true",
+        "next": null
+    }
+},
+
+"DistractMercuryDialogue2": {
+    "start": {
+        "speaker": "Mercury",
+        "text": "Temporary dialogue 3.",
+        "animation":"true",
+        "next": null
+    }
 }
 }

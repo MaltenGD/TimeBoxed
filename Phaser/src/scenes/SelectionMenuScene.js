@@ -178,18 +178,28 @@ export class SelectionMenuScene extends BaseScene {
          * .on('pointerout', ...) changes the background color of the button when not hovering
          * .on('pointerdown', ...) starts the Start scene when the button is clicked
         */
-        const backBtn = this.add.text(200, height - 100, 'Return to main menu', {
-            fontSize: '30px',
-            fill: '#000000',
-            backgroundColor: '#f7f7f7',
-            padding: { x: 20, y: 10 }
-        })
-        .setOrigin(0.5)
-        .setInteractive({ cursor: 'pointer' })
-        .on('pointerover', () => backBtn.setStyle({ backgroundColor: '#bbbaba' }))
-        .on('pointerout', () => backBtn.setStyle({ backgroundColor: '#f7f7f7' }));
+        const backBtn = this.add.image(220, height - 100, 'BackToStartNormal')
+            .setOrigin(0.5)
+            .setInteractive({ cursor: 'pointer' });
 
-        backBtn.on('pointerover', () => { this.sound.play('buttonHover', { volume: 2 * this.playerData.sfxVolume }); })
+        backBtn.on('pointerover', () => { 
+            this.sound.play('buttonHover', { volume: 2 * this.playerData.sfxVolume }); 
+            backBtn.setTexture('BackToStartHovered');
+            this.tweens.add({
+                targets: backBtn,
+                scale: 1.05,
+                duration: 100,
+                ease: 'Power1'
+            });
+        }).on('pointerout', () => {
+            backBtn.setTexture('BackToStartNormal');
+            this.tweens.add({
+                targets: backBtn,
+                scale: 1.0,
+                duration: 150,
+                ease: 'Power1'
+            });
+        })
 
         .on('pointerdown', () => {
             this.transitionController.startFadeOutTransition(() => {
@@ -300,6 +310,7 @@ export class SelectionMenuScene extends BaseScene {
                             if (this.playerData[completionFlag]) {
                                     this.scene.pause();
                                     this.scene.launch('ConfirmMenu',{
+                                    playerData: this.playerData,
                                     sceneToPause: this.scene.key,
                                     text: "You've already beaten this level. Completing it again won't grant you additional achievements. \n\n Are you sure you want to replay it?",
                                     onYes: () => {         

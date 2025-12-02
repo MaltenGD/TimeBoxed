@@ -30,15 +30,13 @@ export class TaliBeginScene extends BaseScene {
 
     constructor() {
         super('TaliBeginScene');
-    }
-
-    preload() {
-        let {width, height} = this.sys.game.canvas;
-        this.width = width;
-        this.height = height;
+        
     }
 
     create(playerData) {
+        let {width, height} = this.sys.game.canvas;
+        this.width = width;
+        this.height = height;
 
         this.playerData = playerData;
         console.log(this.playerData)
@@ -56,13 +54,13 @@ export class TaliBeginScene extends BaseScene {
         this.addText();
     }
 
-    init() {
-        this.input.keyboard.on('keydown-ESC', () => {
-            if (this.scene.isActive('OptionMenu')) return;
-            this.scene.pause();
-            this.scene.launch('OptionMenu', { sceneToPause: this.scene.key });
-        });
-    }
+    // init() {
+    //     this.input.keyboard.on('keydown-ESC', () => {
+    //         if (this.scene.isActive('OptionMenu')) return;
+    //         this.scene.pause();
+    //         this.scene.launch('OptionMenu', { sceneToPause: this.scene.key });
+    //     });
+    // }
 
     /**
      * Creates and places all the buttons for the scene.
@@ -252,6 +250,7 @@ export class TaliBeginScene extends BaseScene {
      * @sends playerFirst: true if the player begins, false if the enemy begins.
      */
     endGame() {
+        this.playerData.TaliPlayerFirst = this.playerFirst;
         this.rollBtn.setText('Start Game!').once('pointerdown', ()=> {
             this.transitionController.startFadeOutTransition(() => {this.scene.start('TaliScene', this.playerData)});
         });

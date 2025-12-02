@@ -75,13 +75,17 @@ export default class DialogueController
         else if (this.era == 'HanafudaDefeat') this.dialogueGroup = this.dialogueData.HanafudaDefeatDialogue;
         else if (this.era == 'TimeBoxedDefeat')  this.dialogueGroup = this.dialogueData.TimeBoxedDefeatDialogue;
         else if (this.era == 'GameCompleted') this.dialogueGroup = this.dialogueData.GameCompletedDialogue;
-        
+        else if (this.era == 'DM0') {this.dialogueGroup = this.dialogueData.DistractMercuryDialogue0;}
+        else if (this.era == 'DM1') {this.dialogueGroup = this.dialogueData.DistractMercuryDialogue1;}
+        else if (this.era == 'DM2') {this.dialogueGroup = this.dialogueData.DistractMercuryDialogue2;}
+
+        const borderColor = this.scene.playerData.TimeboxedMode ? 0xcb3234 : 0x0055CC;
 
         /**creates the dialog box */
         this.dialogBox = new DialogBox(this.scene,
         {
             borderThickness: 6,
-			borderColor: 0xcb3234,
+			borderColor: borderColor,
 			borderAlpha: 1,
 			windowAlpha: 0.8,
 			windowColor: 0x000000,
