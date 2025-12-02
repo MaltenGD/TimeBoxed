@@ -72,30 +72,33 @@ export class Start extends BaseScene {
         else this.background = this.add.image(width / 2, height / 2, 'background').setDisplaySize(width, height);
 
 
-        const box = this.add.image(400, 950, 'BoxOpen').setOrigin(0.5).setScale(1.5);
+        const box = this.add.image(300, 950, 'BoxOpen').setOrigin(0.5).setScale(1.5).setRotation(0.2);
+
+        // a constant wobbling effect as if the box was floating on space
+        this.tweens.add({
+            targets: box,
+            y: 930,
+            duration: 4000,
+            ease: 'Sine.easeInOut',
+            yoyo: true,
+            loop: -1
+        });
         const kitty = this.add.image(500, 450, 'StartMenuKronos').setOrigin(0.5).setScale(0.9);
 
         this.tweens.add({
             targets: kitty,
-            y: 620,
-            duration: 3000,
+            y: 520,
+            duration: 5000,
             ease: 'Sine.easeInOut',
             yoyo: true,
             loop: -1
         });
 
         const logo = this.add.image(1300, 150, 'logo').setOrigin(0.5);
-        const playButton = this.add.sprite(1150, 900, 'playButton', 0).setInteractive().setOrigin(0.5).setScale(1.4);
+        const playButton = this.add.sprite(1150, 900, 'playButton', 0).setInteractive().setOrigin(0.5).setScale(1.4).setAlpha(0);
 
         //boton de creditos
-        const creditsButton = this.add.text(1150, 750, 'CREDITS',
-            {
-                fontsize: '36px',
-                fill: '#000000',
-                backgroundColor: '#ffffffff',
-                padding: { x: 40, y: 20 }
-            }).setOrigin(0.5)
-            .setInteractive();
+        const creditsButton = this.add.image( width - 150, height - 150, 'creditsButton').setOrigin(0.5).setScale(0.15).setInteractive();
 
 
 
@@ -136,10 +139,24 @@ export class Start extends BaseScene {
         //efecto hover del boton Creditos
         creditsButton.on('pointerover', () => {
             this.sound.play('buttonHover', { volume: 2 * this.playerData.sfxVolume });
-            creditsButton.setStyle({ fill: '#62a6ffff' })
-    
+            this.tweens.add({
+                targets: creditsButton,
+                scale: 0.17,
+                duration: 200,
+                ease: 'Sine.easeInOut',
+                yoyo: false,
+            });
         });
-        creditsButton.on('pointerout', () => creditsButton.setStyle({ fill: '#000000ff' }));
+        creditsButton.on('pointerout', () => {
+            this.tweens.add({
+                targets: creditsButton,
+                scale: 0.15,
+                duration: 200,
+                ease: 'Sine.easeInOut',
+                yoyo: false,
+            });
+           
+        });
 
     
 
@@ -171,12 +188,6 @@ export class Start extends BaseScene {
             loop: -1
         });
 
-        //Logo del equipo en la esquina
-        const teamLogo = this.add.image(width - 100, height - 100, 'teamLogo')
-            .setOrigin(0.5)
-            .setScale(0.15)
-        //.setAlpha(0.9);
-        //.setTint(0xffffffff);
 
 
     }
