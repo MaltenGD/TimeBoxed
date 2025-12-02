@@ -71,6 +71,8 @@ export default class DialogueController
         else if (this.era == 'TaliLose') this.dialogueGroup = this.dialogueData.TaliLoseDialogue;
         else if (this.era == 'TaliTutorial') this.dialogueGroup = this.dialogueData.TaliTutorialDialogue; 
         else if (this.era == 'HanafudaIntro') this.dialogueGroup = this.dialogueData.HanafudaIntroDialogue;
+        else if (this.era == 'HanafudaWin') this.dialogueGroup = this.dialogueData.HanafudaWinDialogue;
+        else if (this.era == 'HanafudaDefeat') this.dialogueGroup = this.dialogueData.HanafudaDefeatDialogue;
         else if (this.era == 'TimeBoxedDefeat')  this.dialogueGroup = this.dialogueData.TimeBoxedDefeatDialogue;
         else if (this.era == 'GameCompleted') this.dialogueGroup = this.dialogueData.GameCompletedDialogue;
         

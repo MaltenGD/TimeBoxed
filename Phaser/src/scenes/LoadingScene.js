@@ -298,11 +298,23 @@ export class LoadingScene extends Phaser.Scene
         */
         this.load.json('AsebWinDialogue', 'Phaser/DialoguesJson/AsebWinDialogue.json');
 
-        /** Load the json file for the Game Completed Dialogue, when the player completes the game.
+        /** Load the json file for the hanafuda intro Dialogue, before hanafuda game starts.
         * @param {string} key - The key to reference the loaded JSON data.
         * @param {string} url - The URL of the JSON file to load.
         */
-        this.load.json('HanafudaIntroDialogue', 'Phaser/DialoguesJson/HanafudaIntroDialogue.json');
+        this.load.json('HanafudaIntroDialogue', 'Phaser/DialoguesJson/HanafudaDialogues/HanafudaIntroDialogue.json');
+
+        /** Load the json file for the hanafuda Win Dialogue, When player wins hanafuda.
+        * @param {string} key - The key to reference the loaded JSON data.
+        * @param {string} url - The URL of the JSON file to load.
+        */
+        this.load.json('HanafudaWinDialogue', 'Phaser/DialoguesJson/HanafudaDialogues/HanafudaWinDialogue.json');
+
+        /** Load the json file for the hanafuda defeat Dialogue, When player is defeated in hanafuda.
+        * @param {string} key - The key to reference the loaded JSON data.
+        * @param {string} url - The URL of the JSON file to load.
+        */
+        this.load.json('HanafudaDefeatDialogue', 'Phaser/DialoguesJson/HanafudaDialogues/HanafudaDefeatDialogue.json');
 
         /** Load the json file for the Game Completed Dialogue, when the player completes the game.
         * @param {string} key - The key to reference the loaded JSON data.

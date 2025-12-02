@@ -1,5 +1,5 @@
-import { getCardFlags } from '../scenes/HanafudaScenes/HanafudaCardType.js';
-import { calculateYakus } from '../scenes/HanafudaScenes/HanafudaScore.js';
+import { getCardFlags } from './HanafudaCardType.js';
+import { calculateYakus } from './HanafudaScore.js';
 import { HANAFUDA_STATE } from '../scenes/HanafudaScenes/HanafudaGameState.js';
 export default class HanafudaPoints {
 
@@ -20,19 +20,19 @@ export default class HanafudaPoints {
         const overlay = this.scene.add.rectangle(this.scene.width/2, this.scene.height/2, this.scene.width, this.scene.height, 0x000000, 0.6)
         .setDepth(9000).setInteractive();
 
-        const box = this.scene.add.rectangle(this.scene.width/2, this.scene.height/2, 900, 500, 0xffffff)
+        const box = this.scene.add.rectangle(this.scene.width/2, this.scene.height/2, 900, 500, 0x002016)
         .setStrokeStyle(6, 0xaa0000).setDepth(10000);
 
         const title = this.scene.add.text(this.scene.width/2, this.scene.height/2 - 140, "Has conseguido un Yaku", {
-            fontSize: "48px", color: "#000"
+            fontSize: "48px", color: "#ffffffff"
         }).setOrigin(0.5).setDepth(10001);
 
         const yText = this.scene.add.text(this.scene.width/2, this.scene.height/2 - 40, "Combinacion: " + yaku, {
-            fontSize: "36px", color: "#000"
+            fontSize: "36px", color: "#ffffffff"
         }).setOrigin(0.5).setDepth(10001);
 
         const pText = this.scene.add.text(this.scene.width/2,this.scene.height/2 + 40, "Puntos: " + points, {
-            fontSize: "30px", color: "#444"
+            fontSize: "30px", color: "#d6d6d6ff"
         }).setOrigin(0.5).setDepth(10001);
 
         const koi = this.scene.add.text(this.scene.width/2 - 150, this.scene.height/2 + 140, "Koikoi", {
@@ -40,12 +40,14 @@ export default class HanafudaPoints {
         }).setOrigin(0.5).setDepth(10002);
 
         const shobu = this.scene.add.text(this.scene.width/2 + 150, this.scene.height/2 + 140, "Shobu", {
-            fontSize: "36px", backgroundColor: "#aa0022", padding: 8, color:"#fff"
+            fontSize: "36px", backgroundColor: "#a40021ff", padding: 8, color:"#fff"
         }).setOrigin(0.5).setDepth(10002);
         
         this.popup = { overlay, box, title, yText, pText, koi, shobu };
 
         koi.setInteractive()
+        .on("pointerover", ()=> {backgroundColor: "#02468bff"})
+        .on("pointerout", ()=> {backgroundColor: "#0066cc"})
         .on("pointerdown", () => {
             console.log("player Elige KoiKoi");
             this.close();
@@ -54,6 +56,8 @@ export default class HanafudaPoints {
         });
 
         shobu.setInteractive()
+        .on("pointerover", ()=> {backgroundColor: "#780219ff"})
+        .on("pointerout", ()=> {backgroundColor: "#a40021ff"})
         .on("pointerdown", () => {
             console.log("player Elige Shobu");
             this.close();

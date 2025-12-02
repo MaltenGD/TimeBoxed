@@ -9,10 +9,11 @@ export default class HanafudaRender{
     }
 
     renderTable(){
-         if (!this.scene.tableCards || this.scene.tableCards.length === 0) {
-        console.warn("renderTable() called but tableCards is empty");
-        return;
-    }
+        if (!this.scene.tableCards || this.scene.tableCards.length === 0) {
+            console.warn("renderTable() called but tableCards is empty");
+            return;
+        }
+
         this.scene.tableCardObjects.forEach((row) =>{ //Destroy old objects so they don't linger on scene 
             row.forEach((obj) => { obj.destroy();})
         });

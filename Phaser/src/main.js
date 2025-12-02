@@ -16,9 +16,12 @@ import { OptionMenuScene } from './scenes/OptionMenuScene.js';
 import { HelpLobbyScene } from './scenes/HelpLobbyScene.js';
 import { ItemsScene } from './scenes/ItemsScene.js';
 import { TimeBoxedDefeat } from './scenes/TimeBoxedDefeat.js';
+
+import { HanafudaIntro } from './scenes/HanafudaScenes/HanafudaIntroScene.js'; 
 import { HanafudaBeginScene} from './scenes/HanafudaScenes/HanafudaBeginScene.js';
-import { HanafudaGame} from './scenes/HanafudaScenes/HanafudaGame.js';
 import { HanafudaGameState} from './scenes/HanafudaScenes/HanafudaGameState.js';
+import { HanafudaEndScene } from './scenes/HanafudaScenes/HanafudaEndScene.js';
+
 import { TutorialAseb } from './scenes/asebScenes/TutorialAseb.js';
 import { TaliIntroScene } from './scenes/taliScenes/TaliIntroScene.js';
 import { TaliTutorial } from './scenes/taliScenes/TaliTutorialScene.js';
@@ -26,8 +29,6 @@ import { GameModeSelectionScene } from './scenes/GameModeSelectionScene.js';
 import { GameCompleted } from './scenes/GameCompleted.js';
 import { BaseScene } from './scenes/BaseScene.js';
 import { SettingsScene } from './scenes/SettingsScene.js';
-import { HanafudaIntro } from './scenes/HanafudaScenes/HanafudaIntroScene.js'; 
-
 
 
 const config = {
@@ -59,7 +60,7 @@ const config = {
         HanafudaIntro,
         HanafudaBeginScene,
         HanafudaGameState,
-        HanafudaGame,
+        HanafudaEndScene,
         TimeBoxedDefeat,
         GameCompleted,
         OptionMenuScene,
