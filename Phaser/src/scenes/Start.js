@@ -123,6 +123,7 @@ export class Start extends BaseScene {
         this.startWandering(startLetters);
         const playButton = this.add.container(width / 2 + 200, height - 200, [playButtonS, playButtonT, playButtonA, playButtonR, playButtonT2]).setSize(600, 150).setInteractive();
         //boton de creditos
+        const settingsButton = this.add.image( width - 150, height - 315, 'StartMenuSettings').setOrigin(0.5).setScale(0.20).setInteractive();
         const creditsButton = this.add.image( width - 150, height - 150, 'creditsButton').setOrigin(0.5).setScale(0.15).setInteractive();
 
         //PLAY BUTTON INTERACTIONS
@@ -212,6 +213,30 @@ export class Start extends BaseScene {
             });
            
         });
+
+        settingsButton.on('pointerover', () => {
+            settingsButton.setTexture('StartMenuSettingsHovered');
+            this.sound.play('buttonHover', { volume: 2 * this.playerData.sfxVolume });
+            this.tweens.add({
+                targets: settingsButton,
+                scale: 0.22,
+                duration: 200,
+                ease: 'Sine.easeInOut',
+                yoyo: false,
+            });
+        });
+        settingsButton.on('pointerout', () => {
+            settingsButton.setTexture('StartMenuSettings');
+            this.tweens.add({
+                targets: settingsButton,
+                scale: 0.20,
+                duration: 200,
+                ease: 'Sine.easeInOut',
+                yoyo: false,
+            });
+           
+        });
+
 
         //accion click
         creditsButton.on('pointerdown', () => {

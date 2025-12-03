@@ -97,12 +97,16 @@ export class LoadingScene extends Phaser.Scene
         this.load.image('playButtonA', 'Phaser/assets/StartMenu/StartButtonA.png');
         this.load.image('playButtonR', 'Phaser/assets/StartMenu/StartButtonR.png');
         this.load.image('playButtonT2', 'Phaser/assets/StartMenu/StartButtonT2.png');
+        this.load.image('StartMenuSettings', 'Phaser/assets/StartMenu/StartMenuSettings.png');
 
         this.load.image('playButtonSHovered', 'Phaser/assets/StartMenu/StartButtonSHovered.png');
         this.load.image('playButtonTHovered', 'Phaser/assets/StartMenu/StartButtonTHovered.png');
         this.load.image('playButtonAHovered', 'Phaser/assets/StartMenu/StartButtonAHovered.png');
         this.load.image('playButtonRHovered', 'Phaser/assets/StartMenu/StartButtonRHovered.png');
         this.load.image('playButtonT2Hovered', 'Phaser/assets/StartMenu/StartButtonT2Hovered.png');
+        this.load.image('StartMenuSettingsHovered', 'Phaser/assets/StartMenu/StartMenuSettingsHovered.png');
+
+
     }
 
     loadAudioAssets()
