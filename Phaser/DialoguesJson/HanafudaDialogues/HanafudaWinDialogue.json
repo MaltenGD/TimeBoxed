@@ -5,6 +5,13 @@
         "speaker": "Narrator",
         "text": "The box spins around, making you dizzy, and then stops. Kronos kicks you out of the box and in an instance your view changes to a path surounded of bambu with a shrine at the end of it",
         "animation": "true",
+        "next": "HW1"
+    },
+    "HW1":
+    {
+        "speaker": "Narrator",
+        "text": "The box spins around, making you dizzy, and then stops. Kronos kicks you out of the box and in an instance your view changes to a path surounded of bambu with a shrine at the end of it",
+        "animation": "true",
         "next": "end"
     },
     "end": 
@@ -12,7 +19,7 @@
         "speaker": "Player",
         "text": "Wow *looks around with shiny eyes*, this is so cozy!",
         "animation": "true",
-        "next": "null"
+        "next": null
     }
 }
 }

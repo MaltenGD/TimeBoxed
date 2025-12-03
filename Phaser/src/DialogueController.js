@@ -50,7 +50,7 @@ export default class DialogueController
         this.scene.events.removeListener('nextDialog');
         this.scene.events.removeListener('Finished');
         this.scene.events.removeListener('changeTutoImage');
-        
+    
         // Reset dialogue state to prevent skipping issues
         this.nextID = null;
         this.currentDialogue = null;
@@ -99,6 +99,7 @@ export default class DialogueController
             radius: 20
         });
 
+        
         /**Initially hide the dialog box */
         if (!this.dialogBox.visible) {
             this.dialogBox.toggleWindow();
@@ -141,7 +142,6 @@ export default class DialogueController
         this.currentDialogue = new Dialogue(speaker, text, isAnimated);
         /**Shows dialogue on screen */
         this.showCurrentDialogue();
-
         /**sets the next ID to continue the dialogue */
         this.nextID = element.next;
     }

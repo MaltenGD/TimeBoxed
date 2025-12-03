@@ -3,6 +3,8 @@ import HanafudaTableActions from '../../Hanafuda/HanafudaTableActions.js';
 import HanafudaPrepareRound from '../../Hanafuda/HanafudaPrepareRound.js';
 import TransitionController from "../../misc/transitioncontroller.js";
 import HanafudaPoints from '../../Hanafuda/HanafudaPoints.js';
+import { BaseScene } from '../BaseScene.js';
+
 /**
  * @readonly
  * @enum {string}
@@ -36,9 +38,9 @@ export class HanafudaGameState extends Phaser.Scene{
         this.cleanUp();
     }
 
-    create(playerData){
+    create(data){
 
-        this.playerData = playerData;
+        this.playerData = data.playerData;
 
         //For transitions
         this.transitionController = new TransitionController(this);
@@ -152,7 +154,9 @@ export class HanafudaGameState extends Phaser.Scene{
 
                     let chosenCardObject = this.opponentCardObjects[this.chosenCardPos];
                     //card poking out of the opponent hand animation
-                    this.tweens.add({ targets: chosenCardObject, y: chosenCardObject.y + 50,duration: 300, ease: 'Power2', });
+                    this.tweens.add({ 
+                        targets: chosenCardObject, y: chosenCardObject.y + 50,duration: 300, ease: 'Power2', 
+                    });
                     
                     this.time.delayedCall(1000, ()=> {this.transitionTo(HANAFUDA_STATE.SEARCH_ACTION);});
                 });
@@ -262,10 +266,9 @@ export class HanafudaGameState extends Phaser.Scene{
 
                 console.log("roundCounter",this.round);
                 this.time.delayedCall(2000, ()=> {
-
-                    if(this.round < 0){ //a new round will start unless all the set rounds are completed, in which case the game ends
-                    this.transitionController.startFadeOutTransition();
-                    this.transitionController.startFadeInTransition();
+                    if(this.round < 2){ //a new round will start unless all the set rounds are completed, in which case the game ends
+                    //this.transitionController.startFadeOutTransition();
+                    //this.transitionController.startFadeInTransition();
                     this.blackScreen.destroy();
                     this.transitionTo(HANAFUDA_STATE.START_ROUND);
                     }
