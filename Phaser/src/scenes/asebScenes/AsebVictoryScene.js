@@ -21,6 +21,18 @@ export class AsebVictoryScene extends BaseScene
         // Get the canvas width and height to use when giving a position to an object
         let { width, height } = this.sys.game.canvas;
 
+        const baseMusicVolume = 0.25;
+            this.music = this.sound.add('egyptMusic', { loop: true, volume: baseMusicVolume * this.playerData.musicVolume });
+            this.soundInstances.push({ 
+                sound: this.music, 
+                type: 'music', 
+                baseVolume: baseMusicVolume 
+            });
+            this.music.play();
+
+        
+        // Award Achievements
+
         this.awardAch("AS1");
         if (this.playerData.AsebNoCapturesCompletion) this.awardAch("AS2");
         if (this.playerData.AsebLandedOnEverySpecial) this.awardAch("AS3");

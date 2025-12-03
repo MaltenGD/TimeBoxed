@@ -20,6 +20,15 @@ export class AsebDefeatScene extends BaseScene
 
         this.DisableOptionMenu();
 
+        const baseMusicVolume = 0.25;
+            this.music = this.sound.add('CreepyegyptMusic', { loop: true, volume: baseMusicVolume * this.playerData.musicVolume });
+            this.soundInstances.push({ 
+                sound: this.music, 
+                type: 'music', 
+                baseVolume: baseMusicVolume 
+            });
+            this.music.play();
+
         //creating the background
         this.background = this.add.image(width / 2, height / 2, 'asebBackgroundPlaceholder').setDisplaySize(width, height);
 

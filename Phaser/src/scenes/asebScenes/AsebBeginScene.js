@@ -140,6 +140,15 @@ export class AsebBeginScene extends BaseScene {
         await document.fonts.load('64px Anubismythicalserif');
         console.log(this.playerData)
 
+        const baseMusicVolume = 0.25;
+            this.music = this.sound.add('CreepyegyptMusic', { loop: true, volume: baseMusicVolume * this.playerData.musicVolume });
+            this.soundInstances.push({ 
+                sound: this.music, 
+                type: 'music', 
+                baseVolume: baseMusicVolume 
+            });
+            this.music.play();
+
         this.playerData.EgyptIntroCompleted = true;
 
         this.transitionController = new TransitionController(this);
