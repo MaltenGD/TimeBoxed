@@ -61,6 +61,7 @@ export class IntroAseb extends BaseScene
         this.events.on('Finished', () => {
 
              this.transitionController.startFadeOutTransition(() => {
+                this.scene.stop(this);
                 this.scene.launch('ConfirmMenu',{
                 sceneToPause: this.scene.key,
                 playerData: this.playerData,

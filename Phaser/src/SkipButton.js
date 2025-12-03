@@ -32,7 +32,6 @@ export class SkipButton extends Phaser.GameObjects.Image {
 
     /**
      * Handles the pointer over event, showing a hover effect.
-     * @private
      */
     handlePointerOver() {
         this.setTexture('SkipButtonHovered');
@@ -47,7 +46,6 @@ export class SkipButton extends Phaser.GameObjects.Image {
 
     /**
      * Handles the pointer out event, reverting to the normal state.
-     * @private
      */
     handlePointerOut() {
         this.setTexture('SkipButtonNormal');
@@ -62,7 +60,6 @@ export class SkipButton extends Phaser.GameObjects.Image {
 
     /**
      * Handles the pointer down event, skipping the dialogue.
-     * @private
      */
     handlePointerDown() {
         this.dialogueController.skipToEnd();
