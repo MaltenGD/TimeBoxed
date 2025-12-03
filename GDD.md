@@ -3,7 +3,7 @@
 ![PopcatGames Logo](images/logo.png)
 ![Timeboxed Logo](Phaser/assets/titlelogo.png)
 
-> **Equipo de desarrollo**:
+**Equipo de desarrollo**:
 
 > Alicia Sarahi Sanchez Varela 
 
@@ -95,7 +95,9 @@ Si 2 tiradas coinciden (por ejemplo, si el resultado es 1, 3, 4, 6, – Venus y 
 El juego dura 3 rondas, y gana la persona con mayor puntuación.
 
 **Layout del nivel**
+
 ![Fondo Tali](images/GDD_Images/Tali1.png)
+
 ![Layout Tali](images/GDD_Images/Tali2.png)
 
 ### 3.2 Hanafuda - Mitología japonesa
@@ -128,7 +130,9 @@ Al final de cada ronda, se anotan los puntos. Son 6 rondas en total. El jugador 
 - Ryujin (1 puntos): 4 cartas del mismo mes
 
 **Layout del nivel:**
+
 ![Hanafuda Fondo](images/GDD_Images/Hanafuda1.png)
+
 ![Hanafuda Tablero](images/GDD_Images/Hanafuda2.png)
 
 ### 3.3 Aseb - Mitología Egipcia
@@ -153,7 +157,9 @@ Para salir del tablero, se tiene que conseguir la tirada exacta que te deje en l
 ![Aseb Tablero](images/GDD_Images/Aseb3.png)
 
 **Layout del nivel:**
+
 ![Aseb Fondo](images/GDD_Images/Aseb1.png)
+
 ![Aseb Tablero](images/GDD_Images/Aseb2.png)
 
 ### 3.4 Modo TimeBoxed (Dificultad extra)
@@ -214,29 +220,51 @@ Cada era presenta un dios felino inspirado en la cultura correspondiente. Aunque
 Son custodios de los objetos perdidos de Kronos y son antagonistas temporales que desafían al jugador en un minijuego específico.
 
 ### 5.2 Objetos
+
 **5.2.1 Lata de Atún**
+
 Se obtiene en la era romana.
+
 **5.2.2 Pin con Logo**
+
 Se obtiene en la era egipcia.
+
 **5.2.3 Cascabel**
+
 Se obtiene en la era japonesa.
 
 ### 5.3 Insignias
+
 **5.4.1 Complete the game**
+
 Recupera los objetos de kronos y tu bola de hilo.
+
 **5.4.2 Stick King**
+
 Gana el juego de Aseb y recupera el “Pin”.
+
 **5.4.3 Underworld Conqueror**
+
 Gana el juego de Aseb y cae en todas las casillas especiales en la misma partida.
+
 **5.4.4 Square Master**
+
 Gana el juego de Aseb sin tener ninguna de tus piezas capturadas.
+
 **5.4.5 Challenge and Win against Mercury**
+
 Gana el juego de Tali y recupera la “lata de atún”.
+
 **5.4.6 [to be added]**
+
 Gana el juego de Tali habiendo distraido a Mercury tres veces.
+
 **5.4.6 Challenge and Win against Benten**
+
 Gana el juego de Tali y recupera el “cascabel”.
+
 **5.4.7 Complete the game in Timeboxed mode.**
+
 Gana el juego con el modo Timeboxed encendido.
 
 ## 6 Experiencia de juego
@@ -250,6 +278,7 @@ El jugador progresa superando cada enfrentamiento. En caso de derrota, el miniju
 El flujo completo de la experiencia consiste en repetir esta estructura en tres eras distintas, con sus respectivos minijuegos, hasta reunir los tres objetos y concluir la misión.
 
 ## 7 Estética y contenido
+
 Estilo artístico de personajes basado en la cultura de manga y anime. Estilo de paisaje basado en estilo de pinceladas y concept art.
 
 La música de cada minijuego se basa en cada mitología y cultura. La música del juego es tranquila.
@@ -257,11 +286,15 @@ La música de cada minijuego se basa en cada mitología y cultura. La música de
 Al conseguir uno de los objetos objetivos se provoca un efecto de luz.
 
 ## 8 Referencias
+
 **Persona Series**
+
 ![Persona](images/GDD_Images/referencia1.png)
 
 **Professor Layton**
+
 ![Professor Layton](images/GDD_Images/referencia2.png)
 
 **Later Alligator**
+
 ![Later Alligator](images/GDD_Images/referencia3.png)

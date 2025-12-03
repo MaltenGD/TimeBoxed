@@ -18,8 +18,11 @@
 
 ## Autores
 > Alicia Sarahi Sanchez Varela
+
 > Zhiyi Zhou
+
 > Oliver Garcia Aguado
+
 > Alexandra Lenta
 
 ## Licencia
