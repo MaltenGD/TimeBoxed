@@ -24,6 +24,11 @@ export class HanafudaGameState extends Phaser.Scene{
 
     constructor(){
         super('HanafudaGameState');
+        this.playerScore = 0;
+        this.opponentScore = 0;
+
+        this.lastRoundWinner = null;
+        this.lastRoundPoints = 0;
     }
 
     init(data){
@@ -233,6 +238,16 @@ export class HanafudaGameState extends Phaser.Scene{
                 }, this);
             break;
             case HANAFUDA_STATE.FINISH_ROUND:
+
+                if (this.lastRoundWinner === "player") {
+                this.playerScore += this.lastRoundPoints;
+                this.playerScoreText.setText('Player Score: ${this.playerScore}');
+                
+            }
+             else if (this.lastRoundWinner === "opponent") {
+                this.opponentScore += this.lastRoundPoints;
+                this.opponentScoreText.setText('Opponent Score: ${this.opponentScore}');
+            }
                 this.transitionController.startFadeInTransition();
                 this.blackScreen =this.add.rectangle(0, 0, this.width, this.height, 0x000000).setOrigin(0, 0);
                 this.infoText.setText("Starting next round");
@@ -261,7 +276,7 @@ export class HanafudaGameState extends Phaser.Scene{
             case HANAFUDA_STATE.END_GAME:
 
                 this.infoText.setText("Game Finished!");
-                this.playerScore = 1;
+                //this.playerScore = 1;
                 if(this.playerScore > this.opponentScore) this.playerData.hanafudaCompleted = true;
                 else this.playerData.hanafudaCompleted = false;
                 this.scene.start('HanafudaEndScene', this.playerData);

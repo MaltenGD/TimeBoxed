@@ -26,6 +26,7 @@ import { HanafudaEndScene } from './scenes/HanafudaScenes/HanafudaEndScene.js';
 import { TutorialAseb } from './scenes/asebScenes/TutorialAseb.js';
 import { TaliIntroScene } from './scenes/taliScenes/TaliIntroScene.js';
 import { TaliTutorial } from './scenes/taliScenes/TaliTutorialScene.js';
+import { TutorialHanafuda } from './scenes/HanafudaScenes/TutorialHanafuda.js';
 import { GameModeSelectionScene } from './scenes/GameModeSelectionScene.js';
 import { GameCompleted } from './scenes/GameCompleted.js';
 import { BaseScene } from './scenes/BaseScene.js';
@@ -70,6 +71,7 @@ const config = {
         HelpLobbyScene,
         TaliTutorial,
         TutorialAseb,
+        TutorialHanafuda,
         GameModeSelectionScene,
         SettingsScene,
         ConfirmMenuScene

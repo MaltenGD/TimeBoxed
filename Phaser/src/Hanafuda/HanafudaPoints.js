@@ -68,6 +68,8 @@ export default class HanafudaPoints {
 
     onShobu() {
         //this.scene.shobuWinner = this.scene.playerTurn ? "player" : "opponent";
+        this.scene.lastRoundWinner = "player";
+        this.scene.lastRoundPoints = points;
         this.scene.transitionTo(HANAFUDA_STATE.FINISH_ROUND);
     }
 
@@ -99,7 +101,7 @@ export default class HanafudaPoints {
 
         this.popup = { overlay, box, title, yText, pText };
 
-        this.scene.time.delayedCall(1200, () => { this.close();});
+        this.scene.time.delayedCall(1500, () => { this.close();});
     }
 
     checkYakus() {
@@ -109,6 +111,9 @@ export default class HanafudaPoints {
         if (yakus.length === 0) return;
 
         const last = yakus[yakus.length - 1];
+
+        this.scene.lastRoundPoints = points;
+        this.scene.lastRoundWinner = this.scene.playerTurn ? "player" : "opponent";
 
         if (this.scene.playerTurn) this.showPlayer(last, points);
         else{
