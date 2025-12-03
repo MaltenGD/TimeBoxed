@@ -81,10 +81,10 @@ export class HanafudaIntro extends BaseScene{
                 //         this.scene.stop(this.playerData.SceneToResume);
                 //         this.scene.stop('ConfirmMenu');
                 //         this.scene.stop('OptionMenu');
-                //         this.scene.start('TutorialAseb', this.playerData);
+                //         this.scene.start('TutorialHanafuda', this.playerData);
                 //     },
                 //     onNo: () => {
-                //         this.scene.start('AsebBeginScene', this.playerData);
+                //         this.scene.start('HanafudaBeginScene', this.playerData);
                 //         this.scene.stop('ConfirmMenu');
                 //         console.log("cambia de escena");
                 //     }

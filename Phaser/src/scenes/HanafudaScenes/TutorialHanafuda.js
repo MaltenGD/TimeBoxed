@@ -1,7 +1,7 @@
 import DialogueController from "../../DialogueController.js";
 import TransitionController, {RGBColor} from "../../misc/transitioncontroller.js";
 import { BaseScene } from "../BaseScene.js";
-export class TutorialAseb extends BaseScene
+export class TutorialHanafuda extends BaseScene
 {
     constructor()
     {super('TutorialHanafuda');}
