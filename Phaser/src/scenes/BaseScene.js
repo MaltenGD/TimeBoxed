@@ -141,4 +141,12 @@ export class BaseScene extends Phaser.Scene {
         if (this.playerData.FromSelectionMenu) console.log("Opening Option Menu from Selection Menu");
         this.scene.launch('OptionMenu', this.playerData);
     }
+
+    awardAch(achievementID) {
+        this.achManager = this.registry.get('AchievementManager');
+        this.achManager.awardAchievement(achievementID);
+        console.log(achievementID + " awarded!");
+        this.achManager.checkGameCompletion(this.playerData);
+        this.registry.set('AchievementManager', this.achManager);
+    }
 }

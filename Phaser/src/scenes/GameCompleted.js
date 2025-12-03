@@ -23,6 +23,7 @@ export class GameCompleted extends BaseScene
         this.transitionController = new TransitionController(this);
         this.transitionController.startFadeInTransition();
 
+
         // Get the canvas width and height to use when giving a position to an object
         let { width, height } = this.sys.game.canvas;
 
