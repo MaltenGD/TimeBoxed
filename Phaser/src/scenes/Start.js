@@ -1,5 +1,4 @@
 import TransitionController from "../misc/transitioncontroller.js";
-import { ConfirmMenuScene } from "./ConfirmMenuScene.js";
 import { BaseScene } from "./BaseScene.js";
 
 /**
@@ -224,8 +223,7 @@ export class Start extends BaseScene {
                 ease: 'Sine.easeInOut',
                 yoyo: false,
             });
-        });
-        settingsButton.on('pointerout', () => {
+        }).on('pointerout', () => {
             settingsButton.setTexture('StartMenuSettings');
             this.tweens.add({
                 targets: settingsButton,
@@ -235,7 +233,14 @@ export class Start extends BaseScene {
                 yoyo: false,
             });
            
+        }).on('pointerdown', () => {
+            this.scene.pause();
+            this.scene.launch('SettingsScene', {
+                fromScene: 'Start',
+                playerData: this.playerData
+            });
         });
+
 
 
         //accion click
