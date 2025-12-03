@@ -1,4 +1,4 @@
-# **Timeboxed **
+# Timeboxed
 
 > Proyecto universitario desarrollado como parte de la asignatura de Programación de videojuegos en lenguajes interpretados
 
@@ -9,12 +9,12 @@
 ## Versión jugable
 **https://maltengd.github.io/TimeBoxed/**
 
+## Nuestro Twitter
+[Twitter/X](https://x.com/PopCatGames)
+
 ## Detalles técnicos
 **Motor :** Phaser 3 (JavaScript)
 **Plataforma :** Navegador web
-
-## Red social del proyecto
-[Twitter/X] https://x.com/PopCatGames
 
 ## Autores
 **[Alicia Sarahi Sanchez Varela]**

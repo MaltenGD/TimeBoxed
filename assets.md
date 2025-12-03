@@ -22,9 +22,6 @@ Desde el punto de vista artístico, el juego adopta un estilo visual en 2D con l
 | `mewingCat.jpg` | Un meme de un gato haciendo mewing, literalmente. | Recogido de internet, no tiene licencia. |
 | `oreoCat.jpg` | Un gato que es una oreo, que irónico, por cierto, también es meme. | Recogido de internet, no tiene licencia. |
 | `playButton.png` | Botón utilizado para iniciar el juego o una acción. | Creado por el equipo. |
-| `teamLogo.jpg` | Logo del equipo de desarrollo (versión JPG). | Creado por el equipo. |
-| `teamLogo.png` | Logo del equipo de desarrollo (versión PNG). | Creado por el equipo. |
-| `titlelogo.png` | Logo principal o título del juego. | Creado por el equipo. |
 
 ### Carpeta: `/Phaser/assets/aseb/`
 
@@ -33,28 +30,9 @@ Desde el punto de vista artístico, el juego adopta un estilo visual en 2D con l
 | `AsebBoard.png` | Tablero para el minijuego Aseb. | Recogido de internet (Amazon) Dominio público. |
 | `AsebStickDark.png` | Palo por el lado oscuro, para el juego Aseb (versión oscura). | Recogido de internet, dominio público. |
 | `AsebStickLight.png` | Palo por el lado claro, para el juego Aseb (versión clara). | Recogido de internet, dominio público. |
-| `bluePiece.png` | Ficha de jugador de color azul para el juego Aseb. | Creado por el equipo. |
-| `redPiece.png` | Ficha de enemigo de color rojo para el juego Aseb. | Creado por el equipo. |
-| `stickBoard.png` | Tablero simple encargado de acompañar texto y otra información | Creado por el equipo. |
 
 ### Carpeta: `/Phaser/assets/Intro/`
 
 | Archivo | Descripción | Origen |
 |---|---|---|
 | `IntroBackgroundPlaceholder.jpeg` | Imagen de fondo temporal para la escena de introducción. | Recogido de internet, dominio público. |
-
-### Carpeta: `/Phaser/assets/StartMenu/`
-
-| Archivo | Descripción | Origen |
-|---|---|---|
-| `MainBackgroundPlaceholder.png` | Imagen de fondo temporal para el menú de inicio. | Creado por el equipo. |
-
-### Carpeta: `/Phaser/assets/tali/`
-
-| Archivo | Descripción | Origen |
-|---|---|---|
-| `temporary_board.png` | Tablero temporal para el minijuego Tali. | Creado por el equipo. |
-| `temporary_dice0.png` | Representación temporal de un dado (cara 0). | Creado por el equipo. |
-| `temporary_dice1.png` | Representación temporal de un dado (cara 1). | Creado por el equipo. |
-| `temporary_dice2.png` | Representación temporal de un dado (cara 2). | Creado por el equipo. |
-| `temporary_dice3.png` | Representación temporal de un dado (cara 3). | Creado por el equipo. |
