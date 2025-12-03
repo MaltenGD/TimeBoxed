@@ -17,10 +17,10 @@
 **Plataforma :** Navegador web
 
 ## Autores
-**[Alicia Sarahi Sanchez Varela]**
-**[Zhiyi Zhou]**
-**[Oliver Garcia Aguado]**
-**[Alexandra Lenta]**
+> Alicia Sarahi Sanchez Varela
+> Zhiyi Zhou
+> Oliver Garcia Aguado
+> Alexandra Lenta
 
 ## Licencia
 Este proyecto se realizó con fines educativos como parte del curso universitario.  

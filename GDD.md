@@ -4,9 +4,13 @@
 ![Timeboxed Logo](Phaser/assets/titlelogo.png)
 
 > **Equipo de desarrollo**:
+
 > Alicia Sarahi Sanchez Varela 
+
 > Oliver Garcia Aguado 
+
 > Alexandra Lenta
+
 > Zhiyi Zhou 
 
 ## 1 Resumen
@@ -255,7 +259,9 @@ Al conseguir uno de los objetos objetivos se provoca un efecto de luz.
 ## 8 Referencias
 **Persona Series**
 ![Persona](images/GDD_Images/referencia1.png)
+
 **Professor Layton**
 ![Professor Layton](images/GDD_Images/referencia2.png)
+
 **Later Alligator**
 ![Later Alligator](images/GDD_Images/referencia3.png)
