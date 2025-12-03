@@ -220,7 +220,8 @@ export class LoadingScene extends Phaser.Scene
     loadTaliAssets() {
         this.load.image('taliVerticalBackground', 'Phaser/assets/SelectionMenu/RomeVertical.png');
 
-        this.load.image('taliBoard', 'Phaser/assets/tali/temporary_board.png');
+        // this.load.image('taliBoard', 'Phaser/assets/tali/temporary_board.png');
+        this.load.image('taliBoard', 'Phaser/assets/tali/tali_board.png');
         for (let i = 0; i < Tali.NUMBER_OF_DICE; i++) {
             this.load.image('dice' + i, 'Phaser/assets/tali/temporary_dice' + i + '.png');
         }
