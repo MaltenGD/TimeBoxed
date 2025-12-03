@@ -43,7 +43,6 @@ export class TaliBeginScene extends BaseScene {
 
         this.background = this.add.image(this.width / 2, this.height / 2, 'taliBackgroundPlaceholder').setDisplaySize(this.width, this.height);
 
-
         this.taliGame = new Tali(this, this.width, this.height);
 
         this.transitionController = new TransitionController(this);
@@ -86,7 +85,7 @@ export class TaliBeginScene extends BaseScene {
      * Adds all the images to the scene.
      */
     addImages() {
-        this.boardImg = this.add.image(this.width/2, this.height/2, 'taliBoard').setOrigin(0.5).setScale(0.6);
+        this.boardImg = this.add.image(this.width/2, this.height/2, 'taliBoard').setOrigin(0.5).setScale(0.45);
     }
 
     addHands() {
