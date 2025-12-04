@@ -100,6 +100,12 @@ export default class DialogueController
         else if (this.era == 'DM2') {
             this.dialogueGroup = this.dialogueData.DistractMercuryDialogue2;
         }
+        else if (this.era == 'DM3') {
+            this.dialogueGroup = this.dialogueData.DistractMercuryDialogue3;
+        }
+        else if (this.era == 'DM4') {
+            this.dialogueGroup = this.dialogueData.DistractMercuryDialogue4;
+        }
         else if (this.era == 'TimeBoxedDefeat')
         {
             this.dialogueGroup = this.dialogueData.TimeBoxedDefeatDialogue;

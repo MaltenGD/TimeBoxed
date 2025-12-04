@@ -1,6 +1,7 @@
 import { BaseScene } from '../BaseScene.js';
 import DialogueController from '../../DialogueController.js';
 import TransitionController, { RGBColor } from '../../misc/transitioncontroller.js';
+import RandomNumber from '../../misc/randomnumber.js';
 
 /**
  * @class DistractMercuryScene
@@ -29,22 +30,29 @@ export class DistractMercuryScene extends BaseScene {
         this.transitionController = new TransitionController(this);
         
         // Keeps track of which round we are in.
-        this.roundIndex = data.roundIndex;
+        this.possibleDialogues = data.possibleDialogues;
 
         // The text for both options in all three rounds.
         this.optionText = [
-            {one: {text: "Option 1", correct: true}, two: {text: "Option 2", correct: false}},
-            {one: {text: "Option 1 2", correct: false}, two: {text: "Option 2 2", correct: true}},
-            {one: {text: "Option 1 3", correct: true}, two: {text: "Option 2 3", correct: true}}
+            {one: {text: "Offer him the drink", correct: true}, two: {text: "Keep your drink close", correct: false}},
+            {one: {text: "'Don't get distracted.'", correct: false}, two: {text: "'Look, a coin on the ground!'", correct: true}},
+            {one: {text: "Shake your head", correct: false}, two: {text: "Call for another round", correct: true}},
+            {one: {text: "Roll right now!", correct: false}, two: {text: "Take it even slower...", correct: true}},
+            {one: {text: "'Right behind you!'", correct: true}, two: {text: "'Nope.'", correct: false}}
         ];
+
+        console.log(this.possibleDialogues);
+        this.dialogueIndex = RandomNumber.get(0, this.possibleDialogues.length);
+        var index = this.possibleDialogues.indexOf(this.dialogueIndex);
+        console.log(this.dialogueIndex);
+        this.possibleDialogues.splice(index, 1);
+        console.log(this.possibleDialogues);
 
         this.addImages();
         this.addText();
         this.addButtons();
         this.createAndBeginDialogue();
         this.addListeners();
-
-        console.log("TURN " + this.roundIndex);
     }
 
     /**
@@ -63,7 +71,7 @@ export class DistractMercuryScene extends BaseScene {
      */
     createAndBeginDialogue() {
         const dialogueData = this.cache.json.get('TaliDialogue');
-        this.dialogueController = new DialogueController(this, "DM" + this.roundIndex, dialogueData);
+        this.dialogueController = new DialogueController(this, "DM" + this.dialogueIndex, dialogueData);
         this.dialogueController.iniDialogue();
     }
 
@@ -71,11 +79,11 @@ export class DistractMercuryScene extends BaseScene {
      * Creates the necessary buttons for the scene.
     */
     addButtons() {
-        this.optionOne = this.createButton(this.width / 2, this.height / 3, this.optionText[this.roundIndex].one.text, () => {
-            this.checkOption(this.optionText[this.roundIndex].one);
+        this.optionOne = this.createButton(this.width / 2, this.height / 3, this.optionText[this.dialogueIndex].one.text, () => {
+            this.checkOption(this.optionText[this.dialogueIndex].one);
         });
-        this.optionTwo = this.createButton(this.width / 2, this.height / 2, this.optionText[this.roundIndex].two.text, () => {
-            this.checkOption(this.optionText[this.roundIndex].two);
+        this.optionTwo = this.createButton(this.width / 2, this.height / 2, this.optionText[this.dialogueIndex].two.text, () => {
+            this.checkOption(this.optionText[this.dialogueIndex].two);
         });
 
         this.hideOptions();
@@ -127,9 +135,7 @@ export class DistractMercuryScene extends BaseScene {
      * @param {button} option Dialogue option pressed 
      */
     checkOption(option) {
-        console.log("Current round: " + this.roundIndex);
         this.hideOptions();
-        this.roundIndex += 1;
         if (option.correct) this.onCorrectOption();
         else this.onIncorrectOption();
     }
@@ -209,7 +215,7 @@ export class DistractMercuryScene extends BaseScene {
     returnToGame() {
         this.addListeners();
         this.scene.sleep(); 
-        this.scene.resume('TaliScene', {playerData: this.playerData, mercuryResultRoll: this.mercuryRoll});
+        this.scene.resume('TaliScene', {playerData: this.playerData, mercuryResultRoll: this.mercuryRoll, possibleDialogues: this.possibleDialogues});
     }
 
 
@@ -217,12 +223,12 @@ export class DistractMercuryScene extends BaseScene {
      * Adds all the listeners in this scene.
      */
     addListeners() {
-        this.events.once('nextDialog', () => {
-            this.showOptions();
+        this.events.on('nextDialog', () => {
+            this.dialogueController.handleInteraction();
         })
 
         this.events.on('Finished', ()=> {
-            // TODO
+            this.showOptions();
         })
     }
 

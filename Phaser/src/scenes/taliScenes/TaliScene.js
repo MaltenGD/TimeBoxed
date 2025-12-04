@@ -45,6 +45,9 @@ export class TaliScene extends BaseScene {
         this.registerEvents();
 
         this.transitionController.startFadeInTransition(() => this.startGame());
+
+        // Possible dialogue indexes
+        this.possibleDialogues = [0, 1, 2, 3, 4];
     }
 
     /**
@@ -233,11 +236,11 @@ export class TaliScene extends BaseScene {
     }
 
     onEnemyDistract() {
-        console.log("TURNCOUNT " + this.taliGame.turnCount);
         this.scene.pause();
-        this.scene.launch('DistractMercuryScene', {playerData: this.playerData, mercuryRoll: this.taliGame.currentRoll, roundIndex: Math.round(this.taliGame.turnCount/2) -1});
+        this.scene.launch('DistractMercuryScene', {playerData: this.playerData, mercuryRoll: this.taliGame.currentRoll, possibleDialogues: this.possibleDialogues});
         this.events.once("resume", (scene, data) => {
             this.taliGame.currentRoll = data.mercuryResultRoll;
+            this.possibleDialogues = data.possibleDialogues;
             this.taliGame.setDiceImages();
             console.log("Resumed game.");
             this.resetButton(this.rollBtn, 'Show combinations', () => {
