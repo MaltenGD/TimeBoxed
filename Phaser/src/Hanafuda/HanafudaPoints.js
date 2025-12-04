@@ -52,6 +52,7 @@ export default class HanafudaPoints {
             console.log("player Elige KoiKoi");
             this.close();
             this.scene.currentState = null;
+            this.scene.koikoiAccumulatedPlayer = points;
             this.onKoikoi(); 
         });
 
@@ -62,7 +63,7 @@ export default class HanafudaPoints {
             console.log("player Elige Shobu");
             this.close();
             this.scene.currentState = null;
-            this.onShobu();
+            this.onShobu(points);
         });
     }
 
@@ -76,6 +77,7 @@ export default class HanafudaPoints {
     }
 
     onKoikoi() {
+        console.log("Player Koikoi, puntos acumulados:", this.scene.koikoiAccumulatedPlayer);
         this.scene.koikoiActivePlayer = true;
 
         if(this.scene.previousState === HANAFUDA_STATE.SEARCH_ACTION)
