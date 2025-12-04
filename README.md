@@ -11,7 +11,7 @@
 **https://maltengd.github.io/TimeBoxed/**
 
 ## Nuestro Twitter
-|[Twitter Logo](images/TwitterLogo.png)
+![Twitter Logo](images/TwitterLogo.png)
 [Twitter/X](https://x.com/PopCatGames)
 
 ## Detalles técnicos
