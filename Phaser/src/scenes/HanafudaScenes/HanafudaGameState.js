@@ -31,6 +31,13 @@ export class HanafudaGameState extends Phaser.Scene{
 
         this.lastRoundWinner = null;
         this.lastRoundPoints = 0;
+
+        this.koikoiActivePlayer = false;
+        this.koikoiActiveEnemy = false;
+
+        this.koikoiAccumulatedPlayer = 0;
+        this.koikoiAccumulatedEnemy = 0;
+
     }
 
     init(data){
@@ -88,6 +95,31 @@ export class HanafudaGameState extends Phaser.Scene{
         this.infoText = this.add.text(370, this.height / 2 + 200, "Start!", {fontSize: '56px', fill: '#ffffffff'}).setDepth(1); //Text
         this.roundText = this.add.text(40, 1000, `Round:${this.round}/4`, {fontSize: "30px",color: "#ffffff"});
 
+        // Puntuación del jugador
+        this.playerPointsText = this.add.text(
+            50, 
+           700, 
+            "Player points: 0", 
+            {
+                fontSize: "28px",
+                color: "#ffffff",
+                stroke: "#000000",
+                strokeThickness: 4,
+            }
+        );
+
+        // Puntuacion del enemigo
+        this.opponentPointsText = this.add.text(
+            50, 
+            40, 
+            "Benten points: 0", 
+            {
+                fontSize: "28px",
+                color: "#ffffff",
+                stroke: "#000000",
+                strokeThickness: 4,
+            }
+        );
         //Deck render
         this.deckObject = this.add.rectangle(200, this.height/2, 200, 350, 0x609C86).setScale(0.6);
         this.deckCardObject = null;
@@ -245,12 +277,12 @@ export class HanafudaGameState extends Phaser.Scene{
 
                 if (this.lastRoundWinner === "player") {
                 this.playerScore += this.lastRoundPoints;
-                this.playerScoreText.setText('Player Score: ${this.playerScore}');
+                this.playerPointsText.setText(`Player points: ${this.playerScore}`);
                 
             }
              else if (this.lastRoundWinner === "opponent") {
                 this.opponentScore += this.lastRoundPoints;
-                this.opponentScoreText.setText('Opponent Score: ${this.opponentScore}');
+                this.opponentPointsText.setText(`Benten points: ${this.opponentScore}`);
             }
                 this.transitionController.startFadeInTransition();
                 this.blackScreen =this.add.rectangle(0, 0, this.width, this.height, 0x000000).setOrigin(0, 0);

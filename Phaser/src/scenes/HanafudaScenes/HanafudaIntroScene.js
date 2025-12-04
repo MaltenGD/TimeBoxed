@@ -73,22 +73,22 @@ export class HanafudaIntro extends BaseScene{
 
             this.transitionController.startFadeOutTransition(() => {
                 this.scene.start('HanafudaBeginScene', this.playerData);
-                // this.scene.launch('ConfirmMenu',{
-                //     sceneToPause: this.scene.key,
-                //     playerData: this.playerData,
-                //     text: "Is your first time playing Aseb?\n Do you want to go through an explanation?",
-                //     onYes: () => {         
-                //         this.scene.stop(this.playerData.SceneToResume);
-                //         this.scene.stop('ConfirmMenu');
-                //         this.scene.stop('OptionMenu');
-                //         this.scene.start('TutorialHanafuda', this.playerData);
-                //     },
-                //     onNo: () => {
-                //         this.scene.start('HanafudaBeginScene', this.playerData);
-                //         this.scene.stop('ConfirmMenu');
-                //         console.log("cambia de escena");
-                //     }
-                // });
+                this.scene.launch('ConfirmMenu',{
+                    sceneToPause: this.scene.key,
+                    playerData: this.playerData,
+                    text: "Is your first time playing Aseb?\n Do you want to go through an explanation?",
+                    onYes: () => {         
+                        this.scene.stop(this.playerData.SceneToResume);
+                        this.scene.stop('ConfirmMenu');
+                        this.scene.stop('OptionMenu');
+                        this.scene.start('TutorialHanafuda', this.playerData);
+                    },
+                    onNo: () => {
+                        this.scene.start('HanafudaBeginScene', this.playerData);
+                        this.scene.stop('ConfirmMenu');
+                        console.log("cambia de escena");
+                    }
+                });
             } , 400);  
         });
     }

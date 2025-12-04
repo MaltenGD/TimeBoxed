@@ -52,7 +52,7 @@ export default class HanafudaPoints {
             console.log("player Elige KoiKoi");
             this.close();
             this.scene.currentState = null;
-            this.onKoiKoi(); 
+            this.onKoikoi(); 
         });
 
         shobu.setInteractive()
@@ -66,14 +66,18 @@ export default class HanafudaPoints {
         });
     }
 
-    onShobu() {
+    onShobu(totalPoints) {
         //this.scene.shobuWinner = this.scene.playerTurn ? "player" : "opponent";
         this.scene.lastRoundWinner = "player";
-        this.scene.lastRoundPoints = points;
+        this.scene.lastRoundPoints =totalPoints;
+        this.scene.koikoiActivePlayer = false;
+        this.scene.koikoiAccumulatedPlayer = 0;
         this.scene.transitionTo(HANAFUDA_STATE.FINISH_ROUND);
     }
 
     onKoikoi() {
+        this.scene.koikoiActivePlayer = true;
+
         if(this.scene.previousState === HANAFUDA_STATE.SEARCH_ACTION)
         this.scene.transitionTo(HANAFUDA_STATE.REFILL_ACTION);
 
@@ -104,6 +108,29 @@ export default class HanafudaPoints {
         this.scene.time.delayedCall(1500, () => { this.close();});
     }
 
+    onEnemyShobu(yaku,points) {
+
+        console.log("Enemy shobu with", points);
+
+        this.scene.lastRoundWinner = "opponent";
+        this.scene.lastRoundPoints = points;
+        this.showEnemy(yaku,points);
+        this.scene.koikoiActiveEnemy = false;
+        this.scene.koikoiAccumulatedEnemy = points;
+        this.scene.transitionTo(HANAFUDA_STATE.FINISH_ROUND);
+
+        }
+    onKoikoiEnemy(yaku,points) {
+            this.scene.koikoiActiveEnemy = true;
+            this.showEnemy(yaku, points);
+            if(this.scene.previousState === HANAFUDA_STATE.SEARCH_ACTION)
+            this.scene.transitionTo(HANAFUDA_STATE.REFILL_ACTION);
+
+            if(this.scene.previousState === HANAFUDA_STATE.REFILL_ACTION)
+            this.scene.transitionTo(HANAFUDA_STATE.CHECK_END_ROUND);
+        }
+
+
     checkYakus() {
         const cards = this.scene.playerTurn ? this.scene.playerPairs : this.scene.opponentPairs;
         const { yakus, points } = calculateYakus(cards);
@@ -112,16 +139,27 @@ export default class HanafudaPoints {
 
         const last = yakus[yakus.length - 1];
 
-        this.scene.lastRoundPoints = points;
-        this.scene.lastRoundWinner = this.scene.playerTurn ? "player" : "opponent";
+        // this.scene.lastRoundPoints = points;
+        // this.scene.lastRoundWinner = this.scene.playerTurn ? "player" : "opponent";
+        let active = this.scene.playerTurn ? this.scene.koikoiActivePlayer : this.scene.koikoiActiveEnemy;
+        let accumulated = this.scene.playerTurn? this.scene.koikoiAccumulatedPlayer : this.scene.koikoiAccumulatedEnemy;
 
-        if (this.scene.playerTurn) this.showPlayer(last, points);
+        if (active) 
+        {
+        accumulated += points;
+        } 
+        else {
+            accumulated = points;
+        }
+
+        if (this.scene.playerTurn) this.showPlayer(last, accumulated);
         else{
             const shobu = Math.random() < 0.5;
             console.log("enemy decision Yaku:", shobu ? "Shobu" : "Koikoi");
-            this.showEnemy(last, points);
-            if (shobu) this.onShobu();
-            else this.onKoikoi();
+            this.showEnemy(last, accumulated);
+
+            if (shobu) this.onEnemyShobu(last,accumulated);
+            else this.onKoikoiEnemy(last, accumulated);
         }
     }
 

@@ -6,8 +6,7 @@
             "speaker":"Kronos",
             "text":"Welcome my friend, I hope your paws are steady. Hanafuda is an ancient Japanese card game, tradition, elegance, and gambling all mixed together.",
             "animation":"true",
-            "next":"HTD2",
-            "image": ""
+            "next":"HTD2"
 
         },
 
@@ -76,7 +75,7 @@
         "HTD9":
         {
             "speaker":"Kronos",
-            "text":"Yes, two chances per turn. Easy, right? Even a god can understand it.",
+            "text":"Yes, two chances per turn. Easy, right? Even a stray cat like you can understand it.",
             "animation":"true",
             "next":"HTD10",
             "iamge":""
@@ -85,7 +84,7 @@
         "HTD10":
         {
             "speaker":"Kronos",
-            "text":"The goal is to make yaku, that means special combinations of cards. When you make a yaku, you score points. Points good. Losing bad. Simple.",
+            "text":"The goal is to make yaku--special combinations of cards. When you make a yaku, you score points. Points good. Losing bad. Simple.",
             "animation":"true",
             "next":"HTD11",
             "image":""
@@ -148,7 +147,7 @@
         "HTD17":
         {
             "speaker":"Kronos",
-            "text":"So remember: Match cards, make yaku. Choose Koikoi if you’re feeling luck, choose Shobu if you’re feeling scared.",
+            "text":"So remember: Match cards, make yaku. Choose Koikoi if you’re feeling lucky, choose Shobu if you’re feeling scared.",
             "animation":"true",
             "next":"HTD18",
             "image":""
@@ -156,8 +155,8 @@
 
         "HTD18":
         {
-            "speaker":"",
-            "text":"If your little cat brain needs a refresher, open the menu and choose Help and I’ll repeat myself like a very handsome, very annoyed tutor",
+            "speaker":"Kronos",
+            "text":"If your little cat brain needs a refresher, open the menu and choose Help and I’ll repeat myself like a very handsome, very annoyed tutor.",
             "animation":"true",
             "next":"HTD19",
             "image":""
@@ -166,9 +165,9 @@
         "HTD19":
         {
             "speaker":"Kronos",
-            "text":"Time to play for real, good luck! You’ll need it",
+            "text":"Time to play for real, good luck! You’ll need it.",
             "animation":"true",
-            "next":"HTD20"
+            "next":"null"
         }
 
     }
