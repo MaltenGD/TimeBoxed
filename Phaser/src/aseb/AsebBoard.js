@@ -115,7 +115,7 @@ export default class AsebBoard extends Phaser.GameObjects.Image
      * Calculates the target board position for a piece given a number of moves.
      * @param {AsebPiece} piece - The piece to calculate the move for.
      * @param {number} numPositions - The number of squares to move.
-     * @returns {{row: number, col: number}} The calculated target row and column.
+     * @returns The calculated target row and column.
      */
     getNextBoardPosition(piece, numPositions)  
     {
@@ -163,7 +163,7 @@ export default class AsebBoard extends Phaser.GameObjects.Image
      * Checks if there are any valid moves available for a given set of pieces and a move distance.
      * @param {AsebPiece[]} piecesArray - The array of pieces to check (player pieces or enemy pieces).
      * @param {number} moves - The number of squares to move.
-     * @returns {boolean} True if at least one valid move exists, false otherwise.
+     * @returns True if at least one valid move exists, false otherwise.
      */
     IsThereValidMoves(piecesArray, moves)
     {
@@ -185,7 +185,7 @@ export default class AsebBoard extends Phaser.GameObjects.Image
      * Validates a potential move for a piece to a target row and column.
      * @param {AsebPiece} piece - The piece that is intended to move.
      * @param {{row: number, col: number}} position - The target destination with row and column.
-     * @returns {{isValid: boolean, piece: AsebPiece|null, isSpecialPosition: boolean, msg: string}} An object describing the validity of the move.
+     * @returns An object describing the validity of the move.
      */
     IsValidMove(piece, {row, col})
     {
@@ -210,7 +210,7 @@ export default class AsebBoard extends Phaser.GameObjects.Image
      * This function handles validating the move, capturing opponent pieces, and emitting events.
      * @param {AsebPiece} piece - The piece to move.
      * @param {{row: number, col: number}} The target destination with row and column.
-     * @returns {boolean} True if the move was successful, false otherwise.
+     * @returns True if the move was successful, false otherwise.
      */
     TryMovePiece(piece , {row, col})
     {

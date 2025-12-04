@@ -7,7 +7,7 @@ import { BaseScene } from '../BaseScene.js';
 
 /**
  * @class AsebBeginScene
- * @description A Phaser Scene that handles the initial "who goes first" sequence of the Aseb game.
+ * @description handles the initial "who goes first" sequence of the Aseb game.
  * Both the player and Anubis throw the sticks, and the one with the higher score starts the game.
  */
 export class AsebBeginScene extends BaseScene {
@@ -26,20 +26,10 @@ export class AsebBeginScene extends BaseScene {
     };
     constructor() {
         super('AsebBeginScene');
-        /** @type {boolean} - Debug flag. If true, might skip parts of the sequence. */
+        /** @type {boolean} - Debug flag. If true, skips parts of the sequence. */
         this.debugMode = false; // Set to true to skip turn decision and start game immediately
         /** @type {string} - The current state of the scene's mini game flow. */
         this.state = this.GAME_STATE.RECEIVING_STATE;
-    }
-
-    /**
-     * Preloads all necessary assets for this scene.
-     */
-     preload() {
-        /** @type {number} */
-        let {width, height} = this.sys.game.canvas;
-        this.width = width;
-        this.height = height;
     }
 
     /**
@@ -70,6 +60,7 @@ export class AsebBeginScene extends BaseScene {
         this.backBtn = this.add.container(140, 80, [ backBtnImage, backBtnText ]);
         this.backBtn.setSize(backBtnImage.width * 0.5, backBtnImage.height * 0.5).setInteractive()
             .on('pointerover', () => {
+                this.sound.play('buttonHover', { volume: 2 * this.playerData.sfxVolume }); 
                 this.tweens.add({ targets: this.backBtn, scale: 1.1, duration: 100, ease: 'Power1' });
             })
             .on('pointerout', () => {
@@ -86,6 +77,7 @@ export class AsebBeginScene extends BaseScene {
         this.throwBtn.setSize(this.throwBtnImage.width, this.throwBtnImage.height).setInteractive()
             .on('pointerover', () => {
                 if (this.throwBtn.active) {
+                    this.sound.play('buttonHover', { volume: 2 * this.playerData.sfxVolume }); 
                     this.tweens.add({
                         targets: this.throwBtn,
                         scale: 1.1,
@@ -133,6 +125,10 @@ export class AsebBeginScene extends BaseScene {
      */
     async create(playerData)  // El async se debe a que quiero esperar a que cargue la font, en caso de no usar async, la font puede no cargar a tiempo
     {
+
+        let {width, height} = this.sys.game.canvas;
+        this.width = width;
+        this.height = height;
 
         this.playerData = playerData;
 
@@ -241,19 +237,20 @@ export class AsebBeginScene extends BaseScene {
                 this.setObjectState(this.throwBtn, true);
                 this.throwBtn
                 .off('pointerdown')
-                .on('pointerdown', () => this.startActualGame());
+                .on('pointerdown', () => 
+                    {
+
+                    this.transitionController.startFadeOutTransition(() => {
+                        this.scene.start('AsebScene', this.playerData);
+                    }, 400);
+                    }
+                    
+                );
             }
         })
         
     }
 
-    /**
-     * Starts the main Aseb game scene, passing the result of who goes first.
-     */
-    startActualGame() {
-        // Changes the Scene
-        this.scene.start('AsebScene', this.playerData);
-    }
 
     /**
      * Displays the stick images on screen based on the throw results.
@@ -367,6 +364,7 @@ export class AsebBeginScene extends BaseScene {
     }
     setTextWithAnimation(textObject, newText, AnimDuration = 175)
     {
+        this.sound.play('TextPop', { volume: 0.5 * this.playerData.sfxVolume });
         textObject.setText(newText);
         this.tweens.add({
             targets: textObject,

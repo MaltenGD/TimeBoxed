@@ -7,14 +7,12 @@ export class BaseScene extends Phaser.Scene {
     constructor(key) {
         super({ key: key });
         this.soundInstances = [];
-        this.OptionMenuCanBeOpened = true;
+        this.OptionMenuCanBeOpened = true; // By default, the option menu can be opened
+        // This flag makes the back button not functional when false
     }
 
     init() {
-        // Listen for the scene's shutdown event.
-        // When it occurs, call the shutdown method.
-        // This is done in `init` because scene systems (like `events`)
-        // are not available in the constructor.
+        // Listener for the scene's shutdown event.
         this.events.on('shutdown', this.shutdown, this);
         this.input.keyboard.on('keydown-ESC', this.openOptionMenu, this);
 
@@ -40,11 +38,17 @@ export class BaseScene extends Phaser.Scene {
         })
     }
 
+    /**
+     * Disables the option menu from being opened.
+     */
     DisableOptionMenu() {
         this.OptionMenuCanBeOpened = false;
         this.input.keyboard.off('keydown-ESC', this.openOptionMenu, this);
     }
 
+    /**
+     * Enables the option menu to be opened.
+     */
     EnableOptionMenu() {
         
         this.OptionMenuCanBeOpened = true;
