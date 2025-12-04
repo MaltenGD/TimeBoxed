@@ -14,6 +14,7 @@ import { AsebDefeatScene } from './scenes/asebScenes/AsebDefeatScene.js';
 import { ConfirmMenuScene } from './scenes/ConfirmMenuScene.js';
 import { IntroAseb } from './scenes/asebScenes/IntroAseb.js';
 import { OptionMenuScene } from './scenes/OptionMenuScene.js';
+import { YakusMenu } from './scenes/HanafudaScenes/YakusMenu.js';
 import { HelpLobbyScene } from './scenes/HelpLobbyScene.js';
 import { ItemsScene } from './scenes/ItemsScene.js';
 import { TimeBoxedDefeat } from './scenes/TimeBoxedDefeat.js';
@@ -67,6 +68,7 @@ const config = {
         TimeBoxedDefeat,
         GameCompleted,
         OptionMenuScene,
+        YakusMenu,
         ItemsScene,
         HelpLobbyScene,
         TaliTutorial,

@@ -84,6 +84,13 @@ export class HanafudaGameState extends Phaser.Scene{
         this.openOptionMenu();
         });
 
+        this.yakusMenuBtn = this.add.text(0, 300, '<< Yaku List', {fontSize: 32, color: '#ffffff',backgroundColor: '#00000088',
+        padding: { left: 10, right: 10, top: 5, bottom: 5 }})
+        .setInteractive()
+        .on('pointerdown', () => {
+            this.openYakusMenu();
+        });
+
         this.input.keyboard.on('keydown-ESC', () => {
             this.openOptionMenu();
         });
@@ -398,6 +405,15 @@ export class HanafudaGameState extends Phaser.Scene{
         this.playerData.SceneToResume = this.scene.key;
         this.scene.launch('OptionMenu', this.playerData);
     }
+
+    openYakusMenu() {
+    if (this.scene.isActive('YakusMenu')) return;
+    this.scene.pause();
+    this.playerData.sceneToResume = this.scene.key;
+
+    this.scene.launch('YakusMenu', this.playerData);
+    }
+
 
     renderCards(){
         this.render.renderOpponentCards();
