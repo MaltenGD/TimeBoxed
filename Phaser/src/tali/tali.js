@@ -83,8 +83,8 @@ export default class Tali {
      * Adds all the images.
      */
     addImages() {
-        for (let i = 0, j = 1; i < Tali.DICE_THROW_NAMES.length; i++, j++) {
-            this.throwImages[i] = this.scene.add.image(j*this.width/5, this.height/2, Tali.DICE_THROW_NAMES[i]).setOrigin(0.5).setAlpha(0).setScale(0.4);
+        for (let i = 0, j = -600; i < Tali.DICE_THROW_NAMES.length; i++, j+=300) {
+            this.throwImages[i] = this.scene.add.image(this.width/2 + j, this.height/2, Tali.DICE_THROW_NAMES[i]).setOrigin(0.5).setAlpha(0).setScale(0.35);
             this.throwImages[i].depth = 1;
         }
     }
