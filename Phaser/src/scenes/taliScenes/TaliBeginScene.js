@@ -58,18 +58,48 @@ export class TaliBeginScene extends BaseScene {
      */
     createButtons() {
         const btnImg = this.add.image(0, 0, 'taliButton');
+
         const btn = this.add.text(0, 0, 'Roll!', {
-            fontSize: 100,
+            fontSize: 120,
             fill: '#fff',
             fontFamily: 'TaliOne'
         })
-        .setOrigin(0.5)
+        .setOrigin(0.5);
+
+        
 
         this.rollBtn = this.add.container(this.width/2, 4*this.height/5, [ btnImg, btn ])
-        this.rollBtn.setSize(btnImg.width, btnImg.height)
+        this.rollBtn.setSize(btnImg.width, btnImg.height);
+
+        this.shine = this.add.rectangle(
+            -this.rollBtn.width,            // start far left so it slides across
+            0,
+            btnImg.width,
+            btnImg.height / 2,
+            0xffffff,
+            0.4
+        );
+        this.shine.setAngle(45);
+
+        this.rollBtn.add(this.shine);
+
+        const mask = this.make.graphics();
+        mask.fillStyle(0xffffff);
+        mask.fillRect(-this.rollBtn.width/2, -this.rollBtn.height/2, btnImg.width, btnImg.height);
+        this.shine.setMask(mask.createGeometryMask());
+
         this.rollBtn.setInteractive()
         .setScale(0.5)
-        .on('pointerover', () => this.tweens.add({ targets: this.rollBtn, scale: 0.6, duration: 100, ease: 'Power1' }))
+        .on('pointerover', () => {
+            this.tweens.add({ targets: this.rollBtn, scale: 0.6, duration: 100, ease: 'Power1' });
+            this.tweens.add({
+                targets: this.shine,
+                x: this.rollBtn.width,
+                duration: 500,
+                ease: 'Power2',
+                onComplete: () => this.shine.x = -this.rollBtn.width
+            });
+        })
         .on('pointerout', () => this.tweens.add({ targets: this.rollBtn, scale: 0.5, duration: 100, ease: 'Power1' }))
         .once('pointerdown', () => this.continue(this.GAME_STATE.PLAYER_ROLL));
 
@@ -80,6 +110,7 @@ export class TaliBeginScene extends BaseScene {
         .on('pointerdown', () => this.openOptionMenu());
         
     }
+
 
     /**
      * Adds all the images to the scene.
@@ -117,7 +148,7 @@ export class TaliBeginScene extends BaseScene {
     addText() {
         this.enemyScore = this.add.text(this.width - 20, 20, "Mercury's Score: " + this.taliGame.enemyScore, {fontSize: 50, fontFamily: 'TaliOne'}).setOrigin(1, 0);
         this.playerScore = this.add.text(20, this.height - 20, 'Your Score: ' + this.taliGame.playerScore, {fontSize: 50, fontFamily: 'TaliOne'}).setOrigin(0, 1);
-        this.turnText = this.add.text(this.width/2, this.height/3, 'Roll to decide who begins:', { fontSize: 64, fill: '#fff', fontFamily: 'TaliOne'}).setOrigin(0.5);
+        this.turnText = this.add.text(this.width/2, this.height/2.5, 'Roll to decide who begins:', { fontSize: 100, fill: '#fff', fontFamily: 'TaliOne'}).setOrigin(0.5);
         this.resultText = this.add.text(this.width/2, this.height - this.height/3, ' ', { fontSize: 64, fill: '#fff', fontFamily: 'TaliOne'}).setOrigin(0.5);
     }
 
@@ -181,7 +212,8 @@ export class TaliBeginScene extends BaseScene {
      */
     playerRolls() {
         // this.animateHands();
-        this.setTextWithAnimation(this.turnText, "Your turn:");
+        this.turnText.setPosition(this.width/2, this.height/3);
+        this.setTextWithAnimation(this.turnText, "Your rolls:");
         this.rollBtn.setAlpha(0);
         this.playerScore = this.taliGame.playerTurn();
         this.taliGame.emitter.once('diceIn', () => {

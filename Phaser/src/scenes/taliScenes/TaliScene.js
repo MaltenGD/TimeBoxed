@@ -141,10 +141,10 @@ export class TaliScene extends BaseScene {
      * Adds all the text to the scene.
      */
     addText() {
-        this.enemyScoreText = this.add.text(this.width - 20, 20, "Mercury's Score: 0", {fontSize: 50, fontFamily: 'TaliOne'}).setOrigin(1, 0);
-        this.playerScoreText = this.add.text(20, this.height - 20, 'Your Score: 0', {fontSize: 50, fontFamily: 'TaliOne'}).setOrigin(0, 1);
-        this.turnText = this.add.text(this.width/2, this.height/5, '', { fontSize: 64, fill: '#fff', fontFamily: 'TaliOne'}).setOrigin(0.5);
-        this.resultText = this.add.text(this.width/2, this.height - this.height/3, '', { fontSize: 64, fill: '#fff', fontFamily: 'TaliOne'}).setOrigin(0.5);
+        this.enemyScoreText = this.add.text(this.width - 20, 20, "Mercury's Score: 0", {fontSize: 60, fontFamily: 'TaliOne'}).setOrigin(1, 0);
+        this.playerScoreText = this.add.text(20, this.height - 20, 'Your Score: 0', {fontSize: 60, fontFamily: 'TaliOne'}).setOrigin(0, 1);
+        this.turnText = this.add.text(this.width/2, this.height/5, '', { fontSize: 80, fill: '#fff', fontFamily: 'TaliOne'}).setOrigin(0.5);
+        this.resultText = this.add.text(this.width/2, this.height - this.height/3, '', { fontSize: 80, fill: '#fff', fontFamily: 'TaliOne'}).setOrigin(0.5);
     }
 
     /**
