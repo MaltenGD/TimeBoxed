@@ -69,15 +69,18 @@ export class HanafudaBeginScene extends Phaser.Scene
             this.mazo[randomNumber] = aux1;
         }
 
+
+        this.cardsZone = this.add.rectangle(150, 310, 1550, 340, 0x002016, 0.7).setOrigin(0, 0);  
+
         for(let i = 0; i < 8; ++i){
-            const image = this.add.image(250 + i * 200, this.height - 600, `Card${this.mazo[i].number}`).setScale(0.35);
+            const image = this.add.rectangle(250 + i * 190, this.height - 600, 150, 250, 0x609C86).setScale(1);
             this.cardsObjects.push(image);
         }
 
         this.cardsObjects.forEach((card, i) =>{
             card.setInteractive();
-            card.on('pointerover', () => card.setScale(0.37));
-            card.on('pointerout', () => card.setScale(0.35));
+            card.on('pointerover', () => card.setScale(0.95));
+            card.on('pointerout', () => card.setScale(1));
             card.on('pointerdown', () => {
                 this.onCardSelected(this.mazo[i]);
             });
@@ -93,7 +96,9 @@ export class HanafudaBeginScene extends Phaser.Scene
         this.playerCard = card;
         console.log("Player selected:", card);
         this.cardsObjects.forEach(cardObject => cardObject.disableInteractive());
-        this.add.image(this.width/2 + 500, this.height/2 + 400,`Card${card.number}`).setScale(0.2);
+        const chosenCard = this.add.image(this.width/2 + 500, this.height/2 + 400,`Card${card.number}`).setScale(0.2);
+        this.add.tween({ targets: chosenCard, scaleX: 0.24, scaleY: 0.24, duration: 200, ease: 'Power2', yoyo: true,});
+
         this.infoText.setText("Player has selected a card");
 
         this.time.delayedCall(1000, () => {this.infoText.setText("Oponent is selecting a card");});
@@ -114,20 +119,20 @@ export class HanafudaBeginScene extends Phaser.Scene
         });
 
         this.time.delayedCall(1000, () => {
-            this.add.image(this.width/2 - 500, this.height/2 + 400,`Card${this.oponentcard.number}`).setScale(0.2);
+            const opponentCard = this.add.image(this.width/2 - 500, this.height/2 + 400,`Card${this.oponentcard.number}`).setScale(0.2);
+            this.add.tween({ targets: opponentCard, scaleX: 0.24, scaleY: 0.24, duration: 200, ease: 'Power2', yoyo: true,});
         });
          
-
         if(this.oponentcard.number < this.playerCard.number){
             this.playerBegins = false;
-            console.log("Opponent starts");
+            //console.log("Opponent starts");
             this.time.delayedCall(2000, () => {
                 this.infoText.setText("Oponent Starts");
             });
         }
         else{
             this.playerBegins = true;
-            console.log("Player starts");
+            //console.log("Player starts");
             this.time.delayedCall(2000, () => {
                 this.infoText.setText("Player Starts");
             });
