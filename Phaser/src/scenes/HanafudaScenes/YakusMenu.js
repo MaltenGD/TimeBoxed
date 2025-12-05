@@ -5,146 +5,126 @@ export class YakusMenu extends Phaser.Scene {
 
     init(data) {
         this.playerData = data;
-        this.cacheKeys = [];
+        this.closing = false;
     }
 
     preload() {
-
     }
 
     create() {
+
+
         const width = this.scale.width;
         const height = this.scale.height;
 
-        this.panelWidth = 420;
         this.overlay = this.add.rectangle(0, 0, width, height, 0x000000, 0.5)
             .setOrigin(0, 0)
             .setInteractive()
-            .setDepth(4)
+            .setDepth(10)
             .on('pointerdown', () => this.closeMenu());
 
-        this.panel = this.add.graphics();
-        this.panel.fillStyle(0x111111, 0.95);
-        this.panel.fillRect(0, 0, this.panelWidth, height);
-        this.panel.x = -this.panelWidth;
-        this.panel.y = 0;
-        this.panel.setDepth(5);
+        const imageWidth = width * 0.8;
+        const imageHeight = (imageWidth * 2) / 3;
+        this.imageContainer = this.add.container(width / 2, height / 2)
+            .setDepth(11);
 
-        this.title = this.add.text(-this.panelWidth + 20, 30, "Combinations (Yakus)", {
-            fontSize: '32px',
-            color: '#ffffff',
-            fontStyle: 'bold'
-        }).setDepth(6);
+        if (this.textures.exists('Combanations')) {
+            this.combinationsImage = this.add.image(0, 0, 'Combanations')
+                .setOrigin(0.5)
+                .setDisplaySize(imageWidth, imageHeight);
+        }
 
-        this.container = this.add.container(-this.panelWidth, 100).setDepth(6);
-
-        const maskShape = this.add.graphics();
-        maskShape.fillRect(0, 0, this.panelWidth - 20, height - 140);
-        maskShape.x = 0;
-        maskShape.y = 0;
-        maskShape.setVisible(false);
-        
-        const mask = new Phaser.Display.Masks.GeometryMask(this, maskShape);
-        this.container.setMask(mask);
-        const yakus = [
-            { 
-                name: "Ryujin", 
-                points: "4 points",
-                cards: ["4 cartas del mismo mes"] 
-            },
-            { 
-                name: "Tane", 
-                points: "3 points",
-                cards: ["5 cartas con simbolo especial"] 
-            },
-            { 
-                name: "Kajin", 
-                points: "3 points",
-                cards: ["3 cartas con cinta"] 
-            },
-
-            { 
-                name: "Doujin", 
-                points: "2 points",
-                cards: ["3 cartas de 3 meses diferentes que forman una estación"] 
-            },
-            { 
-                name: "Fujin", 
-                points: "2 points ",
-                cards: ["12 cartas básicas (sin símbolo ni cinta)"] 
-            }
-        ];
-
-        let y = 0;
-
-        yakus.forEach((yaku, index) => {
-            const bg = this.add.graphics();
-            bg.fillStyle(0x222222, 0.7);
-            bg.fillRect(10, y, this.panelWidth - 30, 110);
-            this.container.add(bg);
-            const nameText = this.add.text(20, y + 10, yaku.name, {
-                fontSize: '24px',
+        this.closeBtn = this.add.text(
+            imageWidth / 2 - 20,
+            -imageHeight / 2 + 20,
+            "X",
+            {
+                fontSize: '32px',
                 color: '#ffffff',
-                fontStyle: 'bold',
-                wordWrap: { width: this.panelWidth - 50 }
-            });
-            this.container.add(nameText);
-            const pointsText = this.add.text(20, y + 45, yaku.points, {
-                fontSize: '18px',
-                color: '#0077ffff'
-            });
-            this.container.add(pointsText);
-            const cardsText = this.add.text(20, y + 75, yaku.cards.join(', '), {
-                fontSize: '16px',
-                color: '#cccccc',
-                wordWrap: { width: this.panelWidth - 50 }
-            });
-            this.container.add(cardsText);
+                backgroundColor: '#1aaa00ff',
+                padding: { x: 8, y: 4 }
+            }
+        )
+        .setOrigin(0.5)
+        .setDepth(12)
+        .setInteractive({ useHandCursor: true })
+        .on('pointerover', () => this.closeBtn.setStyle({ 
+            color: '#ffcccc',
+            backgroundColor: '#cc0000'
+        }))
+        .on('pointerout', () => this.closeBtn.setStyle({ 
+            color: '#ffffff',
+            backgroundColor: '#aa0000'
+        }))
+        .on('pointerdown', () => this.closeMenu());
 
-            y += 150;
-        });
+        this.imageContainer.add([this.combinationsImage, this.closeBtn]);
 
-        this.containerHeight = y;
+        this.overlay.setAlpha(0);
+        this.imageContainer.setScale(0);
+        this.imageContainer.setAlpha(0);
 
         this.tweens.add({
-            targets: this.panel,
-            x: 0,
-            duration: 350,
+            targets: this.overlay,
+            alpha: 0.5,
+            duration: 200,
             ease: 'Cubic.easeOut'
         });
 
         this.tweens.add({
-            targets: this.title,
-            x: 20,
-            duration: 350,
-            ease: 'Cubic.easeOut'
+            targets: this.imageContainer,
+            scaleX: 1,
+            scaleY: 1,
+            alpha: 1,
+            duration: 300,
+            ease: 'Back.easeOut',
+            delay: 50
         });
 
-        this.tweens.add({
-            targets: this.container,
-            x: 20,
-            duration: 350,
-            ease: 'Cubic.easeOut'
-        });
-        this.input.on("wheel", (pointer, gameObjects, deltaX, deltaY) => {
-            this.container.y += deltaY * 0.5;
-
-            const maxScroll = Math.max(0, this.containerHeight - (height - 140));
-            this.container.y = Phaser.Math.Clamp(this.container.y, -maxScroll, 100);
-        });
+        console.log("YakusMenu creadp");
     }
 
     closeMenu() {
+        console.log("closeMenu llamado, closing:", this.closing);
+
+        if (this.closing) return;
+        this.closing = true;
+
+        if (this.closeBtn) this.closeBtn.disableInteractive();
+        if (this.overlay) this.overlay.disableInteractive();
+
+        // salida
+        this.tweens.add({
+            targets: this.imageContainer,
+            scaleX: 0,
+            scaleY: 0,
+            alpha: 0,
+            duration: 250,
+            ease: 'Back.easeIn'
+        });
 
         this.tweens.add({
-            targets: [this.panel, this.title, this.container, this.closeBtn],
-            x: -this.panelWidth,
-            duration: 350,
+            targets: this.overlay,
+            alpha: 0,
+            duration: 250,
             ease: 'Cubic.easeIn',
             onComplete: () => {
+                console.log("Animation completada, reanudando escena principal");
+                
                 if (this.playerData && this.playerData.sceneToResume) {
-                    this.scene.resume(this.playerData.sceneToResume);
+                    console.log("Escena reanudar:", this.playerData.sceneToResume);
+                    const mainScene = this.scene.get(this.playerData.sceneToResume);
+                    
+                    if (mainScene) {
+                        console.log("Escena principal encontrada, está pausada?", mainScene.scene.isPaused());
+                        if (mainScene.scene.isPaused()) {
+                            this.scene.resume(this.playerData.sceneToResume);
+                            console.log("Escena reanudada");
+                        }
+                    }
                 }
+                
+                console.log("YakusMenu parado");
                 this.scene.stop();
             }
         });

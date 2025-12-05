@@ -226,6 +226,7 @@ export class LoadingScene extends Phaser.Scene
 
     loadHanafudaAssets()
     {
+        this.load.image('Combanations', 'Phaser/assets/Hanafuda/Tutorial/Combanations.png');
         this.load.image('HanafudaBackgroundPlaceholder', 'Phaser/assets/Hanafuda/HanafudaBackgroundPlaceholder.png');
         this.load.image('Card0', 'Phaser/assets/Hanafuda/HanafudaCards/0.png');
         this.load.image('Card1', 'Phaser/assets/Hanafuda/HanafudaCards/1.png');
@@ -275,6 +276,8 @@ export class LoadingScene extends Phaser.Scene
         this.load.image('Card45', 'Phaser/assets/Hanafuda/HanafudaCards/45.png');
         this.load.image('Card46', 'Phaser/assets/Hanafuda/HanafudaCards/46.png');
         this.load.image('Card47', 'Phaser/assets/Hanafuda/HanafudaCards/47.png');
+
+        
     }
 
     loadCreditsAssets() {
@@ -331,6 +334,8 @@ export class LoadingScene extends Phaser.Scene
         * @param {string} url - The URL of the JSON file to load.
         */
         this.load.json('AsebWinDialogue', 'Phaser/DialoguesJson/AsebWinDialogue.json');
+
+        this.load.json('HanafudaTutorialDialogue', 'Phaser/DialoguesJson/HanafudaTutorialDialogue.json');
 
         /** Load the json file for the hanafuda intro Dialogue, before hanafuda game starts.
         * @param {string} key - The key to reference the loaded JSON data.

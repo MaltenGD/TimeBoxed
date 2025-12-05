@@ -24,7 +24,7 @@ export class TutorialHanafuda extends BaseScene
         this.transitionController = new TransitionController(this);
         this.transitionController.startFadeInTransition();
 
-        const tutorialHanafudaData = this.cache.json.get('HanafudaTutorialdialogue');
+        const tutorialHanafudaData = this.cache.json.get('HanafudaTutorialDialogue');
         this.dialogueController = new DialogueController(this, "HanafudaTutorial", tutorialHanafudaData);
         this.dialogueController.iniDialogue();
         
