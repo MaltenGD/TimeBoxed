@@ -72,8 +72,8 @@ export class TaliBeginScene extends BaseScene {
         this.rollBtn.setSize(btnImg.width, btnImg.height);
 
         this.shine = this.add.rectangle(
-            -this.rollBtn.width,            // start far left so it slides across
-            0,
+            0,            // start far left so it slides across
+            4*this.height/5,
             btnImg.width,
             btnImg.height / 2,
             0xffffff,
@@ -81,23 +81,21 @@ export class TaliBeginScene extends BaseScene {
         );
         this.shine.setAngle(45);
 
-        this.rollBtn.add(this.shine);
-
         const mask = this.make.graphics();
         mask.fillStyle(0xffffff);
-        mask.fillRect(-this.rollBtn.width/2, -this.rollBtn.height/2, btnImg.width, btnImg.height);
+        mask.fillRect(this.width/2 - this.rollBtn.width/4, 4*this.height/5 - this.rollBtn.height/4, btnImg.width/2, btnImg.height/2);
         this.shine.setMask(mask.createGeometryMask());
 
         this.rollBtn.setInteractive()
         .setScale(0.5)
         .on('pointerover', () => {
-            this.tweens.add({ targets: this.rollBtn, scale: 0.6, duration: 100, ease: 'Power1' });
+            this.tweens.add({ targets: this.rollBtn, scale: 0.502, duration: 100, ease: 'Power1' });
             this.tweens.add({
                 targets: this.shine,
-                x: this.rollBtn.width,
+                x: 4*this.width/5,
                 duration: 500,
                 ease: 'Power2',
-                onComplete: () => this.shine.x = -this.rollBtn.width
+                onComplete: () => this.shine.x = 0
             });
         })
         .on('pointerout', () => this.tweens.add({ targets: this.rollBtn, scale: 0.5, duration: 100, ease: 'Power1' }))
