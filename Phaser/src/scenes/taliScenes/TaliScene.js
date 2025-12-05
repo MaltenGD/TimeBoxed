@@ -29,9 +29,13 @@ export class TaliScene extends BaseScene {
         this.height = height;
     }
 
-    create(playerData) {
+    async create(playerData) {
         this.playerData = playerData;
         console.log(this.playerData)
+
+        // Wait for the custom font to be loaded before creating any text
+        // The font size here doesn't matter, it just ensures the font family is ready.
+        await document.fonts.load('64px TaliOne');
 
         this.playerFirst = this.playerData.TaliPlayerFirst;
         
@@ -71,14 +75,12 @@ export class TaliScene extends BaseScene {
      * Creates and places all the buttons for the scene.
      */
     createButtons() {
-        this.rollBtn = this.createButton(this.width/2, 4*this.height/5, '', () => {});
-        this.backBtn = this.add.text(0, 0, 'Back', { fontSize: 64, fill: '#000000ff'})
+        this.rollBtn = this.createButton(this.width/2, 4*this.height/5, '', ()=>{});
+        this.backBtn = this.add.text(10, 10, 'Back', {fontSize: 50, fill: '#fff', fontFamily: 'TaliOne'})
         .setInteractive()
-        .on('pointerover', () => this.backBtn.setStyle({fill: 'rgba(104, 35, 35, 1)'}))
-        .on('pointerout', () => this.backBtn.setStyle({fill: '#000000ff'}))
-        .on('pointerdown', () => {
-            this.openOptionMenu();
-        });
+        .on('pointerover', () => this.tweens.add({targets: this.backBtn, scale: 1.1, duration: 100, ease: 'Power1'}))
+        .on('pointerout', () => this.tweens.add({targets: this.backBtn, scale: 1, duration: 100, ease: 'Power1'}))
+        .on('pointerdown', () => this.openOptionMenu());
     }
 
     /**
@@ -91,19 +93,24 @@ export class TaliScene extends BaseScene {
      * @param {*} pointeroverStyle Style when hovering over the button
      * @returns 
      */
-    createButton(x, y, label, onClick = () => {}, style = {backgroundColor: '#fff', fill: '#000', fontSize: 80}, pointeroverStyle = {fill: 'rgba(116, 8, 9, 1)'}) {
-        const btn = this.add.text(x, y, label, {
+    createButton(x, y, label, onClick = () => {}, style = {fill: '#fff', fontSize: 100, fontFamily: 'TaliOne'}, pointeroverStyle = {fill: 'rgba(116, 8, 9, 1)'}) {
+        const btnImg = this.add.image(0, 0, 'taliButton');
+        const btn = this.add.text(0, 0, label, {
             fontSize: style.fontSize,
             fill: style.fill,
-            backgroundColor: style.backgroundColor
+            fontFamily: style.fontFamily
         })
         .setOrigin(0.5)
-        .setInteractive()
-        .on('pointerover', () => btn.setStyle({ fill: pointeroverStyle.fill }))
-        .on('pointerout', () => btn.setStyle({ fill: style.fill }))
+
+        const button = this.add.container(x, y, [ btnImg, btn ])
+        button.setSize(btnImg.width, btnImg.height)
+        button.setInteractive()
+        .setScale(0.5)
+        .on('pointerover', () => this.tweens.add({ targets: button, scale: 0.6, duration: 100, ease: 'Power1' }))
+        .on('pointerout', () => this.tweens.add({ targets: button, scale: 0.5, duration: 100, ease: 'Power1' }))
         .on('pointerdown', onClick);
 
-        return btn;
+        return button;
     }
 
     /**
@@ -113,11 +120,11 @@ export class TaliScene extends BaseScene {
      * @param {*} onClick the new event on click
      */
     resetButton(btn, label, onClick) {
-        btn.removeAllListeners('pointerdown')
-            .setText(label)
-            .setInteractive()
-            .once('pointerdown', onClick);
         this.setObjectState(btn, true);
+        btn.removeAllListeners('pointerdown')
+        btn.list[1].setText(label)
+        btn.setInteractive()
+        .once('pointerdown', onClick);
     }
 
     /**
@@ -134,17 +141,37 @@ export class TaliScene extends BaseScene {
      * Adds all the text to the scene.
      */
     addText() {
-        this.enemyScoreText = this.add.text(this.width - 20, 20, "Mercury's Score: 0", {fontSize: 32}).setOrigin(1, 0);
-        this.playerScoreText = this.add.text(20, this.height - 20, 'Your Score: 0', {fontSize: 32}).setOrigin(0, 1);
-        this.turnText = this.add.text(this.width/2, this.height/5, '', { fontSize: 64, fill: '#000'}).setOrigin(0.5);
-        this.resultText = this.add.text(this.width/2, this.height - this.height/3, '', { fontSize: 64, fill: '#000'}).setOrigin(0.5);
+        this.enemyScoreText = this.add.text(this.width - 20, 20, "Mercury's Score: 0", {fontSize: 50, fontFamily: 'TaliOne'}).setOrigin(1, 0);
+        this.playerScoreText = this.add.text(20, this.height - 20, 'Your Score: 0', {fontSize: 50, fontFamily: 'TaliOne'}).setOrigin(0, 1);
+        this.turnText = this.add.text(this.width/2, this.height/5, '', { fontSize: 64, fill: '#fff', fontFamily: 'TaliOne'}).setOrigin(0.5);
+        this.resultText = this.add.text(this.width/2, this.height - this.height/3, '', { fontSize: 64, fill: '#fff', fontFamily: 'TaliOne'}).setOrigin(0.5);
+    }
+
+    /**
+     * Sets the text with an animation and plays a sound.
+     * @param {Text} textObject the text object to change.
+     * @param {string} newText the new text to set.
+     * @param {number} AnimDuration the duration of the animation
+     */
+    setTextWithAnimation(textObject, newText, AnimDuration = 100)
+    {
+        this.sound.play('TextPop', { volume: 0.5 * this.playerData.sfxVolume });
+        textObject.setText(newText);
+        this.tweens.add({
+            targets: textObject,
+            scaleX: 1.1,
+            scaleY: 1.1,
+            yoyo: true,
+            duration: AnimDuration,
+            ease: 'Power2',
+        });
     }
 
     /**
      * Starts the game.
      */
     startGame() { 
-        this.turnText.setText(this.playerFirst ? "Your turn! Roll the dice." : "Mercury starts!");
+        this.setTextWithAnimation(this.turnText, this.playerFirst ? "Your turn! Roll the dice." : "Mercury starts!");
         this.taliGame.startGame();
     }
 
@@ -159,9 +186,6 @@ export class TaliScene extends BaseScene {
 
     onStateChange(state) {
         console.log('State changed to: ' + state);
-
-        // TODO: add state for distracting mercury. will pause scene, 
-        // launch distract scene on top, and then back again, passing to the next state
 
         // TODO: make mercury's rolls show without having to press a button
 
@@ -194,11 +218,13 @@ export class TaliScene extends BaseScene {
     }
 
     onPlayerTurn() {
-        this.turnText.setText('Your turn!');
+        this.setTextWithAnimation(this.turnText, "Your turn!");
+        console.log("reset button");
         this.resetButton(this.rollBtn, 'Roll', () => {
+            console.log("rolll");
             this.setObjectState(this.rollBtn, false);
             this.taliGame.nextTurn();
-            this.turnText.setText('Your rolls:');
+            this.setTextWithAnimation(this.turnText, "Your rolls:");
         });
     }
 
@@ -206,7 +232,7 @@ export class TaliScene extends BaseScene {
         this.resetButton(this.rollBtn, 'Show combinations', () => {
             this.setObjectState(this.rollBtn, false);
             this.taliGame.nextTurn();
-            this.turnText.setText('Your combinations:');
+            this.setTextWithAnimation(this.turnText, "Your combinations:");
         })
     }
 
@@ -219,19 +245,20 @@ export class TaliScene extends BaseScene {
     }
 
     onEnemyTurn() {
-        this.turnText.setText('Mercury is rolling...');
+        this.setTextWithAnimation(this.turnText, "Mercury is rolling...")
         this.resetButton(this.rollBtn, 'Reveal rolls', () => {
             this.setObjectState(this.rollBtn, false);
             this.taliGame.nextTurn();
-            this.turnText.setText("Mercury's rolls:");
+            this.setTextWithAnimation(this.turnText, "Mercury's rolls:");
         })
     }
 
     onEnemyRolled() {
+
         this.resetButton(this.rollBtn, 'Distract Mercury!', () => {
             this.setObjectState(this.rollBtn, false);
-            this.turnText.setText("Mercury's combinations:");
             this.taliGame.nextTurn();
+            this.setTextWithAnimation(this.turnText, "");
         })
     }
 
@@ -245,7 +272,7 @@ export class TaliScene extends BaseScene {
             console.log("Resumed game.");
             this.resetButton(this.rollBtn, 'Show combinations', () => {
                 this.setObjectState(this.rollBtn, false);
-                this.turnText.setText("Mercury's combinations:");
+                this.setTextWithAnimation(this.turnText, "Mercury's combinations:");
                 this.taliGame.nextTurn();
             })    
         });

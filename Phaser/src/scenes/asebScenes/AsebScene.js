@@ -322,8 +322,6 @@ export class AsebScene extends BaseScene {
 
         });
     }
-
-
    
     /**
      * Handles the logic when a piece reaches the end of the board.

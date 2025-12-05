@@ -33,13 +33,15 @@ export class TaliBeginScene extends BaseScene {
         
     }
 
-    create(playerData) {
+    async create(playerData) {
         let {width, height} = this.sys.game.canvas;
         this.width = width;
         this.height = height;
 
         this.playerData = playerData;
         console.log(this.playerData)
+
+        await document.fonts.load('64px TaliOne');
 
         this.background = this.add.image(this.width / 2, this.height / 2, 'taliBackgroundPlaceholder').setDisplaySize(this.width, this.height);
 
@@ -48,36 +50,34 @@ export class TaliBeginScene extends BaseScene {
         this.transitionController = new TransitionController(this);
         this.transitionController.startFadeInTransition();
         this.addImages();
-        // this.addHands();
         this.createButtons();
         this.addText();
     }
-
-    // init() {
-    //     this.input.keyboard.on('keydown-ESC', () => {
-    //         if (this.scene.isActive('OptionMenu')) return;
-    //         this.scene.pause();
-    //         this.scene.launch('OptionMenu', { sceneToPause: this.scene.key });
-    //     });
-    // }
-
     /**
      * Creates and places all the buttons for the scene.
      */
     createButtons() {
-        this.rollBtn = this.add.text(this.width/2, 3*this.height/4, 'Roll!', { fontSize: 80, fill: '#000', backgroundColor: '#fff'}).setOrigin(0.5)
-        .setInteractive()
-        .on('pointerover', () => this.rollBtn.setStyle({fill: 'rgba(116, 8, 9, 1)'}))
-        .on('pointerout', () => this.rollBtn.setStyle({fill: '#000'}))
+        const btnImg = this.add.image(0, 0, 'taliButton');
+        const btn = this.add.text(0, 0, 'Roll!', {
+            fontSize: 100,
+            fill: '#fff',
+            fontFamily: 'TaliOne'
+        })
+        .setOrigin(0.5)
+
+        this.rollBtn = this.add.container(this.width/2, 4*this.height/5, [ btnImg, btn ])
+        this.rollBtn.setSize(btnImg.width, btnImg.height)
+        this.rollBtn.setInteractive()
+        .setScale(0.5)
+        .on('pointerover', () => this.tweens.add({ targets: this.rollBtn, scale: 0.6, duration: 100, ease: 'Power1' }))
+        .on('pointerout', () => this.tweens.add({ targets: this.rollBtn, scale: 0.5, duration: 100, ease: 'Power1' }))
         .once('pointerdown', () => this.continue(this.GAME_STATE.PLAYER_ROLL));
 
-        this.backBtn = this.add.text(0, 0, 'Back', { fontSize: 64, fill: '#000000ff'})
+        this.backBtn = this.add.text(10, 10, 'Back', {fontSize: 64, fill: '#fff', fontFamily: 'TaliOne'})
         .setInteractive()
-        .on('pointerover', () => this.backBtn.setStyle({fill: 'rgba(104, 35, 35, 1)'}))
-        .on('pointerout', () => this.backBtn.setStyle({fill: '#000000ff'}))
-        .on('pointerdown', () => {
-            this.openOptionMenu();
-        }).on('pointerout', () => this.backBtn.setStyle({fill: '#fff'}));
+        .on('pointerover', () => this.tweens.add({targets: this.backBtn, scale: 1.1, duration: 100, ease: 'Power1'}))
+        .on('pointerout', () => this.tweens.add({targets: this.backBtn, scale: 1, duration: 100, ease: 'Power1'}))
+        .on('pointerdown', () => this.openOptionMenu());
         
     }
 
@@ -115,10 +115,10 @@ export class TaliBeginScene extends BaseScene {
      * Adds all the text to the scene.
      */
     addText() {
-        this.enemyScore = this.add.text(this.width - 20, 20, "Mercury's Score: " + this.taliGame.enemyScore, {fontSize: 32}).setOrigin(1, 0);
-        this.playerScore = this.add.text(20, this.height - 20, 'Your Score: ' + this.taliGame.playerScore, {fontSize: 32}).setOrigin(0, 1);
-        this.turnText = this.add.text(this.width/2, this.height/3, 'Roll to decide who begins:', { fontSize: 64, fill: '#000'}).setOrigin(0.5);
-        this.resultText = this.add.text(this.width/2, this.height - this.height/3, ' ', { fontSize: 64, fill: '#000'}).setOrigin(0.5);
+        this.enemyScore = this.add.text(this.width - 20, 20, "Mercury's Score: " + this.taliGame.enemyScore, {fontSize: 50, fontFamily: 'TaliOne'}).setOrigin(1, 0);
+        this.playerScore = this.add.text(20, this.height - 20, 'Your Score: ' + this.taliGame.playerScore, {fontSize: 50, fontFamily: 'TaliOne'}).setOrigin(0, 1);
+        this.turnText = this.add.text(this.width/2, this.height/3, 'Roll to decide who begins:', { fontSize: 64, fill: '#fff', fontFamily: 'TaliOne'}).setOrigin(0.5);
+        this.resultText = this.add.text(this.width/2, this.height - this.height/3, ' ', { fontSize: 64, fill: '#fff', fontFamily: 'TaliOne'}).setOrigin(0.5);
     }
 
     animateHands() {
@@ -156,17 +156,39 @@ export class TaliBeginScene extends BaseScene {
     }
 
     /**
+     * Sets the text with an animation and plays a sound.
+     * @param {Text} textObject the text object to change.
+     * @param {string} newText the new text to set.
+     * @param {number} AnimDuration the duration of the animation
+     */
+    setTextWithAnimation(textObject, newText, AnimDuration = 100)
+    {
+        this.sound.play('TextPop', { volume: 0.5 * this.playerData.sfxVolume });
+        textObject.setText(newText);
+        this.tweens.add({
+            targets: textObject,
+            scaleX: 1.1,
+            scaleY: 1.1,
+            yoyo: true,
+            duration: AnimDuration,
+            ease: 'Power2',
+        });
+    }
+
+
+    /**
      * The player's first roll.
      */
     playerRolls() {
         // this.animateHands();
-        this.turnText.setText('Your rolls: ');
+        this.setTextWithAnimation(this.turnText, "Your turn:");
         this.rollBtn.setAlpha(0);
         this.playerScore = this.taliGame.playerTurn();
         this.taliGame.emitter.once('diceIn', () => {
-            this.resultText.setText("Your result: " + this.playerScore); 
-            this.rollBtn.setText('Continue').setAlpha(1)
-                .once('pointerdown', () => { this.taliGame.hideDice(); this.continue(this.GAME_STATE.ENEMY_ROLL);});
+            this.setTextWithAnimation(this.resultText, "Your result: " + this.playerScore);
+            this.rollBtn.list[1].setText('Continue')
+            this.rollBtn.setAlpha(1)
+            .once('pointerdown', () => { this.taliGame.hideDice(); this.continue(this.GAME_STATE.ENEMY_ROLL);});
         });
     }
 
@@ -175,12 +197,13 @@ export class TaliBeginScene extends BaseScene {
      */
     enemyRolls() {
         this.rollBtn.setAlpha(0);
-        this.turnText.setText("Mercury's rolls: ");
+        this.setTextWithAnimation(this.turnText, "Mercury's rolls:");
         this.enemyScore = this.taliGame.enemyTurn();
         this.taliGame.emitter.once('diceIn', () => {
-            this.resultText.setText("Mercury's result: " + this.enemyScore); 
-            this.rollBtn.setText('Continue').setAlpha(1)
-                .once('pointerdown', () => { this.taliGame.hideDice(); this.continue(this.GAME_STATE.DECISION);});
+            this.setTextWithAnimation(this.resultText, "Mercury's result: " + this.enemyScore);
+            this.rollBtn.list[1].setText('Continue')
+            this.rollBtn.setAlpha(1)
+            .once('pointerdown', () => { this.taliGame.hideDice(); this.continue(this.GAME_STATE.DECISION);});
         });
     }
 
@@ -220,27 +243,23 @@ export class TaliBeginScene extends BaseScene {
             else {
             if (this.playerScore > this.enemyScore) {
                 this.playerFirst = true;
-                this.turnText.setText('You begin!');
+                this.setTextWithAnimation(this.turnText, "You begin!");
             }
             else if (this.playerScore < this.enemyScore) {
                 this.playerFirst = false;
-                this.turnText.setText("Mercury begins!");
+                this.setTextWithAnimation(this.turnText, "Mercury begins!");
             }
             this.continue(this.GAME_STATE.END);
         }
     }
 
     tie() {
-        this.turnText.setText("It's a tie!");
-        this.rollBtn.setText('Retry').on('pointerdown', () =>{
-            
+        this.setTextWithAnimation(this.turnText, "It's a tie!");
+        this.rollBtn.list[1].setText('Retry')
+        this.rollBtn.on('pointerdown', () =>{ 
             this.transitionController.startFadeOutTransition(() => {
-                
                  this.scene.restart();
-            
             }, 400);
-
-
         } );
     }
 
@@ -250,7 +269,8 @@ export class TaliBeginScene extends BaseScene {
      */
     endGame() {
         this.playerData.TaliPlayerFirst = this.playerFirst;
-        this.rollBtn.setText('Start Game!').once('pointerdown', ()=> {
+        this.rollBtn.list[1].setText('Start Game!');
+        this.rollBtn.once('pointerdown', ()=> {
             this.transitionController.startFadeOutTransition(() => {this.scene.start('TaliScene', this.playerData)});
         });
     }

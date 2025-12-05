@@ -61,7 +61,7 @@ export default class Tali {
          
         this.addImages();
 
-        this.noComboText = this.scene.add.text(this.width/2, this.height/2, 'No combinations!', {fontSize: 80}).setOrigin(0.5).setAlpha(0);
+        this.noComboText = this.scene.add.text(this.width/2, this.height/2, 'No combinations!', {fontSize: 80, fontFamily: 'TaliOne'}).setOrigin(0.5).setAlpha(0);
         this.noComboText.depth = 1;
     }
 
@@ -89,7 +89,6 @@ export default class Tali {
         }
     }
     
-
     /**
      * Starts the new game.
      */

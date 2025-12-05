@@ -13,10 +13,12 @@ export class DistractMercuryScene extends BaseScene {
         super('DistractMercuryScene');
     }
 
-    create(data) {
+    async create(data) {
         // Takes data that was passed to scene.
         this.playerData = data.playerData;
         this.mercuryRoll = data.mercuryRoll;
+
+        await document.fonts.load('64px TaliOne');
 
         // Sets the class variables width and height.
         let {width, height} = this.sys.game.canvas;
@@ -63,7 +65,7 @@ export class DistractMercuryScene extends BaseScene {
     }
 
     addText() {
-        this.infoText = this.add.text(this.width/2, this.height/4, "", {fontSize: 64}).setOrigin(0.5);
+        this.infoText = this.add.text(this.width/2, this.height/4, "", {fontSize: 64, fontFamily: 'TaliOne'}).setOrigin(0.5);
     }
 
     /**
@@ -99,19 +101,24 @@ export class DistractMercuryScene extends BaseScene {
      * @param {*} pointeroverStyle Style when hovering over the button
      * @returns 
      */
-    createButton(x, y, label, onClick = () => {}, style = {backgroundColor: '#fff', fill: '#000', fontSize: 80}, pointeroverStyle = {fill: 'rgba(116, 8, 9, 1)'}) {
-        const btn = this.add.text(x, y, label, {
+    createButton(x, y, label, onClick = () => {}, style = {fill: '#fff', fontSize: 100, fontFamily: 'TaliOne'}, pointeroverStyle = {fill: 'rgba(116, 8, 9, 1)'}) {
+        const btnImg = this.add.image(0, 0, 'taliButton');
+        const btn = this.add.text(0, 0, label, {
             fontSize: style.fontSize,
             fill: style.fill,
-            backgroundColor: style.backgroundColor
+            fontFamily: style.fontFamily
         })
         .setOrigin(0.5)
-        .setInteractive()
-        .on('pointerover', () => btn.setStyle({ fill: pointeroverStyle.fill }))
-        .on('pointerout', () => btn.setStyle({ fill: style.fill }))
+
+        const button = this.add.container(x, y, [ btnImg, btn ])
+        button.setSize(btnImg.width, btnImg.height)
+        button.setInteractive()
+        .setScale(0.5)
+        .on('pointerover', () => this.tweens.add({ targets: button, scale: 0.6, duration: 100, ease: 'Power1' }))
+        .on('pointerout', () => this.tweens.add({ targets: button, scale: 0.5, duration: 100, ease: 'Power1' }))
         .on('pointerdown', onClick);
 
-        return btn;
+        return button;
     }
 
     /**
@@ -159,7 +166,7 @@ export class DistractMercuryScene extends BaseScene {
         // mercuryRoll contains the indexes of the dice images (0 - 1, 1 - 3, 2 - 4, 3 - 6).
         for (let i = 0, j = -2*this.width/12; i < 4; i++, j+=this.width/12) { 
             this.diceImages[i] = this.add.image(this.width/2 + j, this.height/2, 'dice' + this.mercuryRoll[i]).setOrigin(0, 0.5).setScale(0.3).setAlpha(1).setInteractive();
-            this.diceImages[i].on('pointerdown', () => {this.onDiceClicked(i);
+            this.diceImages[i].once('pointerdown', () => {this.onDiceClicked(i);
             });
         }
     }
@@ -227,7 +234,7 @@ export class DistractMercuryScene extends BaseScene {
             this.dialogueController.handleInteraction();
         })
 
-        this.events.on('Finished', ()=> {
+        this.events.once('Finished', ()=> {
             this.showOptions();
         })
     }
