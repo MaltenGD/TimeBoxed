@@ -64,51 +64,24 @@ export default class DialogueController
             this.dialogueGroup = this.dialogueData.AsebTutorialDialogue;
             this.isTutorial = true;
         }
-        else if (this.era == 'AsebWin')
-        {
-            this.dialogueGroup = this.dialogueData.AsebWinDialogue;
-        }
-        else if (this.era == 'AsebDefeat')
-        {
-            this.dialogueGroup = this.dialogueData.AsebDefeatDialogue;
-        }
-        else if (this.era == 'Tali') {
-            this.dialogueGroup = this.dialogueData.TaliIntroDialogue;
-        }
-        else if (this.era == 'TaliWin') {
-            this.dialogueGroup = this.dialogueData.TaliWinDialogue;
-        }
-        else if (this.era == 'TaliLose') {
-            this.dialogueGroup = this.dialogueData.TaliLoseDialogue;
-        }
-        else if (this.era == 'TaliTutorial') {
-            this.dialogueGroup = this.dialogueData.TaliTutorialDialogue;
-        }
-        else if (this.era == 'DM0') {
-            this.dialogueGroup = this.dialogueData.DistractMercuryDialogue0;
-        }
-        else if (this.era == 'DM1') {
-            this.dialogueGroup = this.dialogueData.DistractMercuryDialogue1;
-        }
-        else if (this.era == 'DM2') {
-            this.dialogueGroup = this.dialogueData.DistractMercuryDialogue2;
-        }
-        else if (this.era == 'DM3') {
-            this.dialogueGroup = this.dialogueData.DistractMercuryDialogue3;
-        }
-        else if (this.era == 'DM4') {
-            this.dialogueGroup = this.dialogueData.DistractMercuryDialogue4;
-        }
-        else if (this.era == 'TimeBoxedDefeat')
-        {
-            this.dialogueGroup = this.dialogueData.TimeBoxedDefeatDialogue;
-        }
-        else if (this.era == 'GameCompleted')
-        {
-            this.dialogueGroup = this.dialogueData.GameCompletedDialogue;
-        }
+        else if (this.era == 'AsebWin')  this.dialogueGroup = this.dialogueData.AsebWinDialogue;
+        else if (this.era == 'AsebDefeat')  this.dialogueGroup = this.dialogueData.AsebDefeatDialogue;
+        else if (this.era == 'HanafudaIntro') this.dialogueGroup = this.dialogueData.HanafudaIntroDialogue;
+        else if (this.era == 'HanafudaTutorial') this.dialogueGroup = this.dialogueData.HanafudaTutorialDialogue;
+        else if (this.era == 'HanafudaWin') this.dialogueGroup = this.dialogueData.HanafudaWinDialogue;
+        else if (this.era == 'HanafudaDefeat') this.dialogueGroup = this.dialogueData.HanafudaDefeatDialogue;
+        else if (this.era == 'TimeBoxedDefeat')  this.dialogueGroup = this.dialogueData.TimeBoxedDefeatDialogue;
+        else if (this.era == 'Tali')  this.dialogueGroup = this.dialogueData.TaliIntroDialogue;
+        else if (this.era == 'TaliWin') this.dialogueGroup = this.dialogueData.TaliWinDialogue;
+        else if (this.era == 'TaliLose') this.dialogueGroup = this.dialogueData.TaliLoseDialogue;
+        else if (this.era == 'TaliTutorial')  this.dialogueGroup = this.dialogueData.TaliTutorialDialogue;
+        else if (this.era == 'DM0') this.dialogueGroup = this.dialogueData.DistractMercuryDialogue0;
+        else if (this.era == 'DM1') this.dialogueGroup = this.dialogueData.DistractMercuryDialogue1;
+        else if (this.era == 'DM2') this.dialogueGroup = this.dialogueData.DistractMercuryDialogue2;
+        else if (this.era == 'DM3') this.dialogueGroup = this.dialogueData.DistractMercuryDialogue3;
+        else if (this.era == 'DM4') this.dialogueGroup = this.dialogueData.DistractMercuryDialogue4;
+        else if (this.era == 'GameCompleted') this.dialogueGroup = this.dialogueData.GameCompletedDialogue;
         
-
         const borderColor = this.scene.playerData.TimeboxedMode ? 0xcb3234 : 0x0055CC;
 
         /**creates the dialog box */
@@ -133,7 +106,6 @@ export default class DialogueController
         if (!this.dialogBox.visible) {
             this.dialogBox.toggleWindow();
         }
-
 
         /**starts the dialogue block */
         this.startDialogueBlock('start');

@@ -1,7 +1,7 @@
 import TransitionController, {RGBColor} from "../../misc/transitioncontroller.js";
+import { BaseScene } from "../BaseScene.js";
 
-
-export class HanafudaBeginScene extends Phaser.Scene 
+export class HanafudaBeginScene extends BaseScene
 {
     constructor(){
         super('HanafudaBeginScene');
@@ -15,7 +15,8 @@ export class HanafudaBeginScene extends Phaser.Scene
     }
 
 
-    init(){
+    init(playerData){
+        super.init(playerData);
         this.playerBegins = false;
         this.playerCard = null;
         this.oponentcard = null;
@@ -24,26 +25,37 @@ export class HanafudaBeginScene extends Phaser.Scene
         this.infoText = null;
     }
 
-    create(playerData){   
+    async create(playerData){   
         this.playerData = playerData;
         console.log(this.playerData)
 
         this.transitionController = new TransitionController(this);
         this.transitionController.startFadeInTransition();
 
-        this.input.keyboard.on('keydown-ESC', () => {
-             this.openOptionMenu()
+        // Wait for the custom font to be loaded before creating any text
+        // The font size here doesn't matter, it just ensures the font family is ready.
+        await document.fonts.load('64px CenturyGothic');
+
+        const baseMusicVolume = 0.25;
+        this.music = this.sound.add('japaneseMusic', { loop: true, volume: baseMusicVolume * this.playerData.musicVolume });
+        this.soundInstances.push({ 
+            sound: this.music, 
+            type: 'music', 
+            baseVolume: baseMusicVolume 
         });
+        this.music.play();
+
+        // Unlock audio on the first user interaction
+        this.sound.pauseOnBlur = false; // Keep audio playing even when the window loses focus.
 
         this.background = this.add.image(this.width/2, this.height/2, 'HanafudaBackgroundPlaceholder');
 
-        this.backBtn = this.add.text(0, 0, 'Back', { fontSize: 64, fill: '#000000ff'})
+        //Back button
+        this.backBtn = this.add.image(80, 50, 'BackNormalButton').setScale(0.27)
         .setInteractive()
-        .on('pointerover', () => this.backBtn.setStyle({fill: 'rgba(104, 35, 35, 1)'}))
-        .on('pointerout', () => this.backBtn.setStyle({fill: '#000000ff'}))
-        .on('pointerdown', () => {
-            this.openOptionMenu();
-        });
+        .on('pointerover', () => this.backBtn.setTexture('BackHoverButton')).setScale(0.6)
+        .on('pointerout', () => this.backBtn.setTexture('BackNormalButton')).setScale(0.27)
+        .on('pointerup', () => {this.openOptionMenu(); });
 
         const totalCards = 48;
         const months = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
@@ -142,17 +154,5 @@ export class HanafudaBeginScene extends Phaser.Scene
                 this.scene.start('HanafudaGameState', { playerData: this.playerData, begins: this.playerBegins});
             }, 400);
         });
-    }
-
-    openOptionMenu(){
-        if (this.scene.isActive('OptionMenu')) return;
-            this.scene.pause();
-            this.playerData.SceneToResume = this.scene.key;
-            this.scene.launch('OptionMenu', this.playerData);
-    }
-
-    shutdown() {
-        console.log('HanafudaBeginScene shutting down, removing keyboard listeners.');
-        this.input.keyboard.off('keydown-ESC');
     }
 }

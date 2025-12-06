@@ -26,18 +26,6 @@ export class HanafudaGameState extends BaseScene{
 
     constructor(){
         super('HanafudaGameState');
-        this.playerScore = 0;
-        this.opponentScore = 0;
-
-        this.lastRoundWinner = null;
-        this.lastRoundPoints = 0;
-
-        this.koikoiActivePlayer = false;
-        this.koikoiActiveEnemy = false;
-
-        this.koikoiAccumulatedPlayer = 0;
-        this.koikoiAccumulatedEnemy = 0;
-
     }
 
     init(data){
@@ -46,13 +34,17 @@ export class HanafudaGameState extends BaseScene{
         this.cleanUp();
     }
 
-    create(data){
+    async create(data){
 
         this.playerData = data.playerData;
 
         //For transitions
         this.transitionController = new TransitionController(this);
         this.transitionController.startFadeInTransition(); //It shows the transition into the scene from the previous scene.
+
+        // Wait for the custom font to be loaded before creating any text
+        // The font size here doesn't matter, it just ensures the font family is ready.
+        await document.fonts.load('64px CenturyGothic');
 
         //Get Scale
         /** @type {number} it saves the width of the canvas*/
@@ -85,6 +77,15 @@ export class HanafudaGameState extends BaseScene{
         this.playerScore = 0;
         /**@type {number} saves the opponent's score*/
         this.opponentScore = 0;
+
+        this.lastRoundWinner = null;
+        this.lastRoundPoints = 0;
+
+        this.koikoiActivePlayer = false;
+        this.koikoiActiveEnemy = false;
+
+        this.koikoiAccumulatedPlayer = 0;
+        this.koikoiAccumulatedEnemy = 0;
 
         /** @type {object} It has the background image */
         this.background = this.add.image(this.width/2, this.height/2, 'HanafudaBackgroundPlaceholder');
@@ -359,13 +360,6 @@ export class HanafudaGameState extends BaseScene{
             else this.transitionTo(HANAFUDA_STATE.CHECK_END_ROUND);
         }
     }
-
-    // openOptionMenu(){
-    //     if (this.scene.isActive('OptionMenu')) return;
-    //     this.scene.pause();
-    //     this.playerData.SceneToResume = this.scene.key;
-    //     this.scene.launch('OptionMenu', this.playerData);
-    // }
 
     openYakusMenu() {
         if (this.scene.isActive('YakusMenu')) return;
