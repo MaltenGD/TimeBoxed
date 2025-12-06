@@ -6,7 +6,8 @@
             "speaker":"Kronos",
             "text":"Welcome my friend, I hope your paws are steady. Hanafuda is an ancient Japanese card game, tradition, elegance, and gambling all mixed together.",
             "animation":"true",
-            "next":"HTD2"
+            "next":"HTD2",
+            "image": "HanafudaBackgroundPlaceholder"
 
         },
 
@@ -15,7 +16,8 @@
             "speaker":"Kronos",
             "text":"Perfect for a refined creature like me… and for you, I guess.",
             "animation":"true",
-            "next":"HTD3"
+            "next":"HTD3",
+            "image": ""
         },
 
         "HTD3":
@@ -24,7 +26,7 @@
             "text":"Don't worry, if you lose, you only lose your soul. I'm joking! …mostly.",
             "animation":"true",
             "next":"HTD4",
-            "image": ""
+            "image": "none"
         },
 
         "HTD4":
@@ -33,7 +35,7 @@
             "text":"Before we begin, see these eight cards?",
             "animation":"true",
             "next":"HTD5",
-            "image": ""
+            "image": "ChooseCard"
         },
 
         "HTD5":
@@ -42,7 +44,7 @@
             "text":"Pick one, choose wisely... or don't. It's random anyway. Whoever flips the earliest month gets to go first.",
             "animation":"true",
             "next":"HTD6",
-            "image":""
+            "image":"ChooseCard"
         },
 
         "HTD6":
@@ -51,7 +53,7 @@
             "text":"These cards come in 12 suits, one for each month. But don't worry about the months, just match similar flowers. Same flower? Good. Different flower? Useless, don’t do that.",
             "animation":"true",
             "next":"HTD7",
-            "image":""
+            "image":"CardGroups"
         },
 
         "HTD7":
@@ -87,22 +89,22 @@
             "text":"The goal is to make yaku--special combinations of cards. When you make a yaku, you score points. Points good. Losing bad. Simple.",
             "animation":"true",
             "next":"HTD11",
-            "image":""
+            "image":"Combanations"
         },
 
-        "HTD11":
+         "HTD11":
         {
             "speaker":"Kronos",
-            "text":"Now here comes the fun part, the dangerous part. When you complete a yaku, you get a choice: Koikoi or Shobu.",
+            "text":"These are all the yaku you can make. And if your memory fails you, which it will, you can always check them from the Yaku list menu",
             "animation":"true",
             "next":"HTD12",
-            "image":""
+            "image":"Combanations"
         },
 
         "HTD12":
         {
             "speaker":"Kronos",
-            "text":"If you choose Koikoi, you're saying: 'I want MORE points. I'm not done yet.' It's a gamble, your opponent can steal the round if they finish a yaku before you do.",
+            "text":"Now here comes the fun part, the dangerous part. When you complete a yaku, you get a choice: Koikoi or Shobu.",
             "animation":"true",
             "next":"HTD13",
             "image":""
@@ -111,7 +113,7 @@
         "HTD13":
         {
             "speaker":"Kronos",
-            "text":"Risky… but delicious when it works.",
+            "text":"If you choose Koikoi, you're saying: 'I want MORE points. I'm not done yet.' It's a gamble, your opponent can steal the round if they finish a yaku before you do.",
             "animation":"true",
             "next":"HTD14",
             "image":""
@@ -120,7 +122,7 @@
         "HTD14":
         {
             "speaker":"Kronos",
-            "text":"If you choose Shobu, you stop the round immediately. You take your points, safe and tidy, and the next round begins.",
+            "text":"Risky… but delicious when it works.",
             "animation":"true",
             "next":"HTD15",
             "image":""
@@ -129,7 +131,7 @@
         "HTD15":
         {
             "speaker":"Kronos",
-            "text":" No risk, no thrill, but hey, not everyone has the stomach for danger.",
+            "text":"If you choose Shobu, you stop the round immediately. You take your points, safe and tidy, and the next round begins.",
             "animation":"true",
             "next":"HTD16",
             "image":""
@@ -138,7 +140,7 @@
         "HTD16":
         {
             "speaker":"Kronos",
-            "text":"The match lasts six rounds. At the end of all six, whoever has the most points wins the entire game.",
+            "text":" No risk, no thrill, but hey, not everyone has the stomach for danger.",
             "animation":"true",
             "next":"HTD17",
             "image":""
@@ -147,7 +149,7 @@
         "HTD17":
         {
             "speaker":"Kronos",
-            "text":"So remember: Match cards, make yaku. Choose Koikoi if you're feeling lucky, choose Shobu if you're feeling scared.",
+            "text":"The match lasts six rounds. At the end of all six, whoever has the most points wins the entire game.",
             "animation":"true",
             "next":"HTD18",
             "image":""
@@ -156,13 +158,22 @@
         "HTD18":
         {
             "speaker":"Kronos",
-            "text":"If your little cat brain needs a refresher, open the menu and choose Help and I'll repeat myself like a very handsome, very annoyed tutor.",
+            "text":"So remember: Match cards, make yaku. Choose Koikoi if you're feeling lucky, choose Shobu if you're feeling scared.",
             "animation":"true",
             "next":"HTD19",
             "image":""
         },
 
         "HTD19":
+        {
+            "speaker":"Kronos",
+            "text":"If your little cat brain needs a refresher, open the menu and choose Help and I'll repeat myself like a very handsome, very annoyed tutor.",
+            "animation":"true",
+            "next":"HTD20",
+            "image":""
+        },
+
+        "HTD20":
         {
             "speaker":"Kronos",
             "text":"Time to play for real, good luck! You'll need it.",

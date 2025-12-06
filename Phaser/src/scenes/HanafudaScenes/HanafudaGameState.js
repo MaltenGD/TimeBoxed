@@ -84,12 +84,10 @@ export class HanafudaGameState extends Phaser.Scene{
         this.openOptionMenu();
         });
 
-        this.yakusMenuBtn = this.add.text(0, 300, '<< Yaku List', {fontSize: 32, color: '#ffffff',backgroundColor: '#00000088',
-        padding: { left: 10, right: 10, top: 5, bottom: 5 }})
+        this.yakusMenuBtn = this.add.text(0, 300, 'Yaku List', {fontSize: 34, color: '#ffffffff',backgroundColor: '#1c3518ff',
+        padding: { left: 10, right: 10, top: 6, bottom: 6 }})
         .setInteractive()
-        .on('pointerdown', () => {
-            this.openYakusMenu();
-        });
+        .on('pointerdown', () => { this.openYakusMenu();});
 
         this.input.keyboard.on('keydown-ESC', () => {
             this.openOptionMenu();
@@ -103,10 +101,10 @@ export class HanafudaGameState extends Phaser.Scene{
         this.roundText = this.add.text(40, 1000, `Round:${this.round}/4`, {fontSize: "30px",color: "#ffffff"});
 
         // PlayerScore Text
-        this.playerPointsText = this.add.text(50, 700, "Player points: 0", {fontSize: "28px", color: "#ffffff", stroke: "#000000", strokeThickness: 4,});
+        this.playerPointsText = this.add.text(400+this.width/2, 1030, "Player points: 0", {fontSize: "28px", color: "#ffffff", stroke: "#000000"});
 
         // OpponentScore Text
-        this.opponentPointsText = this.add.text(50, 40, "Benten points: 0", {fontSize: "28px",color: "#ffffff",stroke: "#000000",strokeThickness: 4,});
+        this.opponentPointsText = this.add.text(400+this.width/2, (this.height/2)-35, "Benten points: 0", {fontSize: "28px",color: "#ffffff",stroke: "#000000"});
         //Deck render
         this.deckObject = this.add.rectangle(200, this.height/2, 200, 350, 0x609C86).setScale(0.6);
         this.deckCardObject = null;

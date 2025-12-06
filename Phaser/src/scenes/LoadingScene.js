@@ -277,7 +277,8 @@ export class LoadingScene extends Phaser.Scene
         this.load.image('Card46', 'Phaser/assets/Hanafuda/HanafudaCards/46.png');
         this.load.image('Card47', 'Phaser/assets/Hanafuda/HanafudaCards/47.png');
 
-        
+        this.load.image('CardGroups','Phaser/assets/Hanafuda/Tutorial/CardGroups.png')
+        this.load.image('ChooseCard','Phaser/assets/Hanafuda/Tutorial/ChooseCard.png')
     }
 
     loadCreditsAssets() {
