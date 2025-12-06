@@ -172,7 +172,7 @@ export class DistractMercuryScene extends BaseScene {
                 for (let i = 0, j = -2*this.width/12; i < 4; i++, j+=this.width/12) { 
                     this.diceImages[i] = this.add.image(this.width/2 + j, this.height/2, 'dice' + this.mercuryRoll[i]).setOrigin(0, 0.5).setScale(0.3).setAlpha(1).setInteractive();
                     this.diceImages[i].once('pointerdown', () => {this.onDiceClicked(i);});
-                    this.disabledDiceImages[i] = this.add.image(this.width/2 + j, this.height/2, 'dice_disabled' + this.mercuryRoll[i]).setOrigin(0, 0.5).setScale(0.3).setAlpha(0);
+                    // this.disabledDiceImages[i] = this.add.image(this.width/2 + j, this.height/2, 'dice_disabled' + this.mercuryRoll[i]).setOrigin(0, 0.5).setScale(0.3).setAlpha(0);
                 }
             }
         })
@@ -186,8 +186,9 @@ export class DistractMercuryScene extends BaseScene {
         this.diceImages.forEach((element, index) => {
             element.off('pointerdown');
             if (index != diceIndex) {
-                element.setAlpha(0);
-                this.disabledDiceImages[index].setAlpha(1);
+                // element.setAlpha(0);
+                element.setTexture('dice_disabled' + this.mercuryRoll[index]);
+                // this.disabledDiceImages[index].setAlpha(1);
             }
         });
         console.log("Clicked dice " + diceIndex + ".");
