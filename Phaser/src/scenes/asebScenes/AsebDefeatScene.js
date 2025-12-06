@@ -1,5 +1,6 @@
 import DialogueController from "../../DialogueController.js";
 import TransitionController, {RGBColor} from "../../misc/transitioncontroller.js";
+import { SkipButton } from "../../SkipButton.js";
 import { BaseScene } from "../BaseScene.js";
 
 export class AsebDefeatScene extends BaseScene
@@ -20,29 +21,25 @@ export class AsebDefeatScene extends BaseScene
 
         this.DisableOptionMenu();
 
+        const baseMusicVolume = 0.25;
+            this.music = this.sound.add('CreepyegyptMusic', { loop: true, volume: baseMusicVolume * this.playerData.musicVolume });
+            this.soundInstances.push({ 
+                sound: this.music, 
+                type: 'music', 
+                baseVolume: baseMusicVolume 
+            });
+            this.music.play();
+
         //creating the background
         this.background = this.add.image(width / 2, height / 2, 'asebBackgroundPlaceholder').setDisplaySize(width, height);
-
-        /**Skip button */
-        const skipBtn = this.add.text(width - 100, height - 1000 , 'SKIP', {
-            fontSize: '30px',
-            fill: '#000000',
-            backgroundColor: '#f7f7f7',
-            padding: { x: 20, y: 10 }
-        })
-        .setOrigin(0.5)
-        .setInteractive({ cursor: 'pointer' })
-        .on('pointerover', () => skipBtn.setStyle({ backgroundColor: '#bbbaba' }))
-        .on('pointerout', () => skipBtn.setStyle({ backgroundColor: '#f7f7f7' }))
-        .on('pointerdown', () => {   
-            this.dialogueController.skipToEnd();
-
-        });
 
         /** variable json*/
         const defeatAsebData = this.cache.json.get('AsebDefeatDialogue');
         this.dialogueController = new DialogueController(this, "AsebDefeat", defeatAsebData);
         this.dialogueController.iniDialogue();
+
+        /**Skip button */
+        this.skipBtn = new SkipButton(this, width - 130, 50, this.dialogueController, this.playerData);
         
         this.events.on('nextDialog',()=>
         {

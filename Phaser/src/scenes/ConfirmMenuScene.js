@@ -21,11 +21,13 @@ export class ConfirmMenuScene extends BaseScene {
      * @param {string} [data.noText='No'] - The text for the 'No' (right) button.
      * @param {string} [data.PausedScene] - The key of the scene that is being paused.
      */
-    create(data) {
+    async create(data) {
         const { width, height } = this.scale;
         this.transitionController = new TransitionController(this);
 
         this.DisableOptionMenu();
+
+        await document.fonts.load('40px rimouski');
 
         this.playerData = data.playerData;
 

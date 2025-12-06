@@ -48,6 +48,15 @@ export class AsebScene extends BaseScene {
         // The font size here doesn't matter, it just ensures the font family is ready.
         await document.fonts.load('64px Anubismythicalserif');
 
+        const baseMusicVolume = 0.08;
+            this.music = this.sound.add('AsebMusic', { loop: true, volume: baseMusicVolume * this.playerData.musicVolume });
+            this.soundInstances.push({ 
+                sound: this.music, 
+                type: 'music', 
+                baseVolume: baseMusicVolume 
+            });
+            this.music.play();
+
         // Flags for the aseb achievements
         this.anyPieceCaptured = false;
 
@@ -313,8 +322,6 @@ export class AsebScene extends BaseScene {
 
         });
     }
-
-
    
     /**
      * Handles the logic when a piece reaches the end of the board.

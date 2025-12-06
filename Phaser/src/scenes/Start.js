@@ -1,5 +1,4 @@
 import TransitionController from "../misc/transitioncontroller.js";
-import { ConfirmMenuScene } from "./ConfirmMenuScene.js";
 import { BaseScene } from "./BaseScene.js";
 
 /**
@@ -80,12 +79,24 @@ export class Start extends BaseScene {
             yoyo: true,
             loop: -1
         });
-        const kitty = this.add.image(500, 450, 'StartMenuKronos').setOrigin(0.5).setScale(0.9);
+
+        const kitty = this.add.image(350, 450, 'StartMenuKronos').setOrigin(0.5).setScale(0.89);
 
         this.tweens.add({
             targets: kitty,
             y: 520,
-            duration: 5000,
+            duration: 4500,
+            ease: 'Sine.easeInOut',
+            yoyo: true,
+            loop: -1
+        });
+
+        const timepiece = this.add.image(240, 260, 'Timepiece').setOrigin(0.5).setScale(0.9);
+
+        this.tweens.add({
+            targets: timepiece,
+            y: 420,
+            duration: 5500,
             ease: 'Sine.easeInOut',
             yoyo: true,
             loop: -1
@@ -123,6 +134,7 @@ export class Start extends BaseScene {
         this.startWandering(startLetters);
         const playButton = this.add.container(width / 2 + 200, height - 200, [playButtonS, playButtonT, playButtonA, playButtonR, playButtonT2]).setSize(600, 150).setInteractive();
         //boton de creditos
+        const settingsButton = this.add.image( width - 150, height - 315, 'StartMenuSettings').setOrigin(0.5).setScale(0.20).setInteractive();
         const creditsButton = this.add.image( width - 150, height - 150, 'creditsButton').setOrigin(0.5).setScale(0.15).setInteractive();
 
         //PLAY BUTTON INTERACTIONS
@@ -212,6 +224,36 @@ export class Start extends BaseScene {
             });
            
         });
+
+        settingsButton.on('pointerover', () => {
+            settingsButton.setTexture('StartMenuSettingsHovered');
+            this.sound.play('buttonHover', { volume: 2 * this.playerData.sfxVolume });
+            this.tweens.add({
+                targets: settingsButton,
+                scale: 0.22,
+                duration: 200,
+                ease: 'Sine.easeInOut',
+                yoyo: false,
+            });
+        }).on('pointerout', () => {
+            settingsButton.setTexture('StartMenuSettings');
+            this.tweens.add({
+                targets: settingsButton,
+                scale: 0.20,
+                duration: 200,
+                ease: 'Sine.easeInOut',
+                yoyo: false,
+            });
+           
+        }).on('pointerdown', () => {
+            this.scene.pause();
+            this.scene.launch('SettingsScene', {
+                fromScene: 'Start',
+                playerData: this.playerData
+            });
+        });
+
+
 
         //accion click
         creditsButton.on('pointerdown', () => {

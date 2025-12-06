@@ -86,7 +86,8 @@ export class LoadingScene extends Phaser.Scene
         this.load.image('background', 'Phaser/assets/StartMenu/MainBackground.png');
         this.load.image('backgroundTB', 'Phaser/assets/StartMenu/MainBackgroundTimeboxedMode.png');
         this.load.image('taliBackgroundPlaceholder', 'Phaser/assets/tali/taliBackgroundPlaceholder.png');
-        this.load.image('StartMenuKronos', 'Phaser/assets/StartMenu/kittykronos.png')
+        this.load.image('StartMenuKronos', 'Phaser/assets/StartMenu/bigKronos.png');
+        this.load.image('Timepiece', 'Phaser/assets/StartMenu/timePiece.png');
         this.load.image('BoxOpen', 'Phaser/assets/StartMenu/cardboardbox.png')
         this.load.image('logo', 'Phaser/assets/titlelogo.png');
         this.load.image('creditsButton', 'Phaser/assets/StartMenu/creditsButton.png');
@@ -97,12 +98,16 @@ export class LoadingScene extends Phaser.Scene
         this.load.image('playButtonA', 'Phaser/assets/StartMenu/StartButtonA.png');
         this.load.image('playButtonR', 'Phaser/assets/StartMenu/StartButtonR.png');
         this.load.image('playButtonT2', 'Phaser/assets/StartMenu/StartButtonT2.png');
+        this.load.image('StartMenuSettings', 'Phaser/assets/StartMenu/StartMenuSettings.png');
 
         this.load.image('playButtonSHovered', 'Phaser/assets/StartMenu/StartButtonSHovered.png');
         this.load.image('playButtonTHovered', 'Phaser/assets/StartMenu/StartButtonTHovered.png');
         this.load.image('playButtonAHovered', 'Phaser/assets/StartMenu/StartButtonAHovered.png');
         this.load.image('playButtonRHovered', 'Phaser/assets/StartMenu/StartButtonRHovered.png');
         this.load.image('playButtonT2Hovered', 'Phaser/assets/StartMenu/StartButtonT2Hovered.png');
+        this.load.image('StartMenuSettingsHovered', 'Phaser/assets/StartMenu/StartMenuSettingsHovered.png');
+
+
     }
 
     loadAudioAssets()
@@ -110,7 +115,9 @@ export class LoadingScene extends Phaser.Scene
         // Audio comun, que es usado en varias escenas
         this.load.audio('startMenuMusic', 'Phaser/assets/audio/mainmenuScene/Floating Beyond-OliverMix.mp3');
         this.load.audio('buttonHover', 'Phaser/assets/audio/Buttons/ButtonHoverLowLatency.wav');
-        this.load.audio('egyptMusic', 'Phaser/assets/audio/Egypt-Aseb/desert-wastes-327321.mp3');
+        this.load.audio('egyptMusic', 'Phaser/assets/audio/Egypt-Aseb/AsebIntroMusic.mp3');
+        this.load.audio('CreepyegyptMusic', 'Phaser/assets/audio/Egypt-Aseb/AsebDefeatMusic.mp3');
+        this.load.audio('AsebMusic', 'Phaser/assets/audio/Egypt-Aseb/AsebGameMusic.mp3');
         this.load.audio('TextPop', 'Phaser/assets/audio/Egypt-Aseb/TextPop.mp3');
         this.load.audio('DialogueTextSFX', 'Phaser/assets/audio/Dialogues/DialogueTextSFX.mp3');
         this.load.audio('boxClickedSFX', 'Phaser/assets/audio/SelectionMenuScene/BoxClickedSFX.mp3');
@@ -126,6 +133,10 @@ export class LoadingScene extends Phaser.Scene
 
          // loads the background
         this.load.image('IntroBackgroundPlaceholder', 'Phaser/assets/Intro/IntroBackgroundPlaceholder.jpeg');
+
+        //Skip Button
+        this.load.image('SkipButtonNormal', 'Phaser/assets/SkipButtonNormal.png');
+        this.load.image('SkipButtonHovered', 'Phaser/assets/SkipButtonHovered.png');
         
         
 
@@ -215,14 +226,18 @@ export class LoadingScene extends Phaser.Scene
     loadTaliAssets() {
         this.load.image('taliVerticalBackground', 'Phaser/assets/SelectionMenu/RomeVertical.png');
 
-        this.load.image('taliBoard', 'Phaser/assets/tali/temporary_board.png');
+        this.load.image('taliButton', 'Phaser/assets/tali/button.png');
+
+        this.load.image('taliBoard', 'Phaser/assets/tali/tali_board.png');
         for (let i = 0; i < Tali.NUMBER_OF_DICE; i++) {
-            this.load.image('dice' + i, 'Phaser/assets/tali/temporary_dice' + i + '.png');
+            this.load.image('dice' + i, 'Phaser/assets/tali/dice' + i + '.png');
+            this.load.image('dice_disabled' + i, 'Phaser/assets/tali/dice' + i + '_disabled.png');
         }
         for (let i = 0; i < Tali.DICE_THROW_NAMES.length; i++) {
-            //console.log(Tali.DICE_THROW_NAMES[i]);
-            this.load.image(Tali.DICE_THROW_NAMES[i], 'Phaser/assets/tali/temporary_throw' + i + '.png');
+            this.load.image(Tali.DICE_THROW_NAMES[i], 'Phaser/assets/tali/throw' + i + '.png');
         }
+
+        this.load.image('TaliCombinations', 'Phaser/assets/tali/taliCombinations.png');
     }
 
     loadHanafudaAssets()
@@ -295,7 +310,7 @@ export class LoadingScene extends Phaser.Scene
     }
 
     loadInisgniaAssets() {
-        this.load.image('tempInsignia3', 'Phaser/assets/insignias/tempInsignia3.png');
+        this.load.image('Card_God', 'Phaser/assets/insignias/Card_God.png');
         this.load.image('Underworld_Conqueror', 'Phaser/assets/insignias/Underworld_Conqueror.png');
         this.load.image('Square_Master', 'Phaser/assets/insignias/Square_Master.png');
         this.load.image('Wonder_of_Egypt', 'Phaser/assets/insignias/Wonder_of_Egypt.png');

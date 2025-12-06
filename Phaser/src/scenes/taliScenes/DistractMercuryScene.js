@@ -1,6 +1,7 @@
 import { BaseScene } from '../BaseScene.js';
 import DialogueController from '../../DialogueController.js';
 import TransitionController, { RGBColor } from '../../misc/transitioncontroller.js';
+import RandomNumber from '../../misc/randomnumber.js';
 
 /**
  * @class DistractMercuryScene
@@ -12,10 +13,12 @@ export class DistractMercuryScene extends BaseScene {
         super('DistractMercuryScene');
     }
 
-    create(data) {
+    async create(data) {
         // Takes data that was passed to scene.
         this.playerData = data.playerData;
         this.mercuryRoll = data.mercuryRoll;
+
+        await document.fonts.load('64px TaliOne');
 
         // Sets the class variables width and height.
         let {width, height} = this.sys.game.canvas;
@@ -23,28 +26,36 @@ export class DistractMercuryScene extends BaseScene {
         this.height = height;
 
         this.diceImages = [0, 0, 0, 0];
+        this.disabledDiceImages = [0, 0, 0, 0];
         this.dice = [0, 0, 0, 0];
 
         // Creates transitin controller and fades in.
         this.transitionController = new TransitionController(this);
         
         // Keeps track of which round we are in.
-        this.roundIndex = data.roundIndex;
+        this.possibleDialogues = data.possibleDialogues;
 
         // The text for both options in all three rounds.
         this.optionText = [
-            {one: {text: "Option 1", correct: true}, two: {text: "Option 2", correct: false}},
-            {one: {text: "Option 1 2", correct: false}, two: {text: "Option 2 2", correct: true}},
-            {one: {text: "Option 1 3", correct: true}, two: {text: "Option 2 3", correct: true}}
+            {one: {text: "Offer him the drink", correct: true}, two: {text: "Keep your drink close", correct: false}},
+            {one: {text: "'Don't get distracted.'", correct: false}, two: {text: "'Look, a coin!'", correct: true}},
+            {one: {text: "Shake your head", correct: false}, two: {text: "Call for another round", correct: true}},
+            {one: {text: "Roll right now!", correct: false}, two: {text: "Take it even slower...", correct: true}},
+            {one: {text: "'Right behind you!'", correct: true}, two: {text: "'Nope.'", correct: false}}
         ];
+
+        console.log(this.possibleDialogues);
+        this.dialogueIndex = RandomNumber.get(0, this.possibleDialogues.length);
+        var index = this.possibleDialogues.indexOf(this.dialogueIndex);
+        console.log(this.dialogueIndex);
+        this.possibleDialogues.splice(index, 1);
+        console.log(this.possibleDialogues);
 
         this.addImages();
         this.addText();
         this.addButtons();
         this.createAndBeginDialogue();
         this.addListeners();
-
-        console.log("TURN " + this.roundIndex);
     }
 
     /**
@@ -55,7 +66,7 @@ export class DistractMercuryScene extends BaseScene {
     }
 
     addText() {
-        this.infoText = this.add.text(this.width/2, this.height/4, "", {fontSize: 64}).setOrigin(0.5);
+        this.infoText = this.add.text(this.width/2, this.height/5, "", {fontSize: 64, fontFamily: 'TaliOne'}).setOrigin(0.5);
     }
 
     /**
@@ -63,7 +74,7 @@ export class DistractMercuryScene extends BaseScene {
      */
     createAndBeginDialogue() {
         const dialogueData = this.cache.json.get('TaliDialogue');
-        this.dialogueController = new DialogueController(this, "DM" + this.roundIndex, dialogueData);
+        this.dialogueController = new DialogueController(this, "DM" + this.dialogueIndex, dialogueData);
         this.dialogueController.iniDialogue();
     }
 
@@ -71,11 +82,11 @@ export class DistractMercuryScene extends BaseScene {
      * Creates the necessary buttons for the scene.
     */
     addButtons() {
-        this.optionOne = this.createButton(this.width / 2, this.height / 3, this.optionText[this.roundIndex].one.text, () => {
-            this.checkOption(this.optionText[this.roundIndex].one);
+        this.optionOne = this.createButton(this.width / 2, this.height / 3, this.optionText[this.dialogueIndex].one.text, () => {
+            this.checkOption(this.optionText[this.dialogueIndex].one);
         });
-        this.optionTwo = this.createButton(this.width / 2, this.height / 2, this.optionText[this.roundIndex].two.text, () => {
-            this.checkOption(this.optionText[this.roundIndex].two);
+        this.optionTwo = this.createButton(this.width / 2, this.height / 2, this.optionText[this.dialogueIndex].two.text, () => {
+            this.checkOption(this.optionText[this.dialogueIndex].two);
         });
 
         this.hideOptions();
@@ -91,19 +102,25 @@ export class DistractMercuryScene extends BaseScene {
      * @param {*} pointeroverStyle Style when hovering over the button
      * @returns 
      */
-    createButton(x, y, label, onClick = () => {}, style = {backgroundColor: '#fff', fill: '#000', fontSize: 80}, pointeroverStyle = {fill: 'rgba(116, 8, 9, 1)'}) {
-        const btn = this.add.text(x, y, label, {
+    createButton(x, y, label, onClick = () => {}, style = {fill: '#fff', fontSize: 100, fontFamily: 'TaliOne'}, pointeroverStyle = {fill: 'rgba(116, 8, 9, 1)'}) {
+        const btnImg = this.add.image(0, 0, 'taliButton');
+        const btn = this.add.text(0, 0, label, {
             fontSize: style.fontSize,
             fill: style.fill,
-            backgroundColor: style.backgroundColor
+            fontFamily: style.fontFamily
         })
         .setOrigin(0.5)
-        .setInteractive()
-        .on('pointerover', () => btn.setStyle({ fill: pointeroverStyle.fill }))
-        .on('pointerout', () => btn.setStyle({ fill: style.fill }))
+
+        const button = this.add.container(x, y, [ btnImg, btn ])
+        button.setSize(btnImg.width, btnImg.height);
+
+        button.setInteractive()
+        .setScale(0.5)
+        .on('pointerover', () => this.tweens.add({ targets: button, scale: 0.6, duration: 100, ease: 'Power1' }))
+        .on('pointerout', () => this.tweens.add({ targets: button, scale: 0.5, duration: 100, ease: 'Power1' }))
         .on('pointerdown', onClick);
 
-        return btn;
+        return button;
     }
 
     /**
@@ -127,9 +144,7 @@ export class DistractMercuryScene extends BaseScene {
      * @param {button} option Dialogue option pressed 
      */
     checkOption(option) {
-        console.log("Current round: " + this.roundIndex);
         this.hideOptions();
-        this.roundIndex += 1;
         if (option.correct) this.onCorrectOption();
         else this.onIncorrectOption();
     }
@@ -144,18 +159,23 @@ export class DistractMercuryScene extends BaseScene {
     }
 
     /**
-     * Displas Mercury's roll.
+     * Displays Mercury's roll.
      */
     showMercuryDice() {
-        this.infoText.setText("Choose one of Mercury's dice to change: ");
-        console.log("Showing Mercury's dice.");
-        // Arranges the dice on the screen. 
-        // mercuryRoll contains the indexes of the dice images (0 - 1, 1 - 3, 2 - 4, 3 - 6).
-        for (let i = 0, j = -2*this.width/12; i < 4; i++, j+=this.width/12) { 
-            this.diceImages[i] = this.add.image(this.width/2 + j, this.height/2, 'dice' + this.mercuryRoll[i]).setOrigin(0, 0.5).setScale(0.3).setAlpha(1).setInteractive();
-            this.diceImages[i].on('pointerdown', () => {this.onDiceClicked(i);
-            });
-        }
+        this.infoText.setText("You distracted Mercury!");
+        this.time.addEvent({
+            delay: 1000,
+            callback: () => {
+                this.infoText.setText("Choose one of his dice to change:");
+                 // Arranges the dice on the screen. 
+                // mercuryRoll contains the indexes of the dice images (0 - 1, 1 - 3, 2 - 4, 3 - 6).
+                for (let i = 0, j = -2*this.width/12; i < 4; i++, j+=this.width/12) { 
+                    this.diceImages[i] = this.add.image(this.width/2 + j, this.height/2, 'dice' + this.mercuryRoll[i]).setOrigin(0, 0.5).setScale(0.3).setAlpha(1).setInteractive();
+                    this.diceImages[i].once('pointerdown', () => {this.onDiceClicked(i);});
+                    // this.disabledDiceImages[i] = this.add.image(this.width/2 + j, this.height/2, 'dice_disabled' + this.mercuryRoll[i]).setOrigin(0, 0.5).setScale(0.3).setAlpha(0);
+                }
+            }
+        })
     }
 
     /**
@@ -163,9 +183,13 @@ export class DistractMercuryScene extends BaseScene {
      * @param {number} diceIndex the dice from Mercury's rolls picked to be changed. 
      */
     onDiceClicked(diceIndex) {
-        this.diceImages.forEach(element => {
+        this.diceImages.forEach((element, index) => {
             element.off('pointerdown');
-            
+            if (index != diceIndex) {
+                // element.setAlpha(0);
+                element.setTexture('dice_disabled' + this.mercuryRoll[index]);
+                // this.disabledDiceImages[index].setAlpha(1);
+            }
         });
         console.log("Clicked dice " + diceIndex + ".");
         this.showDiceOptions(diceIndex);
@@ -209,7 +233,7 @@ export class DistractMercuryScene extends BaseScene {
     returnToGame() {
         this.addListeners();
         this.scene.sleep(); 
-        this.scene.resume('TaliScene', {playerData: this.playerData, mercuryResultRoll: this.mercuryRoll});
+        this.scene.resume('TaliScene', {playerData: this.playerData, mercuryResultRoll: this.mercuryRoll, possibleDialogues: this.possibleDialogues});
     }
 
 
@@ -217,12 +241,12 @@ export class DistractMercuryScene extends BaseScene {
      * Adds all the listeners in this scene.
      */
     addListeners() {
-        this.events.once('nextDialog', () => {
-            this.showOptions();
+        this.events.on('nextDialog', () => {
+            this.dialogueController.handleInteraction();
         })
 
-        this.events.on('Finished', ()=> {
-            // TODO
+        this.events.once('Finished', ()=> {
+            this.showOptions();
         })
     }
 

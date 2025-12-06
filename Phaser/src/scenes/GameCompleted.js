@@ -1,5 +1,6 @@
 import DialogueController from "../DialogueController.js";
 import TransitionController, {RGBColor} from "../misc/transitioncontroller.js";
+import { SkipButton } from "../SkipButton.js";
 import { BaseScene } from "./BaseScene.js";
 
 /**  
@@ -23,6 +24,7 @@ export class GameCompleted extends BaseScene
         this.transitionController = new TransitionController(this);
         this.transitionController.startFadeInTransition();
 
+
         // Get the canvas width and height to use when giving a position to an object
         let { width, height } = this.sys.game.canvas;
 
@@ -38,27 +40,13 @@ export class GameCompleted extends BaseScene
             this.openOptionMenu();
         });
         
-        /**Skip button */
-       const skipBtn = this.add.text(width - 100, height - 1000 , 'SKIP', {
-            fontSize: '30px',
-            fill: '#000000',
-            backgroundColor: '#f7f7f7',
-            padding: { x: 20, y: 10 }
-        })
-        .setOrigin(0.5)
-        .setInteractive({ cursor: 'pointer' })
-        .on('pointerover', () => skipBtn.setStyle({ backgroundColor: '#bbbaba' }))
-        .on('pointerout', () => skipBtn.setStyle({ backgroundColor: '#f7f7f7' }))
-        .on('pointerdown', () => {
-                this.dialogueController.skipToEnd();
-
-          
-        });
-
         //dialogues
         const dialogueData = this.cache.json.get('GameCompletedDialogue');
         this.dialogueController = new DialogueController(this, "GameCompleted", dialogueData);
         this.dialogueController.iniDialogue();
+
+        /**Skip button */
+        this.skipBtn = new SkipButton(this, width - 130, 50, this.dialogueController, this.playerData);
         
         this.events.on('nextDialog',()=>
         {

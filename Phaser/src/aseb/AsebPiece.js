@@ -156,7 +156,7 @@ export default class AsebPiece extends Phaser.GameObjects.Image {
 
     /**
      * Checks if the piece has reached the final position on the board.
-     * @returns {boolean} True if the piece is at the end, false otherwise.
+     * @returns True if the piece is at the end, false otherwise.
      */
     Ended() {
         return (this.boardPos.row === 1 && this.boardPos.col === 0);

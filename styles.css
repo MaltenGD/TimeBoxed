@@ -43,6 +43,19 @@ a, button, [role="button"], input[type="button"], input[type="submit"] {
 }
 
 @font-face {
+  font-family: 'TaliOne';
+  src: url('fonts/Tali1.ttf') format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'TaliTwo';
+  src: url('fonts/TaliMorrisRoman-Black.ttf') format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
   font-family: 'CenturyGothic';
   src: url('fonts/CenturyGothicRegular.otf') format("opentype");
   font-weight: normal;

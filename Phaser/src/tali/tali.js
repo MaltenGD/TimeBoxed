@@ -61,7 +61,7 @@ export default class Tali {
          
         this.addImages();
 
-        this.noComboText = this.scene.add.text(this.width/2, this.height/2, 'No combinations!', {fontSize: 80}).setOrigin(0.5).setAlpha(0);
+        this.noComboText = this.scene.add.text(this.width/2, this.height/2, 'No combinations!', {fontSize: 80, fontFamily: 'TaliOne'}).setOrigin(0.5).setAlpha(0);
         this.noComboText.depth = 1;
     }
 
@@ -83,13 +83,12 @@ export default class Tali {
      * Adds all the images.
      */
     addImages() {
-        for (let i = 0, j = 1; i < Tali.DICE_THROW_NAMES.length; i++, j++) {
-            this.throwImages[i] = this.scene.add.image(j*this.width/5, this.height/2, Tali.DICE_THROW_NAMES[i]).setOrigin(0.5).setAlpha(0).setScale(0.9);
+        for (let i = 0, j = -600; i < Tali.DICE_THROW_NAMES.length; i++, j+=300) {
+            this.throwImages[i] = this.scene.add.image(this.width/2 + j, this.height/2, Tali.DICE_THROW_NAMES[i]).setOrigin(0.5).setAlpha(0).setScale(0.35);
             this.throwImages[i].depth = 1;
         }
     }
     
-
     /**
      * Starts the new game.
      */
@@ -328,19 +327,45 @@ export default class Tali {
      * Animates the appearance of the dice.
      */
     animateDiceIn(img) {
+
+        let rollInterval = this.scene.time.addEvent({
+            delay: 100,
+            callback: () => {
+                const randomFace = Phaser.Math.Between(0, Tali.NUMBER_OF_DICE - 1);
+                img.setTexture('dice' + randomFace);
+            },
+            loop: true
+        });
+
         this.scene.tweens.add({
             targets: img,
             alpha: 1,
-            duration: 700,
+            duration: 1000,
             ease: 'Sine.easeOut',
             onComplete: () => {
+                rollInterval.remove(); // para el “giro”
+                img.setTexture('dice' + this.currentRoll[this.diceImages.indexOf(img)]); // cara real
                 this.diceRollIndex++;
                 if (this.diceRollIndex >= this.currentRoll.length) {
                     this.diceRollIndex = 0;
                     this.emitter.emit('diceIn');
                 }
             }
-        })
+        });
+
+        // this.scene.tweens.add({
+        //     targets: img,
+        //     alpha: 1,
+        //     duration: 700,
+        //     ease: 'Sine.easeOut',
+        //     onComplete: () => {
+        //         this.diceRollIndex++;
+        //         if (this.diceRollIndex >= this.currentRoll.length) {
+        //             this.diceRollIndex = 0;
+        //             this.emitter.emit('diceIn');
+        //         }
+        //     }
+        // })
     }
 
     hideDice() {
