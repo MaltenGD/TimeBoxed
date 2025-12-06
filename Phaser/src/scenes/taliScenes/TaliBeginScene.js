@@ -71,6 +71,37 @@ export class TaliBeginScene extends BaseScene {
         this.rollBtn = this.add.container(this.width/2, 4*this.height/5, [ btnImg, btn ])
         this.rollBtn.setSize(btnImg.width, btnImg.height);
 
+        this.makeButtonShine(btnImg);
+
+        this.rollBtn.setInteractive()
+        .setScale(0.5)
+        .on('pointerover', () => {
+            this.shine.setAlpha(1);
+            this.tweens.add({ targets: this.rollBtn, scale: 0.502, duration: 100, ease: 'Power1' });
+            this.tweens.add({
+                targets: this.shine,
+                x: 4*this.width/5,
+                duration: 500,
+                ease: 'Power2',
+                onComplete: () => this.shine.x = 0
+            });
+        })
+        .on('pointerout', () => this.tweens.add({ targets: this.rollBtn, scale: 0.5, duration: 100, ease: 'Power1' }))
+        .once('pointerdown', () => {
+            this.continue(this.GAME_STATE.PLAYER_ROLL)
+            this.shine.setAlpha(0)
+        });
+
+        this.backBtn = this.add.text(10, 10, 'Back', {fontSize: 64, fill: '#fff', fontFamily: 'TaliOne'})
+        .setInteractive()
+        .on('pointerover', () => this.tweens.add({targets: this.backBtn, scale: 1.1, duration: 100, ease: 'Power1'}))
+        .on('pointerout', () => this.tweens.add({targets: this.backBtn, scale: 1, duration: 100, ease: 'Power1'}))
+        .on('pointerdown', () => this.openOptionMenu());
+        
+    }
+
+
+    makeButtonShine(btnImg) {
         this.shine = this.add.rectangle(
             0,            // start far left so it slides across
             4*this.height/5,
@@ -85,30 +116,7 @@ export class TaliBeginScene extends BaseScene {
         mask.fillStyle(0xffffff);
         mask.fillRect(this.width/2 - this.rollBtn.width/4, 4*this.height/5 - this.rollBtn.height/4, btnImg.width/2, btnImg.height/2);
         this.shine.setMask(mask.createGeometryMask());
-
-        this.rollBtn.setInteractive()
-        .setScale(0.5)
-        .on('pointerover', () => {
-            this.tweens.add({ targets: this.rollBtn, scale: 0.502, duration: 100, ease: 'Power1' });
-            this.tweens.add({
-                targets: this.shine,
-                x: 4*this.width/5,
-                duration: 500,
-                ease: 'Power2',
-                onComplete: () => this.shine.x = 0
-            });
-        })
-        .on('pointerout', () => this.tweens.add({ targets: this.rollBtn, scale: 0.5, duration: 100, ease: 'Power1' }))
-        .once('pointerdown', () => this.continue(this.GAME_STATE.PLAYER_ROLL));
-
-        this.backBtn = this.add.text(10, 10, 'Back', {fontSize: 64, fill: '#fff', fontFamily: 'TaliOne'})
-        .setInteractive()
-        .on('pointerover', () => this.tweens.add({targets: this.backBtn, scale: 1.1, duration: 100, ease: 'Power1'}))
-        .on('pointerout', () => this.tweens.add({targets: this.backBtn, scale: 1, duration: 100, ease: 'Power1'}))
-        .on('pointerdown', () => this.openOptionMenu());
-        
     }
-
 
     /**
      * Adds all the images to the scene.

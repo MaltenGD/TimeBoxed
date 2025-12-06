@@ -26,6 +26,7 @@ export class DistractMercuryScene extends BaseScene {
         this.height = height;
 
         this.diceImages = [0, 0, 0, 0];
+        this.disabledDiceImages = [0, 0, 0, 0];
         this.dice = [0, 0, 0, 0];
 
         // Creates transitin controller and fades in.
@@ -37,7 +38,7 @@ export class DistractMercuryScene extends BaseScene {
         // The text for both options in all three rounds.
         this.optionText = [
             {one: {text: "Offer him the drink", correct: true}, two: {text: "Keep your drink close", correct: false}},
-            {one: {text: "'Don't get distracted.'", correct: false}, two: {text: "'Look, a coin on the ground!'", correct: true}},
+            {one: {text: "'Don't get distracted.'", correct: false}, two: {text: "'Look, a coin!'", correct: true}},
             {one: {text: "Shake your head", correct: false}, two: {text: "Call for another round", correct: true}},
             {one: {text: "Roll right now!", correct: false}, two: {text: "Take it even slower...", correct: true}},
             {one: {text: "'Right behind you!'", correct: true}, two: {text: "'Nope.'", correct: false}}
@@ -65,7 +66,7 @@ export class DistractMercuryScene extends BaseScene {
     }
 
     addText() {
-        this.infoText = this.add.text(this.width/2, this.height/4, "", {fontSize: 64, fontFamily: 'TaliOne'}).setOrigin(0.5);
+        this.infoText = this.add.text(this.width/2, this.height/5, "", {fontSize: 64, fontFamily: 'TaliOne'}).setOrigin(0.5);
     }
 
     /**
@@ -111,7 +112,8 @@ export class DistractMercuryScene extends BaseScene {
         .setOrigin(0.5)
 
         const button = this.add.container(x, y, [ btnImg, btn ])
-        button.setSize(btnImg.width, btnImg.height)
+        button.setSize(btnImg.width, btnImg.height);
+
         button.setInteractive()
         .setScale(0.5)
         .on('pointerover', () => this.tweens.add({ targets: button, scale: 0.6, duration: 100, ease: 'Power1' }))
@@ -157,18 +159,23 @@ export class DistractMercuryScene extends BaseScene {
     }
 
     /**
-     * Displas Mercury's roll.
+     * Displays Mercury's roll.
      */
     showMercuryDice() {
-        this.infoText.setText("Choose one of Mercury's dice to change: ");
-        console.log("Showing Mercury's dice.");
-        // Arranges the dice on the screen. 
-        // mercuryRoll contains the indexes of the dice images (0 - 1, 1 - 3, 2 - 4, 3 - 6).
-        for (let i = 0, j = -2*this.width/12; i < 4; i++, j+=this.width/12) { 
-            this.diceImages[i] = this.add.image(this.width/2 + j, this.height/2, 'dice' + this.mercuryRoll[i]).setOrigin(0, 0.5).setScale(0.3).setAlpha(1).setInteractive();
-            this.diceImages[i].once('pointerdown', () => {this.onDiceClicked(i);
-            });
-        }
+        this.infoText.setText("You distracted Mercury!");
+        this.time.addEvent({
+            delay: 1000,
+            callback: () => {
+                this.infoText.setText("Choose one of his dice to change:");
+                 // Arranges the dice on the screen. 
+                // mercuryRoll contains the indexes of the dice images (0 - 1, 1 - 3, 2 - 4, 3 - 6).
+                for (let i = 0, j = -2*this.width/12; i < 4; i++, j+=this.width/12) { 
+                    this.diceImages[i] = this.add.image(this.width/2 + j, this.height/2, 'dice' + this.mercuryRoll[i]).setOrigin(0, 0.5).setScale(0.3).setAlpha(1).setInteractive();
+                    this.diceImages[i].once('pointerdown', () => {this.onDiceClicked(i);});
+                    this.disabledDiceImages[i] = this.add.image(this.width/2 + j, this.height/2, 'dice_disabled' + this.mercuryRoll[i]).setOrigin(0, 0.5).setScale(0.3).setAlpha(0);
+                }
+            }
+        })
     }
 
     /**
@@ -176,9 +183,12 @@ export class DistractMercuryScene extends BaseScene {
      * @param {number} diceIndex the dice from Mercury's rolls picked to be changed. 
      */
     onDiceClicked(diceIndex) {
-        this.diceImages.forEach(element => {
+        this.diceImages.forEach((element, index) => {
             element.off('pointerdown');
-            
+            if (index != diceIndex) {
+                element.setAlpha(0);
+                this.disabledDiceImages[index].setAlpha(1);
+            }
         });
         console.log("Clicked dice " + diceIndex + ".");
         this.showDiceOptions(diceIndex);

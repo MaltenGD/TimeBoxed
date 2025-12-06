@@ -229,6 +229,7 @@ export class LoadingScene extends Phaser.Scene
         this.load.image('taliBoard', 'Phaser/assets/tali/tali_board.png');
         for (let i = 0; i < Tali.NUMBER_OF_DICE; i++) {
             this.load.image('dice' + i, 'Phaser/assets/tali/dice' + i + '.png');
+            this.load.image('dice_disabled' + i, 'Phaser/assets/tali/dice' + i + '_disabled.png');
         }
         for (let i = 0; i < Tali.DICE_THROW_NAMES.length; i++) {
             console.log(Tali.DICE_THROW_NAMES[i]);

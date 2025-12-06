@@ -2,6 +2,7 @@ import TransitionController, {RGBColor} from '../../misc/transitioncontroller.js
 import DialogueController from '../../DialogueController.js';
 import { OptionMenuScene } from '../OptionMenuScene.js';
 import { BaseScene } from '../BaseScene.js';
+import { SkipButton } from '../../SkipButton.js';
 
 /**
  * @class TaliEndScene
@@ -13,17 +14,16 @@ export class TaliEndScene extends BaseScene {
         this.dialogueController;
     }
 
-    preload() {
+    async create(playerData) {
         let {width, height} = this.sys.game.canvas;
         this.width = width;
         this.height = height;
-    }
-
-    create(playerData) {
 
         this.playerData = playerData;
         console.log(this.playerData);
         this.playerWon = this.playerData.TaliCompleted;
+
+        await document.fonts.load('64px TaliOne'); 
 
         this.achManager = this.registry.get('AchievementManager');
         if (this.playerWon) {
@@ -36,8 +36,8 @@ export class TaliEndScene extends BaseScene {
         this.transitionController = new TransitionController(this);
         this.transitionController.startFadeInTransition();
         
-        this.createUI();
         this.setDialogue();
+        this.createUI();
     }
 
     /**
@@ -87,7 +87,7 @@ export class TaliEndScene extends BaseScene {
      */
     createButtons() {
         /**Back button */
-       this.backBtn = this.add.text(0, 0, 'Back', { fontSize: 64, fill: '#000000ff'})
+       this.backBtn = this.add.text(0, 0, 'Back', { fontSize: 64, fill: '#000000ff', fontFamily: "TaliOne"})
         .setInteractive()
         .on('pointerover', () => this.backBtn.setStyle({fill: 'rgba(104, 35, 35, 1)'}))
         .on('pointerout', () => this.backBtn.setStyle({fill: '#000000ff'}))
@@ -96,23 +96,8 @@ export class TaliEndScene extends BaseScene {
         });
 
         /**Skip button */
-        const skipBtn = this.add.text(this.width - 100, this.height - 1000 , 'SKIP', {
-            fontSize: '30px',
-            fill: '#000000',
-            backgroundColor: '#f7f7f7',
-            padding: { x: 20, y: 10 }
-        })
-        .setOrigin(0.5)
-        .setInteractive({ cursor: 'pointer' })
-        .on('pointerover', () => skipBtn.setStyle({ backgroundColor: '#bbbaba' }))
-        .on('pointerout', () => skipBtn.setStyle({ backgroundColor: '#f7f7f7' }))
-        .on('pointerdown', () => {
-           this.transitionController.startFadeOutTransition(() => {
-                
-                 this.dialogueController.skipToEnd();
-            
-            }, 400);
-        });
+        this.skipBtn = new SkipButton(this, width - 130, 50, this.dialogueController, this.playerData);
+        
     }
 
     /**
@@ -144,7 +129,7 @@ export class TaliEndScene extends BaseScene {
      * Adds all the text to the scene.
      */
     addText() {
-        this.victoryText = this.add.text(this.width/2, this.height/5, this.playerWon ? 'You won!' : 'You lost!', { fontSize: 64, fill: '#000'}).setOrigin(0.5);
+        this.victoryText = this.add.text(this.width/2, this.height/2, this.playerWon ? 'You won!' : 'You lost!', { fontSize: 150, fill: '#000', fontFamily: 'TaliOne'}).setOrigin(0.5);
     }
     
 }

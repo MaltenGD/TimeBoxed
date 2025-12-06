@@ -75,7 +75,7 @@ export class TaliScene extends BaseScene {
      * Creates and places all the buttons for the scene.
      */
     createButtons() {
-        this.rollBtn = this.createButton(this.width/2, 4*this.height/5, '', ()=>{});
+        this.rollBtn = this.createButton(this.width/2, 4*this.height/5, '', ()=>{}).setAlpha(0);
         this.backBtn = this.add.text(10, 10, 'Back', {fontSize: 50, fill: '#fff', fontFamily: 'TaliOne'})
         .setInteractive()
         .on('pointerover', () => this.tweens.add({targets: this.backBtn, scale: 1.1, duration: 100, ease: 'Power1'}))
@@ -103,14 +103,43 @@ export class TaliScene extends BaseScene {
         .setOrigin(0.5)
 
         const button = this.add.container(x, y, [ btnImg, btn ])
-        button.setSize(btnImg.width, btnImg.height)
+        button.setSize(btnImg.width, btnImg.height);
+        
+        this.makeButtonShine(btnImg, button);
+
         button.setInteractive()
         .setScale(0.5)
-        .on('pointerover', () => this.tweens.add({ targets: button, scale: 0.6, duration: 100, ease: 'Power1' }))
+        .on('pointerover', () => {
+            this.tweens.add({ targets: button, scale: 0.501, duration: 100, ease: 'Power1' })
+            this.tweens.add({
+                    targets: this.shine,
+                    x: 4*this.width/5,
+                    duration: 500,
+                    ease: 'Power2',
+                    onComplete: () => this.shine.x = 0
+            });
+        })   
         .on('pointerout', () => this.tweens.add({ targets: button, scale: 0.5, duration: 100, ease: 'Power1' }))
         .on('pointerdown', onClick);
 
         return button;
+    }
+
+    makeButtonShine(btnImg, btnContainer) {
+        this.shine = this.add.rectangle(
+            0,            // start far left so it slides across
+            4*this.height/5,
+            btnImg.width,
+            btnImg.height / 2,
+            0xffffff,
+            0.4
+        );
+        this.shine.setAngle(45);
+
+        const mask = this.make.graphics();
+        mask.fillStyle(0xffffff);
+        mask.fillRect(this.width/2 - btnContainer.width/4, 4*this.height/5 - btnContainer.height/4, btnImg.width/2, btnImg.height/2);
+        this.shine.setMask(mask.createGeometryMask());
     }
 
     /**
@@ -120,6 +149,7 @@ export class TaliScene extends BaseScene {
      * @param {*} onClick the new event on click
      */
     resetButton(btn, label, onClick) {
+        this.shine.setAlpha(1);
         this.setObjectState(btn, true);
         btn.removeAllListeners('pointerdown')
         btn.list[1].setText(label)
@@ -173,6 +203,7 @@ export class TaliScene extends BaseScene {
     startGame() { 
         this.setTextWithAnimation(this.turnText, this.playerFirst ? "Your turn! Roll the dice." : "Mercury starts!");
         this.taliGame.startGame();
+        this.shine.setAlpha(1);
     }
 
     /**
@@ -223,6 +254,7 @@ export class TaliScene extends BaseScene {
         this.resetButton(this.rollBtn, 'Roll', () => {
             console.log("rolll");
             this.setObjectState(this.rollBtn, false);
+            this.shine.setAlpha(0);
             this.taliGame.nextTurn();
             this.setTextWithAnimation(this.turnText, "Your rolls:");
         });
@@ -231,6 +263,7 @@ export class TaliScene extends BaseScene {
     onPlayerRolled() {
         this.resetButton(this.rollBtn, 'Show combinations', () => {
             this.setObjectState(this.rollBtn, false);
+            this.shine.setAlpha(0);
             this.taliGame.nextTurn();
             this.setTextWithAnimation(this.turnText, "Your combinations:");
         })
@@ -239,6 +272,7 @@ export class TaliScene extends BaseScene {
     onPlayerThrown() {
         this.resetButton(this.rollBtn, 'Done', () => {
             this.setObjectState(this.rollBtn, false);
+            this.shine.setAlpha(0);
             this.updateScore();
             this.taliGame.nextTurn();
         })
@@ -246,10 +280,15 @@ export class TaliScene extends BaseScene {
 
     onEnemyTurn() {
         this.setTextWithAnimation(this.turnText, "Mercury is rolling...")
-        this.resetButton(this.rollBtn, 'Reveal rolls', () => {
-            this.setObjectState(this.rollBtn, false);
-            this.taliGame.nextTurn();
-            this.setTextWithAnimation(this.turnText, "Mercury's rolls:");
+        this.time.addEvent({
+            delay: 1000,
+            callback: () => {
+                this.setObjectState(this.rollBtn, false);
+                this.shine.setAlpha(0);
+                this.taliGame.nextTurn();
+                this.setTextWithAnimation(this.turnText, "Mercury's rolls:");
+            },
+            loop: false
         })
     }
 
@@ -257,6 +296,7 @@ export class TaliScene extends BaseScene {
 
         this.resetButton(this.rollBtn, 'Distract Mercury!', () => {
             this.setObjectState(this.rollBtn, false);
+            this.shine.setAlpha(0);
             this.taliGame.nextTurn();
             this.setTextWithAnimation(this.turnText, "");
         })
@@ -272,6 +312,7 @@ export class TaliScene extends BaseScene {
             console.log("Resumed game.");
             this.resetButton(this.rollBtn, 'Show combinations', () => {
                 this.setObjectState(this.rollBtn, false);
+                this.shine.setAlpha(0);
                 this.setTextWithAnimation(this.turnText, "Mercury's combinations:");
                 this.taliGame.nextTurn();
             })    
@@ -281,6 +322,7 @@ export class TaliScene extends BaseScene {
     onEnemyThrown() {
         this.resetButton(this.rollBtn, 'Done', () => {
             this.setObjectState(this.rollBtn, false);
+            this.shine.setAlpha(0);
             this.updateScore();
             this.taliGame.nextTurn();
         });
