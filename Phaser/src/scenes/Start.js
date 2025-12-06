@@ -80,18 +80,18 @@ export class Start extends BaseScene {
             loop: -1
         });
 
-        const kitty = this.add.image(500, 450, 'StartMenuKronos').setOrigin(0.5).setScale(0.9);
+        const kitty = this.add.image(350, 450, 'StartMenuKronos').setOrigin(0.5).setScale(0.89);
 
         this.tweens.add({
             targets: kitty,
             y: 520,
-            duration: 4900,
+            duration: 4500,
             ease: 'Sine.easeInOut',
             yoyo: true,
             loop: -1
         });
 
-        const timepiece = this.add.image(375, 260, 'Timepiece').setOrigin(0.5).setScale(0.9);
+        const timepiece = this.add.image(240, 260, 'Timepiece').setOrigin(0.5).setScale(0.9);
 
         this.tweens.add({
             targets: timepiece,
