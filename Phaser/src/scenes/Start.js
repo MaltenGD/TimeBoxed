@@ -68,19 +68,19 @@ export class Start extends BaseScene {
         else this.background = this.add.image(width / 2, height / 2, 'background').setDisplaySize(width, height);
 
 
-        const box = this.add.image(300, 950, 'BoxOpen').setOrigin(0.5).setScale(1.5).setRotation(0.2);
+        const box = this.add.image(300, 1050, 'BoxOpen').setOrigin(0.5).setScale(1.75).setRotation(0.2);
 
         // a constant wobbling effect as if the box was floating on space
         this.tweens.add({
             targets: box,
-            y: 930,
+            y: 1030,
             duration: 4000,
             ease: 'Sine.easeInOut',
             yoyo: true,
             loop: -1
         });
 
-        const kitty = this.add.image(350, 450, 'StartMenuKronos').setOrigin(0.5).setScale(0.89);
+        const kitty = this.add.image(350, 450, 'StartMenuKronos').setOrigin(0.5).setScale(0.82);
 
         this.tweens.add({
             targets: kitty,
@@ -95,7 +95,7 @@ export class Start extends BaseScene {
 
         this.tweens.add({
             targets: timepiece,
-            y: 420,
+            y: 380,
             duration: 5500,
             ease: 'Sine.easeInOut',
             yoyo: true,
@@ -134,8 +134,8 @@ export class Start extends BaseScene {
         this.startWandering(startLetters);
         const playButton = this.add.container(width / 2 + 200, height - 200, [playButtonS, playButtonT, playButtonA, playButtonR, playButtonT2]).setSize(600, 150).setInteractive();
         //boton de creditos
-        const settingsButton = this.add.image( width - 150, height - 315, 'StartMenuSettings').setOrigin(0.5).setScale(0.20).setInteractive();
-        const creditsButton = this.add.image( width - 150, height - 150, 'creditsButton').setOrigin(0.5).setScale(0.15).setInteractive();
+        const settingsButton = this.add.image( width - 125, height - 225, 'StartMenuSettings').setOrigin(0.5).setScale(0.12).setInteractive();
+        const creditsButton = this.add.image( width - 125, height - 100, 'creditsButton').setOrigin(0.5).setScale(0.12).setInteractive();
 
         //PLAY BUTTON INTERACTIONS
         this.arranged = false;
@@ -208,7 +208,7 @@ export class Start extends BaseScene {
             this.sound.play('buttonHover', { volume: 2 * this.playerData.sfxVolume });
             this.tweens.add({
                 targets: creditsButton,
-                scale: 0.17,
+                scale: 0.14,
                 duration: 200,
                 ease: 'Sine.easeInOut',
                 yoyo: false,
@@ -217,7 +217,7 @@ export class Start extends BaseScene {
         creditsButton.on('pointerout', () => {
             this.tweens.add({
                 targets: creditsButton,
-                scale: 0.15,
+                scale: 0.12,
                 duration: 200,
                 ease: 'Sine.easeInOut',
                 yoyo: false,
@@ -230,7 +230,7 @@ export class Start extends BaseScene {
             this.sound.play('buttonHover', { volume: 2 * this.playerData.sfxVolume });
             this.tweens.add({
                 targets: settingsButton,
-                scale: 0.22,
+                scale: 0.14,
                 duration: 200,
                 ease: 'Sine.easeInOut',
                 yoyo: false,
@@ -239,7 +239,7 @@ export class Start extends BaseScene {
             settingsButton.setTexture('StartMenuSettings');
             this.tweens.add({
                 targets: settingsButton,
-                scale: 0.20,
+                scale: 0.12,
                 duration: 200,
                 ease: 'Sine.easeInOut',
                 yoyo: false,

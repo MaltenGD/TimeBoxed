@@ -23,16 +23,18 @@ export class ItemsScene extends BaseScene {
         if (this.playerData.TimeboxedMode) this.background = this.add.image(width / 2, height / 2, 'backgroundTB').setDisplaySize(width, height);
         else this.background = this.add.image(width / 2, height / 2, 'background').setDisplaySize(width, height);
 
-        this.add.text(width / 2, height / 2 - 350, 'Items', {
-            fontSize: '48px',
-            fill: '#ffffff',
-            fontStyle: 'bold'
+        this.add.text(width / 2, height / 2 - 400, 'Items / Achievements', {
+            fontSize: '58px',
+            color: '#ffffff',
+            fontFamily: 'rimouski',
+            fontStyle: 'bold',
         }).setOrigin(0.5);
 
         const backButton = this.add.text(width / 2, height - 100, 'Back', {
-            fontSize: '32px',
-            fill: '#fff',
+            fontSize: '48px',
+            color: '#fff',
             backgroundColor: '#333',
+            fontFamily: 'rimouski',
             padding: { x: 20, y: 10 }
         })
         .setOrigin(0.5)
@@ -43,6 +45,28 @@ export class ItemsScene extends BaseScene {
         backButton.on('pointerdown', () => {
             this.exitItemsScene();
         });
+
+        backButton.on('pointerover', () => {
+            this.sound.play('buttonHover', { volume: 2 * this.playerData.sfxVolume });
+            backButton.setBackgroundColor('#555');
+            this.tweens.add({
+                targets: backButton,
+                scale: 1.1,
+                duration: 200,
+                ease: 'Sine.easeInOut'
+            });
+        });
+
+        backButton.on('pointerout', () => {
+            backButton.setBackgroundColor('#333');
+            this.tweens.add({
+                targets: backButton,
+                scale: 1.0,
+                duration: 200,
+                ease: 'Sine.easeInOut'
+            });
+        });
+
 
         this.input.keyboard.once('keydown-ESC', () => {
             this.exitItemsScene();
@@ -62,18 +86,12 @@ export class ItemsScene extends BaseScene {
     addAchievements() {
         this.achManager = this.registry.get('AchievementManager');
 
-        this.add.text(this.width / 2, this.height / 3.7, 'Achievements', {
-            fontSize: '60px',
-            fill: '#dddddd',
-            align: 'center',
-            wordWrap: { width: this.width - 100 }
-        }).setOrigin(0.5);
-
-        this.add.text(this.width/2, this.height/3, `You have ${this.achManager.nrOfAwardedAchievements}/${this.achManager.nrOfAchievements}`, {
+        this.add.text(this.width/2, this.height/3 - 50, `You have ${this.achManager.nrOfAwardedAchievements}/${this.achManager.nrOfAchievements}\n achievements unlocked\n\nClick on any achievemnt to see its info.`, {
             fontSize: '40px',
-            fill: '#dddddd',
+            color: '#dddddd',
             align: 'center',
-            wordWrap: { width: this.width - 100 }
+            wordWrap: { width: this.width - 100 },
+            fontFamily: 'rimouski'
         }).setOrigin(0.5);
 
         const achievements = Array.from(this.achManager.achievementMap.values());
@@ -82,6 +100,7 @@ export class ItemsScene extends BaseScene {
         const startY = this.height/3 + distance;
 
         achievements.forEach((ach, index) => {
+            console.log("Showing achievement:", ach);
             const row = Math.floor(index / maxAchPerRow);
             const col = index % maxAchPerRow;
 
@@ -96,9 +115,41 @@ export class ItemsScene extends BaseScene {
             const x = startX + col * distance;
             const y = startY + row * distance;
 
-            this.add.image(x, y, ach.image).setScale(0.3).setOrigin(0.5);
+            const achImage = this.add.image(x, y, ach.image).setScale(0.3).setOrigin(0.5);
+            achImage.setInteractive({ useHandCursor: true });
+            achImage.on('pointerdown', () => {
+                this.scene.pause('ItemsScene');
+                this.scene.launch('AchievementPanelScene', { playerData: this.playerData, achievement: ach });
+            });
+
+            if(!ach.awarded) achImage.setAlpha(0.75);
+
+            achImage.on('pointerover', () => {
+                this.sound.play('buttonHover', { volume: 2 * this.playerData.sfxVolume });
+                this.tweens.add({
+                    targets: achImage,
+                    scale: 0.35,
+                    duration: 200,
+                    ease: 'Sine.easeInOut'
+                });
+            });
+
+            achImage.on('pointerout', () => {
+                this.tweens.add({
+                    targets: achImage,
+                    scale: 0.3,
+                    duration: 200,
+                    ease: 'Sine.easeInOut'
+                });
+            });
+
+
             if (ach.awarded) {
-                this.add.text(x + 5, y + 80, 'Awarded!', {fontSize: '24px'}).setOrigin(0.5);
+                this.add.text(x + 5, y + 80, 'Awarded!', {
+                    fontSize: '24px',
+                    fontFamily: 'rimouski',
+                    color: '#5fc6e6ff'
+                }).setOrigin(0.5);
             }
 
             console.log("Achievements shown.");

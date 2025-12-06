@@ -18,6 +18,8 @@ import { OptionMenuScene } from './scenes/OptionMenuScene.js';
 import { YakusMenu } from './scenes/HanafudaScenes/YakusMenu.js';
 import { HelpLobbyScene } from './scenes/HelpLobbyScene.js';
 import { ItemsScene } from './scenes/ItemsScene.js';
+import { AchievementPanelScene } from './scenes/AchievementPanel.js';
+
 import { TimeBoxedDefeat } from './scenes/TimeBoxedDefeat.js';
 
 import { HanafudaIntro } from './scenes/HanafudaScenes/HanafudaIntroScene.js'; 
@@ -72,6 +74,7 @@ const config = {
         OptionMenuScene,
         YakusMenu,
         ItemsScene,
+        AchievementPanelScene,
         HelpLobbyScene,
         TaliTutorial,
         TutorialAseb,
