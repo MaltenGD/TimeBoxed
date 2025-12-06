@@ -125,29 +125,6 @@ export class TaliBeginScene extends BaseScene {
         this.boardImg = this.add.image(this.width/2, this.height/2, 'taliBoard').setOrigin(0.5).setScale(0.44);
     }
 
-    addHands() {
-        // Brazo del jugador que viene desde abajo
-        this.playerArm = this.add.rectangle(
-            this.width / 2,
-            this.height + 700,  // empieza fuera de la pantalla
-            120,                // ancho del brazo
-            500,                // largo del brazo
-            0xff5555            // color rojizo
-        ).setOrigin(0.5, 1);
-
-        // Brazo del enemigo: viene desde arriba
-        this.enemyArm = this.add.rectangle(
-            this.width / 2,
-            -700,               // empieza fuera de la pantalla
-            120,
-            500,
-            0x5555ff            // color azulado
-        ).setOrigin(0.5, 0);
-
-        this.playerArm.setAlpha(0);
-        this.enemyArm.setAlpha(0);
-    }
-
     /**
      * Adds all the text to the scene.
      */
@@ -156,40 +133,6 @@ export class TaliBeginScene extends BaseScene {
         this.playerScore = this.add.text(20, this.height - 20, 'Your Score: ' + this.taliGame.playerScore, {fontSize: 50, fontFamily: 'TaliOne'}).setOrigin(0, 1);
         this.turnText = this.add.text(this.width/2, this.height/2.5, 'Roll to decide who begins:', { fontSize: 100, fill: '#fff', fontFamily: 'TaliOne'}).setOrigin(0.5);
         this.resultText = this.add.text(this.width/2, this.height - this.height/3, ' ', { fontSize: 64, fill: '#fff', fontFamily: 'TaliOne'}).setOrigin(0.5);
-    }
-
-    animateHands() {
-        // Mostrar brazos
-        this.playerArm.setAlpha(1);
-        this.enemyArm.setAlpha(1);
-
-        const enterDepth = 10;
-
-        // Animacion del brazo del jugador (sube y baja)
-        this.tweens.add({
-            targets: this.playerArm,
-            y: this.height - enterDepth,  // entra hasta el centro
-            duration: 190,
-            ease: 'Sine.easeInOut',
-            yoyo: true,
-            hold: 80,
-            onYoyo: () => {
-                this.playerArm.setAlpha(0); // desaparece al volver
-            }
-        });
-
-        // Animacion del brazo del enemigo (baja y sube)
-        this.tweens.add({
-            targets: this.enemyArm,
-            y: enterDepth,
-            duration: 190,
-            ease: 'Sine.easeInOut',
-            yoyo: true,
-            hold: 80,
-            onYoyo: () => {
-                this.enemyArm.setAlpha(0);
-            }
-        });
     }
 
     /**
@@ -212,12 +155,10 @@ export class TaliBeginScene extends BaseScene {
         });
     }
 
-
     /**
      * The player's first roll.
      */
     playerRolls() {
-        // this.animateHands();
         this.turnText.setPosition(this.width/2, this.height/3);
         this.setTextWithAnimation(this.turnText, "Your rolls:");
         this.rollBtn.setAlpha(0);

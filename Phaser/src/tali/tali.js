@@ -327,19 +327,45 @@ export default class Tali {
      * Animates the appearance of the dice.
      */
     animateDiceIn(img) {
+
+        let rollInterval = this.scene.time.addEvent({
+            delay: 100,
+            callback: () => {
+                const randomFace = Phaser.Math.Between(0, Tali.NUMBER_OF_DICE - 1);
+                img.setTexture('dice' + randomFace);
+            },
+            loop: true
+        });
+
         this.scene.tweens.add({
             targets: img,
             alpha: 1,
-            duration: 700,
+            duration: 1000,
             ease: 'Sine.easeOut',
             onComplete: () => {
+                rollInterval.remove(); // para el “giro”
+                img.setTexture('dice' + this.currentRoll[this.diceImages.indexOf(img)]); // cara real
                 this.diceRollIndex++;
                 if (this.diceRollIndex >= this.currentRoll.length) {
                     this.diceRollIndex = 0;
                     this.emitter.emit('diceIn');
                 }
             }
-        })
+        });
+
+        // this.scene.tweens.add({
+        //     targets: img,
+        //     alpha: 1,
+        //     duration: 700,
+        //     ease: 'Sine.easeOut',
+        //     onComplete: () => {
+        //         this.diceRollIndex++;
+        //         if (this.diceRollIndex >= this.currentRoll.length) {
+        //             this.diceRollIndex = 0;
+        //             this.emitter.emit('diceIn');
+        //         }
+        //     }
+        // })
     }
 
     hideDice() {
