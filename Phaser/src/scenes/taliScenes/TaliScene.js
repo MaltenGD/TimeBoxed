@@ -68,7 +68,7 @@ export class TaliScene extends BaseScene {
      */
     addImages() {
         this.background = this.add.image(this.width / 2, this.height / 2, 'taliBackgroundPlaceholder').setDisplaySize(this.width, this.height);
-        this.boardImg = this.add.image(this.width/2, this.height/2, 'taliBoard').setOrigin(0.5).setScale(0.45);
+        this.boardImg = this.add.image(this.width/2, this.height/2, 'taliBoard').setOrigin(0.5).setScale(0.44);
     }
 
     /**
@@ -81,6 +81,9 @@ export class TaliScene extends BaseScene {
         .on('pointerover', () => this.tweens.add({targets: this.backBtn, scale: 1.1, duration: 100, ease: 'Power1'}))
         .on('pointerout', () => this.tweens.add({targets: this.backBtn, scale: 1, duration: 100, ease: 'Power1'}))
         .on('pointerdown', () => this.openOptionMenu());
+
+        this.combinationMenuBtn = this.add.text(this.width - 10, this.height - 10, " Combinations ", {fontFamily: "TaliOne", fontSize: 80, fill: '#fff', backgroundColor: '#26100bff'}).setOrigin(1)
+        .on('pointderdown', () => this.openCombinationMenu());
     }
 
     /**
@@ -155,6 +158,14 @@ export class TaliScene extends BaseScene {
         btn.list[1].setText(label)
         btn.setInteractive()
         .once('pointerdown', onClick);
+    }
+
+    openCombinationMenu() {
+        if (this.scene.isActive('YakusMenu')) return;
+        this.scene.pause();
+        this.playerData.sceneToResume = this.scene.key;
+
+        this.scene.launch('YakusMenu', this.playerData);
     }
 
     /**
@@ -308,8 +319,8 @@ export class TaliScene extends BaseScene {
         this.events.once("resume", (scene, data) => {
             this.taliGame.currentRoll = data.mercuryResultRoll;
             this.possibleDialogues = data.possibleDialogues;
+            this.setTextWithAnimation(this.turnText, "Mercury's rolls:")
             this.taliGame.setDiceImages();
-            console.log("Resumed game.");
             this.resetButton(this.rollBtn, 'Show combinations', () => {
                 this.setObjectState(this.rollBtn, false);
                 this.shine.setAlpha(0);
