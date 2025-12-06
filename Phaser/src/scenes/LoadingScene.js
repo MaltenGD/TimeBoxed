@@ -86,7 +86,8 @@ export class LoadingScene extends Phaser.Scene
         this.load.image('background', 'Phaser/assets/StartMenu/MainBackground.png');
         this.load.image('backgroundTB', 'Phaser/assets/StartMenu/MainBackgroundTimeboxedMode.png');
         this.load.image('taliBackgroundPlaceholder', 'Phaser/assets/tali/taliBackgroundPlaceholder.png');
-        this.load.image('StartMenuKronos', 'Phaser/assets/StartMenu/kittykronos.png')
+        this.load.image('StartMenuKronos', 'Phaser/assets/StartMenu/bigKronos.png');
+        this.load.image('Timepiece', 'Phaser/assets/StartMenu/timePiece.png');
         this.load.image('BoxOpen', 'Phaser/assets/StartMenu/cardboardbox.png')
         this.load.image('logo', 'Phaser/assets/titlelogo.png');
         this.load.image('creditsButton', 'Phaser/assets/StartMenu/creditsButton.png');
@@ -250,7 +251,7 @@ export class LoadingScene extends Phaser.Scene
     }
 
     loadInisgniaAssets() {
-        this.load.image('tempInsignia3', 'Phaser/assets/insignias/tempInsignia3.png');
+        this.load.image('Card_God', 'Phaser/assets/insignias/Card_God.png');
         this.load.image('Underworld_Conqueror', 'Phaser/assets/insignias/Underworld_Conqueror.png');
         this.load.image('Square_Master', 'Phaser/assets/insignias/Square_Master.png');
         this.load.image('Wonder_of_Egypt', 'Phaser/assets/insignias/Wonder_of_Egypt.png');
