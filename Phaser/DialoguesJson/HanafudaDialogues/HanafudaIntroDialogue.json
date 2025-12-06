@@ -1,0 +1,242 @@
+{
+"HanafudaIntroDialogue":{
+    "start": 
+    {
+        "speaker": "Narrator",
+        "text": "The box spins around, making you dizzy, and then stops. Kronos kicks you out of the box and in an instance your view changes to a path surounded of bambu with a shrine at the end of it",
+        "animation": "true",
+        "next": "HI2"
+    },
+    "HI2": 
+    {
+        "speaker": "Player",
+        "text": "Wow *looks around with shiny eyes*, this is so cozy!",
+        "animation": "true",
+        "next": "HI3"
+    },
+    "HI3":
+    {
+        "speaker": "Kronos",
+        "text": "Don't let the view, neither the one living here, fool you. Many pretty things are dangerous.",
+        "animation": "true",
+        "next": "HI4"
+    },
+    "HI4": 
+    {
+        "speaker": "Player",
+        "text": "what do you mean? Are there ninjas in the forest? ancient traps? Is the only food here cake or something?",
+        "animation": "true",
+        "next": "HI5"
+    },
+    "HI5": 
+    {
+        "speaker": "Kronos",
+        "text": "Oh you wish it was cake indigestion your worst worry. Nope it's sth worse",
+        "animation": "true",
+        "next": "HI6"
+    },
+    "HI6": 
+    {
+        "speaker": "Narrator",
+        "text": "Just when kronos finish his ominous sentence, a slender figure appears from behind the shrine and in a blink of an eye it's behind kronos",
+        "animation": "true",
+        "next": "HI7"
+    },
+    "HI7": 
+    {
+        "speaker": "Benten",
+        "text": "Oh it's you dear Kronos, You came back. How delightful!",
+        "animation": "true",
+        "next": "HI8"
+    },
+    "HI8": 
+    {
+        "speaker": "Narrator",
+        "text": "The figure's voice is soft but doesn't hesistate. You watch as the figure invades (a lot) kronos personal space, Kronos stays still without uttering a word and you get the impression he wants to go back into the box.",
+        "animation": "true",
+        "next": "HI9"
+    },
+    "HI9": 
+    {
+        "speaker": "Player",
+        "text": "eh.. kronos... who's this?",
+        "animation": "true",
+        "next": "HI10"
+    },
+    "HI10": 
+    {
+        "speaker": "Kronos",
+        "text": "*sighs* This is benten. Benten, meet my new friend",
+        "animation": "true",
+        "next": "HI11"
+    },
+    "HI11": 
+    {
+        "speaker": "Narrator",
+        "text": "Benten didn't even realized you were there. When she notices your presence, she hides behind kronos, although she fails to do so because of her height.",
+        "animation": "true",
+        "next": "HI12"
+    },
+    "HI12": 
+    {
+        "speaker": "Narrator",
+        "text": "A moment after, she takes a peek at you, her expression rather flustered, and quickly she goes back into hiding. Time waiting for her increases as does your confussion.",
+        "animation": "true",
+        "next": "HI13"
+    },
+    "HI13": 
+    {
+        "speaker": "Narrator",
+        "text": "Finally, she comes out and starts walking towards you. She carries herself with grace before stopping in front of you.",
+        "animation": "true",
+        "next": "HI14"
+    },
+    "HI14": 
+    {
+        "speaker": "Benten",
+        "text": "*in a soft, sweet, low voice* Pleased to meet you, handsome. I'm Beten, I like the flow of things. Pardon my behaviour earlier, I really hope that I didn't scare you *looks ashamed*",
+        "animation": "true",
+        "next": "HI15"
+    },
+    "HI15": 
+    {
+        "speaker": "Player",
+        "text": "Hi miss Benten, I'm a friend of Kronos. The pleasure is mine. I don't know what the flow of things is but good for you!",
+        "animation": "true",
+        "next": "HI16"
+    },
+    "HI16": 
+    {
+        "speaker": "Narrator",
+        "text": "When you mention her name, she makes a bashful expression. You are unsure of how to act around her so for now you stick to being friendly and trying not to be awkward",
+        "animation": "true",
+        "next": "HI17"
+    },
+    "HI17": 
+    {
+        "speaker": "Benten",
+        "text": "Well, now that we are acquainted, To what do I owe your presence here?",
+        "animation": "true",
+        "next": "HI18"
+    },
+    "HI18": 
+    {
+        "speaker": "Kronos",
+        "text": "Ohh yes, dear Benten we're actually-",
+        "animation": "true",
+        "next": "HI19"
+    },
+    "HI19": 
+    {
+        "speaker": "Benten",
+        "text": "*in a firm voice* I didn't request an answer from YOU dear Kronos, so silence thy tongue. *turns to looks at you gently*",
+        "animation": "true",
+        "next": "HI20"
+    },
+    "HI20": 
+    {
+        "speaker": "Narrator",
+        "text": "Kronos is out of himself, as if still not recovering from the way he was treated. As for you, you don't really understand much of her odd way of speaking, but you suppose she's asking for the reason you're here",
+        "animation": "true",
+        "next": "HI21"
+    },
+    "HI21": 
+    {
+        "speaker": "Player",
+        "text": "Miss Benten, we are here to visit a friend of Kronos and I have to get an object back.",
+        "animation": "true",
+        "next": "HI22"
+    },
+    "HI22": 
+    {
+        "speaker": "Narrator",
+        "text": "At your words, her gaze turns sharp and her voice is still soft but now with an edge to it.",
+        "animation": "true",
+        "next": "HI23"
+    },
+    "HI23": 
+    {
+        "speaker": "Benten",
+        "text": "I see, You are most fortunate. I just happen to be in posession of the artifact your looking for.",
+        "animation": "true",
+        "next": "HI24"
+    },
+    "HI24": 
+    {
+        "speaker": "Player",
+        "text": "Really? what a relief! that saves us a lot of trouble, thank you miss Benten",
+        "animation": "true",
+        "next": "HI25"
+    },
+    "HI25": 
+    {
+        "speaker": "Benten",
+        "text": "Oh, you're most welcome. However there's a little inconvenience here. You see, I don't want to give back the artifact.",
+        "animation": "true",
+        "next": "HI26"
+    },
+    "HI26": 
+    {
+        "speaker": "Kronos",
+        "text": "Tsk. dammit ",
+        "animation": "true",
+        "next": "HI27"
+    },
+    "HI27": 
+    {
+        "speaker": "Player",
+        "text": "But miss Benten, I'm the one who needs the artifact.",
+        "animation": "true",
+        "next": "HI28"
+    },
+    "HI28": 
+    {
+        "speaker": "Benten",
+        "text": "Is that so?",
+        "animation": "true",
+        "next": "HI29"
+    },
+    "HI29": 
+    {
+        "speaker": "Narrator",
+        "text": "Benten walks around you, sliding her tail below your jaw",
+        "animation": "true",
+        "next": "HI30"
+    },
+    "HI30": 
+    {
+        "speaker": "Benten",
+        "text": "Well, I'm really fond of you, so I want to play a little game with you and if you win I'll give you the artifact.",
+        "animation": "true",
+        "next": "HI31"
+    },
+    "HI31": 
+    {
+        "speaker": "Player",
+        "text": "Ok, I'll play with you",
+        "animation": "true",
+        "next": "HI32"
+    },
+    "HI32":
+    {
+        "speaker": "Benten",
+        "text": "oh, this is exciting. Now for what are we going to play....Oh yes my favorite game, Hanafuda. Wait here ,darlinig, until I arrage the table.",
+        "animation": "true",
+        "next": "HI33"
+    },
+    "HI33":
+    {
+        "speaker": "Narrator",
+        "text": "Kronos slowly walks towards you and hastily whispers to you.",
+        "animation": "true",
+        "next": "end"
+    },
+    "end":
+    {
+        "speaker": "Kronos",
+        "text": "I had a hunch she was going to choose that. I think that's the only game she knows. I'll explain to you the game rules if you wish.",
+        "animation": "true",
+        "next": null
+    }
+}
+}

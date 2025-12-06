@@ -14,19 +14,24 @@ import { AsebDefeatScene } from './scenes/asebScenes/AsebDefeatScene.js';
 import { ConfirmMenuScene } from './scenes/ConfirmMenuScene.js';
 import { IntroAseb } from './scenes/asebScenes/IntroAseb.js';
 import { OptionMenuScene } from './scenes/OptionMenuScene.js';
+import { YakusMenu } from './scenes/HanafudaScenes/YakusMenu.js';
 import { HelpLobbyScene } from './scenes/HelpLobbyScene.js';
 import { ItemsScene } from './scenes/ItemsScene.js';
-import { TimeBoxedDefeat } from './scenes/TimeBoxedDefeat.js'
-import { HanafudaBeginScene} from './scenes/HanafudaScenes/HanafudaBeginScene.js'
-import { HanafudaGame} from './scenes/HanafudaScenes/HanafudaGame.js'
+import { TimeBoxedDefeat } from './scenes/TimeBoxedDefeat.js';
+
+import { HanafudaIntro } from './scenes/HanafudaScenes/HanafudaIntroScene.js'; 
+import { HanafudaBeginScene} from './scenes/HanafudaScenes/HanafudaBeginScene.js';
+import { HanafudaGameState} from './scenes/HanafudaScenes/HanafudaGameState.js';
+import { HanafudaEndScene } from './scenes/HanafudaScenes/HanafudaEndScene.js';
+
 import { TutorialAseb } from './scenes/asebScenes/TutorialAseb.js';
 import { TaliIntroScene } from './scenes/taliScenes/TaliIntroScene.js';
 import { TaliTutorial } from './scenes/taliScenes/TaliTutorialScene.js';
+import { TutorialHanafuda } from './scenes/HanafudaScenes/TutorialHanafuda.js';
 import { GameModeSelectionScene } from './scenes/GameModeSelectionScene.js';
 import { GameCompleted } from './scenes/GameCompleted.js';
 import { BaseScene } from './scenes/BaseScene.js';
 import { SettingsScene } from './scenes/SettingsScene.js';
-
 
 
 const config = {
@@ -56,15 +61,19 @@ const config = {
         TaliBeginScene,
         DistractMercuryScene,
         TaliEndScene,
+        HanafudaIntro,
         HanafudaBeginScene,
-        HanafudaGame,
+        HanafudaGameState,
+        HanafudaEndScene,
         TimeBoxedDefeat,
         GameCompleted,
         OptionMenuScene,
+        YakusMenu,
         ItemsScene,
         HelpLobbyScene,
         TaliTutorial,
         TutorialAseb,
+        TutorialHanafuda,
         GameModeSelectionScene,
         SettingsScene,
         ConfirmMenuScene

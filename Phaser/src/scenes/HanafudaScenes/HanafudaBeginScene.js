@@ -1,29 +1,35 @@
+import TransitionController, {RGBColor} from "../../misc/transitioncontroller.js";
+
 
 export class HanafudaBeginScene extends Phaser.Scene 
 {
-    constructor()
-    {
+    constructor(){
         super('HanafudaBeginScene');
-        this.playerBegins = false;
-        this.playerCard = null;
-        this.oponentcard = null;
-        this.mazo = [];
-        this.cardContainers = [];
-        this.infoText; 
     }
 
     preload() {
         /** @type {number} */
-        let {width, height} = this.sys.game.canvas;
+        const {width, height} = this.scale;
         this.width = width;
         this.height = height;
     }
 
-    create(playerData)
-    {   
 
+    init(){
+        this.playerBegins = false;
+        this.playerCard = null;
+        this.oponentcard = null;
+        this.mazo = [];
+        this.cardsObjects = [];
+        this.infoText = null;
+    }
+
+    create(playerData){   
         this.playerData = playerData;
         console.log(this.playerData)
+
+        this.transitionController = new TransitionController(this);
+        this.transitionController.startFadeInTransition();
 
         this.input.keyboard.on('keydown-ESC', () => {
              this.openOptionMenu()
@@ -47,9 +53,7 @@ export class HanafudaBeginScene extends Phaser.Scene
         for (let i = 0; i < totalCards; ++i)
         {
             monthCount = Math.floor(i / 4);
-
             const newCard = {number: i, month: months[monthCount]};
-            
             this.mazo.push(newCard);
         }
 
@@ -65,87 +69,44 @@ export class HanafudaBeginScene extends Phaser.Scene
             this.mazo[randomNumber] = aux1;
         }
 
-        console.log(this.mazo);
 
-        let cardGap = 110;
-        let centerX = this.width/2;
-        let centerY = this.height/2;
-        const finalPositions = 
-        [
-            { x: centerX - cardGap* 3, y: centerY -100},
-            { x: centerX - cardGap*2, y: centerY -100 },
-            { x: centerX - cardGap, y: centerY -100 },
-            { x: centerX, y: centerY -100 },
-            { x: centerX + cardGap, y: centerY -100 },
-            { x: centerX + cardGap * 2, y: centerY -100 },
-            { x: centerX + cardGap * 3, y: centerY -100 },
-            { x: centerX + cardGap * 4, y: centerY-100 },
-        ];
+        this.cardsZone = this.add.rectangle(150, 310, 1550, 340, 0x002016, 0.7).setOrigin(0, 0);  
 
-        for(let i = 0; i < 8; ++i)
-        {
-            const cardContainer = this.createCards(finalPositions[i].x, finalPositions[i].y, `${this.mazo[i].number}`, this.mazo[i]);
-            this.cardContainers.push(cardContainer);
+        for(let i = 0; i < 8; ++i){
+            const image = this.add.rectangle(250 + i * 190, this.height - 600, 150, 250, 0x609C86).setScale(1);
+            this.cardsObjects.push(image);
         }
 
-        this.infoText = this.add.text(this.width / 2, this.height / 2 - 200, "Choose a card", {
-            fontSize: '30px', fill: '#000000'
-        }).setOrigin(0.5);
-
-        this.events.on("cardSelected", this.onCardSelected, this);
-    }
-
-    createCards(x, y, textContent, card) 
-    {
-        const BOX_WIDTH = 90;
-        const BOX_HEIGHT = 150;
-    
-        // Create children at (0,0) as their positions are relative to the container
-        const backgroundCard = this.add.rectangle(0, 0, BOX_WIDTH, BOX_HEIGHT, 0xffffff);
-    
-        const text = this.add.text(0, 0,textContent,
-        {   fontSize: '30px',
-            fill: '#000000',
-            align: 'center'
-        })
-        .setOrigin(0.5);
-    
-        const container = this.add.container(x, y, [backgroundCard, text]);
-
-        // Define a hit area for the container to make it interactive
-        container.setInteractive(new Phaser.Geom.Rectangle(-BOX_WIDTH / 2, -BOX_HEIGHT / 2, BOX_WIDTH, BOX_HEIGHT), Phaser.Geom.Rectangle.Contains)
-        .on('pointerover', () => backgroundCard.setFillStyle(0xbbbaba))
-        .on('pointerout', () => backgroundCard.setFillStyle(0xffffff))
-        .on('pointerdown', () => {
-            this.events.emit("cardSelected", card); 
+        this.cardsObjects.forEach((card, i) =>{
+            card.setInteractive();
+            card.on('pointerover', () => card.setScale(0.95));
+            card.on('pointerout', () => card.setScale(1));
+            card.on('pointerdown', () => {
+                this.onCardSelected(this.mazo[i]);
+            });
         });
 
-        return container;
+        this.infoText = this.add.text(this.width / 2, this.height / 2 - 300, "Choose a card", {
+            fontSize: '40px', fill: '#000000'
+        }).setOrigin(0.5);
+
     }
 
     onCardSelected(card) {
         this.playerCard = card;
-        console.log("Player selected:", this.playerCard);
-
-        this.cardContainers.forEach(container => container.disableInteractive());
+        console.log("Player selected:", card);
+        this.cardsObjects.forEach(cardObject => cardObject.disableInteractive());
+        const chosenCard = this.add.image(this.width/2 + 500, this.height/2 + 400,`Card${card.number}`).setScale(0.2);
+        this.add.tween({ targets: chosenCard, scaleX: 0.24, scaleY: 0.24, duration: 200, ease: 'Power2', yoyo: true,});
 
         this.infoText.setText("Player has selected a card");
 
-        const playerChosenCard = this.createCards(this.width/2 + 500, this.height/2 + 400,`${card.number}`, card).disableInteractive();
-
-        this.time.delayedCall(1000, () => {
-            this.infoText.setText("Oponent is selecting a card");
-        });
-
-        this.time.delayedCall(1000, () => {
-            this.handleOpponentTurn();
-        });
-
+        this.time.delayedCall(1000, () => {this.infoText.setText("Oponent is selecting a card");});
+        this.time.delayedCall(1000, () => {this.handleOpponentTurn();});
         this.events.off("cardSelected"); // Prevent this from being called again.
     }
 
-    handleOpponentTurn()
-    {
+    handleOpponentTurn(){
         let oponentCardPos;
         do {
             oponentCardPos = Math.floor(Math.random() * 8);
@@ -157,36 +118,42 @@ export class HanafudaBeginScene extends Phaser.Scene
             this.infoText.setText("Oponent has selected a card");
         });
 
-        const oponentChosenCard = this.createCards(this.width/2 - 500, this.height/2 + 400,`${this.oponentcard.number}`, this.oponentcard).disableInteractive();
-        
-
-        if(this.oponentcard.number < this.playerCard.number)
-        {
+        this.time.delayedCall(1000, () => {
+            const opponentCard = this.add.image(this.width/2 - 500, this.height/2 + 400,`Card${this.oponentcard.number}`).setScale(0.2);
+            this.add.tween({ targets: opponentCard, scaleX: 0.24, scaleY: 0.24, duration: 200, ease: 'Power2', yoyo: true,});
+        });
+         
+        if(this.oponentcard.number < this.playerCard.number){
             this.playerBegins = false;
-            console.log("Opponent starts");
-            this.time.delayedCall(1000, () => {
+            //console.log("Opponent starts");
+            this.time.delayedCall(2000, () => {
                 this.infoText.setText("Oponent Starts");
             });
         }
-        else
-        {
+        else{
             this.playerBegins = true;
-            console.log("Player starts");
-            this.time.delayedCall(1000, () => {
+            //console.log("Player starts");
+            this.time.delayedCall(2000, () => {
                 this.infoText.setText("Player Starts");
             });
         }
 
-        this.time.delayedCall(2000, () => {
-            this.scene.start('HanafudaGame', { begins: this.playerBegins });
+        this.time.delayedCall(3000, () => {
+            this.transitionController.startFadeOutTransition(() => {
+                this.scene.start('HanafudaGameState', { playerData: this.playerData, begins: this.playerBegins});
+            }, 400);
         });
     }
 
-     openOptionMenu()
-    {
+    openOptionMenu(){
         if (this.scene.isActive('OptionMenu')) return;
             this.scene.pause();
             this.playerData.SceneToResume = this.scene.key;
             this.scene.launch('OptionMenu', this.playerData);
+    }
+
+    shutdown() {
+        console.log('HanafudaBeginScene shutting down, removing keyboard listeners.');
+        this.input.keyboard.off('keydown-ESC');
     }
 }
