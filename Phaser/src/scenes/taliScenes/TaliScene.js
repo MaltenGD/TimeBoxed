@@ -305,7 +305,6 @@ export class TaliScene extends BaseScene {
     }
 
     onEnemyRolled() {
-
         this.resetButton(this.rollBtn, 'Distract Mercury!', () => {
             this.setObjectState(this.rollBtn, false);
             this.shine.setAlpha(0);
@@ -321,13 +320,14 @@ export class TaliScene extends BaseScene {
             this.taliGame.currentRoll = data.mercuryResultRoll;
             this.possibleDialogues = data.possibleDialogues;
             this.setTextWithAnimation(this.turnText, "Mercury's rolls:")
-            this.taliGame.setDiceImages();
+            this.taliGame.setDiceImagesWithoutAnimating();
             this.resetButton(this.rollBtn, 'Show combinations', () => {
                 this.setObjectState(this.rollBtn, false);
                 this.shine.setAlpha(0);
                 this.setTextWithAnimation(this.turnText, "Mercury's combinations:");
-                this.taliGame.nextTurn();
-            })    
+                this.taliGame.nextTurn();    
+            })
+            
         });
     }
 

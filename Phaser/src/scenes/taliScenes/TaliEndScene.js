@@ -36,8 +36,8 @@ export class TaliEndScene extends BaseScene {
         this.transitionController = new TransitionController(this);
         this.transitionController.startFadeInTransition();
         
-        this.setDialogue();
         this.createUI();
+        this.setDialogue();
     }
 
     /**
@@ -96,7 +96,7 @@ export class TaliEndScene extends BaseScene {
         });
 
         /**Skip button */
-        this.skipBtn = new SkipButton(this, width - 130, 50, this.dialogueController, this.playerData);
+        this.skipBtn = new SkipButton(this, this.width - 130, 50, this.dialogueController, this.playerData);
         
     }
 
@@ -129,7 +129,7 @@ export class TaliEndScene extends BaseScene {
      * Adds all the text to the scene.
      */
     addText() {
-        this.victoryText = this.add.text(this.width/2, this.height/2, this.playerWon ? 'You won!' : 'You lost!', { fontSize: 150, fill: '#000', fontFamily: 'TaliOne'}).setOrigin(0.5);
+        this.victoryText = this.add.text(this.width/2, this.height/2, this.playerWon ? 'You won!' : 'You lost!', { fontSize: 150, fill: '#fff', fontFamily: 'TaliOne'}).setOrigin(0.5);
     }
     
 }

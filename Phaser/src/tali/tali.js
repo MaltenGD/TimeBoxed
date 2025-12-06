@@ -314,6 +314,12 @@ export default class Tali {
         this.animateDice();
     }
 
+    setDiceImagesWithoutAnimating() {
+        for (let i = 0, j = -2*this.width/12; i < Tali.NUMBER_OF_DICE; i++, j+=this.width/12) { 
+            this.diceImages[i] = this.scene.add.image(this.width/2 + j, this.height/2, 'dice' + this.currentRoll[i]).setOrigin(0, 0.5).setScale(0.3).setAlpha(0);
+        }
+    }
+
     /**
      * Animates the dice appearing and disappearing.
      */
