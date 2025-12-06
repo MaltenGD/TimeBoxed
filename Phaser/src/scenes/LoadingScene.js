@@ -48,7 +48,7 @@ export class LoadingScene extends Phaser.Scene
         this.load.json('achievements', 'Phaser/assets/achievements.json');
 
         this.load.on('progress', (value) => {
-        console.log(value);
+        //console.log(value);
         progressBar.clear();
         progressBar.fillStyle(0xFFFFFF, 1);
         progressBar.fillRect(progressBoxPosX + 10, progressBoxPosY + 10, progressBarWidth * value, progressBarHeight);
@@ -58,11 +58,11 @@ export class LoadingScene extends Phaser.Scene
         });
                 
         this.load.on('fileprogress', (file) => {
-            console.log(file.src);
+            //console.log(file.src);
             loadingInfo.setText("Loading: " + file.key +"\nFrom: " + file.src);
         });
         this.load.on('complete', () => {
-            console.log('complete');
+            //console.log('complete');
 
             progressBar.destroy();
             progressBox.destroy();
@@ -225,20 +225,76 @@ export class LoadingScene extends Phaser.Scene
     loadTaliAssets() {
         this.load.image('taliVerticalBackground', 'Phaser/assets/SelectionMenu/RomeVertical.png');
 
-        // this.load.image('taliBoard', 'Phaser/assets/tali/temporary_board.png');
+        this.load.image('taliButton', 'Phaser/assets/tali/button.png');
+
         this.load.image('taliBoard', 'Phaser/assets/tali/tali_board.png');
         for (let i = 0; i < Tali.NUMBER_OF_DICE; i++) {
-            this.load.image('dice' + i, 'Phaser/assets/tali/temporary_dice' + i + '.png');
+            this.load.image('dice' + i, 'Phaser/assets/tali/dice' + i + '.png');
+            this.load.image('dice_disabled' + i, 'Phaser/assets/tali/dice' + i + '_disabled.png');
         }
         for (let i = 0; i < Tali.DICE_THROW_NAMES.length; i++) {
-            console.log(Tali.DICE_THROW_NAMES[i]);
+            //console.log(Tali.DICE_THROW_NAMES[i]);
             this.load.image(Tali.DICE_THROW_NAMES[i], 'Phaser/assets/tali/temporary_throw' + i + '.png');
         }
+
+        this.load.image('TaliCombinations', 'Phaser/assets/tali/taliCombinations.png');
     }
 
     loadHanafudaAssets()
     {
+        this.load.image('Combanations', 'Phaser/assets/Hanafuda/Tutorial/Combanations.png');
         this.load.image('HanafudaBackgroundPlaceholder', 'Phaser/assets/Hanafuda/HanafudaBackgroundPlaceholder.png');
+        this.load.image('Card0', 'Phaser/assets/Hanafuda/HanafudaCards/0.png');
+        this.load.image('Card1', 'Phaser/assets/Hanafuda/HanafudaCards/1.png');
+        this.load.image('Card2', 'Phaser/assets/Hanafuda/HanafudaCards/2.png');
+        this.load.image('Card3', 'Phaser/assets/Hanafuda/HanafudaCards/3.png');
+        this.load.image('Card4', 'Phaser/assets/Hanafuda/HanafudaCards/4.png');
+        this.load.image('Card5', 'Phaser/assets/Hanafuda/HanafudaCards/5.png');
+        this.load.image('Card6', 'Phaser/assets/Hanafuda/HanafudaCards/6.png');
+        this.load.image('Card7', 'Phaser/assets/Hanafuda/HanafudaCards/7.png');
+        this.load.image('Card8', 'Phaser/assets/Hanafuda/HanafudaCards/8.png');
+        this.load.image('Card9', 'Phaser/assets/Hanafuda/HanafudaCards/9.png');
+        this.load.image('Card10', 'Phaser/assets/Hanafuda/HanafudaCards/10.png');
+        this.load.image('Card11', 'Phaser/assets/Hanafuda/HanafudaCards/11.png');
+        this.load.image('Card12', 'Phaser/assets/Hanafuda/HanafudaCards/12.png');
+        this.load.image('Card13', 'Phaser/assets/Hanafuda/HanafudaCards/13.png');
+        this.load.image('Card14', 'Phaser/assets/Hanafuda/HanafudaCards/14.png');
+        this.load.image('Card15', 'Phaser/assets/Hanafuda/HanafudaCards/15.png');
+        this.load.image('Card16', 'Phaser/assets/Hanafuda/HanafudaCards/16.png');
+        this.load.image('Card17', 'Phaser/assets/Hanafuda/HanafudaCards/17.png');
+        this.load.image('Card18', 'Phaser/assets/Hanafuda/HanafudaCards/18.png');
+        this.load.image('Card19', 'Phaser/assets/Hanafuda/HanafudaCards/19.png');
+        this.load.image('Card20', 'Phaser/assets/Hanafuda/HanafudaCards/20.png');
+        this.load.image('Card21', 'Phaser/assets/Hanafuda/HanafudaCards/21.png');
+        this.load.image('Card22', 'Phaser/assets/Hanafuda/HanafudaCards/22.png');
+        this.load.image('Card23', 'Phaser/assets/Hanafuda/HanafudaCards/23.png');
+        this.load.image('Card24', 'Phaser/assets/Hanafuda/HanafudaCards/24.png');
+        this.load.image('Card25', 'Phaser/assets/Hanafuda/HanafudaCards/25.png');
+        this.load.image('Card26', 'Phaser/assets/Hanafuda/HanafudaCards/26.png');
+        this.load.image('Card27', 'Phaser/assets/Hanafuda/HanafudaCards/27.png');
+        this.load.image('Card28', 'Phaser/assets/Hanafuda/HanafudaCards/28.png');
+        this.load.image('Card29', 'Phaser/assets/Hanafuda/HanafudaCards/29.png');
+        this.load.image('Card30', 'Phaser/assets/Hanafuda/HanafudaCards/30.png');
+        this.load.image('Card31', 'Phaser/assets/Hanafuda/HanafudaCards/31.png');
+        this.load.image('Card32', 'Phaser/assets/Hanafuda/HanafudaCards/32.png');
+        this.load.image('Card33', 'Phaser/assets/Hanafuda/HanafudaCards/33.png');
+        this.load.image('Card34', 'Phaser/assets/Hanafuda/HanafudaCards/34.png');
+        this.load.image('Card35', 'Phaser/assets/Hanafuda/HanafudaCards/35.png');
+        this.load.image('Card36', 'Phaser/assets/Hanafuda/HanafudaCards/36.png');
+        this.load.image('Card37', 'Phaser/assets/Hanafuda/HanafudaCards/37.png');
+        this.load.image('Card38', 'Phaser/assets/Hanafuda/HanafudaCards/38.png');
+        this.load.image('Card39', 'Phaser/assets/Hanafuda/HanafudaCards/39.png');
+        this.load.image('Card40', 'Phaser/assets/Hanafuda/HanafudaCards/40.png');
+        this.load.image('Card41', 'Phaser/assets/Hanafuda/HanafudaCards/41.png');
+        this.load.image('Card42', 'Phaser/assets/Hanafuda/HanafudaCards/42.png');
+        this.load.image('Card43', 'Phaser/assets/Hanafuda/HanafudaCards/43.png');
+        this.load.image('Card44', 'Phaser/assets/Hanafuda/HanafudaCards/44.png');
+        this.load.image('Card45', 'Phaser/assets/Hanafuda/HanafudaCards/45.png');
+        this.load.image('Card46', 'Phaser/assets/Hanafuda/HanafudaCards/46.png');
+        this.load.image('Card47', 'Phaser/assets/Hanafuda/HanafudaCards/47.png');
+
+        this.load.image('CardGroups','Phaser/assets/Hanafuda/Tutorial/CardGroups.png')
+        this.load.image('ChooseCard','Phaser/assets/Hanafuda/Tutorial/ChooseCard.png')
     }
 
     loadCreditsAssets() {
@@ -295,6 +351,26 @@ export class LoadingScene extends Phaser.Scene
         * @param {string} url - The URL of the JSON file to load.
         */
         this.load.json('AsebWinDialogue', 'Phaser/DialoguesJson/AsebWinDialogue.json');
+
+        this.load.json('HanafudaTutorialDialogue', 'Phaser/DialoguesJson/HanafudaTutorialDialogue.json');
+
+        /** Load the json file for the hanafuda intro Dialogue, before hanafuda game starts.
+        * @param {string} key - The key to reference the loaded JSON data.
+        * @param {string} url - The URL of the JSON file to load.
+        */
+        this.load.json('HanafudaIntroDialogue', 'Phaser/DialoguesJson/HanafudaDialogues/HanafudaIntroDialogue.json');
+
+        /** Load the json file for the hanafuda Win Dialogue, When player wins hanafuda.
+        * @param {string} key - The key to reference the loaded JSON data.
+        * @param {string} url - The URL of the JSON file to load.
+        */
+        this.load.json('HanafudaWinDialogue', 'Phaser/DialoguesJson/HanafudaDialogues/HanafudaWinDialogue.json');
+
+        /** Load the json file for the hanafuda defeat Dialogue, When player is defeated in hanafuda.
+        * @param {string} key - The key to reference the loaded JSON data.
+        * @param {string} url - The URL of the JSON file to load.
+        */
+        this.load.json('HanafudaDefeatDialogue', 'Phaser/DialoguesJson/HanafudaDialogues/HanafudaDefeatDialogue.json');
 
         /** Load the json file for the Game Completed Dialogue, when the player completes the game.
         * @param {string} key - The key to reference the loaded JSON data.

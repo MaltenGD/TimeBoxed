@@ -50,7 +50,7 @@ export default class DialogueController
         this.scene.events.removeListener('nextDialog');
         this.scene.events.removeListener('Finished');
         this.scene.events.removeListener('changeTutoImage');
-        
+    
         // Reset dialogue state to prevent skipping issues
         this.nextID = null;
         this.currentDialogue = null;
@@ -58,16 +58,9 @@ export default class DialogueController
         // Add the sound for the dialogue text
         this.dialogueTextSound = this.scene.sound.add('DialogueTextSFX', { loop: true , volume: this.dialogueTextVolume * this.scene.playerData.sfxVolume});
 
-        if(this.era == 'Intro')
-        {
-            this.dialogueGroup = this.dialogueData.IntroDialogue;
-        }
-        else if(this.era == 'Aseb')
-        {
-            this.dialogueGroup = this.dialogueData.EgyptDialogue;
-        }
-        else if(this.era == 'AsebTutorial')
-        {
+        if(this.era == 'Intro')this.dialogueGroup = this.dialogueData.IntroDialogue;
+        else if(this.era == 'Aseb')this.dialogueGroup = this.dialogueData.EgyptDialogue;
+        else if(this.era == 'AsebTutorial'){
             this.dialogueGroup = this.dialogueData.AsebTutorialDialogue;
             this.isTutorial = true;
         }
@@ -129,6 +122,7 @@ export default class DialogueController
             radius: 20
         });
 
+        
         /**Initially hide the dialog box */
         if (!this.dialogBox.visible) {
             this.dialogBox.toggleWindow();
@@ -171,7 +165,6 @@ export default class DialogueController
         this.currentDialogue = new Dialogue(speaker, text, isAnimated);
         /**Shows dialogue on screen */
         this.showCurrentDialogue();
-
         /**sets the next ID to continue the dialogue */
         this.nextID = element.next;
     }

@@ -1,6 +1,7 @@
 import DialogueController from "../../DialogueController.js";
 import TransitionController, {RGBColor} from "../../misc/transitioncontroller.js";
 import { BaseScene } from "../BaseScene.js";
+import { SkipButton } from "../../SkipButton.js";
 
 export class TaliIntroScene extends BaseScene
 {
@@ -21,26 +22,13 @@ export class TaliIntroScene extends BaseScene
         //creating the background
         this.background = this.add.image(width / 2, height / 2, 'taliBackgroundPlaceholder').setDisplaySize(width, height);
 
+        
         this.backBtn = this.add.text(0, 0, 'Back', { fontSize: 64, fill: '#000000ff'})
         .setInteractive()
         .on('pointerover', () => this.backBtn.setStyle({fill: 'rgba(104, 35, 35, 1)'}))
         .on('pointerout', () => this.backBtn.setStyle({fill: '#000000ff'}))
         .on('pointerdown', () => {
             this.openOptionMenu();
-        });
-        /**Skip button */
-        const skipBtn = this.add.text(width - 100, height - 1000 , 'SKIP', {
-            fontSize: '30px',
-            fill: '#000000',
-            backgroundColor: '#f7f7f7',
-            padding: { x: 20, y: 10 }
-        })
-        .setOrigin(0.5)
-        .setInteractive({ cursor: 'pointer' })
-        .on('pointerover', () => skipBtn.setStyle({ backgroundColor: '#bbbaba' }))
-        .on('pointerout', () => skipBtn.setStyle({ backgroundColor: '#f7f7f7' }))
-        .on('pointerdown', () => {
-            this.dialogueController.skipToEnd();
         });
 
         /** variable json*/
@@ -53,7 +41,7 @@ export class TaliIntroScene extends BaseScene
             this.dialogueController.handleInteraction();
         });
 
-         this.events.on('Finished', () => {
+        this.events.on('Finished', () => {
 
              this.transitionController.startFadeOutTransition(() => {
                 this.scene.launch('ConfirmMenu',{
@@ -75,8 +63,10 @@ export class TaliIntroScene extends BaseScene
             });
             
         }); 
-            }, 400);
-     
+        }, 400);
+        
+        /**Skip button */
+        this.skipBtn = new SkipButton(this, width - 130, 50, this.dialogueController, this.playerData);
     
     }
             

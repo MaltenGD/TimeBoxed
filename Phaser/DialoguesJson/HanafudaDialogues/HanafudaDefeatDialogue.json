@@ -1,0 +1,18 @@
+{
+"HanafudaDefeatDialogue":{
+    "start": 
+    {
+        "speaker": "Narrator",
+        "text": "Blehhhh",
+        "animation": "true",
+        "next": "end"
+    },
+    "end": 
+    {
+        "speaker": "Player",
+        "text": "more bleehh",
+        "animation": "true",
+        "next": "null"
+    }
+}
+}

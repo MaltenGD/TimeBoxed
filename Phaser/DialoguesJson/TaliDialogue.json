@@ -588,8 +588,14 @@
 "DistractMercuryDialogue0": {
     "start": {
         "speaker": "Mercury",
-        "text": "Temporary dialogue 1.",
+        "text": "Ah... I finished my drink.",
         "animation":"true",
+        "next": "end"
+    },
+    "end" : {
+        "speaker": "Narrator",
+        "text": "Mercury looks at your drink with shinning eyes.",
+        "animation": "true",
         "next": null
     }
 },
@@ -597,7 +603,7 @@
 "DistractMercuryDialogue1": {
     "start": {
         "speaker": "Mercury",
-        "text": "Temporary dialogue 2.",
+        "text": "Can you roll faster? I'm getting bored...",
         "animation":"true",
         "next": null
     }
@@ -606,8 +612,26 @@
 "DistractMercuryDialogue2": {
     "start": {
         "speaker": "Mercury",
-        "text": "Temporary dialogue 3.",
+        "text": "How about you pay for my drink this time, eh?",
         "animation":"true",
+        "next": null
+    }
+},
+
+"DistractMercuryDialogue3": {
+    "start": {
+        "speaker": "Narrator",
+        "text": "If you move any slower, Mercury will fall asleep.",
+        "animation": "true",
+        "next": null
+    }
+},
+
+"DistractMercuryDialogue4": {
+    "start": {
+        "speaker": "Mercury",
+        "text": "Do you know where our friend Kronos has gone to?",
+        "animation": "true",
         "next": null
     }
 }

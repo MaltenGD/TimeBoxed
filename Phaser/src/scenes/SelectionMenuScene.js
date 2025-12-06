@@ -106,7 +106,7 @@ export class SelectionMenuScene extends BaseScene {
          * HanafudaScene for japanese level scene
         */
 
-        const scenes = ['IntroAseb', 'TaliIntroScene', 'HanafudaBeginScene'];
+        const scenes = ['IntroAseb', 'TaliIntroScene', 'HanafudaIntro'];
 
         /** Maps level options to playerData completion flags */
         const completionFlags = {
