@@ -140,16 +140,16 @@ export default class HanafudaRender{
     uiRender(){
         
         //Back button
-        this.scene.backBtn = this.scene.add.text(0, 0, 'Back', { fontSize: 45, fill: '#f0f0f0ff'})
+        this.scene.backBtn = this.scene.add.image(80, 50, 'BackNormalButton').setScale(0.27)
         .setInteractive()
-        .on('pointerover', () => this.scene.backBtn.setStyle({fill: 'rgba(104, 35, 35, 1)'}))
-        .on('pointerout', () => this.scene.backBtn.setStyle({fill: '#000000ff'}))
+        .on('pointerover', () => this.scene.backBtn.setTexture('BackHoverButton')).setScale(0.6)
+        .on('pointerout', () => this.scene.backBtn.setTexture('BackNormalButton')).setScale(0.27)
         .on('pointerup', () => {this.scene.openOptionMenu(); });
 
         //Yakus Button
         this.scene.yakusMenuBtn = this.scene.add.image(170, 340, 'YakusNormalButton').setScale(0.16)
         .setInteractive()
-        .on('pointerover', () => this.scene.yakusMenuBtn.setTexture('YakusHoverButton')).setScale(0.3)
+        .on('pointerover', () => this.scene.yakusMenuBtn.setTexture('YakusHoverButton')).setScale(0.4)
         .on('pointerout', () => this.scene.yakusMenuBtn.setTexture('YakusNormalButton')).setScale(0.16)
         .on('pointerup', () => { this.scene.openYakusMenu();});
 

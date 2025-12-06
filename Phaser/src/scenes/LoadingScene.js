@@ -114,6 +114,7 @@ export class LoadingScene extends Phaser.Scene
         this.load.audio('TextPop', 'Phaser/assets/audio/Egypt-Aseb/TextPop.mp3');
         this.load.audio('DialogueTextSFX', 'Phaser/assets/audio/Dialogues/DialogueTextSFX.mp3');
         this.load.audio('boxClickedSFX', 'Phaser/assets/audio/SelectionMenuScene/BoxClickedSFX.mp3');
+        this.load.audio('japaneseMusic', 'Phaser/assets/audio/JapaneseHanafuda/japanese.mp3');
     }
 
     
@@ -230,6 +231,8 @@ export class LoadingScene extends Phaser.Scene
         this.load.image('HanafudaBackgroundPlaceholder', 'Phaser/assets/Hanafuda/HanafudaBackgroundPlaceholder.png');
         this.load.image('YakusNormalButton', 'Phaser/assets/Hanafuda/UI/YakusNormalButton.png');
         this.load.image('YakusHoverButton', 'Phaser/assets/Hanafuda/UI/YakusHoverButton.png');
+        this.load.image('BackNormalButton', 'Phaser/assets/Hanafuda/UI/BackNormalButton.png');
+        this.load.image('BackHoverButton', 'Phaser/assets/Hanafuda/UI/BackHoverButton.png');
 
         this.load.image('Card0', 'Phaser/assets/Hanafuda/HanafudaCards/0.png');
         this.load.image('Card1', 'Phaser/assets/Hanafuda/HanafudaCards/1.png');

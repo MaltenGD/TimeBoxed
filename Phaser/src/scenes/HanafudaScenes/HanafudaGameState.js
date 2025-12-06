@@ -41,6 +41,7 @@ export class HanafudaGameState extends BaseScene{
     }
 
     init(data){
+        super.init(data);
         this.playerTurn = data.begins;
         this.cleanUp();
     }
@@ -63,6 +64,19 @@ export class HanafudaGameState extends BaseScene{
         this.tableAction = new HanafudaTableActions(this);
         this.prepareRound = new HanafudaPrepareRound(this);
         this.points = new HanafudaPoints(this);
+
+        // Background music
+        const baseMusicVolume = 0.25;
+        this.music = this.sound.add('japaneseMusic', { loop: true, volume: baseMusicVolume * this.playerData.musicVolume });
+        this.soundInstances.push({ 
+            sound: this.music, 
+            type: 'music', 
+            baseVolume: baseMusicVolume 
+        });
+        this.music.play();
+
+        // Unlock audio on the first user interaction
+        this.sound.pauseOnBlur = false; // Keep audio playing even when the window loses focus.
         
         this.cleanUp(); //Initializes the variables that will be used in the game.
         /** @type {number} It counts the number of rounds*/
