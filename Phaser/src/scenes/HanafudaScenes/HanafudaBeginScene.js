@@ -69,8 +69,7 @@ export class HanafudaBeginScene extends Phaser.Scene
             this.mazo[randomNumber] = aux1;
         }
 
-
-        this.cardsZone = this.add.rectangle(150, 310, 1550, 340, 0x002016, 0.7).setOrigin(0, 0);  
+        this.add.graphics().fillStyle(0x002016, 0.7).fillRoundedRect(150, 310, 1550, 340, 20); 
 
         for(let i = 0; i < 8; ++i){
             const image = this.add.rectangle(250 + i * 190, this.height - 600, 150, 250, 0x609C86).setScale(1);
@@ -86,8 +85,8 @@ export class HanafudaBeginScene extends Phaser.Scene
             });
         });
 
-        this.infoText = this.add.text(this.width / 2, this.height / 2 - 300, "Choose a card", {
-            fontSize: '40px', fill: '#000000'
+        this.infoText = this.add.text(this.width / 2 - 100, this.height / 2 - 300, "Choose a card", {
+            fontSize: '50px', fill: '#000000', fontFamily: "CenturyGothic"
         }).setOrigin(0.5);
 
     }

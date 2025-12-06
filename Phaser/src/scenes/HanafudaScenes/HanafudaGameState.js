@@ -22,7 +22,7 @@ export const HANAFUDA_STATE = {
     END_GAME: 'END_GAME',
 };
 
-export class HanafudaGameState extends Phaser.Scene{
+export class HanafudaGameState extends BaseScene{
 
     constructor(){
         super('HanafudaGameState');
@@ -74,39 +74,12 @@ export class HanafudaGameState extends Phaser.Scene{
 
         /** @type {object} It has the background image */
         this.background = this.add.image(this.width/2, this.height/2, 'HanafudaBackgroundPlaceholder');
+        
+        this.render.renderZones();//render the zones for the board (table, player and opponent cards are here), and two for where the player and opponent collected pairs will be
+        this.render.uiRender(); //render UI (buttons, text)
 
-        //Back button
-        this.backBtn = this.add.text(0, 0, 'Back', { fontSize: 45, fill: '#f0f0f0ff'})
-        .setInteractive()
-        .on('pointerover', () => this.backBtn.setStyle({fill: 'rgba(104, 35, 35, 1)'}))
-        .on('pointerout', () => this.backBtn.setStyle({fill: '#000000ff'}))
-        .on('pointerdown', () => {
-        this.openOptionMenu();
-        });
-
-        this.yakusMenuBtn = this.add.text(0, 300, 'Yaku List', {fontSize: 34, color: '#ffffffff',backgroundColor: '#1c3518ff',
-        padding: { left: 10, right: 10, top: 6, bottom: 6 }})
-        .setInteractive()
-        .on('pointerdown', () => { this.openYakusMenu();});
-
-        this.input.keyboard.on('keydown-ESC', () => {
-            this.openOptionMenu();
-        });
-
-        //render the zones for the board (table, player and opponent cards are here), and two for where the player and opponent collected pairs will be
-        this.render.renderZones();
-
-        //Text
-        this.infoText = this.add.text(370, this.height / 2 + 200, "Start!", {fontSize: '56px', fill: '#ffffffff'}).setDepth(1); //Text
-        this.roundText = this.add.text(40, 1000, `Round:${this.round}/4`, {fontSize: "30px",color: "#ffffff"});
-
-        // PlayerScore Text
-        this.playerPointsText = this.add.text(400+this.width/2, 1030, "Player points: 0", {fontSize: "28px", color: "#ffffff", stroke: "#000000"});
-
-        // OpponentScore Text
-        this.opponentPointsText = this.add.text(400+this.width/2, (this.height/2)-35, "Benten points: 0", {fontSize: "28px",color: "#ffffff",stroke: "#000000"});
         //Deck render
-        this.deckObject = this.add.rectangle(200, this.height/2, 200, 350, 0x609C86).setScale(0.6);
+        this.deckObject = this.add.rectangle(170, this.height/2, 200, 350, 0x609C86).setScale(0.6);
         this.deckCardObject = null;
 
         this.transitionTo(HANAFUDA_STATE.START_ROUND);
@@ -172,7 +145,7 @@ export class HanafudaGameState extends Phaser.Scene{
                     let chosenCardObject = this.opponentCardObjects[this.chosenCardPos];
                     //card poking out of the opponent hand animation
                     this.tweens.add({ 
-                        targets: chosenCardObject, y: chosenCardObject.y + 50,duration: 300, ease: 'Power2', 
+                        targets: chosenCardObject, y: chosenCardObject.y + 30,duration: 300, ease: 'Power2', 
                     });
                     
                     this.time.delayedCall(1000, ()=> {this.transitionTo(HANAFUDA_STATE.SEARCH_ACTION);});
@@ -320,7 +293,6 @@ export class HanafudaGameState extends Phaser.Scene{
             if(this.refill)this.infoText.setText("Table is refilled");
             else {this.infoText.setText("No pair found");}
             this.tableAction.pairNotFound(this.chosenCardPos);
-            //this.render.renderNewCardToTable(this.card, this.tableCards[this.emptyRow].length, this.emptyRow);
         }
     }
 
@@ -374,19 +346,18 @@ export class HanafudaGameState extends Phaser.Scene{
         }
     }
 
-    openOptionMenu(){
-        if (this.scene.isActive('OptionMenu')) return;
-        this.scene.pause();
-        this.playerData.SceneToResume = this.scene.key;
-        this.scene.launch('OptionMenu', this.playerData);
-    }
+    // openOptionMenu(){
+    //     if (this.scene.isActive('OptionMenu')) return;
+    //     this.scene.pause();
+    //     this.playerData.SceneToResume = this.scene.key;
+    //     this.scene.launch('OptionMenu', this.playerData);
+    // }
 
     openYakusMenu() {
-    if (this.scene.isActive('YakusMenu')) return;
-    this.scene.pause();
-    this.playerData.sceneToResume = this.scene.key;
-
-    this.scene.launch('YakusMenu', this.playerData);
+        if (this.scene.isActive('YakusMenu')) return;
+        this.scene.pause();
+        this.playerData.sceneToResume = this.scene.key;
+        this.scene.launch('YakusMenu', this.playerData);
     }
 
     renderCards(){
