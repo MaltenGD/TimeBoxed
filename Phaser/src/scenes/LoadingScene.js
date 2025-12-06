@@ -236,6 +236,8 @@ export class LoadingScene extends Phaser.Scene
             //console.log(Tali.DICE_THROW_NAMES[i]);
             this.load.image(Tali.DICE_THROW_NAMES[i], 'Phaser/assets/tali/temporary_throw' + i + '.png');
         }
+
+        this.load.image('TaliCombinations', 'Phaser/assets/tali/taliCombinations.png');
     }
 
     loadHanafudaAssets()

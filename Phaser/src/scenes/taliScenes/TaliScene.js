@@ -83,7 +83,8 @@ export class TaliScene extends BaseScene {
         .on('pointerdown', () => this.openOptionMenu());
 
         this.combinationMenuBtn = this.add.text(this.width - 10, this.height - 10, " Combinations ", {fontFamily: "TaliOne", fontSize: 80, fill: '#fff', backgroundColor: '#26100bff'}).setOrigin(1)
-        .on('pointderdown', () => this.openCombinationMenu());
+        .setInteractive()
+        .on('pointerdown', () => this.openCombinationMenu());
     }
 
     /**
@@ -161,11 +162,11 @@ export class TaliScene extends BaseScene {
     }
 
     openCombinationMenu() {
-        if (this.scene.isActive('YakusMenu')) return;
+        if (this.scene.isActive('CombinationMenu')) return;
         this.scene.pause();
         this.playerData.sceneToResume = this.scene.key;
 
-        this.scene.launch('YakusMenu', this.playerData);
+        this.scene.launch('CombinationMenu', this.playerData);
     }
 
     /**

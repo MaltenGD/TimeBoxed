@@ -88,8 +88,8 @@ export class TaliBeginScene extends BaseScene {
         })
         .on('pointerout', () => this.tweens.add({ targets: this.rollBtn, scale: 0.5, duration: 100, ease: 'Power1' }))
         .once('pointerdown', () => {
-            this.continue(this.GAME_STATE.PLAYER_ROLL)
-            this.shine.setAlpha(0)
+            this.shine.setAlpha(0);
+            this.continue(this.GAME_STATE.PLAYER_ROLL);
         });
 
         this.backBtn = this.add.text(10, 10, 'Back', {fontSize: 64, fill: '#fff', fontFamily: 'TaliOne'})

@@ -4,6 +4,7 @@ import { SelectionMenuScene } from './scenes/SelectionMenuScene.js';
 import { TaliScene } from './scenes/taliScenes/TaliScene.js';
 import { TaliBeginScene } from './scenes/taliScenes/TaliBeginScene.js';
 import { DistractMercuryScene } from './scenes/taliScenes/DistractMercuryScene.js';
+import { CombinatinMenu } from './scenes/taliScenes/CombinationMenu.js';
 import { TaliEndScene } from './scenes/taliScenes/TaliEndScene.js';
 import { AsebBeginScene } from './scenes/asebScenes/AsebBeginScene.js';
 import { AsebScene } from './scenes/asebScenes/AsebScene.js';
@@ -59,6 +60,7 @@ const config = {
         TaliScene,
         TaliIntroScene,
         TaliBeginScene,
+        CombinatinMenu,
         DistractMercuryScene,
         TaliEndScene,
         HanafudaIntro,
