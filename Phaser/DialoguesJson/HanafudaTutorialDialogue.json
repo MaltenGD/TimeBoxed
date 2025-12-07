@@ -6,8 +6,7 @@
             "speaker":"Kronos",
             "text":"Welcome my friend, I hope your paws are steady. Hanafuda is an ancient Japanese card game, tradition, elegance, and gambling all mixed together.",
             "animation":"true",
-            "next":"HTD2",
-            "image": "HanafudaBackgroundPlaceholder"
+            "next":"HTD2" 
 
         },
 
@@ -35,7 +34,7 @@
             "text":"Before we begin, see these eight cards?",
             "animation":"true",
             "next":"HTD5",
-            "image": "ChooseCard"
+            "image": "TutorialChooseCard"
         },
 
         "HTD5":
@@ -44,7 +43,7 @@
             "text":"Pick one, choose wisely... or don't. It's random anyway. Whoever flips the earliest month gets to go first.",
             "animation":"true",
             "next":"HTD6",
-            "image":"ChooseCard"
+            "image":"TutorialChooseCard"
         },
 
         "HTD6":
@@ -53,7 +52,7 @@
             "text":"These cards come in 12 suits, one for each month. But don't worry about the months, just match similar flowers. Same flower? Good. Different flower? Useless, don’t do that.",
             "animation":"true",
             "next":"HTD7",
-            "image":"CardGroups"
+            "image":"TutorialCardGroup"
         },
 
         "HTD7":
@@ -89,7 +88,7 @@
             "text":"The goal is to make yaku--special combinations of cards. When you make a yaku, you score points. Points good. Losing bad. Simple.",
             "animation":"true",
             "next":"HTD11",
-            "image":"Combanations"
+            "image":"TutorialCombination"
         },
 
          "HTD11":

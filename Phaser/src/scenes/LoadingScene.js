@@ -242,7 +242,6 @@ export class LoadingScene extends Phaser.Scene
 
     loadHanafudaAssets()
     {
-        this.load.image('Combanations', 'Phaser/assets/Hanafuda/Tutorial/Combanations.png');
         this.load.image('HanafudaBackgroundPlaceholder', 'Phaser/assets/Hanafuda/HanafudaBackgroundPlaceholder.png');
         this.load.image('YakusNormalButton', 'Phaser/assets/Hanafuda/UI/YakusNormalButton.png');
         this.load.image('YakusHoverButton', 'Phaser/assets/Hanafuda/UI/YakusHoverButton.png');
@@ -298,8 +297,9 @@ export class LoadingScene extends Phaser.Scene
         this.load.image('Card46', 'Phaser/assets/Hanafuda/HanafudaCards/46.png');
         this.load.image('Card47', 'Phaser/assets/Hanafuda/HanafudaCards/47.png');
 
-        this.load.image('CardGroups','Phaser/assets/Hanafuda/Tutorial/CardGroups.png')
-        this.load.image('ChooseCard','Phaser/assets/Hanafuda/Tutorial/ChooseCard.png')
+        this.load.image('TutorialCardGroup','Phaser/assets/Hanafuda/Tutorial/TutorialCardGroup.png')
+        this.load.image('TutorialChooseCard','Phaser/assets/Hanafuda/Tutorial/TutorialChooseCard.png')
+        this.load.image('TutorialCombination', 'Phaser/assets/Hanafuda/Tutorial/TutorialCombination.png');
     }
 
     loadCreditsAssets() {
