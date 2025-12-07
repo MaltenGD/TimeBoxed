@@ -102,7 +102,31 @@ export class Start extends BaseScene {
             loop: -1
         });
 
-        const logo = this.add.image(1300, 150, 'logo').setOrigin(0.5);
+        const logoOriginalX = (width / 2) - 125;
+        const logoOriginalY = 125;
+        const logoTargetY = 150;
+        const logo = [
+            this.add.image(logoOriginalX, logoOriginalY, 'T').setOrigin(0.5).setScale(0.8),
+            this.add.image(logoOriginalX + 45, logoOriginalY, 'I').setOrigin(0.5).setScale(0.8),
+            this.add.image(logoOriginalX + 120, logoOriginalY, 'M').setOrigin(0.5).setScale(0.8),
+            this.add.image(logoOriginalX + 220, logoOriginalY, 'E').setOrigin(0.5).setScale(0.8),
+            this.add.image(logoOriginalX + 320, logoOriginalY, 'B').setOrigin(0.5).setScale(0.8),
+            this.add.image(logoOriginalX + 430, logoOriginalY, 'O').setOrigin(0.5).setScale(0.8),
+            this.add.image(logoOriginalX + 555, logoOriginalY, 'X').setOrigin(0.5).setScale(0.8),
+            this.add.image(logoOriginalX + 700, logoOriginalY, 'E2').setOrigin(0.5).setScale(0.8),
+            this.add.image(logoOriginalX + 860, logoOriginalY, 'D').setOrigin(0.5).setScale(0.8)
+        ]
+        .forEach((letter, index) => {
+            this.tweens.add({
+                targets: letter,
+                y: logoTargetY,
+                duration: 3000,
+                ease: 'Sine.easeInOut',
+                delay: index * 150,
+                yoyo: true,
+                loop: -1
+            });
+        });
 
         // Define final positions for the letters
         const letterSpacing = 100;
@@ -265,18 +289,7 @@ export class Start extends BaseScene {
             }, 200);
             
         });
-        
-        logo.setScale(0.5);
 
-        //animacion del nombre del juego
-        this.tweens.add({
-            targets: logo,
-            y: 200,
-            duration: 1800,
-            ease: 'Sine.easeInOut',
-            yoyo: true,
-            loop: -1
-        });
 
     }
 
