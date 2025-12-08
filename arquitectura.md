@@ -24,6 +24,9 @@ Estas clases gestionan funcionalidades transversales utilizadas en múltiples es
 #### **DialogueController**
 Gestiona el sistema de diálogos del juego, interpretando los archivos JSON y mostrando texto en pantalla.
 
+<details>
+<summary><strong>Ver Diagrama: DialogueController</strong></summary>
+
 ```mermaid
 classDiagram
     class DialogueController {
@@ -64,14 +67,43 @@ classDiagram
     DialogueController --> Dialogue : Instancia
     DialogueController --> Speaker : Instancia
 ```
+</details>
 
 #### **TransitionController**
 Encargado de gestionar los efectos visuales al cambiar de escena (Fade In, Fade Out, etc.).
 
-![TransitionController](images/Arquitectura/TransitionController.png)
+<details>
+<summary><strong>Ver Diagrama: TransitionController</strong></summary>
+
+```mermaid
+classDiagram
+    class TransitionController {
+        +Phaser.Scene scene
+        +Phaser.Cameras.Scene2D.Camera camera
+        +Phaser.Events.EventEmitter emitter
+
+        +constructor(scene)
+        +startFadeOutTransition(callback, time, color)
+        +startFadeInTransition(callback, time, color)
+    }
+
+    class RGBColor {
+        +number red
+        +number green
+        +number blue
+        +number alpha
+        +constructor(red, green, blue, alpha)
+    }
+
+    TransitionController ..> RGBColor : Usa
+```
+</details>
 
 #### **SkipButton**
 Un componente de UI que actúa como *Helper* del `DialogueController`, permitiendo saltar diálogos.
+
+<details>
+<summary><strong>Ver Diagrama: SkipButton</strong></summary>
 
 ```mermaid
 classDiagram
@@ -93,20 +125,55 @@ classDiagram
     }
 
     SkipButton --|> PhaserGameObjectImage : Hereda
-    SkipButton --> DialogueController : controls
+    SkipButton --> DialogueController : Controla
 ```
+</details>
 
 ### ⚙️ Managers y Utilidades
 
 #### **AchievementManager**
 Sistema centralizado para gestionar, desbloquear y guardar los logros del jugador.
 
-![AchievementManager](images/Arquitectura/AchievementManager.png)
+<details>
+<summary><strong>Ver Diagrama: AchievementManager</strong></summary>
+
+```mermaid
+classDiagram
+    class AchievementManager {
+        +number awardedAchievements
+        +Map achievementMap
+        +number nrOfAchievements
+        +number nrOfAwardedAchievements
+
+        +constructor()
+        +loadAchievements(jsonFile)
+        +getAchievementByKey(key)
+        +awardAchievement(key)
+        +revokeAchievement(key)
+        +checkGameCompletion(playerData)
+    }
+
+    class Achievement {
+        <<Entity>>
+    }
+
+    AchievementManager *-- Achievement : Gestiona
+```
+</details>
 
 #### **RandomNumber**
 Clase estática utilitaria para la generación de números aleatorios dentro de un intervalo específico.
 
-![RandomNumber](images/Arquitectura/RandomNumber.png)
+<details>
+<summary><strong>Ver Diagrama: RandomNumber</strong></summary>
+
+```mermaid
+classDiagram
+    class RandomNumber {
+        +get(min, max)$ : number
+    }
+```
+</details>
 
 ---
 
@@ -119,6 +186,45 @@ Clase padre de la que heredan la mayoría de las escenas. Gestiona la música gl
 
 ### **Loading Scene**
 Escena de carga inicial de assets.
+
+<details>
+<summary><strong>Ver Diagrama: Loading Scene</strong></summary>
+
+```mermaid
+classDiagram
+    class LoadingScene {
+        +number with
+        +number height
+        +AchievementManager achievementManager
+
+        +constructor()
+        +preload()
+        +create()
+        +loadMainMenuAssets()
+        +loadAudioAssets()
+        +loadIntroAssets()
+        +loadOptionMenuAssets()
+        +loadSelectionMenuAssets()
+        +loadAsebAssets()
+        +loadTaliAssets()
+        +loadHanafudaAssets()
+        +loadCreditsAssets()
+        +loadInisgniaAssets()
+        +loadDialogues()
+        +createAchievementManager()
+    }
+
+    class PhaserScene {
+        <<External>>
+    }
+    class AchievementManager {
+        <<Helper>>
+    }
+
+    LoadingScene --|> PhaserScene : Hereda
+    LoadingScene --> AchievementManager : Usa
+```
+</details>
 
 ### **Intro**
 Cinemática o secuencia inicial del juego.
@@ -212,6 +318,44 @@ classDiagram
 
 ### **Credits Scene**
 Créditos del equipo de desarrollo.
+
+<details>
+<summary><strong>Ver Diagrama: Credits Scene</strong></summary>
+
+```mermaid
+classDiagram
+    class CreditsScene {
+        +Object playerData
+        +TransitionController transitionController
+        +Array members
+        +Object activeBox
+        +Array boxes
+
+        +constructor()
+        +create(playerData)
+        +toggleBox(box)
+        +openBox(box)
+        +closeBox(box)
+    }
+
+    class BaseScene {
+        +soundInstances
+        +OptionMenuCanBeOpened
+        +init()
+        +shutdown()
+        +openOptionMenu()
+        +KillSounds()
+        +DisableOptionMenu()
+    }
+
+    class TransitionController {
+        <<Helper>>
+    }
+
+    CreditsScene --|> BaseScene : Hereda
+    CreditsScene --> TransitionController : Usa
+```
+</details>
 
 ### **Settings Scene**
 Configuración de audio y vídeo.
@@ -319,6 +463,46 @@ Galería de logros. Permite inspeccionar detalles de cada logro desbloqueado.
 ### **Confirm Menu Scene**
 Pop-up genérico para confirmaciones (Sí/No).
 
+<details>
+<summary><strong>Ver Diagrama: Confirm Menu Scene</strong></summary>
+
+```mermaid
+classDiagram
+    class ConfirmMenuScene {
+        +Object playerData
+        +TransitionController transitionController
+        +Phaser.GameObjects.Rectangle overlay
+        +Phaser.GameObjects.Rectangle box
+        +Phaser.GameObjects.Text titleText
+        +Phaser.GameObjects.Text yesBtn
+        +Phaser.GameObjects.Text noBtn
+        +string sceneToPause
+
+        +constructor()
+        +create(data)
+        +closeMenu()
+        +setPausedScene(sceneName)
+    }
+
+    class BaseScene {
+        +soundInstances
+        +OptionMenuCanBeOpened
+        +init()
+        +shutdown()
+        +openOptionMenu()
+        +KillSounds()
+        +DisableOptionMenu()
+    }
+
+    class TransitionController {
+        <<Helper>>
+    }
+
+    ConfirmMenuScene --|> BaseScene : Hereda
+    ConfirmMenuScene --> TransitionController : Usa
+```
+</details>
+
 ### **Selection Menu Scene**
 Hub central para seleccionar qué minijuego jugar.
 
@@ -365,6 +549,46 @@ classDiagram
 
 ### **Game Mode Selection Scene**
 Selección de dificultad o modo de juego (Normal vs Timeboxed).
+
+<details>
+<summary><strong>Ver Diagrama: Game Mode Selection Scene</strong></summary>
+
+```mermaid
+classDiagram
+    class GameModeSelectionScene {
+        +Object playerData
+        +TransitionController transitionController
+        +Phaser.GameObjects.Rectangle overlay
+        +Phaser.GameObjects.Rectangle box
+        +Phaser.GameObjects.Text titleText
+        +Phaser.GameObjects.Text descText
+        +Phaser.GameObjects.Text NormalBtn
+        +Phaser.GameObjects.Text TimeboxedBtn
+        +string sceneToPause
+
+        +constructor()
+        +create(data)
+        +setPausedScene(sceneName)
+    }
+
+    class BaseScene {
+        +soundInstances
+        +OptionMenuCanBeOpened
+        +init()
+        +shutdown()
+        +openOptionMenu()
+        +KillSounds()
+        +DisableOptionMenu()
+    }
+
+    class TransitionController {
+        <<Helper>>
+    }
+
+    GameModeSelectionScene --|> BaseScene : Hereda
+    GameModeSelectionScene --> TransitionController : Usa
+```
+</details>
 
 ### **Game Completed**
 Pantalla final tras completar el juego.
@@ -414,12 +638,54 @@ classDiagram
 </details>
 
 ### **TimeboxedDefeat**
+Pantalla de "Game Over" específica para el modo contrarreloj.
 
----
+<details>
+<summary><strong>Ver Diagrama: TimeboxedDefeat</strong></summary>
+
+```mermaid
+classDiagram
+    class TimeBoxedDefeat {
+        +Object playerData
+        +TransitionController transitionController
+        +Phaser.GameObjects.Image background
+        +DialogueController dialogueController
+
+        +constructor()
+        +preload()
+        +create(playerData)
+        +resetPlayerData()
+    }
+
+    class BaseScene {
+        +soundInstances
+        +OptionMenuCanBeOpened
+        +init()
+        +shutdown()
+        +openOptionMenu()
+        +KillSounds()
+        +DisableOptionMenu()
+    }
+
+    class DialogueController {
+        <<Helper>>
+    }
+    class TransitionController {
+        <<Helper>>
+    }
+
+    TimeBoxedDefeat --|> BaseScene : Hereda
+    TimeBoxedDefeat --> DialogueController : Usa
+    TimeBoxedDefeat --> TransitionController : Usa
+```
+</details>
 
 ## 🔄 Flujo General del Juego
 
-A continuación se muestra el diagrama de flujo global que conecta todas las escenas principales, minijuegos y condiciones de victoria/derrota.
+Diagrama de flujo global que conecta todas las escenas principales, minijuegos y condiciones de victoria/derrota.
+
+<details>
+<summary><strong>Ver Flowchart General</strong></summary>
 
 ```mermaid
 flowchart TD
@@ -475,6 +741,7 @@ flowchart TD
     Check -->|No| SelMenu
     GameComp -->|Ver Créditos| Credits
 ```
+</details>
 
 ---
 
@@ -482,7 +749,7 @@ flowchart TD
 
 ### 🏺 Aseb (Egipto)
 
-El juego de mesa del Senet/Aseb contra Anubis.
+El juego de mesa "Aseb" contra Anubis.
 
 #### 📋 Listado de Escenas
 
@@ -495,60 +762,23 @@ El juego de mesa del Senet/Aseb contra Anubis.
 
 #### 🔀 Flujo de Escenas (Flowchart)
 
+<details>
+<summary><strong>Ver Flowchart de Aseb</strong></summary>
+
 ```mermaid
 flowchart TD
-    %% Nodos Principales
-    Start([Pantalla Título / Start])
-    Credits([Créditos])
-    ModeSel[Selección de Modo / Dificultad]
-    Intro[Intro Narrativa]
-    SelMenu{Hub Central: Selección de Nivel}
-    
-    %% Nodos de Minijuegos (Simplificados)
-    Aseb[Minijuego: Aseb - Egipto]
-    Tali[Minijuego: Tali - Roma]
-    Hanafuda[Minijuego: Hanafuda - Japón]
-    
-    %% Nodos Finales
-    GameComp[Final del Juego]
-    TBDefeat[Derrota Timeboxed]
-
-    %% Flujo Inicial
-    Start -->|Click Créditos| Credits
-    Credits -->|Volver| Start
-    Start -->|Click Jugar| ModeSel
-    
-    ModeSel -->|Primera vez| Intro
-    ModeSel -->|Intro ya vista| SelMenu
-    Intro -->|Terminar Intro| SelMenu
-
-    %% Hub Central
-    SelMenu -->|Elegir Egipto| Aseb
-    SelMenu -->|Elegir Roma| Tali
-    SelMenu -->|Elegir Japón| Hanafuda
-
-    %% Lógica de Victoria (Retorno al Hub)
-    Aseb -->|Victoria| SelMenu
-    Tali -->|Victoria| SelMenu
-    Hanafuda -->|Victoria| SelMenu
-
-    %% Lógica de Derrota (Modo Normal)
-    Aseb -->|Derrota Normal| SelMenu
-    Tali -->|Derrota Normal| SelMenu
-    Hanafuda -->|Derrota Normal| SelMenu
-
-    %% Lógica de Derrota (Modo Timeboxed - Muerte Súbita)
-    Aseb -.->|Derrota Timeboxed| TBDefeat
-    Tali -.->|Derrota Timeboxed| TBDefeat
-    Hanafuda -.->|Derrota Timeboxed| TBDefeat
-    TBDefeat -->|Game Over / Reinicio| Start
-
-    %% Final del Juego
-    SelMenu -- Verificación Automática --> Check{¿Todo Completado?}
-    Check -->|Sí| GameComp
-    Check -->|No| SelMenu
-    GameComp -->|Ver Créditos| Credits
+    A[/IntroAseb/] -->|Dialogo Termina| C{Confirm Menu}
+    C -->|Click en YES| D[/TutorialAseb/]
+    D -->|Dialogo Termina| F[AsebBegin]
+    C -->|Click en NO| F
+    F -->|Se decide el primer jugador| G(AsebScene)
+    G -->|El jugador gana| H[/AsebVictoryScene/]
+    G -->|El jugador pierde| I[/AsebDefeatScene/]
+    I -->|Modo Timeboxed| J(Start)
+    I -->|Modo Normal| F
+    H --> SelectionMenu
 ```
+</details>
 
 #### 📐 Diagramas de Arquitectura (Escenas)
 
@@ -907,7 +1137,7 @@ classDiagram
 
 #### 🧩 Clases de Lógica y Entidades (Aseb)
 
-A continuación se detallan las clases que manejan la lógica interna y los elementos del tablero de Aseb.
+Clases que manejan la lógica interna y los elementos del tablero de Aseb.
 
 **AsebGame (Controlador Lógico)**
 Encargado de los turnos, estado de la partida y condiciones de victoria.
@@ -1083,7 +1313,441 @@ Todas las escenas del juego Tali.
 *   **TaliEndScene**: La escena final del juego.
 
 ![TaliFlowchart](images/Arquitectura/TaliFlowChart.png)
-![TaliScenes](images/Arquitectura/TaliScenes.png)
+
+<details>
+<summary><strong>Ver Flowchart de Tali</strong></summary>
+
+![TaliFlowchart](images/Arquitectura/TaliFlowChart.png)
+</details>
+
+#### 📐 Diagramas de Arquitectura (Escenas)
+
+<details>
+<summary><strong>Ver Diagrama: TaliIntroScene</strong></summary>
+
+```mermaid
+classDiagram
+    class TaliIntroScene {
+        +Object playerData
+        +TransitionController transitionController
+        +Phaser.GameObjects.Image background
+        +Phaser.GameObjects.Text backBtn
+        +DialogueController dialogueController
+        +SkipButton skipBtn
+
+        +constructor()
+        +create(playerData)
+    }
+
+    class BaseScene {
+        +soundInstances
+        +OptionMenuCanBeOpened
+        +init()
+        +shutdown()
+        +openOptionMenu()
+        +KillSounds()
+    }
+
+    class DialogueController {
+        <<Helper>>
+    }
+    class TransitionController {
+        <<Helper>>
+    }
+    class SkipButton {
+        <<Helper>>
+    }
+
+    TaliIntroScene --|> BaseScene : Hereda
+    TaliIntroScene --> DialogueController : Usa
+    TaliIntroScene --> TransitionController : Usa
+    TaliIntroScene --> SkipButton : Usa
+```
+</details>
+
+<details>
+<summary><strong>Ver Diagrama: TaliTutorialScene</strong></summary>
+
+```mermaid
+classDiagram
+    class TaliTutorial {
+        +Object playerData
+        +number width
+        +number height
+        +Phaser.GameObjects.Image background
+        +TransitionController transitionController
+        +DialogueController dialogueController
+        +Phaser.GameObjects.Image tutoImage
+
+        +constructor()
+        +create(playerData)
+        +changeTutoImage(imageKey)
+    }
+
+    class BaseScene {
+        +soundInstances
+        +OptionMenuCanBeOpened
+        +init()
+        +shutdown()
+        +openOptionMenu()
+        +KillSounds()
+    }
+
+    class DialogueController {
+        <<Helper>>
+    }
+    class TransitionController {
+        <<Helper>>
+    }
+
+    TaliTutorial --|> BaseScene : Hereda
+    TaliTutorial --> DialogueController : Usa
+    TaliTutorial --> TransitionController : Usa
+```
+</details>
+
+<details>
+<summary><strong>Ver Diagrama: TaliBeginScene</strong></summary>
+
+```mermaid
+classDiagram
+    class TaliBeginScene {
+        +Object GAME_STATE
+        +Phaser.GameObjects.Text turnText
+        +Phaser.GameObjects.Text resultText
+        +Phaser.GameObjects.Image boardImg
+        +Array diceImages
+        +Array currentRoll
+        +Phaser.GameObjects.Text playerScore
+        +Phaser.GameObjects.Text enemyScore
+        +boolean playerFirst
+        +Object playerData
+        +Tali taliGame
+        +TransitionController transitionController
+        +Phaser.GameObjects.Image background
+        +Phaser.GameObjects.Container rollBtn
+        +Phaser.GameObjects.Text backBtn
+        +Phaser.GameObjects.Rectangle shine
+
+        +constructor()
+        +create(playerData)
+        +createButtons()
+        +makeButtonShine(btnImg)
+        +addImages()
+        +addText()
+        +setTextWithAnimation(textObject, newText, AnimDuration)
+        +playerRolls()
+        +enemyRolls()
+        +continue(state)
+        +calculateBeginner()
+        +tie()
+        +endGame()
+    }
+
+    class BaseScene {
+        +soundInstances
+        +OptionMenuCanBeOpened
+        +init()
+        +shutdown()
+        +openOptionMenu()
+        +KillSounds()
+    }
+
+    class Tali {
+        <<Logic>>
+    }
+    class TransitionController {
+        <<Helper>>
+    }
+
+    TaliBeginScene --|> BaseScene : Hereda
+    TaliBeginScene --> Tali : Instancia
+    TaliBeginScene --> TransitionController : Usa
+```
+</details>
+
+<details>
+<summary><strong>Ver Diagrama: TaliScene (Gameplay Principal)</strong></summary>
+
+```mermaid
+classDiagram
+    class TaliScene {
+        +Object playerData
+        +number width
+        +number height
+        +Phaser.Sound.BaseSound music
+        +TransitionController transitionController
+        +Tali taliGame
+        +boolean playerFirst
+        +Phaser.GameObjects.Image background
+        +Phaser.GameObjects.Image boardImg
+        +Phaser.GameObjects.Container rollBtn
+        +Phaser.GameObjects.Text backBtn
+        +Phaser.GameObjects.Text combinationMenuBtn
+        +Phaser.GameObjects.Text enemyScoreText
+        +Phaser.GameObjects.Text playerScoreText
+        +Phaser.GameObjects.Text turnText
+        +Phaser.GameObjects.Text resultText
+
+        +constructor()
+        +create(playerData)
+        +createUI()
+        +addImages()
+        +createButtons()
+        +createButton(x, y, label, onClick, style, pointeroverStyle)
+        +makeButtonShine(btnImg, btnContainer)
+        +resetButton(btn, label, onClick)
+        +openCombinationMenu()
+        +setObjectState(object, state)
+        +addText()
+        +setTextWithAnimation(textObject, newText, AnimDuration)
+        +startGame()
+        +registerEvents()
+        +onStateChange(state)
+        +endGame()
+    }
+
+    class BaseScene {
+        +soundInstances
+        +OptionMenuCanBeOpened
+        +init()
+        +shutdown()
+        +openOptionMenu()
+        +KillSounds()
+    }
+
+    class Tali {
+        <<Logic>>
+    }
+    class TransitionController {
+        <<Helper>>
+    }
+
+    TaliScene --|> BaseScene : Hereda
+    TaliScene --> Tali : Instancia
+    TaliScene --> TransitionController : Usa
+```
+</details>
+
+<details>
+<summary><strong>Ver Diagrama: DistractMercuryScene</strong></summary>
+
+```mermaid
+classDiagram
+    class DistractMercuryScene {
+        +Object playerData
+        +Array mercuryRoll
+        +number width
+        +number height
+        +Array diceImages
+        +Array disabledDiceImages
+        +Array dice
+        +TransitionController transitionController
+        +Array possibleDialogues
+        +Array optionText
+        +number dialogueIndex
+        +Phaser.GameObjects.Rectangle background
+        +Phaser.GameObjects.Text infoText
+        +DialogueController dialogueController
+        +Phaser.GameObjects.Container optionOne
+        +Phaser.GameObjects.Container optionTwo
+
+        +constructor()
+        +create(data)
+        +addImages()
+        +addText()
+        +createAndBeginDialogue()
+        +addButtons()
+        +createButton(x, y, label, onClick, style, pointeroverStyle)
+        +hideOptions()
+        +showOptions()
+        +checkOption(option)
+        +showMercuryDice()
+        +onDiceClicked(diceIndex)
+        +showDiceOptions(diceIndex)
+        +changeDice(diceToChange, changeToIndex)
+        +returnToGame()
+        +addListeners()
+    }
+
+    class BaseScene {
+        +soundInstances
+        +OptionMenuCanBeOpened
+        +init()
+        +shutdown()
+        +openOptionMenu()
+        +KillSounds()
+    }
+
+    class DialogueController {
+        <<Helper>>
+    }
+    class TransitionController {
+        <<Helper>>
+    }
+
+    DistractMercuryScene --|> BaseScene : Hereda
+    DistractMercuryScene --> DialogueController : Usa
+    DistractMercuryScene --> TransitionController : Usa
+```
+</details>
+
+<details>
+<summary><strong>Ver Diagrama: CombinationMenu</strong></summary>
+
+```mermaid
+classDiagram
+    class CombinationMenu {
+        +Object playerData
+        +boolean closing
+        +number width
+        +number height
+        +Phaser.GameObjects.Rectangle overlay
+        +Phaser.GameObjects.Container imageContainer
+        +Phaser.GameObjects.Image combinationsImage
+        +Phaser.GameObjects.Text closeBtn
+
+        +constructor()
+        +init(data)
+        +create()
+        +createMenu()
+        +animateMenuIn()
+        +closeMenu()
+    }
+
+    class PhaserScene {
+        <<External>>
+    }
+
+    CombinationMenu --|> PhaserScene : Hereda
+```
+</details>
+
+<details>
+<summary><strong>Ver Diagrama: TaliEndScene</strong></summary>
+
+```mermaid
+classDiagram
+    class TaliEndScene {
+        +DialogueController dialogueController
+        +Object playerData
+        +boolean playerWon
+        +AchievementManager achManager
+        +TransitionController transitionController
+        +Phaser.GameObjects.Image background
+        +Phaser.GameObjects.Image boardImg
+        +Phaser.GameObjects.Text backBtn
+        +Phaser.GameObjects.Text victoryText
+        +SkipButton skipBtn
+
+        +constructor()
+        +create(playerData)
+        +createUI()
+        +setDialogue()
+        +addImages()
+        +createButtons()
+        +createButton(x, y, label, onClick, style, pointeroverStyle)
+        +addText()
+    }
+
+    class BaseScene {
+        +soundInstances
+        +OptionMenuCanBeOpened
+        +init()
+        +shutdown()
+        +openOptionMenu()
+        +KillSounds()
+    }
+
+    class DialogueController {
+        <<Helper>>
+    }
+    class TransitionController {
+        <<Helper>>
+    }
+    class SkipButton {
+        <<Helper>>
+    }
+
+    TaliEndScene --|> BaseScene : Hereda
+    TaliEndScene --> DialogueController : Usa
+    TaliEndScene --> TransitionController : Usa
+    TaliEndScene --> SkipButton : Usa
+```
+</details>
+
+#### 🧩 Clases de Lógica y Entidades (Tali)
+
+**Tali (Controlador Lógico)**
+Gestiona el estado del juego, los turnos y las tiradas de dados.
+
+```mermaid
+classDiagram
+    class Tali {
+        +Phaser.Scene scene
+        +number width
+        +number height
+        +Phaser.Events.EventEmitter emitter
+        +number turnCount
+        +boolean playerFirst
+        +TaliPlayer player
+        +TaliPlayer enemy
+        +string state
+        +Array diceThrows
+        +Array diceImages
+        +Array throwImages
+        +Array currentRoll
+        +Array diceNrs
+        +number diceRollIndex
+        +number diceThrowIndex
+        +Array counter
+        +boolean lunaThrow
+        +Phaser.GameObjects.Text noComboText
+
+        +constructor(scene, canvasWidth, canvasHeight, playerFirst)
+        +startGame()
+        +nextTurn()
+        +emitState()
+        +generalRoll(player)
+        +rollDice()
+        +identifyRoll(taliPlayer)
+        +checkAddAllRolls()
+        +setDiceImages()
+        +animateDice()
+        +hideDice()
+        +animateThrows()
+        +hideThrows()
+        +playerWon()
+    }
+
+    class TaliPlayer {
+        <<Entity>>
+    }
+
+    Tali *-- TaliPlayer : Maneja
+```
+
+**TaliPlayer (Entidad)**
+Representa a un jugador (usuario o IA), gestionando su puntuación y tiradas.
+
+```mermaid
+classDiagram
+    class TaliPlayer {
+        +Score score
+        +Array throws
+        
+        +constructor()
+        +resetScore()
+        +addThrows(roll)
+    }
+
+    class Score {
+        +number score
+        +addScore(score)
+    }
+
+    TaliPlayer *-- Score : Posee
+```
 
 ---
 
