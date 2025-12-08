@@ -215,16 +215,14 @@
         "speaker": "Mercury",
         "text": "Typical Kronos.",
         "animation":"true",
-        "next": "TT2",
-        "image": ""
+        "next": "TT2"
     },
 
     "TT2":{
         "speaker": "Mercury",
         "text": "Do not worry, *I* will teach you!",
         "animation":"true",
-        "next": "TT3",
-        "image": ""
+        "next": "TT3"
     },
 
     "TT3":{
@@ -232,7 +230,7 @@
         "text": "Tali is a game that revolves around dice. The rules are simple:",
         "animation":"true",
         "next": "TT4",
-        "image": ""
+        "image": "TT3"
     },
 
     "TT4":{
@@ -240,7 +238,7 @@
         "text": "Each of us rolls the dice once. Whoever gets a higher score begins.",
         "animation":"true",
         "next": "TT5",
-        "image": ""
+        "image": "TT4"
     },
 
     "TT5":{
@@ -248,7 +246,7 @@
         "text": "On your turn, you throw the dice and get points based on the combinations they form.",
         "animation":"true",
         "next": "TT6",
-        "image": ""
+        "image": "TT5"
     },
 
     "TT6":{
@@ -264,7 +262,7 @@
         "text": "Venus: all the dice rolled different numbers.",
         "animation":"true",
         "next": "TT8",
-        "image": ""
+        "image": "TT7"
     },
 
     "TT8":{
@@ -272,7 +270,7 @@
         "text": "Marte: you rolled at least one dice with the number 6 on it.",
         "animation":"true",
         "next": "TT9",
-        "image": ""
+        "image": "TT8"
     },
 
     "TT9":{
@@ -280,7 +278,7 @@
         "text": "Jupiter: all the dice rolled the same number.",
         "animation":"true",
         "next": "TT10",
-        "image": ""
+        "image": "TT9"
     },
 
     "TT10":{
@@ -288,7 +286,7 @@
         "text": "Neptune: all the dice landed on 1. This is an unlucky throw, so it gives you no points.",
         "animation":"true",
         "next": "TT11",
-        "image": ""
+        "image": "TT10"
     },
 
     "TT11":{
@@ -296,15 +294,14 @@
         "text": "I saved the best for last! Luna: you rolled at least 3 dice with the number 3.",
         "animation":"true",
         "next": "TT12",
-        "image": ""
+        "image": "TT11"
     },
 
     "TT12":{
         "speaker": "Mercury",
         "text": "If you roll a Luna, you get another turn! How cool is that?",
         "animation":"true",
-        "next": "TT12-1",
-        "image": ""
+        "next": "TT12-1"
     },
 
     "TT12-1":{
@@ -320,7 +317,7 @@
         "text": "Just click there to revise them again!",
         "animation":"true",
         "next": "TT13",
-        "image": ""
+        "image": "TT12-2"
     },
 
     "TT13":{
@@ -350,7 +347,7 @@
         "text": "Each time before Mercury's turn, you should try distracting him.",
         "animation":"true",
         "next": "TT17",
-        "image": ""
+        "image": "TT16"
     },
 
     "TT17":{
@@ -358,7 +355,7 @@
         "text": "How? Just say something about the alcohol, or compliment his eyes. You'll figure it out!",
         "animation":"true",
         "next": "end",
-        "image": ""
+        "image": "TT17"
     },
 
     "end":{

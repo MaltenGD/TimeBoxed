@@ -123,8 +123,6 @@ export class LoadingScene extends Phaser.Scene
         this.load.audio('boxClickedSFX', 'Phaser/assets/audio/SelectionMenuScene/BoxClickedSFX.mp3');
     }
 
-    
-
     /**
      * Loads all intro assets.
      */
@@ -237,6 +235,18 @@ export class LoadingScene extends Phaser.Scene
         }
 
         this.load.image('TaliCombinations', 'Phaser/assets/tali/taliCombinations.png');
+
+        this.load.image('TT3', 'Phaser/assets/tali/TutorialImages/TT3.png');
+        this.load.image('TT4', 'Phaser/assets/tali/TutorialImages/TT4.png');
+        this.load.image('TT5', 'Phaser/assets/tali/TutorialImages/TT5.png');
+        this.load.image('TT7', 'Phaser/assets/tali/TutorialImages/TT7.png');
+        this.load.image('TT8', 'Phaser/assets/tali/TutorialImages/TT8.png');
+        this.load.image('TT9', 'Phaser/assets/tali/TutorialImages/TT9.png');
+        this.load.image('TT10', 'Phaser/assets/tali/TutorialImages/TT10.png');
+        this.load.image('TT11', 'Phaser/assets/tali/TutorialImages/TT11.png');
+        this.load.image('TT12-2', 'Phaser/assets/tali/TutorialImages/TT12-2.png');
+        this.load.image('TT16', 'Phaser/assets/tali/TutorialImages/TT16.png');
+        this.load.image('TT17', 'Phaser/assets/tali/TutorialImages/TT17.png');
     }
 
     loadHanafudaAssets()
