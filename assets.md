@@ -36,3 +36,10 @@ Desde el punto de vista artístico, el juego adopta un estilo visual en 2D con l
 | Archivo | Descripción | Origen |
 |---|---|---|
 | `IntroBackgroundPlaceholder.jpeg` | Imagen de fondo temporal para la escena de introducción. | Recogido de internet, dominio público. |
+
+### Carpeta `/Phaser/assets/audio/Tali`
+
+| Archivo | Descripción | Origen |
+| --- | --- | --- |
+| `TaliGameMusic` | Música que suena durante el juego "Tali". | [Sebastien Angel Epic Music Composer](https://www.youtube.com/c/S%C3%A9bastienAngel), CC BY-NC-ND, permite el uso no-comercial de la obra |
+| `TaliIntroMusic` | Música que suena durante el intro del juego "Tali". | [Adrian von Zigler](https://www.youtube.com/channel/UCSeJA6az0GrNM4_-pl3HQSQ), CC BY-NC-ND, permite el uso no-comercial de la obra |

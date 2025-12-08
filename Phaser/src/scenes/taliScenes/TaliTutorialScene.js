@@ -11,6 +11,8 @@ export class TaliTutorial extends BaseScene
         this.playerData = playerData;
         console.log(this.playerData) 
 
+        this.setBackgroundMusic();
+
         this.DisableOptionMenu();
         
         let { width, height } = this.sys.game.canvas;
@@ -59,7 +61,20 @@ export class TaliTutorial extends BaseScene
         if (imageKey != "none") this.tutoImage = this.add.image(this.width/2, this.height/2, imageKey).setOrigin(0.5).setScale(1);   
     }
 
-
-
+    /**
+     * Sets the background music.
+     */
+    setBackgroundMusic() {
+        const baseMusicVolume = 0.25;
+        this.music = this.sound.add('taliIntroMusic', { loop: true, volume: baseMusicVolume * this.playerData.musicVolume });
+        this.soundInstances.push({ 
+            sound: this.music, 
+            type: 'music', 
+            baseVolume: baseMusicVolume 
+        });
+        this.music.play();
+    
+        this.sound.pauseOnBlur = false;
+    }
     
 }

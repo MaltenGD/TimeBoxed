@@ -20,6 +20,8 @@ export class DistractMercuryScene extends BaseScene {
 
         await document.fonts.load('64px TaliOne');
 
+        this.setBackgroundMusic();
+
         // Sets the class variables width and height.
         let {width, height} = this.sys.game.canvas;
         this.width = width;
@@ -258,6 +260,22 @@ export class DistractMercuryScene extends BaseScene {
     setObjectState(object, state)
     {
         object.setVisible(state).setActive(state).setAlpha(state ? 1 : 0);
+    }
+
+    /**
+     * Sets the background music.
+     */
+    setBackgroundMusic() {
+        const baseMusicVolume = 0.25;
+        this.music = this.sound.add('taliGameMusic', { loop: true, volume: baseMusicVolume * this.playerData.musicVolume });
+        this.soundInstances.push({ 
+            sound: this.music, 
+            type: 'music', 
+            baseVolume: baseMusicVolume 
+        });
+        this.music.play();
+    
+        this.sound.pauseOnBlur = false;
     }
 
 }

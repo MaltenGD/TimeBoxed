@@ -19,10 +19,12 @@ export class TaliIntroScene extends BaseScene
         // Get the canvas width and height to use when giving a position to an object
         let { width, height } = this.sys.game.canvas;
 
+
+        this.setBackgroundMusic();
+
         //creating the background
         this.background = this.add.image(width / 2, height / 2, 'taliBackgroundPlaceholder').setDisplaySize(width, height);
 
-        
         this.backBtn = this.add.text(0, 0, 'Back', { fontSize: 64, fill: '#000000ff'})
         .setInteractive()
         .on('pointerover', () => this.backBtn.setStyle({fill: 'rgba(104, 35, 35, 1)'}))
@@ -68,6 +70,22 @@ export class TaliIntroScene extends BaseScene
         /**Skip button */
         this.skipBtn = new SkipButton(this, width - 130, 50, this.dialogueController, this.playerData);
     
+    }
+
+    /**
+     * Sets the background music.
+     */
+    setBackgroundMusic() {
+        const baseMusicVolume = 0.25;
+        this.music = this.sound.add('taliIntroMusic', { loop: true, volume: baseMusicVolume * this.playerData.musicVolume });
+        this.soundInstances.push({ 
+            sound: this.music, 
+            type: 'music', 
+            baseVolume: baseMusicVolume 
+        });
+        this.music.play();
+    
+        this.sound.pauseOnBlur = false;
     }
             
 }

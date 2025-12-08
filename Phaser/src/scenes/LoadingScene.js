@@ -247,6 +247,8 @@ export class LoadingScene extends Phaser.Scene
 
         this.load.image('TaliCombinations', 'Phaser/assets/tali/taliCombinations.png');
 
+
+        // Tutorial images
         this.load.image('TT3', 'Phaser/assets/tali/TutorialImages/TT3.png');
         this.load.image('TT4', 'Phaser/assets/tali/TutorialImages/TT4.png');
         this.load.image('TT5', 'Phaser/assets/tali/TutorialImages/TT5.png');
@@ -258,6 +260,10 @@ export class LoadingScene extends Phaser.Scene
         this.load.image('TT12-2', 'Phaser/assets/tali/TutorialImages/TT12-2.png');
         this.load.image('TT16', 'Phaser/assets/tali/TutorialImages/TT16.png');
         this.load.image('TT17', 'Phaser/assets/tali/TutorialImages/TT17.png');
+
+        // Audios
+        this.load.audio('taliIntroMusic', 'Phaser/assets/audio/Tali/TaliIntroMusic.mp3');
+        this.load.audio('taliGameMusic', 'Phaser/assets/audio/Tali/TaliGameMusic.mp3');
     }
 
     loadHanafudaAssets()
