@@ -1099,6 +1099,9 @@ Clases que manejan la lógica interna y los elementos del tablero de Aseb.
 **AsebGame (Controlador Lógico)**
 Encargado de los turnos, estado de la partida y condiciones de victoria.
 
+<details>
+<summary><strong>Ver Diagrama: AsebGame</strong></summary>
+
 ```mermaid
 classDiagram
     class AsebGame {
@@ -1124,9 +1127,13 @@ classDiagram
     AsebGame *-- AsebPlayer : Posee
     AsebGame *-- AsebMachine : Posee
 ```
+</details>
 
 **AsebBoard (Tablero)**
 Maneja la cuadrícula, las posiciones válidas y la colección de fichas.
+
+<details>
+<summary><strong>Ver Diagrama: AsebBoard</strong></summary>
 
 ```mermaid
 classDiagram
@@ -1167,9 +1174,13 @@ classDiagram
     AsebBoard *-- AsebBoardPos : Maneja
     AsebBoard *-- AsebPiece : Maneja
 ```
+</details>
 
 **AsebBoardPos (Casilla)**
 Representa una celda individual en el tablero.
+
+<details>
+<summary><strong>Ver Diagrama: AsebBoardPos</strong></summary>
 
 ```mermaid
 classDiagram
@@ -1196,9 +1207,13 @@ classDiagram
     AsebBoardPos --> AsebBoard : Pertenece a
     AsebBoardPos o-- AsebPiece : Contiene
 ```
+</details>
 
 **AsebPiece (Ficha)**
 Representa la ficha del jugador o del enemigo. Hereda de `Phaser.GameObjects.Image`.
+
+<details>
+<summary><strong>Ver Diagrama: AsebPiece</strong></summary>
 
 ```mermaid
 classDiagram
@@ -1230,9 +1245,13 @@ classDiagram
     AsebPiece --|> PhaserGameObjectImage : Hereda
     AsebPiece --> AsebBoard : Referencia
 ```
+</details>
 
 **AsebPlayer & AsebMachine (Entidades)**
 Clases de datos simples para almacenar el estado de puntuación.
+
+<details>
+<summary><strong>Ver Diagrama: AsebPlayer</strong></summary>
 
 ```mermaid
 classDiagram
@@ -1243,6 +1262,10 @@ classDiagram
         +constructor()
     }
 ```
+</details>
+
+<details>
+<summary><strong>Ver Diagrama: AsebMachine</strong></summary>
 
 ```mermaid
 classDiagram
@@ -1253,6 +1276,7 @@ classDiagram
         +constructor()
     }
 ```
+</details>
 
 ---
 
@@ -1287,6 +1311,9 @@ Todas las escenas del juego Tali.
 
 **Tali (Controlador Lógico)**
 Gestiona el estado del juego, los turnos y las tiradas de dados.
+
+<details>
+<summary><strong>Ver Diagrama: Tali</strong></summary>
 
 ```mermaid
 classDiagram
@@ -1333,9 +1360,13 @@ classDiagram
 
     Tali *-- TaliPlayer : Maneja
 ```
+</details>
 
 **TaliPlayer (Entidad)**
 Representa a un jugador (usuario o IA), gestionando su puntuación y tiradas.
+
+<details>
+<summary><strong>Ver Diagrama: TaliPlayer</strong></summary>
 
 ```mermaid
 classDiagram
@@ -1355,6 +1386,7 @@ classDiagram
 
     TaliPlayer *-- Score : Posee
 ```
+</details>
 
 ---
 
