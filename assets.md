@@ -31,7 +31,8 @@ El estilo artístico del juego se basa en la cultura del manga y el anima para l
 ### 🏺 Aseb (Egipto)
 ![AsebBoard](Phaser/assets/aseb/AsebBoard.png)
 Obtenido del link : "https://www.amazon.com/Generic-Aseb-Game-of-Egypt/dp/B0C9W1V7JR"
-Licencia: **Fair use** al tratarse de una versión modificada que no restringe los derechos de autor
+Licencia: **Fair use** al tratarse de una versión modificada que no restringe los derechos de autor.
+La modificación contiene elementos que no estan atados a derechos de autor, incluyendo simbolos vectoriales públicos.
 ![AsebButton](Phaser/assets/aseb/AsebButton.png)
 ![AsebButtonDisabled](Phaser/assets/aseb/AsebButtonDisabled.png)
 ![AsebButtonHovered](Phaser/assets/aseb/AsebButtonHovered.png)
