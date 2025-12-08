@@ -98,16 +98,357 @@ FLOWCHART de las escenas de Aseb:
 
 ```mermaid
 flowchart TD
-    A[IntroAseb] -->|Dialogo Termina| C{Confirm Menu}
-    C -->|Click en YES| D[TutorialAseb]
+    A[/IntroAseb/] -->|Dialogo Termina| C{Confirm Menu}
+    C -->|Click en YES| D[/TutorialAseb/]
     D -->|Dialogo Termina| F[AsebBegin]
     C -->|Click en NO| F
     F -->|Se decide el primer jugador| G(AsebScene)
-    G -->|PEl jugador gana| H(AsebVictoryScene)
-    G -->|El jugador pierde| I(AsebDefeatScene)
+    G -->|PEl jugador gana| H[/AsebVictoryScene/]
+    G -->|El jugador pierde| I[/AsebDefeatScene/]
     I -->|Modo Timeboxed| J(Start)
     I -->|Modo Normal| F
     H --> SelectionMenu
+```
+Diagramas de las escenas:
+
+IntroAseb:
+
+```mermaid
+classDiagram
+    class IntroAseb {
+        %% Properties defined in create
+        +Object playerData
+        +TransitionController transitionController
+        +Phaser.Sound.BaseSound music
+        +Array soundInstances
+        +Phaser.GameObjects.Image background
+        +Phaser.GameObjects.Text backBtn
+        +DialogueController dialogueController
+        +SkipButton skipBtn
+        
+        %% Methods
+        +constructor()
+        +create(playerData)
+    }
+
+    class BaseScene {
+        +soundInstances
+        +OptionMenuCanBeOpened
+        +init()
+        +shutdown()
+        +openOptionMenu()
+        +KillSounds()
+    }
+
+    class DialogueController {
+        <<Helper>>
+    }
+    class SkipButton {
+        <<Helper>>
+    }
+
+    class TransitionController {
+         <<Helper>>
+    }
+
+    IntroAseb --|> BaseScene : inherits
+    IntroAseb --> DialogueController : uses
+    IntroAseb --> SkipButton : uses
+    IntroAseb --> TransitionController : uses
+```
+TutorialAseb:
+
+```mermaid
+classDiagram
+    class TutorialAseb {
+        %% Properties defined in create
+        +Object playerData
+        +number width
+        +number height
+        +Phaser.GameObjects.Image background
+        +TransitionController transitionController
+        +DialogueController dialogueController
+        +Phaser.GameObjects.Image tutoImage
+
+        %% Methods
+        +constructor()
+        +create(playerData)
+        +changeTutoImage(imageKey)
+    }
+
+    class BaseScene {
+        +soundInstances
+        +OptionMenuCanBeOpened
+        +init()
+        +shutdown()
+        +openOptionMenu()
+        +KillSounds()
+        +DisableOptionMenu()
+    }
+
+    class DialogueController {
+        <<Helper>>
+    }
+
+    class TransitionController {
+        <<Helper>>
+    }
+
+    TutorialAseb --|> BaseScene : inherits
+    TutorialAseb --> DialogueController : uses
+    TutorialAseb --> TransitionController : uses
+
+```
+
+AsebBeginScene:
+
+```mermaid
+classDiagram
+    class AsebBeginScene {
+        %% Properties defined in constructor
+        +Object GAME_STATE
+        +boolean debugMode
+        +string state
+
+        %% Properties defined in create
+        +number width
+        +number height
+        +Object playerData
+        +Phaser.Sound.BaseSound music
+        +Array soundInstances
+        +TransitionController transitionController
+        +Phaser.GameObjects.Image background
+        +AsebGame asebGame
+        
+        %% UI Objects
+        +Phaser.GameObjects.Image infoBoard
+        +Phaser.GameObjects.Text infoText
+        +Phaser.GameObjects.Text scoreText
+        +Phaser.GameObjects.Container backBtn
+        +Phaser.GameObjects.Image throwBtnImage
+        +Phaser.GameObjects.Text throwBtnText
+        +Phaser.GameObjects.Container throwBtn
+        +Phaser.GameObjects.Image[] stickImages
+
+        %% Logic variables
+        +Object playerStickResult
+        +Object enemyStickResult
+
+        %% Methods
+        +constructor()
+        +createGameObjects()
+        +createButtons()
+        +continue(newState)
+        +create(playerData)
+        +playerInitialThrow()
+        +enemyInitialThrow()
+        +announceBeginner()
+        +showSticks(throws)
+        +clearSticks(onCompleteCallback)
+        +setObjectState(object, state)
+        +animateButtonState(button, show, duration)
+        +setTextWithAnimation(textObject, newText, AnimDuration)
+        +shutdownMusic()
+    }
+
+    class BaseScene {
+        +soundInstances
+        +OptionMenuCanBeOpened
+        +init()
+        +shutdown()
+        +openOptionMenu()
+        +KillSounds()
+    }
+
+    class AsebGame {
+        <<Logic>>
+        +getThrow()
+    }
+
+    class TransitionController {
+         <<Helper>>
+    }
+
+    AsebBeginScene --|> BaseScene : inherits
+    AsebBeginScene --> AsebGame : instantiates
+    AsebBeginScene --> TransitionController : uses
+
+```
+AsebScene:
+
+```mermaid
+classDiagram
+    class AsebScene {
+        %% Properties defined in constructor
+        +boolean debugMode
+        
+        %% Properties defined in preload/create
+        +number width
+        +number height
+        +Object boardAnchor
+        +Object playerData
+        +boolean playerFirst
+        +Phaser.Sound.BaseSound music
+        +Array soundInstances
+        +boolean anyPieceCaptured
+        +TransitionController transitionController
+        +Phaser.GameObjects.Image background
+        +Phaser.GameObjects.Image infoBoard
+        +Phaser.GameObjects.Container backBtn
+        +Phaser.GameObjects.Text winBtn
+        +Phaser.GameObjects.Text loseBtn
+        +AsebGame asebGame
+        +AsebBoard board
+        +number pauseTime
+        +Phaser.GameObjects.Text infoText
+        +Phaser.GameObjects.Text eventsText
+        +Phaser.GameObjects.Image throwBtnImage
+        +Phaser.GameObjects.Text throwBtnText
+        +Phaser.GameObjects.Container throwBtn
+
+        %% Methods
+        +constructor()
+        +preload()
+        +create(playerData)
+        +nextTurn()
+        +startPlayerTurn()
+        +playerThrows()
+        +startEnemyTurn()
+        +pieceReachesEnd(piece)
+        +setTextWithAnimation(textObject, newText, AnimDuration)
+        +setObjectState(object, state)
+        +animateButtonState(button, show, duration)
+    }
+
+    class BaseScene {
+        +soundInstances
+        +OptionMenuCanBeOpened
+        +init()
+        +shutdown()
+        +openOptionMenu()
+        +KillSounds()
+        +awardAch(achievementID)
+        +fadeOutAndKillSounds(duration)
+        +pauseSounds()
+        +resumeSounds()
+        +setInteractiveCursor()
+        +DisableOptionMenu()
+        +EnableOptionMenu()
+    }
+
+    class AsebGame {
+        <<Logic>>
+    }
+
+    class AsebBoard {
+        <<Entity>>
+    }
+
+    class TransitionController {
+         <<Helper>>
+    }
+
+    AsebScene --|> BaseScene : inherits
+    AsebScene --> AsebGame : instantiates
+    AsebScene --> AsebBoard : instantiates
+    AsebScene --> TransitionController : uses
+
+```
+AsebVictoryScene:
+
+```mermaid
+classDiagram
+    class AsebVictoryScene {
+        %% Properties defined in create
+        +Object playerData
+        +TransitionController transitionController
+        +Phaser.Sound.BaseSound music
+        +Array soundInstances
+        +Phaser.GameObjects.Image background
+        +Phaser.GameObjects.Text backBtn
+        +DialogueController dialogueController
+        +SkipButton skipBtn
+
+        %% Methods
+        +constructor()
+        +create(playerData)
+    }
+
+    class BaseScene {
+        +soundInstances
+        +OptionMenuCanBeOpened
+        +init()
+        +shutdown()
+        +openOptionMenu()
+        +KillSounds()
+        +awardAch(achievementID)
+    }
+
+    class DialogueController {
+        <<Helper>>
+    }
+    class SkipButton {
+        <<Helper>>
+    }
+
+    class TransitionController {
+         <<Helper>>
+    }
+
+    AsebVictoryScene --|> BaseScene : inherits
+    AsebVictoryScene --> DialogueController : uses
+    AsebVictoryScene --> SkipButton : uses
+    AsebVictoryScene --> TransitionController : uses
+
+
+```
+
+AsebDefeatScene:
+
+```mermaid
+classDiagram
+    class AsebDefeatScene {
+        %% Properties defined in create
+        +Object playerData
+        +TransitionController transitionController
+        +Phaser.Sound.BaseSound music
+        +Array soundInstances
+        +Phaser.GameObjects.Image background
+        +DialogueController dialogueController
+        +SkipButton skipBtn
+
+        %% Methods
+        +constructor()
+        +create(playerData)
+    }
+
+    class BaseScene {
+        +soundInstances
+        +OptionMenuCanBeOpened
+        +init()
+        +shutdown()
+        +openOptionMenu()
+        +KillSounds()
+        +DisableOptionMenu()
+    }
+
+    class DialogueController {
+        <<Helper>>
+    }
+    class SkipButton {
+        <<Helper>>
+    }
+
+    class TransitionController {
+         <<Helper>>
+    }
+
+    AsebDefeatScene --|> BaseScene : inherits
+    AsebDefeatScene --> DialogueController : uses
+    AsebDefeatScene --> SkipButton : uses
+    AsebDefeatScene --> TransitionController : uses
+
+
 ```
 
 ### Tali
