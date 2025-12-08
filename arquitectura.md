@@ -3,6 +3,7 @@
 **DialogueController**
 
 **TransitionController**
+
 Controller de transiciones.
 
 ![TransitionController](images/Arquitectura/TransitionController.png)
@@ -10,11 +11,13 @@ Controller de transiciones.
 **SkipButton**
 
 **AchievementManager**
+
 Manager para los logros.
 
 ![AchievementManager](images/Arquitectura/AchievementManager.png)
 
 **RandomNumber**
+
 Tiene solo un método estático que devuelve un número aleatorio dentro del intervalo dado.
 
 ![RandomNumber](images/Arquitectura/RandomNumber.png)
