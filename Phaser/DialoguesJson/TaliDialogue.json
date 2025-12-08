@@ -303,6 +303,22 @@
         "speaker": "Mercury",
         "text": "If you roll a Luna, you get another turn! How cool is that?",
         "animation":"true",
+        "next": "TT12-1",
+        "image": ""
+    },
+
+    "TT12-1":{
+        "speaker": "Mercury",
+        "text": "I always forget the combinations, so I made it easy for us.",
+        "animation":"true",
+        "next": "TT12-2",
+        "image": "none"
+    },
+
+    "TT12-2":{
+        "speaker": "Mercury",
+        "text": "Just click there to revise them again!",
+        "animation":"true",
         "next": "TT13",
         "image": ""
     },
@@ -312,23 +328,21 @@
         "text": "We're going to play three rounds. May the dice be in your favor!",
         "animation":"true",
         "next": "TT14",
-        "image": ""
+        "image": "none"
     },
 
     "TT14":{
         "speaker": "Kronos",
         "text": "Psst, friend!",
         "animation":"true",
-        "next": "TT15",
-        "image": ""
+        "next": "TT15"
     },
 
     "TT15":{
         "speaker": "Kronos",
         "text": "I don't trust the fates to be in your favor in this game, so I'll help you.",
         "animation":"true",
-        "next": "TT16",
-        "image": ""
+        "next": "TT16"
     },
 
     "TT16":{

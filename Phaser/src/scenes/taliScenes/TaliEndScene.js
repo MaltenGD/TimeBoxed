@@ -37,7 +37,9 @@ export class TaliEndScene extends BaseScene {
         this.transitionController.startFadeInTransition();
         
         this.setDialogue();
-        this.createUI();
+
+        /**Skip button */
+        this.skipBtn = new SkipButton(this, this.width - 130, 50, this.dialogueController, this.playerData);
     }
 
     /**
@@ -94,9 +96,6 @@ export class TaliEndScene extends BaseScene {
         .on('pointerdown', () => {
             this.openOptionMenu();
         });
-
-        /**Skip button */
-        this.skipBtn = new SkipButton(this, width - 130, 50, this.dialogueController, this.playerData);
         
     }
 

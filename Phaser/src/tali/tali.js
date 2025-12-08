@@ -314,6 +314,12 @@ export default class Tali {
         this.animateDice();
     }
 
+    setDiceImagesWithoutAnimating() {
+        for (let i = 0, j = -2*this.width/12; i < Tali.NUMBER_OF_DICE; i++, j+=this.width/12) { 
+            this.diceImages[i] = this.scene.add.image(this.width/2 + j, this.height/2, 'dice' + this.currentRoll[i]).setOrigin(0, 0.5).setScale(0.3).setAlpha(1);
+        }
+    }
+
     /**
      * Animates the dice appearing and disappearing.
      */
@@ -352,20 +358,6 @@ export default class Tali {
                 }
             }
         });
-
-        // this.scene.tweens.add({
-        //     targets: img,
-        //     alpha: 1,
-        //     duration: 700,
-        //     ease: 'Sine.easeOut',
-        //     onComplete: () => {
-        //         this.diceRollIndex++;
-        //         if (this.diceRollIndex >= this.currentRoll.length) {
-        //             this.diceRollIndex = 0;
-        //             this.emitter.emit('diceIn');
-        //         }
-        //     }
-        // })
     }
 
     hideDice() {
