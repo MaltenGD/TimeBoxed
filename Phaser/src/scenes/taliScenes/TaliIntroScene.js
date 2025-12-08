@@ -20,7 +20,7 @@ export class TaliIntroScene extends BaseScene
         let { width, height } = this.sys.game.canvas;
 
 
-        this.setBackgroundMusic();
+        this.setBackgroundMusic('taliIntroMusic');
 
         //creating the background
         this.background = this.add.image(width / 2, height / 2, 'taliBackgroundPlaceholder').setDisplaySize(width, height);
@@ -70,22 +70,6 @@ export class TaliIntroScene extends BaseScene
         /**Skip button */
         this.skipBtn = new SkipButton(this, width - 130, 50, this.dialogueController, this.playerData);
     
-    }
-
-    /**
-     * Sets the background music.
-     */
-    setBackgroundMusic() {
-        const baseMusicVolume = 0.25;
-        this.music = this.sound.add('taliIntroMusic', { loop: true, volume: baseMusicVolume * this.playerData.musicVolume });
-        this.soundInstances.push({ 
-            sound: this.music, 
-            type: 'music', 
-            baseVolume: baseMusicVolume 
-        });
-        this.music.play();
-    
-        this.sound.pauseOnBlur = false;
     }
             
 }

@@ -20,7 +20,7 @@ export class DistractMercuryScene extends BaseScene {
 
         await document.fonts.load('64px TaliOne');
 
-        this.setBackgroundMusic();
+        this.setBackgroundMusic('taliGameMusic');
 
         // Sets the class variables width and height.
         let {width, height} = this.sys.game.canvas;
@@ -48,8 +48,8 @@ export class DistractMercuryScene extends BaseScene {
 
         console.log(this.possibleDialogues);
         this.dialogueIndex = RandomNumber.get(0, this.possibleDialogues.length);
-        var index = this.possibleDialogues.indexOf(this.dialogueIndex);
-        console.log(this.dialogueIndex);
+        var index = this.possibleDialogues.indexOf(this.possibleDialogues[this.dialogueIndex]);
+        console.log(this.dialogueIndex, ' ', this.possibleDialogues[this.dialogueIndex]);
         this.possibleDialogues.splice(index, 1);
         console.log(this.possibleDialogues);
 
@@ -76,7 +76,7 @@ export class DistractMercuryScene extends BaseScene {
      */
     createAndBeginDialogue() {
         const dialogueData = this.cache.json.get('TaliDialogue');
-        this.dialogueController = new DialogueController(this, "DM" + this.dialogueIndex, dialogueData);
+        this.dialogueController = new DialogueController(this, "DM" + this.possibleDialogues[this.dialogueIndex], dialogueData);
         this.dialogueController.iniDialogue();
     }
 
@@ -147,17 +147,8 @@ export class DistractMercuryScene extends BaseScene {
      */
     checkOption(option) {
         this.hideOptions();
-        if (option.correct) this.onCorrectOption();
-        else this.onIncorrectOption();
-    }
-
-    /**
-     * Handles event where correct answer is picked.
-     */
-    onCorrectOption() {
-        console.log("Correct option picked.");
-        this.showMercuryDice();
-        
+        if (option.correct) this.showMercuryDice();
+        else this.returnToGame();
     }
 
     /**
@@ -220,15 +211,6 @@ export class DistractMercuryScene extends BaseScene {
     }
 
     /**
-     * Handles event where incorrect option is picked.
-     * Returns to game with no changes.
-     */
-    onIncorrectOption() {
-        console.log("Incorrect option picked.");
-        this.returnToGame();
-    }
-
-    /**
      * Sleeps the current scene and resumes the game scene.
      * Passes to the game scene the new roll set.
      */
@@ -260,22 +242,6 @@ export class DistractMercuryScene extends BaseScene {
     setObjectState(object, state)
     {
         object.setVisible(state).setActive(state).setAlpha(state ? 1 : 0);
-    }
-
-    /**
-     * Sets the background music.
-     */
-    setBackgroundMusic() {
-        const baseMusicVolume = 0.25;
-        this.music = this.sound.add('taliGameMusic', { loop: true, volume: baseMusicVolume * this.playerData.musicVolume });
-        this.soundInstances.push({ 
-            sound: this.music, 
-            type: 'music', 
-            baseVolume: baseMusicVolume 
-        });
-        this.music.play();
-    
-        this.sound.pauseOnBlur = false;
     }
 
 }

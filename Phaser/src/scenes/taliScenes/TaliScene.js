@@ -23,17 +23,15 @@ export class TaliScene extends BaseScene {
         super('TaliScene');
     }
 
-    preload() {
+    async create(playerData) {
         let {width, height} = this.sys.game.canvas;
         this.width = width;
         this.height = height;
-    }
 
-    async create(playerData) {
         this.playerData = playerData;
         console.log(this.playerData)
 
-        this.setBackgroundMusic();
+        this.setBackgroundMusic('taliGameMusic');
 
         // Wait for the custom font to be loaded before creating any text
         // The font size here doesn't matter, it just ensures the font family is ready.
@@ -356,21 +354,5 @@ export class TaliScene extends BaseScene {
     endGame() {
         this.playerData.TaliCompleted = this.taliGame.playerWon()
         this.scene.start('TaliEndScene', this.playerData);
-    }
-
-    /**
-     * Sets the background music.
-     */
-    setBackgroundMusic() {
-        const baseMusicVolume = 0.25;
-        this.music = this.sound.add('taliGameMusic', { loop: true, volume: baseMusicVolume * this.playerData.musicVolume });
-        this.soundInstances.push({ 
-            sound: this.music, 
-            type: 'music', 
-            baseVolume: baseMusicVolume 
-        });
-        this.music.play();
-    
-        this.sound.pauseOnBlur = false;
     }
 }

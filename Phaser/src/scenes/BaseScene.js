@@ -56,6 +56,22 @@ export class BaseScene extends Phaser.Scene {
     }
 
     /**
+     * Sets the background music.
+     */
+    setBackgroundMusic(musicFile) {
+        const baseMusicVolume = 0.25;
+        this.music = this.sound.add(musicFile, { loop: true, volume: baseMusicVolume * this.playerData.musicVolume });
+        this.soundInstances.push({ 
+            sound: this.music, 
+            type: 'music', 
+            baseVolume: baseMusicVolume 
+        });
+        this.music.play();
+    
+        this.sound.pauseOnBlur = false;
+    }
+
+    /**
      * Stops all sounds managed by this scene.
      * This is typically called before transitioning to a new scene.
      */

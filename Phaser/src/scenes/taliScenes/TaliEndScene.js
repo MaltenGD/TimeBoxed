@@ -25,7 +25,7 @@ export class TaliEndScene extends BaseScene {
 
         await document.fonts.load('64px TaliOne'); 
 
-        this.setBackgroundMusic();
+        this.setBackgroundMusic('taliIntroMusic');
 
         this.achManager = this.registry.get('AchievementManager');
         if (this.playerWon) {
@@ -38,6 +38,7 @@ export class TaliEndScene extends BaseScene {
         this.transitionController = new TransitionController(this);
         this.transitionController.startFadeInTransition();
         
+        this.createUI();
         this.setDialogue();
 
         /**Skip button */
@@ -132,21 +133,4 @@ export class TaliEndScene extends BaseScene {
     addText() {
         this.victoryText = this.add.text(this.width/2, this.height/2, this.playerWon ? 'You won!' : 'You lost!', { fontSize: 150, fill: '#fff', fontFamily: 'TaliOne'}).setOrigin(0.5);
     }
-
-    /**
-     * Sets the background music.
-     */
-    setBackgroundMusic() {
-        const baseMusicVolume = 0.25;
-        this.music = this.sound.add('taliIntroMusic', { loop: true, volume: baseMusicVolume * this.playerData.musicVolume });
-        this.soundInstances.push({ 
-            sound: this.music, 
-            type: 'music', 
-            baseVolume: baseMusicVolume 
-        });
-        this.music.play();
-    
-        this.sound.pauseOnBlur = false;
-    }
-    
 }

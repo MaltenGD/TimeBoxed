@@ -41,7 +41,7 @@ export class TaliBeginScene extends BaseScene {
         this.playerData = playerData;
         console.log(this.playerData)
 
-        this.setBackgroundMusic();
+        this.setBackgroundMusic('taliGameMusic');
 
         await document.fonts.load('64px TaliOne');
 
@@ -67,8 +67,6 @@ export class TaliBeginScene extends BaseScene {
             fontFamily: 'TaliOne'
         })
         .setOrigin(0.5);
-
-        
 
         this.rollBtn = this.add.container(this.width/2, 4*this.height/5, [ btnImg, btn ])
         this.rollBtn.setSize(btnImg.width, btnImg.height);
@@ -254,21 +252,5 @@ export class TaliBeginScene extends BaseScene {
         this.rollBtn.once('pointerdown', ()=> {
             this.transitionController.startFadeOutTransition(() => {this.scene.start('TaliScene', this.playerData)});
         });
-    }
-
-    /**
-     * Sets the background music.
-     */
-    setBackgroundMusic() {
-        const baseMusicVolume = 0.25;
-        this.music = this.sound.add('taliGameMusic', { loop: true, volume: baseMusicVolume * this.playerData.musicVolume });
-        this.soundInstances.push({ 
-            sound: this.music, 
-            type: 'music', 
-            baseVolume: baseMusicVolume 
-        });
-        this.music.play();
-    
-        this.sound.pauseOnBlur = false;
     }
 }

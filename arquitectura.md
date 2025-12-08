@@ -3,17 +3,20 @@
 **DialogueController**
 
 **TransitionController**
-Controller for the transitions.
-![TransitionController](images/Arquitectura/TaliController.png)
+Controller de transiciones.
+
+![TransitionController](images/Arquitectura/TransitionController.png)
 
 **SkipButton**
 
 **AchievementManager**
-Manages the existing achievements from the json file.
+Manager para los logros.
+
 ![AchievementManager](images/Arquitectura/AchievementManager.png)
 
 **RandomNumber**
-Has only a static method which returns a random number.
+Tiene solo un método estático que devuelve un número aleatorio dentro del intervalo dado.
+
 ![RandomNumber](images/Arquitectura/RandomNumber.png)
 
 ## Escenas
@@ -35,7 +38,8 @@ Has only a static method which returns a random number.
 ### Help Lobby Scene
 
 ### Items Scene
-Scene that shows all the achievements. When clicking on an achievement, opens a special panel to dispay details about the achievement.
+Escena con todos los logros. Si haces click en uno, se abre una escena que muestra toda la información sobre dicho logro.
+
 ![ItemsScene](images/Arquitectura/ItemsScene.png)
 
 ### Confirm Menu Scene
@@ -53,5 +57,17 @@ Scene that shows all the achievements. When clicking on an achievement, opens a 
 ### Aseb
 
 ### Tali
+Todas las escenas del juego Tali.
+
+- TaliIntroScene: La escena de introducción. Contiene solo los diálogos.
+- TaliTutorialScene: La escena que contiene el tutorial para Tali.
+- TaliBeginScene: La escena donde se determina el jugador que empieza.
+- TaliScene: La escena del propio juego.
+- DistractMercuryScene: La escena donde el jugador intenta distraer a Mercury.
+- CombinationMenu: La escena donde se muestran las posibles combinaciones. Aparece encima de la escena del juego.
+-  TaliEndScene: La escena final del juego.
+
+![TaliFlowchart](images/Arquitectura/TaliFlowChart.png)
+![TaliScenes](images/Arquitectura/TaliScenes.png)
 
 ### Hanafuda
