@@ -37,14 +37,14 @@ export class HanafudaGameState extends BaseScene{
     async create(data){
 
         this.playerData = data.playerData;
-
+        
+        await document.fonts.load('64px CenturyGothic');
         //For transitions
         this.transitionController = new TransitionController(this);
         this.transitionController.startFadeInTransition(); //It shows the transition into the scene from the previous scene.
 
         // Wait for the custom font to be loaded before creating any text
         // The font size here doesn't matter, it just ensures the font family is ready.
-        await document.fonts.load('64px CenturyGothic');
 
         //Get Scale
         /** @type {number} it saves the width of the canvas*/
