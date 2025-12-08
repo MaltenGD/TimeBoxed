@@ -300,6 +300,12 @@ export class LoadingScene extends Phaser.Scene
         this.load.image('TutorialCardGroup','Phaser/assets/Hanafuda/Tutorial/TutorialCardGroup.png')
         this.load.image('TutorialChooseCard','Phaser/assets/Hanafuda/Tutorial/TutorialChooseCard.png')
         this.load.image('TutorialCombination', 'Phaser/assets/Hanafuda/Tutorial/TutorialCombination.png');
+        this.load.image('Decision', 'Phaser/assets/Hanafuda/Tutorial/Decision.png');
+        this.load.image('Help', 'Phaser/assets/Hanafuda/Tutorial/Help.png');
+        this.load.image('MatchCard', 'Phaser/assets/Hanafuda/Tutorial/MatchCard.png');
+        this.load.image('TutorialTablero', 'Phaser/assets/Hanafuda/Tutorial/TutorialTablero.png');
+        this.load.image('YakuMenu', 'Phaser/assets/Hanafuda/Tutorial/YakuMenu.png');
+        
     }
 
     loadCreditsAssets() {

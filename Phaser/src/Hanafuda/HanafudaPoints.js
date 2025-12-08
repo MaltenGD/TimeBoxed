@@ -23,15 +23,15 @@ export default class HanafudaPoints {
         const box = this.scene.add.rectangle(this.scene.width/2, this.scene.height/2, 900, 500, 0x002016)
         .setStrokeStyle(6, 0xaa0000).setDepth(10000);
 
-        const title = this.scene.add.text(this.scene.width/2, this.scene.height/2 - 140, "Has conseguido un Yaku", {
+        const title = this.scene.add.text(this.scene.width/2, this.scene.height/2 - 140, "You've got a Yaku", {
             fontSize: "48px", color: "#ffffffff"
         }).setOrigin(0.5).setDepth(10001);
 
-        const yText = this.scene.add.text(this.scene.width/2, this.scene.height/2 - 40, "Combinacion: " + yaku, {
+        const yText = this.scene.add.text(this.scene.width/2, this.scene.height/2 - 40, "Combination: " + yaku, {
             fontSize: "36px", color: "#ffffffff"
         }).setOrigin(0.5).setDepth(10001);
 
-        const pText = this.scene.add.text(this.scene.width/2,this.scene.height/2 + 40, "Puntos: " + points, {
+        const pText = this.scene.add.text(this.scene.width/2,this.scene.height/2 + 40, "Points: " + points, {
             fontSize: "30px", color: "#d6d6d6ff"
         }).setOrigin(0.5).setDepth(10001);
 

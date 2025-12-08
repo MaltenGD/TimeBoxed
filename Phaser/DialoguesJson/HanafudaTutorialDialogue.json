@@ -61,7 +61,7 @@
             "text":"On your turn, you pick one card from your hand and try to match it with a card on the field. Match = you capture both cards. No match? Then your card gets added to the field like sad leftovers.",
             "animation":"true",
             "next":"HTD8",
-            "image":""
+            "image":"TutorialTablero"
         },
 
         "HTD8":
@@ -70,7 +70,7 @@
             "text":"After you play a card, the game flips one card from the deck. If that card matches something on the field, you capture those too.",
             "animation":"true",
             "next":"HTD9",
-            "image":""
+            "image":"MatchCard"
         },
 
         "HTD9":
@@ -79,13 +79,13 @@
             "text":"Yes, two chances per turn. Easy, right? Even a stray cat like you can understand it.",
             "animation":"true",
             "next":"HTD10",
-            "iamge":""
+            "iamge":"MatchCard"
         },
 
         "HTD10":
         {
             "speaker":"Kronos",
-            "text":"The goal is to make yaku--special combinations of cards. When you make a yaku, you score points. Points good. Losing bad. Simple.",
+            "text":"The goal is to make yaku--special combinations of cards. When you make a yaku, you score points. Points good. Losing bad. Simple. These are all the yaku you can make.",
             "animation":"true",
             "next":"HTD11",
             "image":"TutorialCombination"
@@ -94,10 +94,10 @@
          "HTD11":
         {
             "speaker":"Kronos",
-            "text":"These are all the yaku you can make. And if your memory fails you, which it will, you can always check them from the Yaku list menu",
+            "text":"And if your memory fails you, which it will, you can always check them from the Yaku list menu",
             "animation":"true",
             "next":"HTD12",
-            "image":"Combanations"
+            "image":"YakuMenu"
         },
 
         "HTD12":
@@ -106,7 +106,7 @@
             "text":"Now here comes the fun part, the dangerous part. When you complete a yaku, you get a choice: Koikoi or Shobu.",
             "animation":"true",
             "next":"HTD13",
-            "image":""
+            "image":"Decision"
         },
 
         "HTD13":
@@ -115,7 +115,7 @@
             "text":"If you choose Koikoi, you're saying: 'I want MORE points. I'm not done yet.' It's a gamble, your opponent can steal the round if they finish a yaku before you do.",
             "animation":"true",
             "next":"HTD14",
-            "image":""
+            "image":"Decision"
         },
 
         "HTD14":
@@ -124,7 +124,7 @@
             "text":"Risky… but delicious when it works.",
             "animation":"true",
             "next":"HTD15",
-            "image":""
+            "image":"Decision"
         },
 
         "HTD15":
@@ -133,7 +133,7 @@
             "text":"If you choose Shobu, you stop the round immediately. You take your points, safe and tidy, and the next round begins.",
             "animation":"true",
             "next":"HTD16",
-            "image":""
+            "image":"Decision"
         },
 
         "HTD16":
@@ -142,13 +142,13 @@
             "text":" No risk, no thrill, but hey, not everyone has the stomach for danger.",
             "animation":"true",
             "next":"HTD17",
-            "image":""
+            "image":"Decision"
         },
 
         "HTD17":
         {
             "speaker":"Kronos",
-            "text":"The match lasts six rounds. At the end of all six, whoever has the most points wins the entire game.",
+            "text":"The match lasts 4 rounds. At the end of all 4, whoever has the most points wins the entire game.",
             "animation":"true",
             "next":"HTD18",
             "image":""
@@ -169,7 +169,7 @@
             "text":"If your little cat brain needs a refresher, open the menu and choose Help and I'll repeat myself like a very handsome, very annoyed tutor.",
             "animation":"true",
             "next":"HTD20",
-            "image":""
+            "image":"Help"
         },
 
         "HTD20":
