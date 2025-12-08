@@ -37,7 +37,17 @@
         "text": "Now here's where it gets interesting: some squares are marked with this symbol. Land on one of those, and you get another throw! Quite the advantage, wouldn't you say?",
         "animation": "true",
         "next": "ATD5",
-        "image": "AsebTuto_SpecialSquares"
+        "tutoImage": "AsebTuto_SpecialSquares",
+        "Character":
+        {
+            "imageKey": "",
+            "frame": 0,
+            "x": 0,
+            "y": 0,
+            "scaleX": 1,
+            "scaleY": 1
+        }
+
     },
     "ATD5":
     {

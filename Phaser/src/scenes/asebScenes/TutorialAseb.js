@@ -10,7 +10,9 @@ export class TutorialAseb extends BaseScene
     {
 
         this.playerData = playerData;
-        console.log(this.playerData) 
+        console.log(this.playerData)
+
+        this.currentCharacter = null;
 
         this.DisableOptionMenu();
         
@@ -51,6 +53,9 @@ export class TutorialAseb extends BaseScene
         this.events.on('changeTutoImage',(imageKey)=> {
             this.changeTutoImage(imageKey);
         });
+        this.events.on('CharacterTalking',(CharacterOBJ)=> {
+            this.DisplayCharacterSprite(CharacterOBJ);
+        });
     }
 
     changeTutoImage(imageKey)
@@ -61,6 +66,20 @@ export class TutorialAseb extends BaseScene
         }
 
         if (imageKey != "none") this.tutoImage = this.add.image(this.width/2, this.height/2, imageKey).setOrigin(0.5).setScale(1);
+    }
+
+    DisplayCharacterSprite(CharacterOBJ)
+    {
+        if(this.currentCharacter) // If another character was talking previously
+        {
+            this.currentCharacter.destroy();
+        }
+
+        if (imageKey != "narrator") // The narrator doesnt have any appearance
+        {
+            this.currentCharacter = this.add.sprite(CharacterOBJ.x, CharacterOBJ.y, CharacterOBJ.imageKey, CharacterOBJ.frame)
+            .setScale(CharacterOBJ.scaleX, CharacterOBJ.scaleY);
+        }
     }
 
 

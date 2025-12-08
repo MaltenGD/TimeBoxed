@@ -10,6 +10,31 @@ Controller de transiciones.
 
 **SkipButton**
 
+Controller/Helper del DialogueController.
+
+```mermaid
+classDiagram
+    class SkipButton {
+        +DialogueController dialogueController
+        +Object playerData
+
+        +constructor(scene, x, y, dialogueController, playerData)
+        +handlePointerOver()
+        +handlePointerOut()
+        +handlePointerDown()
+    }
+
+    class PhaserGameObjectImage {
+        <<External>>
+    }
+    class DialogueController {
+        <<Helper>>
+    }
+
+    SkipButton --|> PhaserGameObjectImage : inherits
+    SkipButton --> DialogueController : controls
+```
+
 **AchievementManager**
 
 Manager para los logros.
@@ -58,6 +83,32 @@ Escena con todos los logros. Si haces click en uno, se abre una escena que muest
 ## Juegos
 
 ### Aseb
+Todas las escenas del juego Aseb en Egipto
+
+- IntroAsebScene: Escena de introducción a Egito donde el jugador conoce a Anubis.
+Contiene solo dialogos y Skip Button.
+- TutorialAsebScene: La escena que contiene el tutorial para el Aseb
+Contiene solo dialogos y Skip Button.
+- AsebBeginScene: Escena donde se determina el jugador que empieza.
+- AsebScene: Escena donde se da el juego de Aseb
+- AsebVictoryScene: Escena con dialogos para cuando el jugador gana la partida
+- AsebDefeatScene: Escena con dialogos para cuando el jugador pierde la partida.
+
+FLOWCHART de las escenas de Aseb:
+
+```mermaid
+flowchart TD
+    A[IntroAseb] -->|Dialogo Termina| C{Confirm Menu}
+    C -->|Click en YES| D[TutorialAseb]
+    D -->|Dialogo Termina| F[AsebBegin]
+    C -->|Click en NO| F
+    F -->|Se decide el primer jugador| G(AsebScene)
+    G -->|PEl jugador gana| H(AsebVictoryScene)
+    G -->|El jugador pierde| I(AsebDefeatScene)
+    I -->|Modo Timeboxed| J(Start)
+    I -->|Modo Normal| F
+    H --> SelectionMenu
+```
 
 ### Tali
 Todas las escenas del juego Tali.

@@ -161,11 +161,18 @@ export default class DialogueController
         /**gets if the dialogue is animated */
         const isAnimated = element.animation === 'true';
 
-        const imageKey = element.image;
-        if(imageKey)
+        const TutoImageKey = element.tutoImage;
+        if(TutoImageKey)
         {
-            this.scene.events.emit('changeTutoImage', imageKey);
+            this.scene.events.emit('changeTutoImage', TutoImageKey);
         }
+
+        const CharacterOBJ = element.Character;
+        if (CharacterOBJ)
+        {
+            this.scene.events.emit('CharacterTalking', CharacterOBJ);
+        }
+
         
         /**creates the dialogue with all the necessary parameters*/
         this.currentDialogue = new Dialogue(speaker, text, isAnimated);
