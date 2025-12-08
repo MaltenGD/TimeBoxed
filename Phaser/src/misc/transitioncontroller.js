@@ -46,24 +46,4 @@ export default class TransitionController {
             }
         });
     }
-
-    startFlash() {
-
-    }
-
-    startPan() {
-
-    }
-
-    startRotate() {
-
-    }
-
-    startShake() {
-
-    }
-
-    startZoom() {
-        
-    }
 }
