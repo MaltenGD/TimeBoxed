@@ -68,41 +68,65 @@ export class Start extends BaseScene {
         else this.background = this.add.image(width / 2, height / 2, 'background').setDisplaySize(width, height);
 
 
-        const box = this.add.image(300, 950, 'BoxOpen').setOrigin(0.5).setScale(1.5).setRotation(0.2);
+        const box = this.add.image(300, 1050, 'BoxOpen').setOrigin(0.5).setScale(1.75).setRotation(0.2);
 
         // a constant wobbling effect as if the box was floating on space
         this.tweens.add({
             targets: box,
-            y: 930,
+            y: 1030,
             duration: 4000,
             ease: 'Sine.easeInOut',
             yoyo: true,
             loop: -1
         });
 
-        const kitty = this.add.image(500, 450, 'StartMenuKronos').setOrigin(0.5).setScale(0.9);
+        const kitty = this.add.image(350, 450, 'StartMenuKronos').setOrigin(0.5).setScale(0.82);
 
         this.tweens.add({
             targets: kitty,
             y: 520,
-            duration: 4900,
+            duration: 4500,
             ease: 'Sine.easeInOut',
             yoyo: true,
             loop: -1
         });
 
-        const timepiece = this.add.image(375, 260, 'Timepiece').setOrigin(0.5).setScale(0.9);
+        const timepiece = this.add.image(240, 260, 'Timepiece').setOrigin(0.5).setScale(0.9);
 
         this.tweens.add({
             targets: timepiece,
-            y: 420,
+            y: 380,
             duration: 5500,
             ease: 'Sine.easeInOut',
             yoyo: true,
             loop: -1
         });
 
-        const logo = this.add.image(1300, 150, 'logo').setOrigin(0.5);
+        const logoOriginalX = (width / 2) - 125;
+        const logoOriginalY = 125;
+        const logoTargetY = 150;
+        const logo = [
+            this.add.image(logoOriginalX, logoOriginalY, 'T').setOrigin(0.5).setScale(0.8),
+            this.add.image(logoOriginalX + 45, logoOriginalY, 'I').setOrigin(0.5).setScale(0.8),
+            this.add.image(logoOriginalX + 120, logoOriginalY, 'M').setOrigin(0.5).setScale(0.8),
+            this.add.image(logoOriginalX + 220, logoOriginalY, 'E').setOrigin(0.5).setScale(0.8),
+            this.add.image(logoOriginalX + 320, logoOriginalY, 'B').setOrigin(0.5).setScale(0.8),
+            this.add.image(logoOriginalX + 430, logoOriginalY, 'O').setOrigin(0.5).setScale(0.8),
+            this.add.image(logoOriginalX + 555, logoOriginalY, 'X').setOrigin(0.5).setScale(0.8),
+            this.add.image(logoOriginalX + 700, logoOriginalY, 'E2').setOrigin(0.5).setScale(0.8),
+            this.add.image(logoOriginalX + 860, logoOriginalY, 'D').setOrigin(0.5).setScale(0.8)
+        ]
+        .forEach((letter, index) => {
+            this.tweens.add({
+                targets: letter,
+                y: logoTargetY,
+                duration: 3000,
+                ease: 'Sine.easeInOut',
+                delay: index * 150,
+                yoyo: true,
+                loop: -1
+            });
+        });
 
         // Define final positions for the letters
         const letterSpacing = 100;
@@ -134,8 +158,8 @@ export class Start extends BaseScene {
         this.startWandering(startLetters);
         const playButton = this.add.container(width / 2 + 200, height - 200, [playButtonS, playButtonT, playButtonA, playButtonR, playButtonT2]).setSize(600, 150).setInteractive();
         //boton de creditos
-        const settingsButton = this.add.image( width - 150, height - 315, 'StartMenuSettings').setOrigin(0.5).setScale(0.20).setInteractive();
-        const creditsButton = this.add.image( width - 150, height - 150, 'creditsButton').setOrigin(0.5).setScale(0.15).setInteractive();
+        const settingsButton = this.add.image( width - 125, height - 225, 'StartMenuSettings').setOrigin(0.5).setScale(0.12).setInteractive();
+        const creditsButton = this.add.image( width - 125, height - 100, 'creditsButton').setOrigin(0.5).setScale(0.12).setInteractive();
 
         //PLAY BUTTON INTERACTIONS
         this.arranged = false;
@@ -208,7 +232,7 @@ export class Start extends BaseScene {
             this.sound.play('buttonHover', { volume: 2 * this.playerData.sfxVolume });
             this.tweens.add({
                 targets: creditsButton,
-                scale: 0.17,
+                scale: 0.14,
                 duration: 200,
                 ease: 'Sine.easeInOut',
                 yoyo: false,
@@ -217,7 +241,7 @@ export class Start extends BaseScene {
         creditsButton.on('pointerout', () => {
             this.tweens.add({
                 targets: creditsButton,
-                scale: 0.15,
+                scale: 0.12,
                 duration: 200,
                 ease: 'Sine.easeInOut',
                 yoyo: false,
@@ -230,7 +254,7 @@ export class Start extends BaseScene {
             this.sound.play('buttonHover', { volume: 2 * this.playerData.sfxVolume });
             this.tweens.add({
                 targets: settingsButton,
-                scale: 0.22,
+                scale: 0.14,
                 duration: 200,
                 ease: 'Sine.easeInOut',
                 yoyo: false,
@@ -239,7 +263,7 @@ export class Start extends BaseScene {
             settingsButton.setTexture('StartMenuSettings');
             this.tweens.add({
                 targets: settingsButton,
-                scale: 0.20,
+                scale: 0.12,
                 duration: 200,
                 ease: 'Sine.easeInOut',
                 yoyo: false,
@@ -265,18 +289,7 @@ export class Start extends BaseScene {
             }, 200);
             
         });
-        
-        logo.setScale(0.5);
 
-        //animacion del nombre del juego
-        this.tweens.add({
-            targets: logo,
-            y: 200,
-            duration: 1800,
-            ease: 'Sine.easeInOut',
-            yoyo: true,
-            loop: -1
-        });
 
     }
 

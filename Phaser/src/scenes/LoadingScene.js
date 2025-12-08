@@ -89,7 +89,18 @@ export class LoadingScene extends Phaser.Scene
         this.load.image('StartMenuKronos', 'Phaser/assets/StartMenu/bigKronos.png');
         this.load.image('Timepiece', 'Phaser/assets/StartMenu/timePiece.png');
         this.load.image('BoxOpen', 'Phaser/assets/StartMenu/cardboardbox.png')
-        this.load.image('logo', 'Phaser/assets/titlelogo.png');
+        
+        //Timeboxed Logo
+        this.load.image('T', 'Phaser/assets/StartMenu/TimeboxedTitle/T.png');  
+        this.load.image('I', 'Phaser/assets/StartMenu/TimeboxedTitle/I.png');  
+        this.load.image('M', 'Phaser/assets/StartMenu/TimeboxedTitle/M.png');  
+        this.load.image('E', 'Phaser/assets/StartMenu/TimeboxedTitle/FirstE.png');
+        this.load.image('B', 'Phaser/assets/StartMenu/TimeboxedTitle/B.png');  
+        this.load.image('O', 'Phaser/assets/StartMenu/TimeboxedTitle/O.png');  
+        this.load.image('X', 'Phaser/assets/StartMenu/TimeboxedTitle/X.png');  
+        this.load.image('E2', 'Phaser/assets/StartMenu/TimeboxedTitle/SecondE.png');  
+        this.load.image('D', 'Phaser/assets/StartMenu/TimeboxedTitle/D.png');     
+
         this.load.image('creditsButton', 'Phaser/assets/StartMenu/creditsButton.png');
         this.load.image('teamLogo', 'Phaser/assets/teamLogo.png');
         this.load.json('playerData', 'Phaser/src/playerData.json');
