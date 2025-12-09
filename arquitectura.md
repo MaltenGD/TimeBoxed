@@ -1392,5 +1392,338 @@ classDiagram
 
 ### 🎴 Hanafuda (Japón)
 
+El juego de cartas japonesa contra Benten
+
+#### Listado de Escenas
+*   **HanafudaIntroScene**: La escena de introducción. Encuentro con Benten.
+*   **TutorialHanafuda**: La escena que contiene la explicación de las reglas.
+*   **HanafudaBeginScene**: La escena donde se determina el jugador que empieza volteando carta.
+*   **HanafudaGameState**: La escena del propio juego.
+*   **HanafudaEndScene**: La escena final del juego.
+
+<details>
+<summary><strong>Ver Flowchart de Hanafuda</strong></summary>
+
+```mermaid
+flowchart TD
+    A SelectionMenu --> C[/HanafudaIntro/]
+    C -->|YES| D[/TutorialHanafuda/]
+    D -->F HanafudaBegin
+    C -->|NO| F
+    F -->G(HanafudaGameState)
+    G -->I[/HanafudaEnd/]
+    I -->H SelectionMenu
+```
+</details>
+
+#### 📐 Diagramas de Arquitectura (Escenas)
+
+<details>
+<summary><strong>Ver Diagrama: HanafudaIntro</strong></summary>
+
+```mermaid
+classDiagram
+    class HanafudaIntro {
+        +Object playerData
+        +TransitionController transitionController
+        +Phaser.Sound.BaseSound music
+        +Array soundInstances
+        +Phaser.GameObjects.Image background
+        +Phaser.GameObjects.Text backBtn
+        +DialogueController dialogueController
+        +SkipButton skipBtn
+        
+        +create(playerData)
+    }
+
+    class BaseScene {
+        +soundInstances
+        +OptionMenuCanBeOpened
+        +init()
+        +shutdown()
+        +openOptionMenu()
+        +KillSounds()
+    }
+
+    class DialogueController {
+        <<Helper>>
+    }
+    class SkipButton {
+        <<Helper>>
+    }
+
+    class TransitionController {
+         <<Helper>>
+    }
+
+    HanafudaIntro --|> BaseScene
+    HanafudaIntro --> DialogueController
+    HanafudaIntro --> SkipButton
+    HanafudaIntro --> TransitionController
+
+```
+</details>
+
+<details>
+<summary><strong>Ver Diagrama: TutorialHanafuda</strong></summary>
+
+```mermaid
+classDiagram
+    class TutorialHanafuda {
+        +Object playerData
+        +number width
+        +number height
+        +Phaser.GameObjects.Image background
+        +TransitionController transitionController
+        +DialogueController dialogueController
+        +Phaser.GameObjects.Image tutoImage
+
+        +create(playerData)
+        +changeTutoImage(imageKey)
+    }
+
+    class BaseScene {
+        +soundInstances
+        +OptionMenuCanBeOpened
+        +init()
+        +shutdown()
+        +openOptionMenu()
+        +KillSounds()
+        +DisableOptionMenu()
+    }
+
+    class DialogueController {
+        <<Helper>>
+    }
+
+    class TransitionController {
+        <<Helper>>
+    }
+
+    TutorialHanafuda --|> BaseScene
+    TutorialHanafuda --> DialogueController
+    TutorialHanafuda --> TransitionController
+```
+</details>
+
+<details>
+<summary><strong>Ver Diagrama: HanafudaBegin</strong></summary>
+
+```mermaid
+classDiagram
+    class HanafudaBegin {
+        +Object playerData
+        +Boolean playerBegins
+        +Card[] mazo
+        +playerCard
+        +opponentCard
+        +Phaser.GameObjects cardsObjects
+
+        +create(playerData)
+        +preload()
+        +init()
+        +onCardSelected(card)
+        +handleOpponentTurn()
+        +openOptionMenu()
+        +shutdown()
+    }
+
+    class TransitionController {
+        <<Helper>>
+    }
+
+    HanafudaBegin --> TransitionController
+```
+</details>
+
+<details>
+<summary><strong>Ver Diagrama: HanafudaGameState</strong></summary>
+
+```mermaid
+classDiagram
+    class HanafudaGameState {
+        +Number playerScore
+        +Number opponentScore
+        +Number round
+        +HANAFUDA_STATE currentState
+        +HanafudaRender render
+        +HanafudaTableActions tableAction
+        +HanafudaPrepareRound prepareRound
+        +HanafudaPoints points
+
+        + init(data)
+        + create(data)
+        + transitionTo(newState)
+        + handleGameState()
+        + selectPair()
+        + cleanUp()
+        + combinationAction()
+        + openOptionMenu()
+        + openYakusMenu()
+        + renderCards()
+    }
+
+    class HanafudaTableActions {
+        +HanafudaGameState scene
+        +Array tablepos
+        
+        + searchesPair(card)
+        + selectTablePair(pairs)
+        + foundPair(card, cardpos, tablecardPos)
+        + pairNotFound(cardpos)
+    }
+
+    class HanafudaRender {
+        +HanafudaGameState scene
+        +Number width
+        +Number height
+        
+        + renderTable()
+        + renderOpponentCards()
+        + renderPlayerCards()
+        + renderPlayerPairs()
+        + renderOpponentPairs()
+        + renderNewCardToTable(card, col, row)
+        + renderDeckCard()
+        + renderZones()
+        + pairsTweens(image)
+    }
+
+    class HanafudaPrepareRound {
+        +HanafudaGameState scene
+        +Number rows
+        +Number cols
+        +Array{month, count} monthCounter
+        
+        + createDeck()
+        + shuffleDeck()
+        + dealCards()
+    }
+
+    class TransitionController {
+        <<Helper>>
+    }
+
+    HanafudaGameState --> HanafudaTableActions
+    HanafudaGameState --> HanafudaRender
+    HanafudaGameState --> HanafudaPrepareRound
+    HanafudaGameState --> TransitionController
+```
+</details>
+
+<details>
+<summary><strong>Ver Diagrama: HanafudaEndScene</strong></summary>
+
+```mermaid
+classDiagram
+    class HanafudaEndScene {
+        +Object playerData
+        +Boolean playerWon
+        +DialogueController dialogueController
+
+        +create(playerData)
+    }
+
+    class TransitionController {
+        <<Helper>>
+    }
+
+    HanafudaEndScene --> TransitionController
+```
+</details>
+
+#### Clases de Lógica (Hanafuda)
+
+Clases que manejan la lógica interna y los elementos del tablero de Hanafuda.
+
+**HanafudaPrepareRound**
+Encargado de la baraja de carta y reparto de carta
+
+<details>
+<summary><strong>Ver Diagrama: HanafudaPrepareRound</strong></summary>
+
+```mermaid
+classDiagram
+    class HanafudaPrepareRound {
+        +HanafudaGameState scene
+        +Number rows
+        +Number cols
+        +Array{month, count} monthCounter
+        
+        + createDeck()
+        + shuffleDeck()
+        + dealCards()
+    }
+```
+</details>
+
+**HanafudaTableActions**
+Encargado de detectar cartas y pares de cartas
+
+<details>
+<summary><strong>Ver Diagrama: HanafudaTableActions</strong></summary>
+
+```mermaid
+classDiagram
+    class HanafudaTableActions {
+        +HanafudaGameState scene
+        +Array tablepos
+        
+        + searchesPair(card)
+        + selectTablePair(pairs)
+        + foundPair(card, cardpos, tablecardPos)
+        + pairNotFound(cardpos)
+    }
+```
+</details>
+
+**HanafudaRender**
+Encargado de renderizar cartas de la mesa, mazo, juagdor y oponente
+
+<details>
+<summary><strong>Ver Diagrama: HanafudaRender</strong></summary>
+
+```mermaid
+classDiagram
+    class HanafudaRender {
+        +HanafudaGameState scene
+        +Number width
+        +Number height
+        
+        + renderTable()
+        + renderOpponentCards()
+        + renderPlayerCards()
+        + renderPlayerPairs()
+        + renderOpponentPairs()
+        + renderNewCardToTable(card, col, row)
+        + renderDeckCard()
+        + renderZones()
+        + pairsTweens(image)
+    }
+```
+</details>
+
+**YakusMenu**
+Encargado del menu de combinaciones
+
+<details>
+<summary><strong>Ver Diagrama: YakusMenu</strong></summary>
+
+```mermaid
+classDiagram
+    class YakusMenu {
+        +Object playerData
+        +Boolean closing
+        +Rectangle overlay
+        +Image combinationsImage
+        +Text closeBtn
+        
+        + init(data)
+        + preload()
+        + create()
+        + closeMenu()
+    }
+```
+</details>
 
 ---
