@@ -75,7 +75,19 @@ Encargado de gestionar los efectos visuales al cambiar de escena (Fade In, Fade 
 <details>
 <summary><strong>Ver Diagrama: TransitionController</strong></summary>
 
-![TransitionController](images/Arquitectura/TransitionController.png)
+``` mermaid
+classDiagram
+    class TransitionController {
+        + Phaser.Scene scene
+        + Phaser.Camera camera
+        + Phaser.EventEmitter EventEmitter
+
+        +constructor(scene)
+        +startFadeOutTransition(callback, time, color)
+        +startFadeInTransition(callback, time, color)
+    }
+```
+
 </details>
 
 #### **SkipButton**
@@ -1295,8 +1307,16 @@ Todas las escenas del juego Tali.
 
 <details>
 <summary><strong>Ver Flowchart de Tali</strong></summary>
-
-![TaliFlowchart](images/Arquitectura/TaliFlowChart.png)
+```mermaid
+flowchart TD
+    A[SelectionMenuScene] -->|Play Tali| B(TaliIntroScene)
+    B --> C(TaliTutorialScene)
+    B --> |Skip Tutorial|D[TaliBeginScene]
+    C --> D
+    D --> E[TaliScene]
+    E --> F[TaliEndScene]
+    F --> A
+```
 </details>
 
 #### 📐 Diagramas de Arquitectura (Escenas)

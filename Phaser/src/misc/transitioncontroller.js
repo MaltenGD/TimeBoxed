@@ -21,7 +21,6 @@ export default class TransitionController {
      */
     startFadeOutTransition(callback = () => {}, time = 1000, color = new RGBColor(0, 0, 0)) {
         this.scene.input.enabled = false;
-        //this.scene.fadeOutAndKillSounds(time);
         this.camera.fadeOut(time, color.red, color.green, color.blue, (camera, progress) => {
             if (progress === 1) {
                 this.scene.input.enabled = true;
