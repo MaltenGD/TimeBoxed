@@ -284,7 +284,7 @@ export class Start extends BaseScene {
 
              this.transitionController.startFadeOutTransition(() => {
                 
-               this.scene.start('CreditsScene');
+               this.scene.start('CreditsScene', this.playerData);
             
             }, 200);
             
