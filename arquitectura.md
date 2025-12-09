@@ -1406,13 +1406,14 @@ El juego de cartas japonesa contra Benten
 
 ```mermaid
 flowchart TD
-    A SelectionMenu C[/HanafudaIntro/]
+    A [SelectionMenu]
+    A -->C[/HanafudaIntro/]
     C -->|YES| D[/TutorialHanafuda/]
     D -->F HanafudaBegin
     C -->|NO| F
-    F -->G(HanafudaGameState)
+    F -->G[HanafudaGameState]
     G -->I[/HanafudaEnd/]
-    I -->H SelectionMenu
+    I -->H [SelectionMenu]
 ```
 </details>
 
