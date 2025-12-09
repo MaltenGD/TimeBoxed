@@ -128,7 +128,33 @@ Sistema centralizado para gestionar, desbloquear y guardar los logros del jugado
 <details>
 <summary><strong>Ver Diagrama: AchievementManager</strong></summary>
 
-![AchievementManager](images/Arquitectura/AchievementManager.png)
+```mermaid
+classDiagram
+    class Achievement {
+        +string id
+        +string name
+        +string description
+        +string image
+        +bool awarded
+        +awardAchievement()
+        +revokeAchievement()
+    }
+
+    class AchievementManager {
+        +int awardedAchievements
+        +Map achievementMap
+        +nrOfAchievements
+        +nrOfAwardedAchievements
+        +loadAchievements(jsonFile)
+        +getAchievementByKey(key)
+        +awardAchievement(key)
+        +revokeAchievement(key)
+        +checkGameCompletion(playerData)
+    }
+
+    AchievementManager "1" --> "*" Achievement : tiene
+```
+
 </details>
 
 #### **RandomNumber**
@@ -137,7 +163,14 @@ Clase estática utilitaria para la generación de números aleatorios dentro de 
 <details>
 <summary><strong>Ver Diagrama: RandomNumber</strong></summary>
 
-![RandomNumber](images/Arquitectura/RandomNumber.png)
+```mermaid
+classDiagram
+    class RandomNumber {
+        <<static>>
+        +get(min, max) int
+    }
+```
+
 </details>
 
 ---
@@ -426,7 +459,26 @@ Galería de logros. Permite inspeccionar detalles de cada logro desbloqueado.
 <details>
 <summary><strong>Ver Diagrama: Items Scene</strong></summary>
 
-![ItemsScene](images/Arquitectura/ItemsScene.png)
+```mermaid
+classDiagram
+    class BaseScene {
+    }
+
+    class ItemsScene {
+        +playerData
+        +width
+        +height
+        +background
+        +achManager
+
+        +create(playerData)
+        +exitItemsScene()
+        +addAchievements()
+    }
+
+    BaseScene <|-- ItemsScene : hereda
+```
+
 </details>
 
 ### **Confirm Menu Scene**
