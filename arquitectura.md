@@ -1406,7 +1406,7 @@ El juego de cartas japonesa contra Benten
 
 ```mermaid
 flowchart TD
-    A SelectionMenu --> C[/HanafudaIntro/]
+    A SelectionMenu C[/HanafudaIntro/]
     C -->|YES| D[/TutorialHanafuda/]
     D -->F HanafudaBegin
     C -->|NO| F
@@ -1593,7 +1593,7 @@ classDiagram
         +HanafudaGameState scene
         +Number rows
         +Number cols
-        +Array{month, count} monthCounter
+        +Array monthCounter
         
         + createDeck()
         + shuffleDeck()
@@ -1648,7 +1648,7 @@ classDiagram
         +HanafudaGameState scene
         +Number rows
         +Number cols
-        +Array{month, count} monthCounter
+        +Array monthCounter
         
         + createDeck()
         + shuffleDeck()
