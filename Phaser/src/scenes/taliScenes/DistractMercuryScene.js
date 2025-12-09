@@ -17,6 +17,7 @@ export class DistractMercuryScene extends BaseScene {
         // Takes data that was passed to scene.
         this.playerData = data.playerData;
         this.mercuryRoll = data.mercuryRoll;
+        this.distractCounter = data.distractCounter;
 
         await document.fonts.load('64px TaliOne');
 
@@ -48,8 +49,9 @@ export class DistractMercuryScene extends BaseScene {
 
         console.log(this.possibleDialogues);
         this.dialogueIndex = RandomNumber.get(0, this.possibleDialogues.length);
-        var index = this.possibleDialogues.indexOf(this.possibleDialogues[this.dialogueIndex]);
-        console.log(this.dialogueIndex, ' ', this.possibleDialogues[this.dialogueIndex]);
+        this.dialogueNumber = this.possibleDialogues[this.dialogueIndex];
+        var index = this.possibleDialogues.indexOf(this.dialogueNumber);
+        console.log(this.dialogueIndex, ' ', this.dialogueNumber);
         this.possibleDialogues.splice(index, 1);
         console.log(this.possibleDialogues);
 
@@ -76,7 +78,7 @@ export class DistractMercuryScene extends BaseScene {
      */
     createAndBeginDialogue() {
         const dialogueData = this.cache.json.get('TaliDialogue');
-        this.dialogueController = new DialogueController(this, "DM" + this.possibleDialogues[this.dialogueIndex], dialogueData);
+        this.dialogueController = new DialogueController(this, "DM" + this.dialogueNumber, dialogueData);
         this.dialogueController.iniDialogue();
     }
 
@@ -84,11 +86,11 @@ export class DistractMercuryScene extends BaseScene {
      * Creates the necessary buttons for the scene.
     */
     addButtons() {
-        this.optionOne = this.createButton(this.width / 2, this.height / 3, this.optionText[this.dialogueIndex].one.text, () => {
-            this.checkOption(this.optionText[this.dialogueIndex].one);
+        this.optionOne = this.createButton(this.width / 2, this.height / 3, this.optionText[this.dialogueNumber].one.text, () => {
+            this.checkOption(this.optionText[this.dialogueNumber].one);
         });
-        this.optionTwo = this.createButton(this.width / 2, this.height / 2, this.optionText[this.dialogueIndex].two.text, () => {
-            this.checkOption(this.optionText[this.dialogueIndex].two);
+        this.optionTwo = this.createButton(this.width / 2, this.height / 2, this.optionText[this.dialogueNumber].two.text, () => {
+            this.checkOption(this.optionText[this.dialogueNumber].two);
         });
 
         this.hideOptions();
@@ -155,6 +157,7 @@ export class DistractMercuryScene extends BaseScene {
      * Displays Mercury's roll.
      */
     showMercuryDice() {
+        this.distractCounter++;
         this.infoText.setText("You distracted Mercury!");
         this.time.addEvent({
             delay: 1000,
@@ -217,7 +220,7 @@ export class DistractMercuryScene extends BaseScene {
     returnToGame() {
         this.addListeners();
         this.scene.sleep(); 
-        this.scene.resume('TaliScene', {playerData: this.playerData, mercuryResultRoll: this.mercuryRoll, possibleDialogues: this.possibleDialogues});
+        this.scene.resume('TaliScene', {playerData: this.playerData, mercuryResultRoll: this.mercuryRoll, possibleDialogues: this.possibleDialogues, distractCounter: this.distractCounter});
     }
 
 

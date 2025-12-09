@@ -52,6 +52,8 @@ export class TaliScene extends BaseScene {
 
         // Possible dialogue indexes
         this.possibleDialogues = [0, 1, 2, 3, 4];
+
+        this.distractCounter = 0;
     }
 
     /**
@@ -315,10 +317,11 @@ export class TaliScene extends BaseScene {
 
     onEnemyDistract() {
         this.scene.pause();
-        this.scene.launch('DistractMercuryScene', {playerData: this.playerData, mercuryRoll: this.taliGame.currentRoll, possibleDialogues: this.possibleDialogues});
+        this.scene.launch('DistractMercuryScene', {playerData: this.playerData, mercuryRoll: this.taliGame.currentRoll, possibleDialogues: this.possibleDialogues, distractCounter: this.distractCounter});
         this.events.once("resume", (scene, data) => {
             this.taliGame.currentRoll = data.mercuryResultRoll;
             this.possibleDialogues = data.possibleDialogues;
+            this.distractCounter = data.distractCounter;
             this.setTextWithAnimation(this.turnText, "Mercury's rolls:")
             this.taliGame.setDiceImagesWithoutAnimating();
             this.resetButton(this.rollBtn, 'Show combinations', () => {
@@ -352,7 +355,7 @@ export class TaliScene extends BaseScene {
      * Ends the game and announces the winner.
      */
     endGame() {
-        this.playerData.TaliCompleted = this.taliGame.playerWon()
-        this.scene.start('TaliEndScene', this.playerData);
+        this.playerData.TaliCompleted = this.taliGame.playerWon();
+        this.scene.start('TaliEndScene', {playerData: this.playerData, distractCounter: this.distractCounter});
     }
 }

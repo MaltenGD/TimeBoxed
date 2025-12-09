@@ -26,6 +26,12 @@
             "description": "Win once in Tali.",
             "image": "Dice_Ruler"
         },
+        "TA2":
+        {
+            "name": "Stealthy Kitty",
+            "description": "Win in Tali after distracting Mercury at least three times.",
+            "image": "Stealthy_Kitty"
+        },
 
         "HA1":
         {

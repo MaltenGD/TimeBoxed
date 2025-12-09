@@ -338,6 +338,7 @@ export class LoadingScene extends Phaser.Scene
         this.load.image('Dice_Ruler', 'Phaser/assets/insignias/Dice_Ruler.png');
         this.load.image('Master_of_Time', 'Phaser/assets/insignias/Master_of_Time.png');
         this.load.image('God_of_Time', 'Phaser/assets/insignias/God_of_Time.png');
+        this.load.image('Stealthy_Kitty', 'Phaser/assets/insignias/Stealthy_Kitty.png');
 
     }
 

@@ -14,12 +14,13 @@ export class TaliEndScene extends BaseScene {
         this.dialogueController;
     }
 
-    async create(playerData) {
+    async create(data) {
         let {width, height} = this.sys.game.canvas;
         this.width = width;
         this.height = height;
 
-        this.playerData = playerData;
+        this.playerData = data.playerData;
+        this.distractCounter = data.distractCounter;
         console.log(this.playerData);
         this.playerWon = this.playerData.TaliCompleted;
 
@@ -32,6 +33,10 @@ export class TaliEndScene extends BaseScene {
             this.achManager.awardAchievement('TA1');
             console.log("TA1 awarded!");
             this.achManager.checkGameCompletion(this.playerData);
+            if (this.distractCounter >= 3) {
+                this.achManager.awardAchievement('TA2');
+                console.log("TA2 awarded!");
+            }
         }
         this.registry.set('AchievementManager', this.achManager);
         
