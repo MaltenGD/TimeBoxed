@@ -75,7 +75,19 @@ Encargado de gestionar los efectos visuales al cambiar de escena (Fade In, Fade 
 <details>
 <summary><strong>Ver Diagrama: TransitionController</strong></summary>
 
-![TransitionController](images/Arquitectura/TransitionController.png)
+``` mermaid
+classDiagram
+    class TransitionController {
+        + Phaser.Scene scene
+        + Phaser.Camera camera
+        + Phaser.EventEmitter EventEmitter
+
+        +constructor(scene)
+        +startFadeOutTransition(callback, time, color)
+        +startFadeInTransition(callback, time, color)
+    }
+```
+
 </details>
 
 #### **SkipButton**
@@ -116,7 +128,33 @@ Sistema centralizado para gestionar, desbloquear y guardar los logros del jugado
 <details>
 <summary><strong>Ver Diagrama: AchievementManager</strong></summary>
 
-![AchievementManager](images/Arquitectura/AchievementManager.png)
+```mermaid
+classDiagram
+    class Achievement {
+        +string id
+        +string name
+        +string description
+        +string image
+        +bool awarded
+        +awardAchievement()
+        +revokeAchievement()
+    }
+
+    class AchievementManager {
+        +int awardedAchievements
+        +Map achievementMap
+        +nrOfAchievements
+        +nrOfAwardedAchievements
+        +loadAchievements(jsonFile)
+        +getAchievementByKey(key)
+        +awardAchievement(key)
+        +revokeAchievement(key)
+        +checkGameCompletion(playerData)
+    }
+
+    AchievementManager "1" --> "*" Achievement : tiene
+```
+
 </details>
 
 #### **RandomNumber**
@@ -125,7 +163,14 @@ Clase estática utilitaria para la generación de números aleatorios dentro de 
 <details>
 <summary><strong>Ver Diagrama: RandomNumber</strong></summary>
 
-![RandomNumber](images/Arquitectura/RandomNumber.png)
+```mermaid
+classDiagram
+    class RandomNumber {
+        <<static>>
+        +get(min, max) int
+    }
+```
+
 </details>
 
 ---
@@ -414,7 +459,26 @@ Galería de logros. Permite inspeccionar detalles de cada logro desbloqueado.
 <details>
 <summary><strong>Ver Diagrama: Items Scene</strong></summary>
 
-![ItemsScene](images/Arquitectura/ItemsScene.png)
+```mermaid
+classDiagram
+    class BaseScene {
+    }
+
+    class ItemsScene {
+        +playerData
+        +width
+        +height
+        +background
+        +achManager
+
+        +create(playerData)
+        +exitItemsScene()
+        +addAchievements()
+    }
+
+    BaseScene <|-- ItemsScene : hereda
+```
+
 </details>
 
 ### **Confirm Menu Scene**
@@ -1296,15 +1360,304 @@ Todas las escenas del juego Tali.
 <details>
 <summary><strong>Ver Flowchart de Tali</strong></summary>
 
-![TaliFlowchart](images/Arquitectura/TaliFlowChart.png)
+```mermaid
+flowchart TD
+    A[SelectionMenuScene] -->|Play Tali| B(TaliIntroScene)
+    B --> C(TaliTutorialScene)
+    B --> |Skip Tutorial|D[TaliBeginScene]
+    C --> D
+    D --> E[TaliScene]
+    E --> F[TaliEndScene]
+    F --> A
+```
 </details>
 
 #### 📐 Diagramas de Arquitectura (Escenas)
 
 <details>
-<summary><strong>Ver Diagrama de Escenas de Tali</strong></summary>
+<summary><strong>Ver Diagrama: TaliIntroScene </strong></summary>
 
-![TaliScenes](images/Arquitectura/TaliScenes.png)
+```mermaid
+classDiagram
+    class BaseScene {
+    }
+
+    class DialogueController {
+    }
+
+    class TransitionController {
+    }
+
+    class SkipButton {
+        <<Button>>
+    }
+
+    class TaliIntroScene {
+        +playerData
+        +transitionController
+        +background
+        +backBtn
+        +dialogueController
+        +skipBtn
+
+        +constructor()
+        +create(playerData)
+    }
+
+    %% Relationships
+    TaliIntroScene --|> BaseScene : hereda
+    TaliIntroScene --> DialogueController : usa
+    TaliIntroScene --> TransitionController : usa
+    TaliIntroScene --> SkipButton : usa
+```
+
+</details>
+
+<details>
+<summary><strong>Ver Diagrama: TaliScene </strong></summary>
+
+```mermaid
+classDiagram
+    class BaseScene {
+    }
+
+    class DialogueController {
+    }
+
+    class TransitionController {
+    }
+
+    class TaliTutorial {
+        +playerData
+        +width
+        +height
+        +background
+        +transitionController
+        +dialogueController
+        +tutoImage
+
+        +constructor()
+        +create(playerData)
+        +changeTutoImage(imageKey)
+    }
+
+    %% Relationships
+    TaliTutorial --|> BaseScene : hereda
+    TaliTutorial --> DialogueController : usa
+    TaliTutorial --> TransitionController : usa
+```
+
+</details>
+
+<details>
+<summary><strong>Ver Diagrama: TaliScene </strong></summary>
+
+```mermaid
+classDiagram
+    class BaseScene {
+    }
+
+    class TaliScene {
+        +turnText
+        +resultText
+        +enemyScore
+        +playerScore
+        +currentRoll: number[4]
+        +playerFirst
+        +playerWon = true
+        +width
+        +height
+        +playerData
+        +transitionController
+        +taliGame
+        +possibleDialogues: number[]
+        +distractCounter
+        +create(playerData)
+        +createUI()
+        +addImages()
+        +createButtons()
+        +createButton(x, y, label, onClick, style, pointeroverStyle)
+        +makeButtonShine(btnImg, btnContainer)
+        +resetButton(btn, label, onClick)
+        +openCombinationMenu()
+        +setObjectState(object, state)
+        +addText()
+        +setTextWithAnimation(textObject, newText, AnimDuration)
+        +startGame()
+        +registerEvents()
+        +onStateChange(state)
+        +onPlayerTurn()
+        +onPlayerRolled()
+        +onPlayerThrown()
+        +onEnemyTurn()
+        +onEnemyRolled()
+        +onEnemyDistract()
+        +onEnemyThrown()
+        +updateScore()
+        +endGame()
+    }
+
+    class Tali {
+    }
+
+    class TransitionController {
+        +startFadeInTransition(callback)
+    }
+
+    class OptionMenuScene {
+        <<Menu>>
+    }
+
+    TaliScene --|> BaseScene : hereda
+    TaliScene --> Tali : usa
+    TaliScene --> TransitionController : usa
+    TaliScene --> OptionMenuScene : abre
+```
+
+</details>
+
+<details>
+<summary><strong>Ver Diagrama: CombinationMenu </strong></summary>
+
+```mermaid
+classDiagram
+    class PhaserScene {
+    }
+
+    class CombinationMenu {
+        +playerData
+        +closing
+        +width
+        +height
+        +overlay
+        +imageContainer
+        +combinationsImage
+        +closeBtn
+
+        +constructor()
+        +init(data)
+        +create()
+        +createMenu()
+        +animateMenuIn()
+        +closeMenu()
+    }
+
+    %% Relationships
+    CombinationMenu --|> PhaserScene : hereda
+```
+
+</details>
+
+<details>
+<summary><strong>Ver Diagrama: DistractMercuryScene</strong></summary>
+
+```mermaid
+classDiagram
+    class BaseScene {
+    }
+
+    class DistractMercuryScene {
+        +playerData
+        +mercuryRoll
+        +distractCounter
+        +width
+        +height
+        +diceImages
+        +disabledDiceImages
+        +dice
+        +transitionController
+        +possibleDialogues
+        +optionText
+        +dialogueIndex
+        +dialogueNumber
+        +dialogueController
+        +infoText
+        +optionOne
+        +optionTwo
+
+        +create(data)
+        +addImages()
+        +addText()
+        +createAndBeginDialogue()
+        +addButtons()
+        +createButton(x, y, label, onClick, style, pointeroverStyle)
+        +hideOptions()
+        +showOptions()
+        +checkOption(option)
+        +showMercuryDice()
+        +onDiceClicked(diceIndex)
+        +showDiceOptions(diceIndex)
+        +changeDice(diceToChange, changeToIndex)
+        +returnToGame()
+        +addListeners()
+        +setObjectState(object, state)
+    }
+
+    class TransitionController {
+    }
+
+    class DialogueController {
+    }
+
+    %% Relationships
+    DistractMercuryScene --|> BaseScene : hereda
+    DistractMercuryScene --> TransitionController : usa
+    DistractMercuryScene --> DialogueController : usa
+    DistractMercuryScene --> RandomNumber : usa
+```
+</details>
+
+
+<details>
+<summary><strong>Ver Diagrama: TaliEndScene </strong></summary>
+
+```mermaid
+classDiagram
+    class BaseScene {
+    }
+
+    class TaliEndScene {
+        +width
+        +height
+        +playerData
+        +distractCounter
+        +playerWon
+        +dialogueController
+        +transitionController
+        +achManager
+        +skipBtn
+        +create(data)
+        +createUI()
+        +setDialogue()
+        +addImages()
+        +createButtons()
+        +createButton(x, y, label, onClick, style, pointeroverStyle)
+        +addText()
+    }
+
+    class TransitionController {
+    }
+
+    class DialogueController {
+    }
+
+    class OptionMenuScene {
+        <<Menu>>
+    }
+
+    class SkipButton {
+        <<Button>>
+    }
+
+
+    %% Relationships
+    TaliEndScene --|> BaseScene : hereda
+    TaliEndScene --> TransitionController : usa
+    TaliEndScene --> DialogueController : usa
+    TaliEndScene --> OptionMenuScene : abre
+    TaliEndScene --> SkipButton : crea
+```
+
 </details>
 
 #### 🧩 Clases de Lógica y Entidades (Tali)
