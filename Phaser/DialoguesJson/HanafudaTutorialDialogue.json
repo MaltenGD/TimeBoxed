@@ -7,7 +7,7 @@
             "text":"Welcome my friend, I hope your paws are steady. Hanafuda is an ancient Japanese card game, tradition, elegance, and gambling all mixed together.",
             "animation":"true",
             "next":"HTD2",
-            "image": "HanafudaBackgroundPlaceholder"
+            "tutoImage": "HanafudaBackgroundPlaceholder"
 
         },
 
@@ -17,7 +17,7 @@
             "text":"Perfect for a refined creature like me… and for you, I guess.",
             "animation":"true",
             "next":"HTD3",
-            "image": ""
+            "tutoImage": ""
         },
 
         "HTD3":
@@ -26,7 +26,7 @@
             "text":"Don't worry, if you lose, you only lose your soul. I'm joking! …mostly.",
             "animation":"true",
             "next":"HTD4",
-            "image": "none"
+            "tutoImage": "none"
         },
 
         "HTD4":
@@ -35,7 +35,7 @@
             "text":"Before we begin, see these eight cards?",
             "animation":"true",
             "next":"HTD5",
-            "image": "ChooseCard"
+            "tutoImage": "ChooseCard"
         },
 
         "HTD5":
@@ -44,7 +44,7 @@
             "text":"Pick one, choose wisely... or don't. It's random anyway. Whoever flips the earliest month gets to go first.",
             "animation":"true",
             "next":"HTD6",
-            "image":"ChooseCard"
+            "tutoImage":"ChooseCard"
         },
 
         "HTD6":
@@ -53,7 +53,7 @@
             "text":"These cards come in 12 suits, one for each month. But don't worry about the months, just match similar flowers. Same flower? Good. Different flower? Useless, don’t do that.",
             "animation":"true",
             "next":"HTD7",
-            "image":"CardGroups"
+            "tutoImage":"CardGroups"
         },
 
         "HTD7":
@@ -62,7 +62,7 @@
             "text":"On your turn, you pick one card from your hand and try to match it with a card on the field. Match = you capture both cards. No match? Then your card gets added to the field like sad leftovers.",
             "animation":"true",
             "next":"HTD8",
-            "image":""
+            "tutoImage":""
         },
 
         "HTD8":
@@ -71,7 +71,7 @@
             "text":"After you play a card, the game flips one card from the deck. If that card matches something on the field, you capture those too.",
             "animation":"true",
             "next":"HTD9",
-            "image":""
+            "tutoImage":""
         },
 
         "HTD9":
@@ -80,7 +80,7 @@
             "text":"Yes, two chances per turn. Easy, right? Even a stray cat like you can understand it.",
             "animation":"true",
             "next":"HTD10",
-            "iamge":""
+            "tutoImage":""
         },
 
         "HTD10":
@@ -89,7 +89,7 @@
             "text":"The goal is to make yaku--special combinations of cards. When you make a yaku, you score points. Points good. Losing bad. Simple.",
             "animation":"true",
             "next":"HTD11",
-            "image":"Combanations"
+            "tutoImage":"Combanations"
         },
 
          "HTD11":
@@ -98,7 +98,7 @@
             "text":"These are all the yaku you can make. And if your memory fails you, which it will, you can always check them from the Yaku list menu",
             "animation":"true",
             "next":"HTD12",
-            "image":"Combanations"
+            "tutoImage":"Combanations"
         },
 
         "HTD12":
@@ -107,7 +107,7 @@
             "text":"Now here comes the fun part, the dangerous part. When you complete a yaku, you get a choice: Koikoi or Shobu.",
             "animation":"true",
             "next":"HTD13",
-            "image":""
+            "tutoImage":""
         },
 
         "HTD13":
@@ -116,7 +116,7 @@
             "text":"If you choose Koikoi, you're saying: 'I want MORE points. I'm not done yet.' It's a gamble, your opponent can steal the round if they finish a yaku before you do.",
             "animation":"true",
             "next":"HTD14",
-            "image":""
+            "tutoImage":""
         },
 
         "HTD14":
@@ -125,7 +125,7 @@
             "text":"Risky… but delicious when it works.",
             "animation":"true",
             "next":"HTD15",
-            "image":""
+            "tutoImage":""
         },
 
         "HTD15":
@@ -134,7 +134,7 @@
             "text":"If you choose Shobu, you stop the round immediately. You take your points, safe and tidy, and the next round begins.",
             "animation":"true",
             "next":"HTD16",
-            "image":""
+            "tutoImage":""
         },
 
         "HTD16":
@@ -143,7 +143,7 @@
             "text":" No risk, no thrill, but hey, not everyone has the stomach for danger.",
             "animation":"true",
             "next":"HTD17",
-            "image":""
+            "tutoImage":""
         },
 
         "HTD17":
@@ -152,7 +152,7 @@
             "text":"The match lasts six rounds. At the end of all six, whoever has the most points wins the entire game.",
             "animation":"true",
             "next":"HTD18",
-            "image":""
+            "tutoImage":""
         },
 
         "HTD18":
@@ -161,7 +161,7 @@
             "text":"So remember: Match cards, make yaku. Choose Koikoi if you're feeling lucky, choose Shobu if you're feeling scared.",
             "animation":"true",
             "next":"HTD19",
-            "image":""
+            "tutoImage":""
         },
 
         "HTD19":
@@ -170,7 +170,7 @@
             "text":"If your little cat brain needs a refresher, open the menu and choose Help and I'll repeat myself like a very handsome, very annoyed tutor.",
             "animation":"true",
             "next":"HTD20",
-            "image":""
+            "tutoImage":""
         },
 
         "HTD20":

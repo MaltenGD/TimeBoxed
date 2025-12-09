@@ -75,7 +75,7 @@ export class TutorialAseb extends BaseScene
             this.currentCharacter.destroy();
         }
 
-        if (imageKey != "narrator") // The narrator doesnt have any appearance
+        if (CharacterOBJ.imageKey != "narrator") // The narrator doesnt have any appearance
         {
             this.currentCharacter = this.add.sprite(CharacterOBJ.x, CharacterOBJ.y, CharacterOBJ.imageKey, CharacterOBJ.frame)
             .setScale(CharacterOBJ.scaleX, CharacterOBJ.scaleY);

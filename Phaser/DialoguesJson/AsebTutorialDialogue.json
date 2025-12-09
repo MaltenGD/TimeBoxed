@@ -14,7 +14,7 @@
         "text": "The board is divided into squares, and you have five pieces to move. The goal? Get all five of your pieces to the end of the board and off it. Simple as that.",
         "animation": "true",
         "next": "ATD3",
-        "image": "AsebTuto_AsebBoard"
+        "tutoImage": "AsebTuto_AsebBoard"
     },
     "ATD3":
     {
@@ -22,7 +22,7 @@
         "text": "Each turn, you throw the sticks, they work like dice. The number you get represents many squares your piece advances. You can choose which piece to move, but only one piece per turn.",
         "animation": "true",
         "next": "ATD3.extra",
-        "image": "AsebTuto_ThrowingSticks"
+        "tutoImage": "AsebTuto_ThrowingSticks"
     },
     "ATD3.extra":
     {
@@ -37,16 +37,7 @@
         "text": "Now here's where it gets interesting: some squares are marked with this symbol. Land on one of those, and you get another throw! Quite the advantage, wouldn't you say?",
         "animation": "true",
         "next": "ATD5",
-        "tutoImage": "AsebTuto_SpecialSquares",
-        "Character":
-        {
-            "imageKey": "",
-            "frame": 0,
-            "x": 0,
-            "y": 0,
-            "scaleX": 1,
-            "scaleY": 1
-        }
+        "tutoImage": "AsebTuto_SpecialSquares"
 
     },
     "ATD5":
@@ -55,7 +46,7 @@
         "text": "But watch out—if your piece lands on a square your opponent's piece occupies, their piece gets sent back to the start. Fair's fair, after all.",
         "animation": "true",
         "next": "ATD6",
-        "image": "AsebTuto_KillingPieces"
+        "tutoImage": "AsebTuto_KillingPieces"
     },
     "ATD6":
     {
@@ -63,7 +54,7 @@
         "text": "There's one catch: to get your piece off the board at the very end, you need the *exact* number. No more, no less. If you overshoot, your piece stays put, and you pick another piece to move or end your turn.",
         "animation": "true",
         "next": "ATD7",
-        "image": "AsebTuto_ReachingEnd"
+        "tutoImage": "AsebTuto_ReachingEnd"
         
     },
     "ATD7":
@@ -79,7 +70,7 @@
         "text": "First one to get all five pieces off the board wins. Once that happens, the match is over, and the victor claims their prize. In your case... well, you'd better win.",
         "animation": "true",
         "next": "ATD9",
-        "image": "AsebTuto_Pieces"
+        "tutoImage": "AsebTuto_Pieces"
     },
     "ATD9":
     {
@@ -87,7 +78,7 @@
         "text": "The path starts from your side, curves around to the center, and continues toward the end square. Pay attention to where you're moving—one mistake and Anubis will capitalize on it.",
         "animation": "true",
         "next": "ATD10",
-        "image": "AsebTuto_Paths"
+        "tutoImage": "AsebTuto_Paths"
 
     },
     "ATD10":
@@ -110,7 +101,7 @@
         "text": "There you have it. Aseb in a nutshell. Now, are you ready to face the guardian of the underworld? Because I believe in you... mostly.",
         "animation": "true",
         "next": "ATD13",
-        "image": "none"
+        "tutoImage": "none"
     },
     "ATD13":
     {
@@ -118,7 +109,7 @@
         "text": "Oh yeah i almost forgot, if you need to refresh the rules, open the menu and go to help.",
         "animation": "true",
         "next": "ATD14",
-        "image": "AsebTuto_HelpMenu"
+        "tutoImage": "AsebTuto_HelpMenu"
 
     },
     "ATD14":
@@ -134,7 +125,7 @@
         "text": "Good luck, my friend. Now get out there!",
         "animation": "true",
         "next": null,
-        "image": "none"
+        "tutoImage": "none"
 
     }
 

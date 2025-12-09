@@ -208,7 +208,7 @@
         "text": "So your friend has left you, huh?",
         "animation":"true",
         "next": "TT1",
-        "image": ""
+        "tutoImage": ""
     },
 
     "TT1":{
@@ -230,7 +230,7 @@
         "text": "Tali is a game that revolves around dice. The rules are simple:",
         "animation":"true",
         "next": "TT4",
-        "image": "TT3"
+        "tutoImage": "TT3"
     },
 
     "TT4":{
@@ -238,7 +238,7 @@
         "text": "Each of us rolls the dice once. Whoever gets a higher score begins.",
         "animation":"true",
         "next": "TT5",
-        "image": "TT4"
+        "tutoImage": "TT4"
     },
 
     "TT5":{
@@ -246,7 +246,7 @@
         "text": "On your turn, you throw the dice and get points based on the combinations they form.",
         "animation":"true",
         "next": "TT6",
-        "image": "TT5"
+        "tutoImage": "TT5"
     },
 
     "TT6":{
@@ -254,7 +254,7 @@
         "text": "Let me tell you about them!",
         "animation":"true",
         "next": "TT7",
-        "image": ""
+        "tutoImage": ""
     },
 
     "TT7":{
@@ -262,7 +262,7 @@
         "text": "Venus: all the dice rolled different numbers.",
         "animation":"true",
         "next": "TT8",
-        "image": "TT7"
+        "tutoImage": "TT7"
     },
 
     "TT8":{
@@ -270,7 +270,7 @@
         "text": "Marte: you rolled at least one dice with the number 6 on it.",
         "animation":"true",
         "next": "TT9",
-        "image": "TT8"
+        "tutoImage": "TT8"
     },
 
     "TT9":{
@@ -278,7 +278,7 @@
         "text": "Jupiter: all the dice rolled the same number.",
         "animation":"true",
         "next": "TT10",
-        "image": "TT9"
+        "tutoImage": "TT9"
     },
 
     "TT10":{
@@ -286,7 +286,7 @@
         "text": "Neptune: all the dice landed on 1. This is an unlucky throw, so it gives you no points.",
         "animation":"true",
         "next": "TT11",
-        "image": "TT10"
+        "tutoImage": "TT10"
     },
 
     "TT11":{
@@ -294,7 +294,7 @@
         "text": "I saved the best for last! Luna: you rolled at least 3 dice with the number 3.",
         "animation":"true",
         "next": "TT12",
-        "image": "TT11"
+        "tutoImage": "TT11"
     },
 
     "TT12":{
@@ -309,7 +309,7 @@
         "text": "I always forget the combinations, so I made it easy for us.",
         "animation":"true",
         "next": "TT12-2",
-        "image": "none"
+        "tutoImage": "none"
     },
 
     "TT12-2":{
@@ -317,7 +317,7 @@
         "text": "Just click there to revise them again!",
         "animation":"true",
         "next": "TT13",
-        "image": "TT12-2"
+        "tutoImage": "TT12-2"
     },
 
     "TT13":{
@@ -325,7 +325,7 @@
         "text": "We're going to play three rounds. May the dice be in your favor!",
         "animation":"true",
         "next": "TT14",
-        "image": "none"
+        "tutoImage": "none"
     },
 
     "TT14":{
@@ -347,7 +347,7 @@
         "text": "Each time before Mercury's turn, you should try distracting him.",
         "animation":"true",
         "next": "TT17",
-        "image": "TT16"
+        "tutoImage": "TT16"
     },
 
     "TT17":{
@@ -355,7 +355,7 @@
         "text": "How? Just say something about the alcohol, or compliment his eyes. You'll figure it out!",
         "animation":"true",
         "next": "end",
-        "image": "TT17"
+        "tutoImage": "TT17"
     },
 
     "end":{
@@ -363,7 +363,7 @@
         "text": "I think we're ready now. Let's start!",
         "animation":"true",
         "next": null,
-        "image": "none"
+        "tutoImage": "none"
     }
 },
 
