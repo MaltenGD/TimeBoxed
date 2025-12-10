@@ -130,7 +130,7 @@ export class TaliEndScene extends BaseScene {
      */
     createButtons() {
         /**Back button */
-       this.backBtn = this.add.text(0, 0, 'Back', { fontSize: 64, fill: '#000000ff', fontFamily: "TaliOne"})
+       this.backBtn = this.add.text(0, 0, 'Pause', { fontSize: 64, fill: '#000000ff', fontFamily: "TaliOne"})
         .setInteractive()
         .on('pointerover', () => this.backBtn.setStyle({fill: 'rgba(104, 35, 35, 1)'}))
         .on('pointerout', () => this.backBtn.setStyle({fill: '#000000ff'}))

@@ -116,7 +116,6 @@
     {
         "speaker": "Kronos",
         "text": "I was thinking about the tasty fish behind you...",
-        "animation": "true",
         "Character": {
             "ImageKey": "kronos",
             "frame": 3,

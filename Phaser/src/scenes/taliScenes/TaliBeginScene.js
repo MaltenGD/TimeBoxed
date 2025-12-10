@@ -92,7 +92,7 @@ export class TaliBeginScene extends BaseScene {
             this.continue(this.GAME_STATE.PLAYER_ROLL);
         });
 
-        this.backBtn = this.add.text(10, 10, 'Back', {fontSize: 64, fill: '#fff', fontFamily: 'TaliOne'})
+        this.backBtn = this.add.text(10, 10, 'Pause', {fontSize: 64, fill: '#fff', fontFamily: 'TaliOne'})
         .setInteractive()
         .on('pointerover', () => this.tweens.add({targets: this.backBtn, scale: 1.1, duration: 100, ease: 'Power1'}))
         .on('pointerout', () => this.tweens.add({targets: this.backBtn, scale: 1, duration: 100, ease: 'Power1'}))
