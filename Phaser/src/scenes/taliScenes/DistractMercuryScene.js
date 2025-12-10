@@ -66,7 +66,7 @@ export class DistractMercuryScene extends BaseScene {
      * Adds all necessary images to the scene.
      */
     addImages() {
-        this.background = this.add.rectangle(0, 0, this.width, this.height, '0x000000', 0.5).setDisplaySize(this.width, this.height).setScale(2);
+        this.background = this.add.rectangle(0, 0, this.width, this.height, '0x000000', 0.5).setDisplaySize(this.width, this.height).setScale(2).setDepth(-3);
     }
 
     addText() {
@@ -218,7 +218,6 @@ export class DistractMercuryScene extends BaseScene {
      * Passes to the game scene the new roll set.
      */
     returnToGame() {
-        this.addListeners();
         this.scene.sleep(); 
         this.scene.resume('TaliScene', {playerData: this.playerData, mercuryResultRoll: this.mercuryRoll, possibleDialogues: this.possibleDialogues, distractCounter: this.distractCounter});
     }
@@ -235,6 +234,10 @@ export class DistractMercuryScene extends BaseScene {
         this.events.once('Finished', ()=> {
             this.showOptions();
         })
+
+        this.events.on('CharacterTalking', (characterObj) => {
+            this.displayCharacterSprite(characterObj);
+        })
     }
 
     /**
@@ -245,6 +248,30 @@ export class DistractMercuryScene extends BaseScene {
     setObjectState(object, state)
     {
         object.setVisible(state).setActive(state).setAlpha(state ? 1 : 0);
+    }
+
+    displayCharacterSprite(characterObj) {
+        if (this.currentCharacter || characterObj == "none") { // if another character was talking or set to none, delete sprite
+            this.currentCharacter.destroy();
+            if (this.currentEmoticon)
+                this.currentEmoticon.destroy();
+        }
+
+        this.currentCharacter = this.add.sprite(characterObj.x, this.height, characterObj.ImageKey, characterObj.frame)
+        .setScale(characterObj.scaleX, characterObj.scaleY).setOrigin(0, 1).setDepth(-2);
+
+        if (characterObj.emoticon && characterObj.emoticon != "none") {
+            let xOffset = 0;
+            if (characterObj.emoticonX) {
+                xOffset = characterObj.emoticonX;
+            }
+            this.currentEmoticon = this.add.sprite(characterObj.x - 20 + xOffset, this.height/2 + characterObj.emoticonY, "emotes", characterObj.emoticon)
+            .setScale(characterObj.scaleX, characterObj.scaleY).setOrigin(0, 1).setDepth(-1);
+            console.log(characterObj.emoticon);
+        }
+        else if (characterObj.emoticon == "none" || this.currentEmoticon) {
+            this.currentEmoticon.destroy();
+        }
     }
 
 }

@@ -44,6 +44,7 @@ export class LoadingScene extends Phaser.Scene
         this.loadCreditsAssets();
         this.loadInisgniaAssets();
         this.loadAudioAssets();
+        this.loadCharacterAssets();
         
         this.load.json('achievements', 'Phaser/assets/achievements.json');
 
@@ -404,6 +405,15 @@ export class LoadingScene extends Phaser.Scene
         * @param {string} url - The URL of the JSON file to load.
         */
         this.load.json('GameCompletedDialogue', 'Phaser/DialoguesJson/GameCompletedDialogue.json');
+    }
+
+    loadCharacterAssets() {
+        this.load.spritesheet("anubis", "Phaser/assets/spritesheets/anubisSpritesheet.png", {frameWidth: 403, frameHeight: 825});
+        this.load.spritesheet("benten", "Phaser/assets/spritesheets/bentenSpritesheet.png", {frameWidth: 551, frameHeight: 886});
+        this.load.spritesheet("emotes", "Phaser/assets/spritesheets/emotesSpritesheet.png", {frameWidth: 186, frameHeight: 149});
+        this.load.spritesheet("kronos", "Phaser/assets/spritesheets/kronosSpritesheet.png", {frameWidth: 431, frameHeight: 821});
+        this.load.spritesheet("mercury", "Phaser/assets/spritesheets/mercurySpritesheet.png", {frameWidth: 488, frameHeight: 504});
+        this.load.spritesheet("protagonist", "Phaser/assets/spritesheets/protagonistSpritesheet.png", {frameWidth: 335, frameHeight: 614});
     }
 
     create() {
