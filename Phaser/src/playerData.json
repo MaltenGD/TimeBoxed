@@ -1,5 +1,5 @@
 {
-    "DebugMode": true,
+    "DebugMode": false,
     "FromSelectionMenu": false,
     "StartedIntro": false,
     "TimeboxedMode": false,
@@ -16,6 +16,6 @@
     "SceneToResume" : null,
     "comingFromMenu": false,
 
-    "musicVolume": 1,
-    "sfxVolume": 1
+    "musicVolume": 0.8,
+    "sfxVolume": 0.8
 }

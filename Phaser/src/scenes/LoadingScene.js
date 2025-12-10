@@ -127,12 +127,21 @@ export class LoadingScene extends Phaser.Scene
         // Audio comun, que es usado en varias escenas
         this.load.audio('startMenuMusic', 'Phaser/assets/audio/mainmenuScene/Floating Beyond-OliverMix.mp3');
         this.load.audio('buttonHover', 'Phaser/assets/audio/Buttons/ButtonHoverLowLatency.wav');
+        this.load.audio('DialogueTextSFX', 'Phaser/assets/audio/Dialogues/DialogueTextSFX.mp3');
+        this.load.audio('boxClickedSFX', 'Phaser/assets/audio/SelectionMenuScene/BoxClickedSFX.mp3');
+        this.load.audio('TextPop', 'Phaser/assets/audio/Egypt-Aseb/TextPop.mp3');
+
+        //TimeboxedDefeat
+        this.load.audio('Emptyness', 'Phaser/assets/audio/TimeboxedDefeat/Emptyness.mp3');
+        
+
+        // Musica
+        this.load.audio('HappyNeighborhood', 'Phaser/assets/audio/Intro/HappyNeighborhood.mp3')
+        this.load.audio('ChooseYourEra', 'Phaser/assets/audio/SelectionMenuScene/ChooseYourEra.mp3')
         this.load.audio('egyptMusic', 'Phaser/assets/audio/Egypt-Aseb/AsebIntroMusic.mp3');
         this.load.audio('CreepyegyptMusic', 'Phaser/assets/audio/Egypt-Aseb/AsebDefeatMusic.mp3');
         this.load.audio('AsebMusic', 'Phaser/assets/audio/Egypt-Aseb/AsebGameMusic.mp3');
-        this.load.audio('TextPop', 'Phaser/assets/audio/Egypt-Aseb/TextPop.mp3');
-        this.load.audio('DialogueTextSFX', 'Phaser/assets/audio/Dialogues/DialogueTextSFX.mp3');
-        this.load.audio('boxClickedSFX', 'Phaser/assets/audio/SelectionMenuScene/BoxClickedSFX.mp3');
+        this.load.audio('japaneseMusic', 'Phaser/assets/audio/JapaneseHanafuda/japanese.mp3');
     }
 
     /**
@@ -146,6 +155,10 @@ export class LoadingScene extends Phaser.Scene
         //Skip Button
         this.load.image('SkipButtonNormal', 'Phaser/assets/SkipButtonNormal.png');
         this.load.image('SkipButtonHovered', 'Phaser/assets/SkipButtonHovered.png');
+
+        //Pause Button
+        this.load.image('PauseButtonNormal', 'Phaser/assets/PauseButtonNormal.png');
+        this.load.image('PauseButtonHovered', 'Phaser/assets/PauseButtonHovered.png');
         
         
 
@@ -269,8 +282,12 @@ export class LoadingScene extends Phaser.Scene
 
     loadHanafudaAssets()
     {
-        this.load.image('Combanations', 'Phaser/assets/Hanafuda/Tutorial/Combanations.png');
         this.load.image('HanafudaBackgroundPlaceholder', 'Phaser/assets/Hanafuda/HanafudaBackgroundPlaceholder.png');
+        this.load.image('YakusNormalButton', 'Phaser/assets/Hanafuda/UI/YakusNormalButton.png');
+        this.load.image('YakusHoverButton', 'Phaser/assets/Hanafuda/UI/YakusHoverButton.png');
+        this.load.image('BackNormalButton', 'Phaser/assets/Hanafuda/UI/BackNormalButton.png');
+        this.load.image('BackHoverButton', 'Phaser/assets/Hanafuda/UI/BackHoverButton.png');
+
         this.load.image('Card0', 'Phaser/assets/Hanafuda/HanafudaCards/0.png');
         this.load.image('Card1', 'Phaser/assets/Hanafuda/HanafudaCards/1.png');
         this.load.image('Card2', 'Phaser/assets/Hanafuda/HanafudaCards/2.png');
@@ -320,8 +337,15 @@ export class LoadingScene extends Phaser.Scene
         this.load.image('Card46', 'Phaser/assets/Hanafuda/HanafudaCards/46.png');
         this.load.image('Card47', 'Phaser/assets/Hanafuda/HanafudaCards/47.png');
 
-        this.load.image('CardGroups','Phaser/assets/Hanafuda/Tutorial/CardGroups.png')
-        this.load.image('ChooseCard','Phaser/assets/Hanafuda/Tutorial/ChooseCard.png')
+        this.load.image('TutorialCardGroup','Phaser/assets/Hanafuda/Tutorial/TutorialCardGroup.png')
+        this.load.image('TutorialChooseCard','Phaser/assets/Hanafuda/Tutorial/TutorialChooseCard.png')
+        this.load.image('TutorialCombination', 'Phaser/assets/Hanafuda/Tutorial/TutorialCombination.png');
+        this.load.image('Decision', 'Phaser/assets/Hanafuda/Tutorial/Decision.png');
+        this.load.image('Help', 'Phaser/assets/Hanafuda/Tutorial/Help.png');
+        this.load.image('MatchCard', 'Phaser/assets/Hanafuda/Tutorial/MatchCard.png');
+        this.load.image('TutorialTablero', 'Phaser/assets/Hanafuda/Tutorial/TutorialTablero.png');
+        this.load.image('YakuMenu', 'Phaser/assets/Hanafuda/Tutorial/YakuMenu.png');
+        
     }
 
     loadCreditsAssets() {
@@ -414,6 +438,7 @@ export class LoadingScene extends Phaser.Scene
         this.load.spritesheet("kronos", "Phaser/assets/spritesheets/kronosSpritesheet.png", {frameWidth: 431, frameHeight: 821});
         this.load.spritesheet("mercury", "Phaser/assets/spritesheets/mercurySpritesheet.png", {frameWidth: 488, frameHeight: 504});
         this.load.spritesheet("protagonist", "Phaser/assets/spritesheets/protagonistSpritesheet.png", {frameWidth: 335, frameHeight: 614});
+        this.load.image("yarn_ball", 'Phaser/assets/spritesheets/yarn_ball.png');
     }
 
     create() {

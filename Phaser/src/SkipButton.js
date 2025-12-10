@@ -18,7 +18,7 @@ export class SkipButton extends Phaser.GameObjects.Image {
         this.dialogueController = dialogueController;
         this.playerData = playerData;
 
-        this.setOrigin(0.5)
+        this.setOrigin(1,0)
             .setScale(0.5)
             .setInteractive({ cursor: 'pointer' });
 

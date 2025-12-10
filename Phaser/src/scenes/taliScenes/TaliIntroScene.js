@@ -25,7 +25,7 @@ export class TaliIntroScene extends BaseScene
         //creating the background
         this.background = this.add.image(width / 2, height / 2, 'taliBackgroundPlaceholder').setDisplaySize(width, height).setDepth(-3);
 
-        this.backBtn = this.add.text(0, 0, 'Back', { fontSize: 64, fill: '#000000ff'})
+        this.backBtn = this.add.text(0, 0, 'Pause', { fontSize: 64, fill: '#000000ff'})
         .setInteractive()
         .on('pointerover', () => this.backBtn.setStyle({fill: 'rgba(104, 35, 35, 1)'}))
         .on('pointerout', () => this.backBtn.setStyle({fill: '#000000ff'}))
@@ -36,13 +36,22 @@ export class TaliIntroScene extends BaseScene
         this.createAndBeginDialogue();
         
         /**Skip button */
-        this.skipBtn = new SkipButton(this, width - 130, 50, this.dialogueController, this.playerData);
+        this.skipBtn = new SkipButton(this, width - 15, 15, this.dialogueController, this.playerData);
     
     }
 
     createAndBeginDialogue() {
         const introTaliData = this.cache.json.get('TaliDialogue');
         this.dialogueController = new DialogueController(this, "Tali", introTaliData);
+
+        this.events.on('changeTutoImage',(imageKey)=> {
+            this.changeTutoImage(imageKey);
+        });
+
+        this.events.on('CharacterTalking', (characterObj) => {
+            this.displayCharacterSprite(characterObj);
+        })
+
         this.dialogueController.iniDialogue();
         
         this.events.on('nextDialog',()=>
@@ -74,9 +83,6 @@ export class TaliIntroScene extends BaseScene
         }); 
         }, 400);
 
-        this.events.on('CharacterTalking', (characterObj) => {
-            this.displayCharacterSprite(characterObj);
-        })
     }
 
     displayCharacterSprite(characterObj) {

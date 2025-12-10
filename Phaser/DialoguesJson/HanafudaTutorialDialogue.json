@@ -7,7 +7,18 @@
             "text":"Welcome my friend, I hope your paws are steady. Hanafuda is an ancient Japanese card game, tradition, elegance, and gambling all mixed together.",
             "animation":"true",
             "next":"HTD2",
-            "tutoImage": "HanafudaBackgroundPlaceholder"
+            "tutoImage": "HanafudaBackgroundPlaceholder",
+            "Character":{
+                "ImageKey":"kronos",
+                "frame":4,
+                "x":100,
+                "y":250,
+                "scaleX":1,
+                "scaleY":1,
+                "rotation":0,
+                "emoticon":"none",
+                "emoticonY":0
+            }
 
         },
 
@@ -17,7 +28,18 @@
             "text":"Perfect for a refined creature like me… and for you, I guess.",
             "animation":"true",
             "next":"HTD3",
-            "tutoImage": ""
+            "tutoImage": "none",
+            "Character":{
+                "ImageKey":"kronos",
+                "frame":0,
+                "x":100,
+                "y":250,
+                "scaleX":1,
+                "scaleY":1,
+                "rotation":0,
+                "emoticon":5,
+                "emoticonY":0
+            }
         },
 
         "HTD3":
@@ -26,7 +48,18 @@
             "text":"Don't worry, if you lose, you only lose your soul. I'm joking! …mostly.",
             "animation":"true",
             "next":"HTD4",
-            "tutoImage": "none"
+            "tutoImage": "none",
+            "Character":{
+                "ImageKey":"kronos",
+                "frame":2,
+                "x":100,
+                "y":250,
+                "scaleX":1,
+                "scaleY":1,
+                "rotation":0,
+                "emoticon":"none",
+                "emoticonY":0
+            }
         },
 
         "HTD4":
@@ -35,7 +68,8 @@
             "text":"Before we begin, see these eight cards?",
             "animation":"true",
             "next":"HTD5",
-            "tutoImage": "ChooseCard"
+            "tutoImage": "ChooseCard",
+            "Character":"none"
         },
 
         "HTD5":
@@ -44,7 +78,18 @@
             "text":"Pick one, choose wisely... or don't. It's random anyway. Whoever flips the earliest month gets to go first.",
             "animation":"true",
             "next":"HTD6",
-            "tutoImage":"ChooseCard"
+            "tutoImage":"ChooseCard",
+            "Character":{
+                "ImageKey":"kronos",
+                "frame":3,
+                "x":100,
+                "y":250,
+                "scaleX":1,
+                "scaleY":1,
+                "rotation":0,
+                "emoticon":"none",
+                "emoticonY":0
+            }
         },
 
         "HTD6":
@@ -53,7 +98,8 @@
             "text":"These cards come in 12 suits, one for each month. But don't worry about the months, just match similar flowers. Same flower? Good. Different flower? Useless, don’t do that.",
             "animation":"true",
             "next":"HTD7",
-            "tutoImage":"CardGroups"
+            "tutoImage":"CardGroups",
+            "Character":"none"
         },
 
         "HTD7":
@@ -62,7 +108,8 @@
             "text":"On your turn, you pick one card from your hand and try to match it with a card on the field. Match = you capture both cards. No match? Then your card gets added to the field like sad leftovers.",
             "animation":"true",
             "next":"HTD8",
-            "tutoImage":""
+            "tutoImage":"TutorialTablero",
+            "Character":"none"
         },
 
         "HTD8":
@@ -71,7 +118,7 @@
             "text":"After you play a card, the game flips one card from the deck. If that card matches something on the field, you capture those too.",
             "animation":"true",
             "next":"HTD9",
-            "tutoImage":""
+            "tutoImage":"MatchCard"
         },
 
         "HTD9":
@@ -80,25 +127,37 @@
             "text":"Yes, two chances per turn. Easy, right? Even a stray cat like you can understand it.",
             "animation":"true",
             "next":"HTD10",
-            "tutoImage":""
+            "tutoImage":"MatchCard",
+            "Character":{
+                "ImageKey":"kronos",
+                "frame":2,
+                "x":100,
+                "y":250,
+                "scaleX":1,
+                "scaleY":1,
+                "rotation":0,
+                "emoticon":5,
+                "emoticonY":0
+            }
         },
 
         "HTD10":
         {
             "speaker":"Kronos",
-            "text":"The goal is to make yaku--special combinations of cards. When you make a yaku, you score points. Points good. Losing bad. Simple.",
+            "text":"The goal is to make yaku--special combinations of cards. When you make a yaku, you score points. Points good. Losing bad. Simple. These are all the yaku you can make.",
             "animation":"true",
             "next":"HTD11",
-            "tutoImage":"Combanations"
+            "tutoImage":"TutorialCombination",
+            "Character":"none"
         },
 
          "HTD11":
         {
             "speaker":"Kronos",
-            "text":"These are all the yaku you can make. And if your memory fails you, which it will, you can always check them from the Yaku list menu",
+            "text":"And if your memory fails you, which it will, you can always check them from the Yaku list menu",
             "animation":"true",
             "next":"HTD12",
-            "tutoImage":"Combanations"
+            "tutoImage":"YakuMenu"
         },
 
         "HTD12":
@@ -107,7 +166,7 @@
             "text":"Now here comes the fun part, the dangerous part. When you complete a yaku, you get a choice: Koikoi or Shobu.",
             "animation":"true",
             "next":"HTD13",
-            "tutoImage":""
+            "tutoImage":"Decision"
         },
 
         "HTD13":
@@ -116,7 +175,18 @@
             "text":"If you choose Koikoi, you're saying: 'I want MORE points. I'm not done yet.' It's a gamble, your opponent can steal the round if they finish a yaku before you do.",
             "animation":"true",
             "next":"HTD14",
-            "tutoImage":""
+            "tutoImage":"Decision",
+            "Character":{
+                "ImageKey":"kronos",
+                "frame":1,
+                "x":100,
+                "y":250,
+                "scaleX":1,
+                "scaleY":1,
+                "rotation":0,
+                "emoticon":5,
+                "emoticonY":0
+            }
         },
 
         "HTD14":
@@ -125,7 +195,18 @@
             "text":"Risky… but delicious when it works.",
             "animation":"true",
             "next":"HTD15",
-            "tutoImage":""
+            "tutoImage":"Decision",
+            "Character":{
+                "ImageKey":"kronos",
+                "frame":0,
+                "x":100,
+                "y":250,
+                "scaleX":1,
+                "scaleY":1,
+                "rotation":0,
+                "emoticon":5,
+                "emoticonY":0
+            }
         },
 
         "HTD15":
@@ -134,7 +215,18 @@
             "text":"If you choose Shobu, you stop the round immediately. You take your points, safe and tidy, and the next round begins.",
             "animation":"true",
             "next":"HTD16",
-            "tutoImage":""
+            "tutoImage":"Decision",
+            "Character":{
+                "ImageKey":"kronos",
+                "frame":2,
+                "x":100,
+                "y":250,
+                "scaleX":1,
+                "scaleY":1,
+                "rotation":0,
+                "emoticon":5,
+                "emoticonY":0
+            }
         },
 
         "HTD16":
@@ -143,13 +235,24 @@
             "text":" No risk, no thrill, but hey, not everyone has the stomach for danger.",
             "animation":"true",
             "next":"HTD17",
-            "tutoImage":""
+            "tutoImage":"Decision",
+            "Character":{
+                "ImageKey":"kronos",
+                "frame":2,
+                "x":100,
+                "y":250,
+                "scaleX":1,
+                "scaleY":1,
+                "rotation":0,
+                "emoticon":5,
+                "emoticonY":0
+            }
         },
 
         "HTD17":
         {
             "speaker":"Kronos",
-            "text":"The match lasts six rounds. At the end of all six, whoever has the most points wins the entire game.",
+            "text":"The match lasts 4 rounds. At the end of all 4, whoever has the most points wins the entire game.",
             "animation":"true",
             "next":"HTD18",
             "tutoImage":""
@@ -161,7 +264,18 @@
             "text":"So remember: Match cards, make yaku. Choose Koikoi if you're feeling lucky, choose Shobu if you're feeling scared.",
             "animation":"true",
             "next":"HTD19",
-            "tutoImage":""
+            "tutoImage":"",
+            "Character":{
+                "ImageKey":"kronos",
+                "frame":2,
+                "x":100,
+                "y":250,
+                "scaleX":1,
+                "scaleY":1,
+                "rotation":0,
+                "emoticon":5,
+                "emoticonY":0
+            }
         },
 
         "HTD19":
@@ -170,7 +284,18 @@
             "text":"If your little cat brain needs a refresher, open the menu and choose Help and I'll repeat myself like a very handsome, very annoyed tutor.",
             "animation":"true",
             "next":"HTD20",
-            "tutoImage":""
+            "tutoImage":"Help",
+            "Character":{
+                "ImageKey":"kronos",
+                "frame":2,
+                "x":100,
+                "y":250,
+                "scaleX":1,
+                "scaleY":1,
+                "rotation":0,
+                "emoticon":5,
+                "emoticonY":0
+            }
         },
 
         "HTD20":
@@ -178,7 +303,19 @@
             "speaker":"Kronos",
             "text":"Time to play for real, good luck! You'll need it.",
             "animation":"true",
-            "next": null
+            "next": null,
+            "image":"none",
+            "Character":{
+                "ImageKey":"kronos",
+                "frame":0,
+                "x":100,
+                "y":250,
+                "scaleX":1,
+                "scaleY":1,
+                "rotation":0,
+                "emoticon":"none",
+                "emoticonY":0
+            }
         }
     }
 }

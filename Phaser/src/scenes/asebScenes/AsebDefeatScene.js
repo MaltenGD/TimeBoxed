@@ -39,7 +39,7 @@ export class AsebDefeatScene extends BaseScene
         this.dialogueController.iniDialogue();
 
         /**Skip button */
-        this.skipBtn = new SkipButton(this, width - 130, 50, this.dialogueController, this.playerData);
+        this.skipBtn = new SkipButton(this, width - 15, 15, this.dialogueController, this.playerData);
         
         this.events.on('nextDialog',()=>
         {

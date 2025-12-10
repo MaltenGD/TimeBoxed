@@ -78,7 +78,7 @@ export class TaliScene extends BaseScene {
      */
     createButtons() {
         this.rollBtn = this.createButton(this.width/2, 4*this.height/5, '', ()=>{}).setAlpha(0);
-        this.backBtn = this.add.text(10, 10, 'Back', {fontSize: 50, fill: '#fff', fontFamily: 'TaliOne'})
+        this.backBtn = this.add.text(10, 10, 'Pause', {fontSize: 50, fill: '#fff', fontFamily: 'TaliOne'})
         .setInteractive()
         .on('pointerover', () => this.tweens.add({targets: this.backBtn, scale: 1.1, duration: 100, ease: 'Power1'}))
         .on('pointerout', () => this.tweens.add({targets: this.backBtn, scale: 1, duration: 100, ease: 'Power1'}))

@@ -30,6 +30,16 @@ export class SelectionMenuScene extends BaseScene {
             return;
         }
 
+
+        const baseMusicVolume = 0.25;
+        this.music = this.sound.add('ChooseYourEra', { loop: true, volume: baseMusicVolume * this.playerData.musicVolume });
+        this.soundInstances.push({ 
+            sound: this.music, 
+            type: 'music', 
+            baseVolume: baseMusicVolume 
+        });
+        this.music.play();
+
         this.transitionController = new TransitionController(this);
 
         this.transitionController.startFadeInTransition();
