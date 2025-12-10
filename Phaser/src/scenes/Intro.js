@@ -81,6 +81,8 @@ export class Intro extends BaseScene
                 this.currentEmoticon.destroy();
         }
 
+        console.log(characterObj.ImageKey);
+
         this.currentCharacter = this.add.sprite(characterObj.x, this.height, characterObj.ImageKey, characterObj.frame)
         .setScale(characterObj.scaleX, characterObj.scaleY).setOrigin(0, 1).setDepth(-2);
 
