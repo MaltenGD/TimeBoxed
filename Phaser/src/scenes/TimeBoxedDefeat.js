@@ -1,6 +1,7 @@
 import DialogueController from "../DialogueController.js";
 import TransitionController, {RGBColor} from "../misc/transitioncontroller.js";
 import { BaseScene } from "./BaseScene.js";
+import { SkipButton } from "../SkipButton.js";
 
 export class TimeBoxedDefeat extends BaseScene
 {
@@ -19,37 +20,37 @@ export class TimeBoxedDefeat extends BaseScene
     create(playerData) 
     {
         this.playerData = playerData;
+        this.resetPlayerData();
         console.log(this.playerData)
         // Get the canvas width and height to use when giving a position to an object
         let { width, height } = this.sys.game.canvas;
-
         this.DisableOptionMenu();
 
+         const baseMusicVolume = 0.25;
+            this.music = this.sound.add('Emptyness', { loop: true, volume: baseMusicVolume * this.playerData.musicVolume });
+            this.soundInstances.push({ 
+                sound: this.music, 
+                type: 'music', 
+                baseVolume: baseMusicVolume 
+            });
+            this.music.play();
+
+
+
         this.transitionController = new TransitionController(this);
-        this.transitionController.startFadeInTransition();
+        this.transitionController.startFadeInTransition(() => {}, 2000);
 
         //creating the background
         this.background = this.add.image(width / 2, height / 2, 'backgroundTB').setDisplaySize(width, height);
 
-        /**Skip button */
-        const skipBtn = this.add.text(width - 100, height - 1000 , 'SKIP', {
-            fontSize: '30px',
-            fill: '#000000',
-            backgroundColor: '#f7f7f7',
-            padding: { x: 20, y: 10 }
-        })
-        .setOrigin(0.5)
-        .setInteractive({ cursor: 'pointer' })
-        .on('pointerover', () => skipBtn.setStyle({ backgroundColor: '#bbbaba' }))
-        .on('pointerout', () => skipBtn.setStyle({ backgroundColor: '#f7f7f7' }))
-        .on('pointerdown', () => {
-            this.dialogueController.skipToEnd();
-        });
 
         /** variable json*/
         const TBdefeatDialogue = this.cache.json.get('TimeBoxedDefeatDialogue');
         this.dialogueController = new DialogueController(this, "TimeBoxedDefeat", TBdefeatDialogue);
         this.dialogueController.iniDialogue();
+
+        /**Skip button */
+                this.skipBtn = new SkipButton(this, width - 130, 50, this.dialogueController, this.playerData);
         
         this.events.on('nextDialog',()=>
         {
@@ -58,9 +59,11 @@ export class TimeBoxedDefeat extends BaseScene
 
         this.events.on('Finished', () => {
 
-            this.resetPlayerData();
+            this.transitionController.startFadeOutTransition(() => {
             this.scene.start('Start', this.playerData);
-            console.log("cambia de escena");
+            console.log("El juego se reinicia");
+                }, 2700);
+           
         });
     
     }
@@ -68,7 +71,7 @@ export class TimeBoxedDefeat extends BaseScene
     resetPlayerData()
     {
         for (const key in this.playerData) {
-            if (typeof this.playerData[key] === 'boolean') {
+            if (typeof this.playerData[key] === 'boolean' && key !== 'DebugMode') {
                 this.playerData[key] = false;
             }
         }
