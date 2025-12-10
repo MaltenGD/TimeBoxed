@@ -47,7 +47,7 @@ export class Start extends BaseScene {
 
         this.sound.unlock();
         // Background music
-            const baseMusicVolume = 0.3;
+            const baseMusicVolume = 0.20;
             this.music = this.sound.add('startMenuMusic', { loop: true, volume: baseMusicVolume * this.playerData.musicVolume });
             this.soundInstances.push({ 
                 sound: this.music, 

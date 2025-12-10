@@ -30,14 +30,46 @@ export class Intro extends BaseScene
 
         this.height = height;
 
+        const baseMusicVolume = 0.2;
+            this.music = this.sound.add('HappyNeighborhood', { loop: true, volume: baseMusicVolume * this.playerData.musicVolume });
+            this.soundInstances.push({ 
+                sound: this.music, 
+                type: 'music', 
+                baseVolume: baseMusicVolume 
+            });
+            this.music.play();
+
         //creating the background
         this.background = this.add.image(width / 2, height / 2, 'IntroBackgroundPlaceholder').setDisplaySize(width, height).setDepth(-3);
 
-        this.backBtn = this.add.text(0, 0, 'Back', { fontSize: 64, fill: '#000000ff'})
-        .setInteractive()
-        .on('pointerover', () => this.backBtn.setStyle({fill: 'rgba(104, 35, 35, 1)'}))
-        .on('pointerout', () => this.backBtn.setStyle({fill: '#000000ff'}))
-        .on('pointerdown', () => {
+        this.pauseBtn = this.add.image(15, 15, 'PauseButtonNormal')
+            .setOrigin(0)
+            .setScale(0.5)
+            .setInteractive({ cursor: 'pointer' });
+
+        this.pauseBtn.on('pointerover', () => {
+            this.pauseBtn.setTexture('PauseButtonHovered');
+            this.sound.play('buttonHover', { volume: 2 * this.playerData.sfxVolume });
+            this.tweens.add({
+                targets: this.pauseBtn,
+                scale: 0.55,
+                duration: 100,
+                ease: 'Power1'
+            });
+        });
+
+        this.pauseBtn.on('pointerout', () => {
+            this.pauseBtn.setTexture('PauseButtonNormal');
+            this.sound.play('buttonHover', { volume: 2 * this.playerData.sfxVolume });
+            this.tweens.add({
+                targets: this.pauseBtn,
+                scale: 0.5,
+                duration: 100,
+                ease: 'Power1'
+            });
+        });
+
+        this.pauseBtn.on('pointerdown', () => {
             this.openOptionMenu();
         });
         
@@ -69,7 +101,7 @@ export class Intro extends BaseScene
        
 
         /**Skip button */
-        this.skipBtn = new SkipButton(this, width - 130, 50, this.dialogueController, this.playerData);
+        this.skipBtn = new SkipButton(this, width - 15, 15, this.dialogueController, this.playerData);
     
     }
 

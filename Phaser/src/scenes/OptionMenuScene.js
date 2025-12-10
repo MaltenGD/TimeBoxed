@@ -226,7 +226,9 @@ export class OptionMenuScene extends BaseScene {
                     this.scene.stop(this.playerData.SceneToResume);
                     this.scene.stop('ConfirmMenu');
                     this.scene.stop('OptionMenu');
-                    this.scene.start('SelectionMenuScene', this.playerData);
+
+                    if (this.playerData.IntroCompleted) this.scene.start('SelectionMenuScene', this.playerData);
+                    else this.scene.start('Start', this.playerData);
 
                     
                 },

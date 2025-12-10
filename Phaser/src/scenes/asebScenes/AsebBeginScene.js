@@ -55,7 +55,7 @@ export class AsebBeginScene extends BaseScene {
 
         // --- Back Button ---
         const backBtnImage = this.add.image(0, 0, 'AsebButton').setScale(0.3,0.5);
-        const backBtnText = this.add.text(0, 0, 'Back', { fontSize: 48, fill: '#000000ff', fontFamily: "Anubismythicalserif"}).setOrigin(0.5);
+        const backBtnText = this.add.text(0, 0, 'Pause', { fontSize: 48, fill: '#000000ff', fontFamily: "Anubismythicalserif"}).setOrigin(0.5);
 
         this.backBtn = this.add.container(140, 80, [ backBtnImage, backBtnText ]);
         this.backBtn.setSize(backBtnImage.width * 0.5, backBtnImage.height * 0.5).setInteractive()

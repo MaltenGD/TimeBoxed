@@ -49,7 +49,7 @@ export class HanafudaIntro extends BaseScene{
         this.dialogueController.iniDialogue();
 
         //skip Button
-        this.skipBtn = new SkipButton(this, width - 130, 50, this.dialogueController, this.playerData);
+        this.skipBtn = new SkipButton(this, width - 15, 15, this.dialogueController, this.playerData);
         
         this.events.on('nextDialog',()=>
         {

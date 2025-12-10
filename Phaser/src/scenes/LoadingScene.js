@@ -136,6 +136,8 @@ export class LoadingScene extends Phaser.Scene
         
 
         // Musica
+        this.load.audio('HappyNeighborhood', 'Phaser/assets/audio/Intro/HappyNeighborhood.mp3')
+        this.load.audio('ChooseYourEra', 'Phaser/assets/audio/SelectionMenuScene/ChooseYourEra.mp3')
         this.load.audio('egyptMusic', 'Phaser/assets/audio/Egypt-Aseb/AsebIntroMusic.mp3');
         this.load.audio('CreepyegyptMusic', 'Phaser/assets/audio/Egypt-Aseb/AsebDefeatMusic.mp3');
         this.load.audio('AsebMusic', 'Phaser/assets/audio/Egypt-Aseb/AsebGameMusic.mp3');
@@ -153,6 +155,10 @@ export class LoadingScene extends Phaser.Scene
         //Skip Button
         this.load.image('SkipButtonNormal', 'Phaser/assets/SkipButtonNormal.png');
         this.load.image('SkipButtonHovered', 'Phaser/assets/SkipButtonHovered.png');
+
+        //Pause Button
+        this.load.image('PauseButtonNormal', 'Phaser/assets/PauseButtonNormal.png');
+        this.load.image('PauseButtonHovered', 'Phaser/assets/PauseButtonHovered.png');
         
         
 

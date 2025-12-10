@@ -47,7 +47,7 @@ export class TaliEndScene extends BaseScene {
         this.setDialogue();
 
         /**Skip button */
-        this.skipBtn = new SkipButton(this, this.width - 130, 50, this.dialogueController, this.playerData);
+        this.skipBtn = new SkipButton(this, width - 15, 15, this.dialogueController, this.playerData);
     }
 
     /**
