@@ -218,7 +218,7 @@ export class DistractMercuryScene extends BaseScene {
      * Passes to the game scene the new roll set.
      */
     returnToGame() {
-        this.scene.sleep(); 
+        this.scene.stop(); 
         this.scene.resume('TaliScene', {playerData: this.playerData, mercuryResultRoll: this.mercuryRoll, possibleDialogues: this.possibleDialogues, distractCounter: this.distractCounter});
     }
 
