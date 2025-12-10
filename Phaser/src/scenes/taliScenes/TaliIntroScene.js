@@ -36,7 +36,7 @@ export class TaliIntroScene extends BaseScene
         this.createAndBeginDialogue();
         
         /**Skip button */
-        this.skipBtn = new SkipButton(this, width - 130, 50, this.dialogueController, this.playerData);
+        this.skipBtn = new SkipButton(this, width - 15, 15, this.dialogueController, this.playerData);
     
     }
 

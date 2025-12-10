@@ -67,7 +67,7 @@ export class AsebScene extends BaseScene {
         this.infoBoard = this.add.image(this.width/2, this.height/2, 'StickBoard').setOrigin(0.5).setScale(1.5,2.25).setRotation(Phaser.Math.DegToRad(90));
 
         const backBtnImage = this.add.image(0, 0, 'AsebButton').setScale(0.3,0.5);
-        const backBtnText = this.add.text(0, 0, 'Back', { fontSize: 48, fill: '#000000ff', fontFamily: "Anubismythicalserif"}).setOrigin(0.5);
+        const backBtnText = this.add.text(0, 0, 'Pause', { fontSize: 48, fill: '#000000ff', fontFamily: "Anubismythicalserif"}).setOrigin(0.5);
 
         this.backBtn = this.add.container(140, 80, [ backBtnImage, backBtnText ]);
         this.backBtn.setSize(backBtnImage.width * 0.5, backBtnImage.height * 0.5).setInteractive()

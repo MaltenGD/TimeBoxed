@@ -10,12 +10,12 @@
     "TaliPlayerFirst" : false,
     "AsebNoCapturesCompletion": false,
     "AsebLandedOnEverySpecial": false,
-    "AsebCompleted": true,
+    "AsebCompleted": false,
     "TaliCompleted": false,
     "HanafudaCompleted": false,
     "SceneToResume" : null,
     "comingFromMenu": false,
 
-    "musicVolume": 1,
-    "sfxVolume": 1
+    "musicVolume": 0.8,
+    "sfxVolume": 0.8
 }
