@@ -144,7 +144,6 @@ export default class DialogueController
         {
             this.scene.events.emit('CharacterTalking', CharacterOBJ);
         }
-
         
         /**creates the dialogue with all the necessary parameters*/
         this.currentDialogue = new Dialogue(speaker, text, isAnimated);

@@ -4,241 +4,436 @@
     "start": 
     {
         "speaker": "Player",
-        "text": "*Yawn* Today is a fuc-",
+        "text": "Today is a great day to play.",
         "animation": "true",
+        "Character": {
+            "ImageKey": "protagonist",
+            "frame": 2,
+            "x": 100,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0,
+            "emoticon": 5,
+            "emoticonY": 60
+        },
         "next": "ID2"
     },
     "ID2": 
     {
-        "speaker": "Player",
-        "text": "ehem, I mean, today is a great day to play.",
+        "speaker": "Narrator",
+        "text": "You always start the morning with your yarn ball. It's ragged and old, but it's yours and it's precious.",
         "animation": "true",
+        "Character": {
+            "ImageKey": "protagonist",
+            "frame": 0,
+            "x": 100,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0,
+            "emoticon": "none"
+        },
+        "tutoImage": "yarn_ball",
         "next": "ID3"
     },
     "ID3": 
     {
         "speaker": "Narrator",
-        "text": "You always start the morning with your yarn ball, it's ragged and old, but it's what makes the day awesome for you.",
+        "text": "The sun is barely out, but because you are a fluffy ball of energy and noise, you wake up the whole neighborhood.",
         "animation": "true",
+        "tutoImage": "none",
         "next": "ID4"
     },
     "ID4": 
     {
         "speaker": "Narrator",
-        "text": "The sun is barely out and because you are such a wrecking ball of energy and noise and fluffy hair and cute ears (and whatever else you are), you wake up the whole neighborhood.",
+        "text": "Humans yell at you from their windows, but you don't speak human, so you do not care at all.",
         "animation": "true",
         "next": "ID5"
     },
     "ID5": 
     {
         "speaker": "Narrator",
-        "text": "Humans yell at you from their windows, but you don't speak human, so you do not care at all.",
+        "text": "The appearance of a dark cat interrupts your playtime.",
         "animation": "true",
+        "Character": {
+            "ImageKey": "kronos",
+            "frame": 2,
+            "x": 100,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0
+        },
         "next": "ID6"
     },
     "ID6": 
     {
         "speaker": "Narrator",
-        "text": "This commotion and protagonist time of yours, catches the eye of a dark mysterious figure.",
+        "text": "Time seems to have slowed down around you, but you pay it no mind and speak to the stranger.",
         "animation": "true",
+        "Character": "none",
         "next": "ID7"
     },
     "ID7": 
     {
-        "speaker": "Narrator",
-        "text": "While you go crazy, time stops and a dark cat appears before you. Your instincs kick in and you stop playing to study the new creature before you.",
+        "speaker": "Player",
+        "text": "Who are you?",
         "animation": "true",
+        "Character": {
+            "ImageKey": "protagonist",
+            "frame": 3,
+            "x": 100,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0,
+            "emoticon": 1,
+            "emoticonY": 60
+        },
         "next": "ID8"
     },
     "ID8": 
     {
-        "speaker": "Player",
-        "text": "mmm Excuse me, eh, good sir? Do you need something?",
+        "speaker": "Kronos",
+        "text": "Kronos is the name.",
         "animation": "true",
+        "Character": {
+            "ImageKey": "kronos",
+            "frame": 4,
+            "x": 100,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0,
+            "emoticon": 5,
+            "emoticonY": 0
+        },
         "next": "ID9"
     },
     "ID9": 
     {
         "speaker": "Kronos",
-        "text": "*stares into the distance* Kronos is the name, and yes if you look that way you'll see there's a buch of meat in the corner. I was thinking if I should go eat it.",
+        "text": "I was thinking about the tasty fish behind you...",
         "animation": "true",
+        "Character": {
+            "ImageKey": "kronos",
+            "frame": 3,
+            "x": 100,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0,
+            "emoticon": 4,
+            "emoticonY": 0
+        },
         "next": "ID10"
     },
     "ID10": 
     {
         "speaker": "Narrator",
-        "text": "At the mention of food, your brain knows no better than your stomach, both empty. You turn around naively all excited for food but find nothing.",
+        "text": "At the mention of food, your brain knows no better than your stomach, both empty. You turn around naively all excited for food, but find nothing.",
         "animation": "true",
+        "Character": "none",
         "next": "ID11"
     },
     "ID11": 
     {
         "speaker": "Player",
-        "text": "That's weird, I don't see anything, sir.",
+        "text": "What fish? Hey!",
         "animation": "true",
+        "Character": {
+            "ImageKey": "protagonist",
+            "frame": 4,
+            "x": 100,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0,
+            "emoticon": 3,
+            "emoticonY": 60
+        },
         "next": "ID12"
     },
     "ID12": 
     {
-        "speaker": "Kronos",
-        "text": "*smirks* oh yeah, sorry I was thinking of a different alley. Anyway I see you're sooo intelligent my friend, so let's do this: you see this thing?",
+        "speaker": "Narrator",
+        "text": "While you were looking for the promised food, Kronos took the opportunity to steal YOUR yarn ball. He smirks.",
         "animation": "true",
+        "Character":"none",
         "next": "ID13"
     },
     "ID13": 
     {
-        "speaker": "Narrator",
-        "text": "kronos suddenly makes YOUR yarn ball appear next to him, while you were distracted he took the opportunity to stole it.",
+        "speaker": "Player",
+        "text": "YOU! How do you have my yarn ball!?",
         "animation": "true",
+        "Character": {
+            "ImageKey": "protagonist",
+            "frame": 4,
+            "x": 100,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0
+        },
         "next": "ID14"
     },
     "ID14": 
     {
-        "speaker": "Player",
-        "text": "*in pure disbelief* YOU!! How do you have my yarn ball!?",
+        "speaker": "Kronos",
+        "text": "What matters more than the hows and whats is you getting it back...",
         "animation": "true",
+        "Character": {
+            "ImageKey": "kronos",
+            "frame": 4,
+            "x": 100,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0,
+            "emoticon": "none"
+        },
         "next": "ID15"
     },
     "ID15": 
     {
-        "speaker": "Kronos",
-        "text": "Oh well the hows and whats aren't important here my friend, the thing is *pauses* I'm not giving it back to you MUAHAHA *evil laugh*.",
+        "speaker": "Player",
+        "text": "Give it back, you rat!",
         "animation": "true",
+        "Character": {
+            "ImageKey": "protagonist",
+            "frame": 4,
+            "x": 100,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0,
+            "emoticon": 9,
+            "emoticonY": 60
+        },
         "next": "ID16"
     },
     "ID16": 
     {
-        "speaker": "Player",
-        "text": "you rat!... No, scratch that, you are even worse than a rat! give it back or else!",
+        "speaker": "Kronos",
+        "text": "Don't compare me to filthy rats. I'm above them AND you.",
         "animation": "true",
+        "Character": {
+            "ImageKey": "kronos",
+            "frame": 4,
+            "x": 100,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0,
+            "emoticon": 9,
+            "emoticonY": 0
+        },
         "next": "ID17"
     },
     "ID17": 
     {
         "speaker": "Kronos",
-        "text": "first, don't compare me to filthy rats. I'm above that AND above you too. But I'll let it slide this time. You see, I'm a really generous creature that means no harm.",
+        "text": "But I'll let it slide this time, for I'm a really generous creature that means no harm.",
         "animation": "true",
+        "Character": {
+            "ImageKey": "kronos",
+            "frame": 3,
+            "x": 100,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0,
+            "emoticon": "none"
+        },
         "next": "ID18"
     },
     "ID18": 
     {
         "speaker": "Kronos",
-        "text": "so I guess if you insist, I have no other option but to offer you a deal. Everything goes back to last week, when I accidentally and tragically lost my most priced belongings.",
+        "text": "Let's make a deal. You see, a week ago I lost my most precious belongins. If you recover them, I'll give you back your yarn ball.",
         "animation": "true",
+        "Character": {
+            "ImageKey": "kronos",
+            "frame": 4,
+            "x": 100,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0
+        },
         "next": "ID19"
     },
     "ID19": 
     {
-        "speaker": "Kronos",
-        "text": "the thing is, I need someone to recover them. Don't worry it's only three objects, no biggie for something as smart as you.",
+        "speaker": "Player",
+        "text": "If you're so great, why don't you recover them yourself?",
         "animation": "true",
+        "Character": {
+            "ImageKey": "protagonist",
+            "frame": 3,
+            "x": 100,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0
+        },
         "next": "ID20"
     },
     "ID20": 
     {
-        "speaker": "Player",
-        "text": "why can't you do it yourself, if you want them back soooo badly?",
+        "speaker": "Kronos",
+        "text": "Don't you dare question me, peasant. Just win three games for me, get my dear artifacts back, and you'll get your ball.",
         "animation": "true",
+        "Character": {
+            "ImageKey": "kronos",
+            "frame": 4,
+            "x": 100,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0,
+            "emoticon": 9,
+            "emoticonY": 0
+        },
         "next": "ID21"
     },
     "ID21": 
     {
-        "speaker": "Kronos",
-        "text": "because I can't, it's more complicated than that you peasant!",
+        "speaker": "Player",
+        "text": "What games? Against you?",
         "animation": "true",
+        "Character": {
+            "ImageKey": "protagonist",
+            "frame": 2,
+            "x": 100,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0,
+            "emoticon": 1,
+            "emoticonY": 60
+        },
         "next": "ID22"
     },
     "ID22": 
     {
-        "speaker": "Player",
-        "text": "ugh, alr so what do I have to do to recover them so I can get my yarn back?",
+        "speaker": "Kronos",
+        "text": "I don't play with brats. Your opponents will be my... ehem, friends.",
         "animation": "true",
+        "Character": {
+            "ImageKey": "kronos",
+            "frame": 0,
+            "x": 100,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0,
+            "emoticon": 4,
+            "emoticonY": 0
+        },
         "next": "ID23"
     },
     "ID23": 
     {
         "speaker": "Kronos",
-        "text": "Pretty easy! you only have to win three games.",
+        "text": "Do we have a deal?",
         "animation": "true",
+        "Character": {
+            "ImageKey": "kronos",
+            "frame": 3,
+            "x": 100,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0,
+            "emoticon": 1,
+            "emoticonY": 0
+        },
         "next": "ID24"
     },
     "ID24": 
     {
-        "speaker": "Player",
-        "text": "against you? and can I choose the games? (with all his ego I guess he will be an easy opponent).",
+        "speaker": "Narrator",
+        "text": "You sigh and glance at the yarn ball Kronos is fiddling with.",
         "animation": "true",
+        "Character": "none",
         "next": "ID25"
     },
     "ID25": 
     {
-        "speaker": "Kronos",
-        "text": "Oh no no, you? playing against the almighty kronos? no, no that can't be, I don't play with brats. Besides I don't have the objects duh if you win against me you would gain nothing.",
+        "speaker": "Player",
+        "text": "Yes. Deal.",
         "animation": "true",
+        "Character": {
+            "ImageKey": "protagonist",
+            "frame": 4,
+            "x": 100,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0
+        },
         "next": "ID26"
     },
     "ID26": 
     {
-        "speaker": "Kronos",
-        "text": "*sighs* what you have to do is win against some of my *ehem* friends, who happened to recover them for me. However, for reasons you little brain won't understand I can't ask them to return them.",
+        "speaker": "Narrator",
+        "text": "You seal the deal with a paw-shake. A blue glow surrounds you for a few seconds before disappearing. \nKronos gestures to the box behind him.",
         "animation": "true",
+        "Character":"none",
         "next": "ID27"
     },
     "ID27": 
     {
         "speaker": "Kronos",
-        "text": "Anyway, win the games, I get my objects back and you get your beloved yarn. Do we have a deal?",
+        "text": "Get in.",
         "animation": "true",
+        "Character": {
+            "ImageKey": "kronos",
+            "frame": 4,
+            "x": 100,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0
+        },
         "next": "ID28"
     },
     "ID28": 
     {
-        "speaker": "Player",
-        "text": "(He seems shaddy, but I really want my yarn back ugh). Alr, we have a deal",
+        "speaker": "Narrator",
+        "text": "You're confused, but you refrain from arguing. The faster you get your yarn ball back, the better.",
         "animation": "true",
+        "Character":"none",
         "next": "ID29"
     },
     "ID29": 
     {
         "speaker": "Narrator",
-        "text": "kronos and you, paw with paw together and a there's a faint glow that goes away as fast as it came, this mean the deal has been sealed.",
-        "animation": "true",
-        "next": "ID30"
-    },
-    "ID30": 
-    {
-        "speaker": "Kronos",
-        "text": "Well, it's done, but first you have to get with me in my box, this is how we will get around.",
-        "animation": "true",
-        "next": "ID31"
-    },
-    "ID31": 
-    {
-        "speaker": "Player",
-        "text": "The box? how are we supposed to get around in that junk?",
-        "animation": "true",
-        "next": "ID32"
-    },
-    "ID32":
-    {
-        "speaker": "Kronos",
-        "text": "Oh, just shut it and get on!",
-        "animation": "true",
-        "next": "ID33"
-    },
-    "ID33":
-    {
-        "speaker": "Narrator",
-        "text": "you reluctantly get in the box, and when you're inside, you're shocked to see it has a lot more space than it appeared to have from the outside.",
+        "text": "The box is bigger inside than you thought.",
         "animation": "true",
         "next": "end"
     },
-     "end":
+    "end": 
     {
         "speaker": "Kronos",
-        "text": "Well, welcome to my 'little' home haha. Now, because I'm the kindest cat around here, I'll let you choose where you wanna go first.",
+        "text": "This is how we'll travel. And because I'm such a benevolent god, I'll let you choose our first destination.",
         "animation": "true",
+        "Character": {
+            "ImageKey": "kronos",
+            "frame": 0,
+            "x": 100,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0,
+            "emoticon": 4,
+            "emoticonY": 0
+        },
         "next": null
-    }
-   
+   }
 }
 }

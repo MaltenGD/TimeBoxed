@@ -432,6 +432,7 @@ export class LoadingScene extends Phaser.Scene
         this.load.spritesheet("kronos", "Phaser/assets/spritesheets/kronosSpritesheet.png", {frameWidth: 431, frameHeight: 821});
         this.load.spritesheet("mercury", "Phaser/assets/spritesheets/mercurySpritesheet.png", {frameWidth: 488, frameHeight: 504});
         this.load.spritesheet("protagonist", "Phaser/assets/spritesheets/protagonistSpritesheet.png", {frameWidth: 335, frameHeight: 614});
+        this.load.image("yarn_ball", 'Phaser/assets/spritesheets/yarn_ball.png');
     }
 
     create() {
