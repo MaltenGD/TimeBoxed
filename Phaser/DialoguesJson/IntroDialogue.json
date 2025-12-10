@@ -52,7 +52,7 @@
     },
     "ID8": 
     {
-        "speaker": "Player",
+        "speaker": "Kronos",
         "text": "Kronos is the name.",
         "animation": "true",
         "next": "ID9"
