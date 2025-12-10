@@ -6,6 +6,17 @@
         "speaker": "Player",
         "text": "Today is a great day to play.",
         "animation": "true",
+        "Character": {
+            "ImageKey": "protagonist",
+            "frame": 2,
+            "x": 100,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0,
+            "emoticon": 5,
+            "emoticonY": 60
+        },
         "next": "ID2"
     },
     "ID2": 
@@ -13,6 +24,17 @@
         "speaker": "Narrator",
         "text": "You always start the morning with your yarn ball. It's ragged and old, but it's yours and it's precious.",
         "animation": "true",
+        "Character": {
+            "ImageKey": "protagonist",
+            "frame": 0,
+            "x": 100,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0,
+            "emoticon": "none"
+        },
+        "tutoImage": "yarn_ball",
         "next": "ID3"
     },
     "ID3": 
@@ -20,6 +42,7 @@
         "speaker": "Narrator",
         "text": "The sun is barely out, but because you are a fluffy ball of energy and noise, you wake up the whole neighborhood.",
         "animation": "true",
+        "tutoImage": "none",
         "next": "ID4"
     },
     "ID4": 
@@ -34,6 +57,15 @@
         "speaker": "Narrator",
         "text": "The appearance of a dark cat interrupts your playtime.",
         "animation": "true",
+        "Character": {
+            "ImageKey": "kronos",
+            "frame": 2,
+            "x": 100,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0
+        },
         "next": "ID6"
     },
     "ID6": 
@@ -41,6 +73,7 @@
         "speaker": "Narrator",
         "text": "Time seems to have slowed down around you, but you pay it no mind and speak to the stranger.",
         "animation": "true",
+        "Character": "none",
         "next": "ID7"
     },
     "ID7": 
@@ -48,6 +81,17 @@
         "speaker": "Player",
         "text": "Who are you?",
         "animation": "true",
+        "Character": {
+            "ImageKey": "protagonist",
+            "frame": 3,
+            "x": 100,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0,
+            "emoticon": 1,
+            "emoticonY": 60
+        },
         "next": "ID8"
     },
     "ID8": 
@@ -55,6 +99,17 @@
         "speaker": "Kronos",
         "text": "Kronos is the name.",
         "animation": "true",
+        "Character": {
+            "ImageKey": "kronos",
+            "frame": 4,
+            "x": 100,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0,
+            "emoticon": 5,
+            "emoticonY": 0
+        },
         "next": "ID9"
     },
     "ID9": 
@@ -62,6 +117,17 @@
         "speaker": "Kronos",
         "text": "I was thinking about the tasty fish behind you...",
         "animation": "true",
+        "Character": {
+            "ImageKey": "kronos",
+            "frame": 3,
+            "x": 100,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0,
+            "emoticon": 4,
+            "emoticonY": 0
+        },
         "next": "ID10"
     },
     "ID10": 
@@ -69,6 +135,7 @@
         "speaker": "Narrator",
         "text": "At the mention of food, your brain knows no better than your stomach, both empty. You turn around naively all excited for food, but find nothing.",
         "animation": "true",
+        "Character":"none",
         "next": "ID11"
     },
     "ID11": 
@@ -76,6 +143,17 @@
         "speaker": "Player",
         "text": "What fish? Hey!",
         "animation": "true",
+        "Character": {
+            "ImageKey": "protagonist",
+            "frame": 4,
+            "x": 100,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0,
+            "emoticon": 3,
+            "emoticonY": 60
+        },
         "next": "ID12"
     },
     "ID12": 
@@ -83,6 +161,7 @@
         "speaker": "Narrator",
         "text": "While you were looking for the promised food, Kronos took the opportunity to steal YOUR yarn ball. He smirks.",
         "animation": "true",
+        "Character":"none",
         "next": "ID13"
     },
     "ID13": 
@@ -90,6 +169,15 @@
         "speaker": "Player",
         "text": "YOU! How do you have my yarn ball!?",
         "animation": "true",
+        "Character": {
+            "ImageKey": "protagonist",
+            "frame": 4,
+            "x": 100,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0
+        },
         "next": "ID14"
     },
     "ID14": 
@@ -97,6 +185,16 @@
         "speaker": "Kronos",
         "text": "What matters more than the hows and whats is you getting it back...",
         "animation": "true",
+        "Character": {
+            "ImageKey": "kronos",
+            "frame": 4,
+            "x": 100,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0,
+            "emoticon": "none"
+        },
         "next": "ID15"
     },
     "ID15": 
@@ -104,6 +202,17 @@
         "speaker": "Player",
         "text": "Give it back, you rat!",
         "animation": "true",
+        "Character": {
+            "ImageKey": "protagonist",
+            "frame": 4,
+            "x": 100,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0,
+            "emoticon": 9,
+            "emoticonY": 60
+        },
         "next": "ID16"
     },
     "ID16": 
@@ -111,6 +220,17 @@
         "speaker": "Kronos",
         "text": "Don't compare me to filthy rats. I'm above them AND you.",
         "animation": "true",
+        "Character": {
+            "ImageKey": "kronos",
+            "frame": 4,
+            "x": 100,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0,
+            "emoticon": 9,
+            "emoticonY": 0
+        },
         "next": "ID17"
     },
     "ID17": 
@@ -118,6 +238,16 @@
         "speaker": "Kronos",
         "text": "But I'll let it slide this time, for I'm a really generous creature that means no harm.",
         "animation": "true",
+        "Character": {
+            "ImageKey": "kronos",
+            "frame": 3,
+            "x": 100,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0,
+            "emoticon": "none"
+        },
         "next": "ID18"
     },
     "ID18": 
@@ -125,6 +255,15 @@
         "speaker": "Kronos",
         "text": "Let's make a deal. You see, a week ago I lost my most precious belongins. If you recover them, I'll give you back your yarn ball.",
         "animation": "true",
+        "Character": {
+            "ImageKey": "kronos",
+            "frame": 4,
+            "x": 100,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0
+        },
         "next": "ID19"
     },
     "ID19": 
@@ -132,6 +271,15 @@
         "speaker": "Player",
         "text": "If you're so great, why don't you recover them yourself?",
         "animation": "true",
+        "Character": {
+            "ImageKey": "protagonist",
+            "frame": 3,
+            "x": 100,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0
+        },
         "next": "ID20"
     },
     "ID20": 
@@ -139,6 +287,17 @@
         "speaker": "Kronos",
         "text": "Don't you dare question me, peasant. Just win three games for me, get my dear artifacts back, and you'll get your ball.",
         "animation": "true",
+        "Character": {
+            "ImageKey": "kronos",
+            "frame": 4,
+            "x": 100,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0,
+            "emoticon": 9,
+            "emoticonY": 0
+        },
         "next": "ID21"
     },
     "ID21": 
@@ -146,6 +305,17 @@
         "speaker": "Player",
         "text": "What games? Against you?",
         "animation": "true",
+        "Character": {
+            "ImageKey": "protagonist",
+            "frame": 2,
+            "x": 100,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0,
+            "emoticon": 1,
+            "emoticonY": 60
+        },
         "next": "ID22"
     },
     "ID22": 
@@ -153,6 +323,17 @@
         "speaker": "Kronos",
         "text": "I don't play with brats. Your opponents will be my... ehem, friends.",
         "animation": "true",
+        "Character": {
+            "ImageKey": "kronos",
+            "frame": 0,
+            "x": 100,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0,
+            "emoticon": 4,
+            "emoticonY": 0
+        },
         "next": "ID23"
     },
     "ID23": 
@@ -160,6 +341,17 @@
         "speaker": "Kronos",
         "text": "Do we have a deal?",
         "animation": "true",
+        "Character": {
+            "ImageKey": "kronos",
+            "frame": 3,
+            "x": 100,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0,
+            "emoticon": 1,
+            "emoticonY": 0
+        },
         "next": "ID24"
     },
     "ID24": 
@@ -167,6 +359,7 @@
         "speaker": "Narrator",
         "text": "You sigh and glance at the yarn ball Kronos is fiddling with.",
         "animation": "true",
+        "Character": "none",
         "next": "ID25"
     },
     "ID25": 
@@ -174,6 +367,15 @@
         "speaker": "Player",
         "text": "Yes. Deal.",
         "animation": "true",
+        "Character": {
+            "ImageKey": "protagonist",
+            "frame": 4,
+            "x": 100,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0
+        },
         "next": "ID26"
     },
     "ID26": 
@@ -181,6 +383,7 @@
         "speaker": "Narrator",
         "text": "You seal the deal with a paw-shake. A blue glow surrounds you for a few seconds before disappearing. \nKronos gestures to the box behind him.",
         "animation": "true",
+        "Character":"none",
         "next": "ID27"
     },
     "ID27": 
@@ -188,6 +391,15 @@
         "speaker": "Kronos",
         "text": "Get in.",
         "animation": "true",
+        "Character": {
+            "ImageKey": "kronos",
+            "frame": 4,
+            "x": 100,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0
+        },
         "next": "ID28"
     },
     "ID28": 
@@ -195,6 +407,7 @@
         "speaker": "Narrator",
         "text": "You're confused, but you refrain from arguing. The faster you get your yarn ball back, the better.",
         "animation": "true",
+        "Character":"none",
         "next": "ID29"
     },
     "ID29": 
@@ -209,6 +422,17 @@
         "speaker": "Kronos",
         "text": "This is how we'll travel. And because I'm such a benevolent god, I'll let you choose our first destination.",
         "animation": "true",
+        "Character": {
+            "ImageKey": "kronos",
+            "frame": 0,
+            "x": 100,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0,
+            "emoticon": 4,
+            "emoticonY": 0
+        },
         "next": null
    }
 }

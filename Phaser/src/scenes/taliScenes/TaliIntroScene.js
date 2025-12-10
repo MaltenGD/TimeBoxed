@@ -43,6 +43,15 @@ export class TaliIntroScene extends BaseScene
     createAndBeginDialogue() {
         const introTaliData = this.cache.json.get('TaliDialogue');
         this.dialogueController = new DialogueController(this, "Tali", introTaliData);
+
+        this.events.on('changeTutoImage',(imageKey)=> {
+            this.changeTutoImage(imageKey);
+        });
+
+        this.events.on('CharacterTalking', (characterObj) => {
+            this.displayCharacterSprite(characterObj);
+        })
+
         this.dialogueController.iniDialogue();
         
         this.events.on('nextDialog',()=>
@@ -74,9 +83,6 @@ export class TaliIntroScene extends BaseScene
         }); 
         }, 400);
 
-        this.events.on('CharacterTalking', (characterObj) => {
-            this.displayCharacterSprite(characterObj);
-        })
     }
 
     displayCharacterSprite(characterObj) {

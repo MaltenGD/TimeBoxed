@@ -69,6 +69,15 @@ export class TaliEndScene extends BaseScene {
             taliDialogueGroup = "TaliLose";
         }
         this.dialogueController = new DialogueController(this, taliDialogueGroup, taliDialogue);
+
+        this.events.on('changeTutoImage',(imageKey)=> {
+            this.changeTutoImage(imageKey);
+        });
+
+        this.events.on('CharacterTalking', (characterObj) => {
+            this.displayCharacterSprite(characterObj);
+        })
+
         this.dialogueController.iniDialogue();
         
         this.events.on('nextDialog',()=>
@@ -82,10 +91,6 @@ export class TaliEndScene extends BaseScene {
                 else this.scene.start('SelectionMenuScene', this.playerData);
             }, 400);
         });
-
-        this.events.on('CharacterTalking', (characterObj) => {
-            this.displayCharacterSprite(characterObj);
-        })
     }
 
     displayCharacterSprite(characterObj) {
