@@ -8,9 +8,6 @@ export class YakusMenu extends Phaser.Scene {
         this.closing = false;
     }
 
-    preload() {
-    }
-
     create() {
 
 
@@ -23,16 +20,18 @@ export class YakusMenu extends Phaser.Scene {
             .setDepth(10)
             .on('pointerdown', () => this.closeMenu());
 
-        const imageWidth = width * 0.8;
-        const imageHeight = (imageWidth * 2) / 3;
+        const imageWidth = width;
+        const imageHeight = height;
         this.imageContainer = this.add.container(width / 2, height / 2)
             .setDepth(11);
+        
+        const elementsToAdd = [];
+        this.combinationsImage = this.add.image(0, 0, 'TutorialCombination')
+            .setOrigin(0.5)
+            .setDisplaySize(imageWidth, imageHeight);
+        
+        elementsToAdd.push(this.combinationsImage);
 
-        if (this.textures.exists('Combanations')) {
-            this.combinationsImage = this.add.image(0, 0, 'Combanations')
-                .setOrigin(0.5)
-                .setDisplaySize(imageWidth, imageHeight);
-        }
 
         this.closeBtn = this.add.text(
             imageWidth / 2 - 20,
@@ -58,7 +57,8 @@ export class YakusMenu extends Phaser.Scene {
         }))
         .on('pointerdown', () => this.closeMenu());
 
-        this.imageContainer.add([this.combinationsImage, this.closeBtn]);
+        elementsToAdd.push(this.closeBtn);
+        this.imageContainer.add(elementsToAdd);
 
         this.overlay.setAlpha(0);
         this.imageContainer.setScale(0);
@@ -123,7 +123,7 @@ export class YakusMenu extends Phaser.Scene {
                         }
                     }
                 }
-                
+
                 console.log("YakusMenu parado");
                 this.scene.stop();
             }

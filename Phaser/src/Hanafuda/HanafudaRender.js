@@ -23,24 +23,20 @@ export default class HanafudaRender{
             this.scene.tableCardObjects[i] = [];
             for(let j = 0; j < this.scene.tableCards[i].length; ++j){
                 let cardData = this.scene.tableCards[i][j];
-            if (!cardData) {
-                console.warn("Table card undefined en posición", i, j);
-                continue;
-            }
+                if (!cardData) {
+                    console.warn("Table card undefined en posición", i, j);
+                    continue;
+                }
 
-                let playerCard = this.scene.add.image(400 + (j * 120), (this.height / 2 - 150) + (i * 200), `Card${this.scene.tableCards[i][j].number}`)
+                let playerCard = this.scene.add.image(400 + (j * 120), (this.height / 2 - 140) + (i * 200), `Card${this.scene.tableCards[i][j].number}`)
                 .setScale(0.2);
                 this.scene.tableCardObjects[i].push(playerCard);
 
                 if(this.scene.tableCards[i][j] === this.card){
                     this.newCard = this.scene.tableCardObjects[i][j];
 
-                    this.scene.tweens.add({
-                        targets: this.newCard,
-                        scaleX: 0.24,
-                        scaleY: 0.24,
-                        duration: 200,
-                        ease: 'Power2',
+                    this.scene.tweens.add({ 
+                        targets: this.newCard, scaleX: 0.24,scaleY: 0.24,duration: 200,ease: 'Power2',
                     });
                 }
             }  
@@ -53,7 +49,7 @@ export default class HanafudaRender{
         this.scene.opponentCardObjects = [];
 
         this.scene.opponentCards.forEach((card, i) => {
-            const rect = this.scene.add.rectangle(400 + (i * 120), 150, 100, 150, 0x609C86);
+            const rect = this.scene.add.rectangle(400 + (i * 120), 170, 100, 150, 0x609C86);
             this.scene.opponentCardObjects.push(rect);
         });
     }
@@ -64,7 +60,7 @@ export default class HanafudaRender{
         this.scene.playerCardObjects = []; //clean the array
 
         this.scene.playerCards.forEach((card, i) => {
-            let image = this.scene.add.image(400 + (i * 120), this.height / 2 + 400, `Card${card.number}`).setScale(0.2);
+            let image = this.scene.add.image(400 + (i * 120), this.height / 2 + 350, `Card${card.number}`).setScale(0.2);
             this.scene.playerCardObjects.push(image);
         });
     }
@@ -101,32 +97,18 @@ export default class HanafudaRender{
         }
     }
 
-    /**@method renderNewCardToTable : Renders a single new card to the table with a tween */
-    renderNewCardToTable(card, col, row) {
-        const newCardImage = this.scene.add.image(280 + (col * 120), (this.height / 2 - 150) + (row * 200), `Card${card.number}`)
-        .setScale(0.1);
-        this.scene.tableCardObjects[row].push(newCardImage);
-
-        this.scene.tweens.add({
-            targets: newCardImage,
-            scaleX: 0.23,
-            scaleY: 0.23,
-            duration: 200,
-            ease: 'Power2',
-        });
-    }
-
     renderDeckCard(){
         if (!this.scene.card) {
         console.warn("renderDeckCard() llamado sin this.scene.card");
         return;
-    }
+        }
 
-    if (typeof this.scene.card.number !== "number") {
-        console.warn("this.scene.card.number es invalido:", this.scene.card);
-        return;
-    }
-        this.scene.deckCardObject = this.scene.add.image(200, this.height/2 + 100,`Card${this.scene.card.number}`).setScale(0.2);
+        if (typeof this.scene.card.number !== "number") {
+            console.warn("this.scene.card.number es invalido:", this.scene.card);
+            return;
+        }
+
+        this.scene.deckCardObject = this.scene.add.image(170, this.height/2 + 100,`Card${this.scene.card.number}`).setScale(0.2);
         this.scene.tweens.add({
             targets: this.scene.deckCardObject,
             y: this.scene.deckCardObject.y + 150,
@@ -148,9 +130,37 @@ export default class HanafudaRender{
 
     renderZones(){
         const color = 0x002016;
-        this.scene.board = this.scene.add.rectangle(300, 20, 1030, 1040, color, 0.7).setOrigin(0, 0);
-        this.scene.opponentPairZone = this.scene.add.rectangle(this.width/ 2+ 400, 30, 530, 470 , color, 0.6).setOrigin(0, 0);
-        this.scene.playerPairZone = this.scene.add.rectangle(this.width/ 2+ 400, this.height/2 + 20, 530, 470, color, 0.6).setOrigin(0, 0);
-        this.scene.deckZone = this.scene.add.rectangle(110, this.height/2 - 140, 180, 560, color, 0.6).setOrigin(0, 0);
+        this.scene.board = this.scene.add.graphics().fillStyle(color, 0.7).fillRoundedRect(300, 20, 1030, 1040, 20);
+        this.scene.opponentPairZone = this.scene.add.graphics().fillStyle(color, 0.6).fillRoundedRect(this.width/ 2+ 400, 30, 530, 470, 20);
+        this.scene.playerPairZone = this.scene.add.graphics().fillStyle(color, 0.6).fillRoundedRect(this.width/ 2+ 400, this.height/2 + 20, 530, 470, 20);
+        this.scene.deckZone = this.scene.add.graphics().fillStyle(color, 0.7).fillRoundedRect(80, this.height/2 - 140, 180, 560, 20);
+        this.scene.roundZone = this.scene.add.graphics().fillStyle(color, 0.8).fillRoundedRect(70, this.height/2 + 450, 190, 60, 10);
+    }
+
+    uiRender(){
+        
+        //Back button
+        this.scene.backBtn = this.scene.add.image(80, 50, 'BackNormalButton').setScale(0.27)
+        .setInteractive()
+        .on('pointerover', () => this.scene.backBtn.setTexture('BackHoverButton')).setScale(0.6)
+        .on('pointerout', () => this.scene.backBtn.setTexture('BackNormalButton')).setScale(0.27)
+        .on('pointerup', () => {this.scene.openOptionMenu(); });
+
+        //Yakus Button
+        this.scene.yakusMenuBtn = this.scene.add.image(170, 340, 'YakusNormalButton').setScale(0.16)
+        .setInteractive()
+        .on('pointerover', () => this.scene.yakusMenuBtn.setTexture('YakusHoverButton')).setScale(0.4)
+        .on('pointerout', () => this.scene.yakusMenuBtn.setTexture('YakusNormalButton')).setScale(0.16)
+        .on('pointerup', () => { this.scene.openYakusMenu();});
+
+        //Text
+        this.scene.infoText = this.scene.add.text(370, this.height / 2 + 180, "Start!", {fontSize: '40px', fill: '#ffffff', fontFamily: "CenturyGothic"}).setDepth(1);
+        this.scene.roundText = this.scene.add.text(90, 1000, `Round:${this.scene.round}/4`, {fontSize: "30px",color: "#a3f9c2", fontFamily: "CenturyGothic"});
+
+        // PlayerScore Text
+        this.scene.playerPointsText = this.scene.add.text(this.width/2 + 130, 1010, "Your points: 0", {fontSize: "26px", color: "#a3f9c2", fontFamily: "CenturyGothic"});
+
+        // OpponentScore Text
+        this.scene.opponentPointsText = this.scene.add.text(350, 50, "Benten points: 0", {fontSize: "26px",color: "#a3f9c2",fontFamily: "CenturyGothic"});
     }
 }

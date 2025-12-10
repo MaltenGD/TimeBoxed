@@ -55,6 +55,13 @@ a, button, [role="button"], input[type="button"], input[type="submit"] {
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'CenturyGothic';
+  src: url('fonts/CenturyGothicRegular.otf') format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+
 * {
     font-family: 'Minima', sans-serif;
     margin: 0%;

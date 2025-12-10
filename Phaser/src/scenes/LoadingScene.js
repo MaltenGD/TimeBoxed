@@ -133,6 +133,7 @@ export class LoadingScene extends Phaser.Scene
         this.load.audio('TextPop', 'Phaser/assets/audio/Egypt-Aseb/TextPop.mp3');
         this.load.audio('DialogueTextSFX', 'Phaser/assets/audio/Dialogues/DialogueTextSFX.mp3');
         this.load.audio('boxClickedSFX', 'Phaser/assets/audio/SelectionMenuScene/BoxClickedSFX.mp3');
+        this.load.audio('japaneseMusic', 'Phaser/assets/audio/JapaneseHanafuda/japanese.mp3');
     }
 
     /**
@@ -269,8 +270,12 @@ export class LoadingScene extends Phaser.Scene
 
     loadHanafudaAssets()
     {
-        this.load.image('Combanations', 'Phaser/assets/Hanafuda/Tutorial/Combanations.png');
         this.load.image('HanafudaBackgroundPlaceholder', 'Phaser/assets/Hanafuda/HanafudaBackgroundPlaceholder.png');
+        this.load.image('YakusNormalButton', 'Phaser/assets/Hanafuda/UI/YakusNormalButton.png');
+        this.load.image('YakusHoverButton', 'Phaser/assets/Hanafuda/UI/YakusHoverButton.png');
+        this.load.image('BackNormalButton', 'Phaser/assets/Hanafuda/UI/BackNormalButton.png');
+        this.load.image('BackHoverButton', 'Phaser/assets/Hanafuda/UI/BackHoverButton.png');
+
         this.load.image('Card0', 'Phaser/assets/Hanafuda/HanafudaCards/0.png');
         this.load.image('Card1', 'Phaser/assets/Hanafuda/HanafudaCards/1.png');
         this.load.image('Card2', 'Phaser/assets/Hanafuda/HanafudaCards/2.png');
@@ -320,8 +325,15 @@ export class LoadingScene extends Phaser.Scene
         this.load.image('Card46', 'Phaser/assets/Hanafuda/HanafudaCards/46.png');
         this.load.image('Card47', 'Phaser/assets/Hanafuda/HanafudaCards/47.png');
 
-        this.load.image('CardGroups','Phaser/assets/Hanafuda/Tutorial/CardGroups.png')
-        this.load.image('ChooseCard','Phaser/assets/Hanafuda/Tutorial/ChooseCard.png')
+        this.load.image('TutorialCardGroup','Phaser/assets/Hanafuda/Tutorial/TutorialCardGroup.png')
+        this.load.image('TutorialChooseCard','Phaser/assets/Hanafuda/Tutorial/TutorialChooseCard.png')
+        this.load.image('TutorialCombination', 'Phaser/assets/Hanafuda/Tutorial/TutorialCombination.png');
+        this.load.image('Decision', 'Phaser/assets/Hanafuda/Tutorial/Decision.png');
+        this.load.image('Help', 'Phaser/assets/Hanafuda/Tutorial/Help.png');
+        this.load.image('MatchCard', 'Phaser/assets/Hanafuda/Tutorial/MatchCard.png');
+        this.load.image('TutorialTablero', 'Phaser/assets/Hanafuda/Tutorial/TutorialTablero.png');
+        this.load.image('YakuMenu', 'Phaser/assets/Hanafuda/Tutorial/YakuMenu.png');
+        
     }
 
     loadCreditsAssets() {
