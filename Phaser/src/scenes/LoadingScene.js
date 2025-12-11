@@ -125,8 +125,8 @@ export class LoadingScene extends Phaser.Scene
     loadAudioAssets()
     {
         // Audio comun, que es usado en varias escenas
-        this.load.audio('startMenuMusic', 'Phaser/assets/audio/mainmenuScene/Floating Beyond-OliverMix.mp3');
-        this.load.audio('buttonHover', 'Phaser/assets/audio/Buttons/ButtonHoverLowLatency.wav');
+        this.load.audio('startMenuMusic', 'Phaser/assets/audio/mainmenuScene/Floating Beyond.mp3');
+        this.load.audio('buttonHover', 'Phaser/assets/audio/Buttons/ButtonHover.wav');
         this.load.audio('DialogueTextSFX', 'Phaser/assets/audio/Dialogues/DialogueTextSFX.mp3');
         this.load.audio('boxClickedSFX', 'Phaser/assets/audio/SelectionMenuScene/BoxClickedSFX.mp3');
         this.load.audio('TextPop', 'Phaser/assets/audio/Egypt-Aseb/TextPop.mp3');
