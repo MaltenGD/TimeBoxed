@@ -1,5 +1,5 @@
 {
-    "DebugMode": true,
+    "DebugMode": false,
     "FromSelectionMenu": false,
     "StartedIntro": false,
     "TimeboxedMode": false,
@@ -10,9 +10,9 @@
     "TaliPlayerFirst" : false,
     "AsebNoCapturesCompletion": false,
     "AsebLandedOnEverySpecial": false,
-    "AsebCompleted": false,
-    "TaliCompleted": false,
-    "HanafudaCompleted": false,
+    "AsebCompleted": true,
+    "TaliCompleted": true,
+    "HanafudaCompleted": true,
     "SceneToResume" : null,
     "comingFromMenu": false,
 
