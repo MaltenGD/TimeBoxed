@@ -4,7 +4,7 @@ import { BaseScene } from "./BaseScene.js";
 const IMAGE_KEYS = {
     'Egypt': 'asebVerticalBackground', 
     'Rome': 'taliVerticalBackground', 
-    'Japan': 'BoxClosed'  
+    'Japan': 'hanafudaVerticalBackground'  
 };
 
 

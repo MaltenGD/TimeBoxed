@@ -282,6 +282,8 @@ export class LoadingScene extends Phaser.Scene
 
     loadHanafudaAssets()
     {
+        this.load.image('hanafudaVerticalBackground', 'Phaser/assets/SelectionMenu/JapanVertical.png');
+
         this.load.image('HanafudaBackground', 'Phaser/assets/Hanafuda/HanafudaBackground.png');
         this.load.image('YakusNormalButton', 'Phaser/assets/Hanafuda/UI/YakusNormalButton.png');
         this.load.image('YakusHoverButton', 'Phaser/assets/Hanafuda/UI/YakusHoverButton.png');
