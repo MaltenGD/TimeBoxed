@@ -21,7 +21,7 @@ export class DistractMercuryScene extends BaseScene {
 
         await document.fonts.load('64px TaliOne');
 
-        this.setBackgroundMusic('taliGameMusic');
+        // this.setBackgroundMusic('taliGameMusic');
 
         // Sets the class variables width and height.
         let {width, height} = this.sys.game.canvas;

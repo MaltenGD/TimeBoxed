@@ -31,6 +31,8 @@ export class TaliScene extends BaseScene {
         this.playerData = playerData;
         console.log(this.playerData)
 
+        
+
         this.setBackgroundMusic('taliGameMusic');
 
         // Wait for the custom font to be loaded before creating any text
@@ -87,6 +89,31 @@ export class TaliScene extends BaseScene {
         this.combinationMenuBtn = this.add.text(this.width - 10, this.height - 10, " Combinations ", {fontFamily: "TaliOne", fontSize: 80, fill: '#fff', backgroundColor: '#26100bff'}).setOrigin(1)
         .setInteractive()
         .on('pointerdown', () => this.openCombinationMenu());
+
+        if (this.playerData.DebugMode) {
+            this.winBtn = this.add.text(10, 150, 'Win Game', { fontSize: 64, fill: '#fff', fontFamily: 'TaliOne'})
+            .setInteractive()
+            .on('pointerover', () => this.winBtn.setStyle({fill: '#0f0'}))
+            .on('pointerout', () => this.winBtn.setStyle({fill: '#fff'}))
+            .on('pointerdown', () => {
+                this.taliGame.player.score.score = 1000;
+                this.taliGame.enemy.score.score = 0;
+                this.endGame();
+            });
+
+            this.loseBtn = this.add.text(10, 225, 'Lose Game', { fontSize: 64, fill: '#fff', fontFamily: 'TaliOne'})
+            .setInteractive()
+            .on('pointerover', () => this.loseBtn.setStyle({fill: '#f00'}))
+            .on('pointerout', () => this.loseBtn.setStyle({fill: '#fff'}))
+            .on('pointerdown', () => {
+                this.taliGame.player.score.score = 0;
+                this.taliGame.enemy.score.score = 1000;
+                this.endGame();
+            });
+        }
+    }
+
+    openOptionMenu() {
     }
 
     /**

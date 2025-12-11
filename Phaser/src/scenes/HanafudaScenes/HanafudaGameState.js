@@ -37,6 +37,30 @@ export class HanafudaGameState extends BaseScene{
     async create(data){
 
         this.playerData = data.playerData;
+
+        if (this.playerData.DebugMode) {
+            this.winBtn = this.add.text(10, 150, 'Win Game', { fontSize: 60, fill: '#fff', fontFamily: 'CenturyGothic'})
+            .setInteractive()
+            .setDepth(100) // Es feo poner 100 pero es solo para la presentación. No tiene importancia ¿verdad?
+            .on('pointerover', () => this.winBtn.setStyle({fill: '#0f0'}))
+            .on('pointerout', () => this.winBtn.setStyle({fill: '#fff'}))
+            .on('pointerdown', () => {
+                this.playerScore = 1000;
+                this.opponentScore = 0;
+                this.transitionTo(HANAFUDA_STATE.END_GAME);
+            });
+
+            this.loseBtn = this.add.text(10, 225, 'Lose Game', { fontSize: 60, fill: '#fff', fontFamily: 'CenturyGothic'})
+            .setInteractive()
+            .setDepth(100)
+            .on('pointerover', () => this.loseBtn.setStyle({fill: '#f00'}))
+            .on('pointerout', () => this.loseBtn.setStyle({fill: '#fff'}))
+            .on('pointerdown', () => {
+                this.playerScore = 0;
+                this.opponentScore = 1000;
+                this.transitionTo(HANAFUDA_STATE.END_GAME);
+            });
+        }
         
         await document.fonts.load('64px CenturyGothic');
         //For transitions

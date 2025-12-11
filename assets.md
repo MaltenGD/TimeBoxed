@@ -68,22 +68,17 @@ Desde el punto de vista artístico, el juego adopta un estilo visual en **2D con
 
 ### 🎵 Assets de Audio
 
-| Archivo | Descripción | Ubicación |
-| :--- | :--- | :--- |
-| **Floating Beyond.mp3** | Música de fondo del menú principal. | Escena del Menú Principal. |
-| **ButtonHover.wav** | Efecto de sonido genérico al pasar el cursor sobre botones. | Múltiples escenas (Menú Principal, Selección, Opciones, etc.). |
-| **DialogueTextSFX.mp3** | Efecto de sonido que acompaña la aparición de texto en los cuadros de diálogo. | Escenas de diálogo (Intro, Tutoriales, Finales). |
-| **BoxClickedSFX.mp3** | Sonido al interactuar con las cajas. | Escena del Menú de Selección de Nivel. |
-| **TextPop.mp3** | Aparece cuando se muestra texto o notificaciones en el tablero. | Escenas de juego de Aseb y Tali. |
-| **Emptyness.mp3** | Audio ambiental utilizado en la pantalla de derrota. | Escena de Derrota del modo Timeboxed. |
-| **HappyNeighborhood.mp3** | Música de fondo para la narrativa inicial. | Escena de Introducción. |
-| **ChooseYourEra.mp3** | Música de fondo para la selección de era. | Escena del Menú de Selección de Nivel. |
-| **AsebIntroMusic.mp3** | Música de introducción para la sección de Egipto. | Escena de Introducción de Aseb. |
-| **AsebDefeatMusic.mp3** | Música de derrota. | Escena de Derrota de Aseb. |
-| **AsebGameMusic.mp3** | Música de fondo durante la partida. | Escena de Juego de Aseb. |
-| **japanese.mp3** | Música de fondo para la sección de Japón. | Escenas de Hanafuda. |
-| **TaliIntroMusic.mp3** | Música de introducción para el juego de Roma. | Escena de Introducción de Tali. |
-| **TaliGameMusic.mp3** | Música de fondo durante la partida. | Escena de Juego de Tali. |
+| Archivo | Descripción | Ubicación | Licencia / Origen |
+| :--- | :--- | :--- | :--- |
+| **ButtonHover.wav** | Efecto de sonido genérico al pasar el cursor sobre botones. | Múltiples escenas (Menú Principal, Selección, Opciones, etc.). | Libre de uso ([Pixabay](https://pixabay.com/sound-effects/minimalist-button-hover-sound-effect-399749/)) |
+| **DialogueTextSFX.mp3** | Efecto de sonido que acompaña la aparición de texto en los cuadros de diálogo. | Escenas de diálogo (Intro, Tutoriales, Finales). | Libre de uso ([ZapSplat](https://www.zapsplat.com/music/data-readout-computer-printing-text-on-screen-burst-2/?registration_redirect=1&item_id=7889#)) |
+| **BoxClickedSFX.mp3** | Sonido al interactuar con las cajas. | Escena del Menú de Selección de Nivel. | Libre de uso ([Pixabay](https://pixabay.com/es/sound-effects/air-blow-380645/)) |
+| **TextPop.mp3** | Aparece cuando se muestra texto o notificaciones en el tablero. | Escenas de juego de Aseb y Tali. | Libre de uso ([Pixabay](https://pixabay.com/sound-effects/click-sound-432501/)) |
+| **HappyNeighborhood.mp3** | Música de fondo para la narrativa inicial. | Escena de Introducción. | Libre de uso ([YouTube](https://www.youtube.com/watch?v=c-ymtReBAo4)) |
+| **ChooseYourEra.mp3** | Música de fondo para la selección de era. | Escena del Menú de Selección de Nivel. | Con derechos de autor ([YouTube](https://www.youtube.com/watch?v=SwUpMhp-DEc)) |
+| **japanese.mp3** | Música de fondo para la sección de Japón. | Escenas de Hanafuda. | - |
+| **TaliIntroMusic.mp3** | Música de introducción para el juego de Roma. | Escena de Introducción de Tali. | - |
+| **TaliGameMusic.mp3** | Música de fondo durante la partida. | Escena de Juego de Tali. | - |
 
 ---
 

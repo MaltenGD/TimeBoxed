@@ -90,7 +90,7 @@ export class AsebScene extends BaseScene {
             .on('pointerdown', () => {
                 this.asebGame.state = GAME_STATE.PLAYER_VICTORY;
                 this.nextTurn();
-            });
+            }).setDepth(100) // Es feo poner 100 pero es solo para la presentación. No tiene importancia ¿verdad?; 
 
             this.loseBtn = this.add.text(350, 70, 'Lose Game', { fontSize: 64, fill: '#000000ff'})
             .setInteractive()
@@ -99,7 +99,7 @@ export class AsebScene extends BaseScene {
             .on('pointerdown', () => {
                 this.asebGame.state = GAME_STATE.ENEMY_VICTORY;
                 this.nextTurn();
-            });
+            }).setDepth(100);
         }
 
         console.log(this.playerFirst ? "Player starts the game." : "Anubis starts the game.");
