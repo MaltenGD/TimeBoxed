@@ -75,6 +75,7 @@ export class HelpLobbyScene extends BaseScene {
 
         this.addTutorialButton(width/3 - 50, height/2 - 50, 'Aseb Tutorial', 'TutorialAseb');
         this.addTutorialButton(width/2, height/2 - 50, 'Tali Tutorial', 'TaliTutorial');
+        this.addTutorialButton(width/2+400, height/2-50, 'Hanafuda Tutorial','TutorialHanafuda' );
 
         // this.AsebTutorialBtn = this.add.text(width / 3, height / 2 - 50, 'Aseb Tutorial', {
         //     fontSize: '36px',
