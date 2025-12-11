@@ -93,17 +93,17 @@ export default class HanafudaPoints {
         const overlay = this.scene.add.rectangle(this.scene.width/2, this.scene.height/2, this.scene.width, this.scene.height, 0x000000, 0.6)
         .setDepth(9000).setInteractive();
 
-        const box = this.scene.add.rectangle(this.scene.width/2, this.scene.height/2, 900, 420, 0xffffff)
+        const box = this.scene.add.rectangle(this.scene.width/2, this.scene.height/2, 900, 420, 0x002016)
         .setStrokeStyle(6, 0xaa0000).setDepth(10000);
 
         const title = this.scene.add.text(this.scene.width/2, this.scene.height/2 - 120,
-        "El oponente consiguio un Yaku", { fontSize:"40px", color:"#000" }).setOrigin(0.5).setDepth(10001);
+        "Benten got a Yaku!", { fontSize:"48px", color:"#fffdfdff" }).setOrigin(0.5).setDepth(10001);
 
         const yText = this.scene.add.text(this.scene.width/2, this.scene.height/2 - 30,
-        "Combinacion: " + yaku,{ fontSize:"32px", color:"#000" }).setOrigin(0.5).setDepth(10001);
+        "Combination: " + yaku,{ fontSize:"36px", color:"#ffffffff" }).setOrigin(0.5).setDepth(10001);
 
         const pText = this.scene.add.text(this.scene.width/2, this.scene.height/2 + 40,
-        "Puntos: " + points, { fontSize:"28px", color:"#333" } ).setOrigin(0.5).setDepth(10001);
+        "Point: " + points, { fontSize:"28px", color:"#dcdcdcff" } ).setOrigin(0.5).setDepth(10001);
 
         this.popup = { overlay, box, title, yText, pText };
 

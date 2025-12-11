@@ -36,7 +36,7 @@ export class HanafudaIntro extends BaseScene{
         this.sound.pauseOnBlur = false; // Keep audio playing even when the window loses focus.
 
         //Background
-        this.background = this.add.image(width / 2, height / 2, 'HanafudaBackgroundPlaceholder').setDisplaySize(width, height).setDepth(-3);
+        this.background = this.add.image(width / 2, height / 2, 'HanafudaBackground').setDisplaySize(width, height).setDepth(-3);
 
         //Back button
         this.backBtn = this.add.image(80, 50, 'BackNormalButton').setScale(0.27)

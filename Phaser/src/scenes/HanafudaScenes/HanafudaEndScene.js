@@ -27,7 +27,7 @@ export class HanafudaEndScene extends Phaser.Scene{
         //this.transitionController.startFadeInTransition();
         
         //Background
-        this.background = this.add.image(this.width/2, this.height/2, 'HanafudaBackgroundPlaceholder').setDisplaySize(this.width, this.height);
+        this.background = this.add.image(this.width/2, this.height/2, 'HanafudaBackground').setDisplaySize(this.width, this.height);
 
         // //Dialogue
         const dialogueKey = this.playerWon ? 'HanafudaWinDialogue' : 'HanafudaDefeatDialogue';

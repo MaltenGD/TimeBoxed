@@ -88,7 +88,7 @@ export class HanafudaGameState extends BaseScene{
         this.koikoiAccumulatedEnemy = 0;
 
         /** @type {object} It has the background image */
-        this.background = this.add.image(this.width/2, this.height/2, 'HanafudaBackgroundPlaceholder');
+        this.background = this.add.image(this.width/2, this.height/2, 'HanafudaBackground');
         
         this.render.renderZones();//render the zones for the board (table, player and opponent cards are here), and two for where the player and opponent collected pairs will be
         this.render.uiRender(); //render UI (buttons, text)

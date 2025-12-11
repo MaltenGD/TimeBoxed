@@ -48,7 +48,7 @@ export class HanafudaBeginScene extends BaseScene
         // Unlock audio on the first user interaction
         this.sound.pauseOnBlur = false; // Keep audio playing even when the window loses focus.
 
-        this.background = this.add.image(this.width/2, this.height/2, 'HanafudaBackgroundPlaceholder');
+        this.background = this.add.image(this.width/2, this.height/2, 'HanafudaBackground');
 
         //Back button
         this.backBtn = this.add.image(80, 50, 'BackNormalButton').setScale(0.27)
@@ -98,7 +98,7 @@ export class HanafudaBeginScene extends BaseScene
         });
 
         this.infoText = this.add.text(this.width / 2 - 100, this.height / 2 - 300, "Choose a card", {
-            fontSize: '50px', fill: '#000000', fontFamily: "CenturyGothic"
+            fontSize: '50px', fill: '#fffefeff', fontFamily: "CenturyGothic"
         }).setOrigin(0.5);
 
     }
