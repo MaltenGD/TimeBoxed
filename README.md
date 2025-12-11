@@ -7,6 +7,47 @@
 
 **TimeBoxed** es una aventura única con gatos que combina la profundidad estratégica de los juegos de mesa con la emoción de los viajes en el tiempo. En este viaje, atravesarás diferentes épocas y lucharás contra diferentes dioses mitológicos.
 
+### Capturas del juego
+#### Start Menu
+![StartMenu](images/GameScreenshots/StartMenu.png)
+
+#### Pause Menu
+![PauseMenu](images/GameScreenshots/PauseMenu.png)
+
+#### Timeboxed Mode
+![Timeboxed](images/GameScreenshots/TimeboxedMode.png)
+
+#### Logros
+![Logros](images/GameScreenshots/Achievements.png)
+
+#### Diálogo
+![IntroDialogue](images/GameScreenshots/IntroDialogue.png)
+
+![AsebDialogue](images/GameScreenshots/AsebDialogue.png)
+
+![TaliDialogue](images/GameScreenshots/TaliDialogue.png)
+
+![HanafudaDialogue](images/GameScreenshots/HanafudaDialogue.png)
+
+#### Aseb
+![AsebBegin](images/GameScreenshots/AsebBegin.png)
+
+![AsebStart](images/GameScreenshots/AsebStart.png)
+
+![AsebPlay](images/GameScreenshots/AsebPlay.png)
+
+#### Tali
+![TaliRoll](images/GameScreenshots/TaliRoll.png)
+
+![TaliCombination](images/GameScreenshots/TaliCombination.png)
+
+![TaliDistract](images/GameScreenshots/TaliDistractMercury.png)
+
+#### Hanafuda
+![HanafudaBegin](images/GameScreenshots/HanafudaBegin.png)
+
+![HanafudaRound](images/GameScreenshots/HanafudaRound.png)
+
 ## Versión jugable
 **https://maltengd.github.io/TimeBoxed/**
 
