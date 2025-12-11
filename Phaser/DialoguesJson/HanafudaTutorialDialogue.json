@@ -11,7 +11,7 @@
             "Character":{
                 "ImageKey":"kronos",
                 "frame":4,
-                "x":100,
+                "x":1060,
                 "y":250,
                 "scaleX":1,
                 "scaleY":1,
@@ -32,7 +32,7 @@
             "Character":{
                 "ImageKey":"kronos",
                 "frame":0,
-                "x":100,
+                "x":1060,
                 "y":250,
                 "scaleX":1,
                 "scaleY":1,
@@ -52,7 +52,7 @@
             "Character":{
                 "ImageKey":"kronos",
                 "frame":2,
-                "x":100,
+                "x":1060,
                 "y":250,
                 "scaleX":1,
                 "scaleY":1,
@@ -208,7 +208,7 @@
             "Character":{
                 "ImageKey":"kronos",
                 "frame":2,
-                "x":100,
+                "x":1060,
                 "y":250,
                 "scaleX":1,
                 "scaleY":1,
@@ -238,7 +238,7 @@
             "Character":{
                 "ImageKey":"kronos",
                 "frame":0,
-                "x":100,
+                "x":1060,
                 "y":250,
                 "scaleX":1,
                 "scaleY":1,

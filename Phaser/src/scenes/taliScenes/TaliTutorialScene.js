@@ -32,10 +32,6 @@ export class TaliTutorial extends BaseScene
         const tutorialTaliData = this.cache.json.get('TaliDialogue');
         this.dialogueController = new DialogueController(this, "TaliTutorial", tutorialTaliData);
 
-        this.events.on('changeTutoImage',(imageKey)=> {
-            this.changeTutoImage(imageKey);
-        });
-
         this.events.on('CharacterTalking', (characterObj) => {
             this.displayCharacterSprite(characterObj);
         })
@@ -58,6 +54,11 @@ export class TaliTutorial extends BaseScene
            }
             else this.scene.start('TaliBeginScene', this.playerData)
         });
+
+        this.events.on('changeTutoImage',(imageKey)=> {
+            this.changeTutoImage(imageKey);
+            console.log("Tuto image");
+        });
     }
 
     changeTutoImage(imageKey)
@@ -67,7 +68,7 @@ export class TaliTutorial extends BaseScene
             this.tutoImage.destroy();
         }
 
-        if (imageKey != "none") this.tutoImage = this.add.image(this.width/2, this.height/2, imageKey).setOrigin(0.5).setScale(1).setDepth(-3);   
+        if (imageKey != "none") this.tutoImage = this.add.image(this.width/2, this.height/2, imageKey).setOrigin(0.5).setScale(1).setDepth(-2);   
     }
 
     displayCharacterSprite(characterObj) {

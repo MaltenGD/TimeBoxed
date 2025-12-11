@@ -7,7 +7,7 @@ export class TaliIntroScene extends BaseScene
 {
     constructor(){super('TaliIntroScene');}
 
-    create(playerData) 
+    async create(playerData) 
     {
 
         this.playerData = playerData;
@@ -21,11 +21,12 @@ export class TaliIntroScene extends BaseScene
         this.height = height;
 
         this.setBackgroundMusic('taliIntroMusic');
+        await document.fonts.load('64px TaliOne');
 
         //creating the background
         this.background = this.add.image(width / 2, height / 2, 'TaliBackground').setDisplaySize(width, height).setDepth(-3);
 
-        this.backBtn = this.add.text(0, 0, 'Pause', { fontSize: 64, fill: '#000000ff'})
+        this.backBtn = this.add.text(0, 0, 'Pause', { fontSize: 64, fill: '#000000ff', fontFamily: 'TaliOne'})
         .setInteractive()
         .on('pointerover', () => this.backBtn.setStyle({fill: 'rgba(104, 35, 35, 1)'}))
         .on('pointerout', () => this.backBtn.setStyle({fill: '#000000ff'}))

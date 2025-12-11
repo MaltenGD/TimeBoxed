@@ -163,7 +163,7 @@ export class HanafudaGameState extends BaseScene{
                         targets: chosenCardObject, y: chosenCardObject.y + 30,duration: 300, ease: 'Power2', 
                     });
                     
-                    this.time.delayedCall(1000, ()=> {this.transitionTo(HANAFUDA_STATE.SEARCH_ACTION);});
+                    this.time.delayedCall(500, ()=> {this.transitionTo(HANAFUDA_STATE.SEARCH_ACTION);});
                 });
             break;
             case HANAFUDA_STATE.SEARCH_ACTION:
@@ -177,14 +177,14 @@ export class HanafudaGameState extends BaseScene{
                 this.time.delayedCall(800, ()=>{
                     this.selectPair();
 
-                    this.time.delayedCall(1000, ()=>{
+                    this.time.delayedCall(500, ()=>{
                         this.infoText.setText("Arranging cards");//it changes the text on screen
                         this.renderCards(); //render of updated cards
 
-                        this.time.delayedCall(800, ()=>{
-                            this.previousState = this.currentState;
-                            this.combinationAction();
-                        });
+                        // this.time.delayedCall(800, ()=>{
+                        //     this.previousState = this.currentState;
+                        //     this.combinationAction();
+                        // });
                     });
                 });
             break;
@@ -257,7 +257,7 @@ export class HanafudaGameState extends BaseScene{
                     this.opponentPointsText.setText(`Benten points: ${this.opponentScore}`);
                 }
                 this.transitionController.startFadeInTransition();
-                this.blackScreen =this.add.rectangle(0, 0, this.width, this.height, 0x000000).setOrigin(0, 0);
+                this.blackScreen = this.add.rectangle(0, 0, this.width, this.height, 0x000000).setOrigin(0, 0);
                 this.infoText.setText("Starting next round");
 
                 //Destroy the objects on scene, so it can prepare for a new round or the end of the game
@@ -269,8 +269,8 @@ export class HanafudaGameState extends BaseScene{
                 this.cleanUp(); 
 
                 console.log("roundCounter",this.round);
-                this.time.delayedCall(2000, ()=> {
-                    if(this.round < 2){ //a new round will start unless all the set rounds are completed, in which case the game ends
+                this.time.delayedCall(1000, ()=> {
+                    if(this.round < 4){ //a new round will start unless all the set rounds are completed, in which case the game ends
                         this.transitionController.startFadeInTransition();
                         this.blackScreen.destroy();
                         this.transitionTo(HANAFUDA_STATE.START_ROUND);
@@ -282,8 +282,8 @@ export class HanafudaGameState extends BaseScene{
             case HANAFUDA_STATE.END_GAME:
 
                 this.infoText.setText("Game Finished!");
-                if(this.playerScore > this.opponentScore) this.playerData.hanafudaCompleted = true;
-                else this.playerData.hanafudaCompleted = false;
+                if(this.playerScore > this.opponentScore) this.playerData.HanafudaCompleted = true;
+                else this.playerData.HanafudaCompleted = false;
                 this.scene.start('HanafudaEndScene', this.playerData);
             break;
         }

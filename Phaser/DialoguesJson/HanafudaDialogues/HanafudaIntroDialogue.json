@@ -16,7 +16,7 @@
         "Character":{
             "ImageKey":"protagonist",
             "frame":3,
-            "x":100,
+            "x":460,
             "y":250,
             "scaleX":1,
             "scaleY":1,
@@ -34,7 +34,7 @@
         "Character":{
             "ImageKey":"kronos",
             "frame":1,
-            "x":100,
+            "x":1060,
             "y":250,
             "scaleX":1,
             "scaleY":1,
@@ -52,7 +52,7 @@
         "Character":{
             "ImageKey":"protagonist",
             "frame":3,
-            "x":100,
+            "x":460,
             "y":250,
             "scaleX":1,
             "scaleY":1,
@@ -70,7 +70,7 @@
         "Character":{
             "ImageKey":"kronos",
             "frame":2,
-            "x":100,
+            "x":1060,
             "y":250,
             "scaleX":1,
             "scaleY":1,
@@ -96,7 +96,7 @@
         "Character":{
             "ImageKey":"benten",
             "frame":1,
-            "x":100,
+            "x":760,
             "y":250,
             "scaleX":1,
             "scaleY":1,
@@ -122,7 +122,7 @@
         "Character":{
             "ImageKey":"protagonist",
             "frame":4,
-            "x":100,
+            "x":460,
             "y":250,
             "scaleX":1,
             "scaleY":1,
@@ -140,7 +140,7 @@
         "Character":{
             "ImageKey":"kronos",
             "frame":1,
-            "x":100,
+            "x":1060,
             "y":250,
             "scaleX":1,
             "scaleY":1,
@@ -158,7 +158,7 @@
         "Character":{
             "ImageKey":"benten",
             "frame":0,
-            "x":100,
+            "x":760,
             "y":250,
             "scaleX":1,
             "scaleY":1,
@@ -177,7 +177,7 @@
         "Character":{
             "ImageKey":"benten",
             "frame":3,
-            "x":100,
+            "x":760,
             "y":250,
             "scaleX":1,
             "scaleY":1,
@@ -213,7 +213,7 @@
         "Character":{
             "ImageKey":"benten",
             "frame":1,
-            "x":100,
+            "x":760,
             "y":250,
             "scaleX":1,
             "scaleY":1,
@@ -232,7 +232,7 @@
         "Character":{
             "ImageKey":"protagonist",
             "frame":2,
-            "x":100,
+            "x":460,
             "y":250,
             "scaleX":1,
             "scaleY":1,
@@ -250,7 +250,7 @@
         "Character":{
             "ImageKey":"benten",
             "frame":2,
-            "x":100,
+            "x":760,
             "y":250,
             "scaleX":1,
             "scaleY":1,
@@ -268,7 +268,7 @@
         "Character":{
             "ImageKey":"benten",
             "frame":2,
-            "x":100,
+            "x":760,
             "y":250,
             "scaleX":1,
             "scaleY":1,
@@ -287,7 +287,7 @@
         "Character":{
             "ImageKey":"kronos",
             "frame":3,
-            "x":100,
+            "x":1060,
             "y":250,
             "scaleX":1,
             "scaleY":1,
@@ -315,7 +315,7 @@
         "Character":{
             "ImageKey":"benten",
             "frame":3,
-            "x":100,
+            "x":760,
             "y":250,
             "scaleX":1,
             "scaleY":1,
@@ -335,7 +335,7 @@
         "Character":{
             "ImageKey":"benten",
             "frame":3,
-            "x":100,
+            "x":760,
             "y":250,
             "scaleX":1,
             "scaleY":1,
@@ -355,7 +355,7 @@
         "Character":{
             "ImageKey":"kronos",
             "frame":1,
-            "x":100,
+            "x":1060,
             "y":250,
             "scaleX":1,
             "scaleY":1,
@@ -373,7 +373,7 @@
         "Character":{
             "ImageKey":"protagonist",
             "frame":2,
-            "x":100,
+            "x":460,
             "y":250,
             "scaleX":1,
             "scaleY":1,
@@ -398,7 +398,7 @@
         "Character":{
             "ImageKey":"benten",
             "frame":0,
-            "x":100,
+            "x":760,
             "y":250,
             "scaleX":1,
             "scaleY":1,
@@ -416,7 +416,7 @@
         "Character":{
             "ImageKey":"protagonist",
             "frame":1,
-            "x":100,
+            "x":460,
             "y":250,
             "scaleX":1,
             "scaleY":1,
@@ -434,7 +434,7 @@
         "Character":{
             "ImageKey":"benten",
             "frame":0,
-            "x":100,
+            "x":760,
             "y":250,
             "scaleX":1,
             "scaleY":1,
@@ -453,7 +453,7 @@
         "Character":{
             "ImageKey":"kronos",
             "frame":2,
-            "x":100,
+            "x":1060,
             "y":250,
             "scaleX":1,
             "scaleY":1,
@@ -471,7 +471,7 @@
         "Character":{
             "ImageKey":"protagonist",
             "frame":6,
-            "x":100,
+            "x":460,
             "y":250,
             "scaleX":1,
             "scaleY":1,
@@ -489,7 +489,7 @@
         "Character":{
             "ImageKey":"benten",
             "frame":3,
-            "x":100,
+            "x":760,
             "y":250,
             "scaleX":1,
             "scaleY":1,
@@ -515,7 +515,7 @@
         "Character":{
             "ImageKey":"benten",
             "frame":1,
-            "x":100,
+            "x":760,
             "y":250,
             "scaleX":1,
             "scaleY":1,
@@ -533,7 +533,7 @@
         "Character":{
             "ImageKey":"protagonist",
             "frame":4,
-            "x":100,
+            "x":460,
             "y":250,
             "scaleX":1,
             "scaleY":1,
@@ -551,7 +551,7 @@
         "Character":{
             "ImageKey":"benten",
             "frame":1,
-            "x":100,
+            "x":760,
             "y":250,
             "scaleX":1,
             "scaleY":1,
@@ -578,7 +578,7 @@
         "Character":{
             "ImageKey":"kronos",
             "frame":2,
-            "x":100,
+            "x":1060,
             "y":250,
             "scaleX":1,
             "scaleY":1,

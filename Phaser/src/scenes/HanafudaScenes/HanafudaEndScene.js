@@ -24,11 +24,8 @@ export class HanafudaEndScene extends Phaser.Scene{
         }
         this.registry.set('AchievementManager', this.achManager);
         
-        //this.transitionController = new TransitionController(this);
-        //this.transitionController.startFadeInTransition();
-        
         //Background
-        this.background = this.add.image(this.width/2, this.height/2, 'HanafudaBackground').setDisplaySize(this.width, this.height);
+        this.background = this.add.image(this.width/2, this.height/2, 'HanafudaBackground').setDisplaySize(this.width, this.height).setDepth(-3);
 
         // //Dialogue
         const dialogueKey = this.playerWon ? 'HanafudaWinDialogue' : 'HanafudaDefeatDialogue';
@@ -38,47 +35,33 @@ export class HanafudaEndScene extends Phaser.Scene{
         
 
         this.dialogueController = new DialogueController(this, dialogueType, dialogueData);
+        
+        this.events.on('CharacterTalking', (characterObj) => {
+            this.displayCharacterSprite(characterObj);
+        })
+
         this.dialogueController.iniDialogue();
 
         this.events.on('nextDialog',()=>{
             this.dialogueController.handleInteraction();
         });
 
-        this.events.on('CharacterTalking', (characterObj) => {
-        this.displayCharacterSprite(characterObj);
-        })
 
         this.events.on('Finished', () => {
             //this.transitionController.startFadeOutTransition();
             this.scene.start('SelectionMenuScene', this.playerData);  
         });
 
-        //UI 
-        // const skipBtn = this.add.text(width - 100, height - 1000 , 'SKIP', {fontSize: '30px',fill: '#000000',backgroundColor: '#f7f7f7',padding: { x: 20, y: 10 }})
-        // .setOrigin(0.5).setInteractive({ cursor: 'pointer' })
-        // .on('pointerover', () => skipBtn.setStyle({ backgroundColor: '#bbbaba' }))
-        // .on('pointerout', () => skipBtn.setStyle({ backgroundColor: '#f7f7f7' }))
-        // .on('pointerdown', () => {
-        //     this.dialogueController.skipToEnd();  
-        // });
          this.skipBtn = new SkipButton(this, width - 15, 15, this.dialogueController, this.playerData);
     
     }
 
     displayCharacterSprite(characterObj) {
-        if (this.currentCharacter) {
-        this.currentCharacter.destroy();
-        this.currentCharacter = null;
-    }
-
-    if (this.currentEmoticon) {
-        this.currentEmoticon.destroy();
-        this.currentEmoticon = null;
-    }
-
-    if (characterObj === "none") {
-        return;
-    }
+        if (this.currentCharacter || characterObj == "none") { // if another character was talking or set to none, delete sprite
+            if(this.currentCharacter) this.currentCharacter.destroy();
+            if (this.currentEmoticon)
+                this.currentEmoticon.destroy();
+        }
 
         this.currentCharacter = this.add.sprite(characterObj.x, this.height, characterObj.ImageKey, characterObj.frame)
         .setScale(characterObj.scaleX, characterObj.scaleY).setOrigin(0, 1).setDepth(-2);
@@ -92,12 +75,8 @@ export class HanafudaEndScene extends Phaser.Scene{
             .setScale(characterObj.scaleX, characterObj.scaleY).setOrigin(0, 1).setDepth(-1);
             console.log(characterObj.emoticon);
         }
-        else if (characterObj.emoticon == "none") {
-
-        if (this.currentEmoticon) {
+        else if (characterObj.emoticon == "none" || this.currentEmoticon) {
             this.currentEmoticon.destroy();
-            this.currentEmoticon = null;
-        }
         }
     }
 }
