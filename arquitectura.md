@@ -1991,7 +1991,7 @@ classDiagram
 Clases que manejan la lógica interna y los elementos del tablero de Hanafuda.
 
 **HanafudaPrepareRound**
-Encargado de la baraja de carta y reparto de carta
+Encargado de la baraja de carta y reparto de carta.
 
 <details>
 <summary><strong>Ver Diagrama: HanafudaPrepareRound</strong></summary>
@@ -2012,7 +2012,7 @@ classDiagram
 </details>
 
 **HanafudaTableActions**
-Encargado de detectar cartas y pares de cartas
+Encargado de detectar cartas y pares de cartas.
 
 <details>
 <summary><strong>Ver Diagrama: HanafudaTableActions</strong></summary>
@@ -2032,7 +2032,7 @@ classDiagram
 </details>
 
 **HanafudaRender**
-Encargado de renderizar cartas de la mesa, mazo, juagdor y oponente
+Encargado de renderizar cartas de la mesa, mazo, juagdor y oponente.
 
 <details>
 <summary><strong>Ver Diagrama: HanafudaRender</strong></summary>
@@ -2057,9 +2057,30 @@ classDiagram
 ```
 </details>
 
-**YakusMenu**
-Encargado del menu de combinaciones
+**HanafudaCardType**
+encargado de definir los tipos de cartas.
+<details>
+<summary><strong>Ver Diagrama: HanafudaCardType</strong></summary>
 
+```mermaid
+classDiagram
+    class getCardFlags {
+        <<utility>>
+        + getCardFlags(card)
+    }
+
+    class Card {
+        +Number number
+    }
+
+    Card <-- getCardFlags : usa
+
+```
+</details>
+
+
+**YakusMenu**
+Encargado del menu de combinaciones.
 <details>
 <summary><strong>Ver Diagrama: YakusMenu</strong></summary>
 
@@ -2079,5 +2100,6 @@ classDiagram
     }
 ```
 </details>
+
 
 ---
