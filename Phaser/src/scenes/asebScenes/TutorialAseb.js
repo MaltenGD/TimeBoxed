@@ -28,11 +28,13 @@ export class TutorialAseb extends BaseScene
 
         const tutorialAsebData = this.cache.json.get('AsebTutorialDialogue');
         this.dialogueController = new DialogueController(this, "AsebTutorial", tutorialAsebData);
+        this.dialogueController.iniDialogue();
         
         this.events.on('nextDialog',()=>
         {
             this.dialogueController.handleInteraction();
         });
+        
 
         this.events.on('Finished', () => {
 
@@ -56,7 +58,7 @@ export class TutorialAseb extends BaseScene
             this.displayCharacterSprite(characterObj);
         })
 
-        this.dialogueController.iniDialogue();
+        
     }
 
     changeTutoImage(imageKey)
