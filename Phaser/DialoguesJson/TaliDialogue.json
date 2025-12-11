@@ -372,8 +372,7 @@
             "scaleX": 1,
             "scaleY": 1,
             "rotation": 0
-        },
-        "tutoImage": ""
+        }
     },
 
     "TT1":{
@@ -1130,7 +1129,7 @@
         "Character": {
             "ImageKey": "mercury",
             "frame": 3,
-            "x": 760,
+            "x": 100,
             "y": 250,
             "scaleX": 1,
             "scaleY": 1,
@@ -1145,7 +1144,7 @@
          "Character": {
             "ImageKey": "mercury",
             "frame": 4,
-            "x": 760,
+            "x": 100,
             "y": 250,
             "scaleX": 1,
             "scaleY": 1,

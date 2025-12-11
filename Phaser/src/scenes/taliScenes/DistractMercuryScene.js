@@ -59,6 +59,7 @@ export class DistractMercuryScene extends BaseScene {
         this.addText();
         this.addButtons();
         this.createAndBeginDialogue();
+        this.addListeners();
     }
 
     /**
@@ -79,8 +80,10 @@ export class DistractMercuryScene extends BaseScene {
         const dialogueData = this.cache.json.get('TaliDialogue');
         this.dialogueController = new DialogueController(this, "DM" + this.dialogueNumber, dialogueData);
 
-        this.addListeners();
-
+        this.events.on('CharacterTalking', (characterObj) => {
+            this.displayCharacterSprite(characterObj);
+        })
+        
         this.dialogueController.iniDialogue();
     }
 
@@ -235,10 +238,6 @@ export class DistractMercuryScene extends BaseScene {
 
         this.events.once('Finished', ()=> {
             this.showOptions();
-        })
-
-        this.events.on('CharacterTalking', (characterObj) => {
-            this.displayCharacterSprite(characterObj);
         })
     }
 

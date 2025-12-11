@@ -169,6 +169,6 @@ export class TaliEndScene extends BaseScene {
      * Adds all the text to the scene.
      */
     addText() {
-        this.victoryText = this.add.text(this.width/2, this.height/2, this.playerWon ? 'You won!' : 'You lost!', { fontSize: 150, fill: '#fff', fontFamily: 'TaliOne'}).setOrigin(0.5);
+        this.victoryText = this.add.text(this.width/2, this.height/3, this.playerWon ? 'You won!' : 'You lost!', { fontSize: 150, fill: '#fff', fontFamily: 'TaliOne'}).setOrigin(0.5);
     }
 }
