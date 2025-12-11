@@ -150,7 +150,7 @@ export class LoadingScene extends Phaser.Scene
     loadIntroAssets() {
 
          // loads the background
-        this.load.image('IntroBackgroundPlaceholder', 'Phaser/assets/Intro/IntroBackgroundPlaceholder.jpeg');
+        this.load.image('IntroBackground', 'Phaser/assets/Intro/IntroBackground.png');
 
         //Skip Button
         this.load.image('SkipButtonNormal', 'Phaser/assets/SkipButtonNormal.png');

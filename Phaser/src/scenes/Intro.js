@@ -40,7 +40,7 @@ export class Intro extends BaseScene
             this.music.play();
 
         //creating the background
-        this.background = this.add.image(width / 2, height / 2, 'IntroBackgroundPlaceholder').setDisplaySize(width, height).setDepth(-3);
+        this.background = this.add.image(width / 2, height / 2, 'IntroBackground').setDisplaySize(width, height).setDepth(-3);
 
         this.pauseBtn = this.add.image(15, 15, 'PauseButtonNormal')
             .setOrigin(0)

@@ -1,6 +1,7 @@
 //import TransitionController from "../../misc/transitioncontroller.js";
 import { BaseScene } from '../BaseScene.js';
 import DialogueController from '../../DialogueController.js';
+import { SkipButton } from "../../SkipButton.js";
 
 export class HanafudaEndScene extends Phaser.Scene{
     constructor() {
@@ -53,13 +54,14 @@ export class HanafudaEndScene extends Phaser.Scene{
         });
 
         //UI 
-        const skipBtn = this.add.text(width - 100, height - 1000 , 'SKIP', {fontSize: '30px',fill: '#000000',backgroundColor: '#f7f7f7',padding: { x: 20, y: 10 }})
-        .setOrigin(0.5).setInteractive({ cursor: 'pointer' })
-        .on('pointerover', () => skipBtn.setStyle({ backgroundColor: '#bbbaba' }))
-        .on('pointerout', () => skipBtn.setStyle({ backgroundColor: '#f7f7f7' }))
-        .on('pointerdown', () => {
-            this.dialogueController.skipToEnd();  
-        });
+        // const skipBtn = this.add.text(width - 100, height - 1000 , 'SKIP', {fontSize: '30px',fill: '#000000',backgroundColor: '#f7f7f7',padding: { x: 20, y: 10 }})
+        // .setOrigin(0.5).setInteractive({ cursor: 'pointer' })
+        // .on('pointerover', () => skipBtn.setStyle({ backgroundColor: '#bbbaba' }))
+        // .on('pointerout', () => skipBtn.setStyle({ backgroundColor: '#f7f7f7' }))
+        // .on('pointerdown', () => {
+        //     this.dialogueController.skipToEnd();  
+        // });
+         this.skipBtn = new SkipButton(this, width - 15, 15, this.dialogueController, this.playerData);
     
     }
 

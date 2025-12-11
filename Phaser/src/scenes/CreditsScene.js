@@ -17,27 +17,28 @@ export class CreditsScene extends BaseScene {
 
         this.cameras.main.setBackgroundColor('#000000');
 
-        this.add.text(width / 2, 100, 'CREDITS', {
-            fontSize: '50px',
-            fill: '#ffffff'
+        this.add.text(width / 2, 160, 'CREDITS', {
+            fontSize: '90px',
+            fill: '#ffffff',
+            strokeThickness:3
         }).setOrigin(0.5);
 
-        this.add.text(width / 2, 160, 'POPCAT', {
-            fontSize: '32px',
+        this.add.text(width / 2, 260, 'POPCAT GAMES', {
+            fontSize: '50px',
             fill: '#cccccc',
-            fontStyle: 'italic'
+            strokeThickness:2
         }).setOrigin(0.5);
 
         // Miembros
         const members = [
-            { name: 'Oliver', role: 'Programación', image: 'member1' },
-            { name: 'Sarahi', role: 'Programación', image: 'member2' },
-            { name: 'Zhiyi', role: 'Programación', image: 'member3' },
-            { name: 'Alexandra', role: 'Programación', image: 'member4' }
+            { name: 'Oliver Garcia', role: 'Programmer', role2: 'Artist', image: 'member1' },
+            { name: 'Alicia Sarahi', role: 'Programmer', role2: 'Artist', image: 'member2' },
+            { name: 'Zhiyi Zhou', role: 'Programmer', image: 'member3' },
+            { name: 'Alexandra Lenta', role: 'Programmer', role2: 'Artist', image: 'member4' }
         ];
 
         const spacing = 320;
-        const baseY = height / 2 + 40;
+        const baseY = height / 2 + 190;
         const startX = width / 2 - ((members.length - 1) * spacing) / 2;
 
         this.activeBox = null;
@@ -51,14 +52,16 @@ export class CreditsScene extends BaseScene {
                 containerY: baseY,
                 portraitY: 0,
                 nameTextY: 60,
-                roleTextY: 85
+                roleTextY: 85,
+                roleText2Y: 120
             };
 
             const openPositions = {
-                containerY: baseY - 80,
-                portraitY: -150,
-                nameTextY: 60 - 120, 
-                roleTextY: 85 - 100
+                containerY: baseY - 150,
+                portraitY: -210,
+                nameTextY: 60 - 190, 
+                roleTextY: 85 - 150,
+                roleText2Y: 120 - 150
             };
 
             const boxClosed = this.add.image(0, 0, 'BoxClosed')
@@ -71,7 +74,7 @@ export class CreditsScene extends BaseScene {
                 .setAlpha(0);
 
             const portrait = this.add.image(0, originalPositions.portraitY, member.image)
-                .setDisplaySize(90, 90)
+                .setDisplaySize(120, 120)
                 .setAlpha(0);
 
             const nameText = this.add.text(0, originalPositions.nameTextY, member.name, {
@@ -81,12 +84,18 @@ export class CreditsScene extends BaseScene {
             }).setOrigin(0.5).setAlpha(0);
 
             const roleText = this.add.text(0, originalPositions.roleTextY, member.role, {
-                fontSize: '28px',
+                fontSize: '30px',
                 fill: '#ffffffff',
                 fontStyle: 'bold'
             }).setOrigin(0.5).setAlpha(0);
 
-            box.add([boxClosed, boxOpened, portrait, nameText, roleText]);
+            const roleText2 = this.add.text(0, originalPositions.roleText2Y, member.role2, {
+            fontSize: '28px',
+            fill: '#ffffffff',
+            fontStyle: 'bold'
+        }).setOrigin(0.5).setAlpha(0);
+
+            box.add([boxClosed, boxOpened, portrait, nameText, roleText, roleText2]);
 
             // guardar referencias y posiciones
             box.boxClosed = boxClosed;
@@ -94,6 +103,8 @@ export class CreditsScene extends BaseScene {
             box.portrait = portrait;
             box.nameText = nameText;
             box.roleText = roleText;
+            box.roleText2 = roleText2;
+
             box.isOpen = false;
             
             // Guardar posiciones
@@ -227,6 +238,16 @@ export class CreditsScene extends BaseScene {
             delay: 170
         });
 
+        box.roleText2.y = box.originalPositions.roleText2Y;
+        this.tweens.add({
+            targets: box.roleText2,
+            alpha: 1,
+            y: box.openPositions.roleText2Y,
+            duration: 200,
+            ease: 'Cubic.easeOut',
+            delay: 200
+        });
+
         // escalar caja abierta
         this.tweens.add({
             targets: box.boxOpened,
@@ -284,6 +305,13 @@ export class CreditsScene extends BaseScene {
             duration: 200,
             ease: 'Cubic.easeIn'
         });
+        this.tweens.add({
+        targets: box.roleText2,
+        alpha: 0,
+        y: box.originalPositions.roleText2Y,
+        duration: 200,
+        ease: 'Cubic.easeIn'
+    });
 
         // Regresar escala de caja
         this.tweens.add({
