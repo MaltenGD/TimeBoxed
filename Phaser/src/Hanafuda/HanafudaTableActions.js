@@ -77,6 +77,10 @@ export default class HanafudaTableActions{
      * @method pairNotFound :Before refilling the table, It eliminates the chosen card from it's original array and adds it to the table array. 
      * If during the table refill this method is called, it will add the card from the deck to the table.*/
     pairNotFound(cardpos){
+        if (!this.scene.tableCards || !this.scene.tableCards[0] || !this.scene.tableCards[1]) {
+        console.log("pairNotFound() llamado");
+        return;
+    }
         this.scene.emptyRow = 0;
         if(this.scene.tableCards[0].length < this.scene.tableCards[1].length){this.scene.emptyRow = 0;}
         else if (this.scene.tableCards[0].length > this.scene.tableCards[1].length) {this.scene.emptyRow = 1;}
