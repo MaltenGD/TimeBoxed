@@ -3,16 +3,187 @@
     "start": 
     {
         "speaker": "Narrator",
-        "text": "Blehhhh",
+        "text": "The final card lands on the table with a soft tap",
         "animation": "true",
-        "next": "end"
+        "next": "HD2",
+        "Character":"none"
     },
-    "end": 
+    "HD2": 
+    {
+        "speaker": "Narrator",
+        "text": "Benten leans forward, her tail swaying with amused satisfaction.",
+        "animation": "true",
+        "next": "HD3",
+        "Character":"none"
+    },
+    "HD3": 
     {
         "speaker": "Player",
-        "text": "more bleehh",
+        "text": "W-Wait...what?! That was just one unlucky hand!",
         "animation": "true",
-        "next": "null"
+        "next": "HD4",
+        "Character":{
+            "ImageKey":"protagonist",
+            "frame":6,
+            "x":100,
+            "y":250,
+            "scaleX":1,
+            "scaleY":1,
+            "rotation":0,
+            "emoticon":3,
+            "emoticonY":40
+        }
+    },
+    "HD4": 
+    {
+        "speaker": "Benten",
+        "text": "Rules are rules, darling. You challenged a goddess of fortune. You knew the stakes",
+        "animation": "true",
+        "next": "HD5",
+        "Character":{
+            "ImageKey":"protagonist",
+            "frame":1,
+            "x":100,
+            "y":250,
+            "scaleX":1,
+            "scaleY":1,
+            "rotation":0,
+            "emoticon":"none",
+            "emoticonY":40
+        }
+    },
+    "HD5": 
+    {
+        "speaker": "Benten",
+        "text": "Do not fear. I take good care of my trophies.",
+        "animation": "true",
+        "next": "HD6",
+        "Character":{
+            "ImageKey":"benten",
+            "frame":2,
+            "x":100,
+            "y":250,
+            "scaleX":1,
+            "scaleY":1,
+            "rotation":0,
+            "emoticon":5,
+            "emoticonY":40
+        }
+    },
+    "HD6": 
+    {
+        "speaker": "Narrator",
+        "text": "A shimmering aura coils around your feet, creeping upward like living moonlight.",
+        "animation": "true",
+        "next": "HD7",
+        "Character":"none"
+    },
+    "HD7": 
+    {
+        "speaker": "Player",
+        "text": "“K-Kronos! Do something!",
+        "animation": "true",
+        "next": "HD8",
+        "Character":{
+            "ImageKey":"protagonist",
+            "frame":6,
+            "x":100,
+            "y":250,
+            "scaleX":1,
+            "scaleY":1,
+            "rotation":0,
+            "emoticon":2,
+            "emoticonY":40
+        }
+    },
+    "HD8": 
+    {
+        "speaker": "Kronos",
+        "text": "Tsk. I knew this was a bad idea.",
+        "animation": "true",
+        "next": "HD9",
+        "Character":{
+            "ImageKey":"kronos",
+            "frame":2,
+            "x":100,
+            "y":250,
+            "scaleX":1,
+            "scaleY":1,
+            "rotation":0,
+            "emoticon":6,
+            "emoticonY":0
+        }
+    },
+    "HD9": 
+    {
+        "speaker": "Narrator",
+        "text": "He snaps his fingers, time grinding to a halt",
+        "animation": "true",
+        "next": "HD10",
+        "Character":"none"
+    },
+    "HD10": 
+    {
+        "speaker": "Kronos",
+        "text": "No soul stealing today,Benten. I'm rolling us back.",
+        "animation": "true",
+        "next": "HD11",
+        "Character":{
+            "ImageKey":"kronos",
+            "frame":4,
+            "x":100,
+            "y":250,
+            "scaleX":1,
+            "scaleY":1,
+            "rotation":0,
+            "emoticon":"none",
+            "emoticonY":40
+        }
+    },
+    "HD11": 
+    {
+        "speaker": "Benten",
+        "text": "Oh? Interference from the God of Time? How bold. How rude. How… entertaining.",
+        "animation": "true",
+        "next": "HD12",
+        "Character":{
+            "ImageKey":"benten",
+            "frame":0,
+            "x":100,
+            "y":250,
+            "scaleX":1,
+            "scaleY":1,
+            "rotation":0,
+            "emoticon":4,
+            "emoticonY":-80,
+            "emoticonX":-20
+        }
+    },
+    "HD12": 
+    {
+        "speaker": "Kronos",
+        "text": "He'll play again. Same terms, same rules, minus the eternal torment part.",
+        "animation": "true",
+        "next": "HD13",
+        "Character":{
+            "ImageKey":"kronos",
+            "frame":1,
+            "x":100,
+            "y":250,
+            "scaleX":1,
+            "scaleY":1,
+            "rotation":0,
+            "emoticon":"none",
+            "emoticonY":40
+        }
+    },
+     "HD13": 
+    {
+        "speaker": "Narrator",
+        "text": "Time snaps back. The cards reset.",
+        "animation": "true",
+        "next": null,
+        "Character":"none"
     }
 }
 }

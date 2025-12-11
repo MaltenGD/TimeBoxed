@@ -15,14 +15,14 @@
         "next": "HI3",
         "Character":{
             "ImageKey":"protagonist",
-            "frame":2,
+            "frame":3,
             "x":100,
             "y":250,
             "scaleX":1,
             "scaleY":1,
             "rotation":0,
             "emoticon":5,
-            "emoticonY":0
+            "emoticonY":40
         }
     },
     "HI3":
@@ -33,13 +33,13 @@
         "next": "HI4",
         "Character":{
             "ImageKey":"kronos",
-            "frame":2,
+            "frame":1,
             "x":100,
             "y":250,
             "scaleX":1,
             "scaleY":1,
             "rotation":0,
-            "emoticon":5,
+            "emoticon":"none",
             "emoticonY":0
         }
     },
@@ -51,20 +51,20 @@
         "next": "HI5",
         "Character":{
             "ImageKey":"protagonist",
-            "frame":2,
+            "frame":3,
             "x":100,
             "y":250,
             "scaleX":1,
             "scaleY":1,
             "rotation":0,
-            "emoticon":5,
-            "emoticonY":0
+            "emoticon":1,
+            "emoticonY":40
         }
     },
     "HI5": 
     {
         "speaker": "Kronos",
-        "text": "Oh you wish it was cake indigestion your worst worry. Nope it's sth worse",
+        "text": "Oh you wish it was cake indigestion your worst worry. Nope it's something worse",
         "animation": "true",
         "next": "HI6",
         "Character":{
@@ -75,7 +75,7 @@
             "scaleX":1,
             "scaleY":1,
             "rotation":0,
-            "emoticon":5,
+            "emoticon":8,
             "emoticonY":0
         }
     },
@@ -102,7 +102,8 @@
             "scaleY":1,
             "rotation":0,
             "emoticon":5,
-            "emoticonY":0
+            "emoticonY":-80,
+            "emoticonX":-20
         }
     },
     "HI8": 
@@ -120,31 +121,31 @@
         "next": "HI10",
         "Character":{
             "ImageKey":"protagonist",
-            "frame":2,
+            "frame":4,
             "x":100,
             "y":250,
             "scaleX":1,
             "scaleY":1,
             "rotation":0,
-            "emoticon":5,
-            "emoticonY":0
+            "emoticon":1,
+            "emoticonY":40
         }
     },
     "HI10": 
     {
         "speaker": "Kronos",
-        "text": "*sighs* This is benten. Benten, meet my new friend",
+        "text": "*sighs* This is Benten. Benten, meet my new friend",
         "animation": "true",
         "next": "HI11",
         "Character":{
             "ImageKey":"kronos",
-            "frame":2,
+            "frame":1,
             "x":100,
             "y":250,
             "scaleX":1,
             "scaleY":1,
             "rotation":0,
-            "emoticon":5,
+            "emoticon":"none",
             "emoticonY":0
         }
     },
@@ -163,7 +164,8 @@
             "scaleY":1,
             "rotation":0,
             "emoticon":2,
-            "emoticonY":0
+            "emoticonY":-160,
+            "emoticonX":-60
         }
     },
     "HI12": 
@@ -189,41 +191,42 @@
         "speaker": "Narrator",
         "text": "Finally, she comes out and starts walking towards you. She carries herself with grace before stopping in front of you.",
         "animation": "true",
-        "next": "HI14",
-        "Character":{
-            "ImageKey":"benten",
-            "frame":2,
-            "x":100,
-            "y":250,
-            "scaleX":1,
-            "scaleY":1,
-            "rotation":0,
-            "emoticon":5,
-            "emoticonY":0
-        }
+        "next": "HI13-1",
+        "Character":"none"
     },
+
+    "HI13-1": 
+    {
+        "speaker": "Narrator",
+        "text": "She lowers her voice and speaks gently.",
+        "animation": "true",
+        "next": "HI14",
+        "Character":"none"
+    },
+
     "HI14": 
     {
         "speaker": "Benten",
-        "text": "*in a soft, sweet, low voice* Pleased to meet you, handsome. I'm Beten, I like the flow of things. Pardon my behaviour earlier, I really hope that I didn't scare you *looks ashamed*",
+        "text": "Pleased to meet you, handsome. I'm Beten, I like the flow of things. Pardon my behaviour earlier, I really hope that I didn't scare you.",
         "animation": "true",
         "next": "HI15",
         "Character":{
             "ImageKey":"benten",
-            "frame":2,
+            "frame":1,
             "x":100,
             "y":250,
             "scaleX":1,
             "scaleY":1,
             "rotation":0,
-            "emoticon":7,
-            "emoticonY":0
+            "emoticon":"none",
+            "emoticonY": 20,
+            "emoticonX":40 
         }
     },
     "HI15": 
     {
         "speaker": "Player",
-        "text": "Hi miss Benten, I'm a friend of Kronos. The pleasure is mine. I don't know what the flow of things is but good for you!",
+        "text": "Hi, miss Benten, I'm a friend of Kronos. The pleasure is mine. I don't know what the flow of things is but good for you!",
         "animation": "true",
         "next": "HI16",
         "Character":{
@@ -234,8 +237,8 @@
             "scaleX":1,
             "scaleY":1,
             "rotation":0,
-            "emoticon":5,
-            "emoticonY":0
+            "emoticon":4,
+            "emoticonY":70
         }
     },
     "HI16": 
@@ -252,8 +255,8 @@
             "scaleX":1,
             "scaleY":1,
             "rotation":0,
-            "emoticon":7,
-            "emoticonY":0
+            "emoticon":"none",
+            "emoticonY":-80
         }
     },
     "HI17": 
@@ -271,7 +274,8 @@
             "scaleY":1,
             "rotation":0,
             "emoticon":1,
-            "emoticonY":0
+            "emoticonY":-120,
+            "emoticonX":-20
         }
     },
     "HI18": 
@@ -279,23 +283,53 @@
         "speaker": "Kronos",
         "text": "Ohh yes, dear Benten we're actually-",
         "animation": "true",
-        "next": "HI19",
+        "next": "HI18-1",
         "Character":{
             "ImageKey":"kronos",
-            "frame":2,
+            "frame":3,
             "x":100,
             "y":250,
             "scaleX":1,
             "scaleY":1,
             "rotation":0,
-            "emoticon":5,
+            "emoticon":4,
             "emoticonY":0
         }
     },
+
+    "HI18-1": 
+    {
+        "speaker": "Narrator",
+        "text": "Benten becomes serious.",
+        "animation": "true",
+        "next": "HI19",
+        "Character":"none"
+    },
+
     "HI19": 
     {
         "speaker": "Benten",
-        "text": "*in a firm voice* I didn't request an answer from YOU dear Kronos, so silence thy tongue. *turns to looks at you gently*",
+        "text": "I didn't request an answer from YOU dear Kronos, so silence thy tongue.",
+        "animation": "true",
+        "next": "HI19-1",
+        "Character":{
+            "ImageKey":"benten",
+            "frame":3,
+            "x":100,
+            "y":250,
+            "scaleX":1,
+            "scaleY":1,
+            "rotation":0,
+            "emoticon":2,
+            "emoticonY":-120,
+            "emoticonX":-40
+        }
+    },
+
+    "HI19-1": 
+    {
+        "speaker": "Narrator",
+        "text": "She turns to look at you.",
         "animation": "true",
         "next": "HI20",
         "Character":{
@@ -306,16 +340,29 @@
             "scaleX":1,
             "scaleY":1,
             "rotation":0,
-            "emoticon":2,
-            "emoticonY":0
+            "emoticon":"none",
+            "emoticonY":-120,
+            "emoticonX":-20
         }
     },
+
     "HI20": 
     {
         "speaker": "Narrator",
         "text": "Kronos is out of himself, as if still not recovering from the way he was treated. As for you, you don't really understand much of her odd way of speaking, but you suppose she's asking for the reason you're here",
         "animation": "true",
-        "next": "HI21"
+        "next": "HI21",
+        "Character":{
+            "ImageKey":"kronos",
+            "frame":1,
+            "x":100,
+            "y":250,
+            "scaleX":1,
+            "scaleY":1,
+            "rotation":0,
+            "emoticon":8,
+            "emoticonY":0
+        }
     },
     "HI21": 
     {
@@ -331,7 +378,7 @@
             "scaleX":1,
             "scaleY":1,
             "rotation":0,
-            "emoticon":5,
+            "emoticon":"none",
             "emoticonY":0
         }
     },
@@ -368,14 +415,14 @@
         "next": "HI25",
         "Character":{
             "ImageKey":"protagonist",
-            "frame":2,
+            "frame":1,
             "x":100,
             "y":250,
             "scaleX":1,
             "scaleY":1,
             "rotation":0,
-            "emoticon":5,
-            "emoticonY":0
+            "emoticon":3,
+            "emoticonY":40
         }
     },
     "HI25": 
@@ -393,13 +440,14 @@
             "scaleY":1,
             "rotation":0,
             "emoticon":5,
-            "emoticonY":0
+            "emoticonY":-120,
+            "emoticonX":-20
         }
     },
     "HI26": 
     {
         "speaker": "Kronos",
-        "text": "Tsk. dammit ",
+        "text": "Tsk. Damn it...",
         "animation": "true",
         "next": "HI27",
         "Character":{
@@ -410,7 +458,7 @@
             "scaleX":1,
             "scaleY":1,
             "rotation":0,
-            "emoticon":5,
+            "emoticon":9,
             "emoticonY":0
         }
     },
@@ -422,13 +470,13 @@
         "next": "HI28",
         "Character":{
             "ImageKey":"protagonist",
-            "frame":2,
+            "frame":6,
             "x":100,
             "y":250,
             "scaleX":1,
             "scaleY":1,
             "rotation":0,
-            "emoticon":5,
+            "emoticon":"none",
             "emoticonY":0
         }
     },
@@ -447,7 +495,8 @@
             "scaleY":1,
             "rotation":0,
             "emoticon":1,
-            "emoticonY":0
+            "emoticonY":-80,
+            "emoticonX":-20
         }
     },
     "HI29": 
@@ -465,7 +514,7 @@
         "next": "HI31",
         "Character":{
             "ImageKey":"benten",
-            "frame":2,
+            "frame":1,
             "x":100,
             "y":250,
             "scaleX":1,
@@ -478,25 +527,25 @@
     "HI31": 
     {
         "speaker": "Player",
-        "text": "Ok, I'll play with you",
+        "text": "Ok, I'll play with you.",
         "animation": "true",
         "next": "HI32",
         "Character":{
             "ImageKey":"protagonist",
-            "frame":2,
+            "frame":4,
             "x":100,
             "y":250,
             "scaleX":1,
             "scaleY":1,
             "rotation":0,
-            "emoticon":5,
+            "emoticon":"none",
             "emoticonY":0
         }
     },
     "HI32":
     {
         "speaker": "Benten",
-        "text": "oh, this is exciting. Now for what are we going to play....Oh yes my favorite game, Hanafuda. Wait here ,darlinig, until I arrage the table.",
+        "text": "Oh, this is exciting. Now for what are we going to play....Oh yes my favorite game, Hanafuda. Wait here ,darlinig, until I arrage the table.",
         "animation": "true",
         "next": "HI33",
         "Character":{
@@ -508,7 +557,8 @@
             "scaleY":1,
             "rotation":0,
             "emoticon":5,
-            "emoticonY":0
+            "emoticonY":-80,
+            "emoticonX":-20
         }
     },
     "HI33":
@@ -516,7 +566,8 @@
         "speaker": "Narrator",
         "text": "Kronos slowly walks towards you and hastily whispers to you.",
         "animation": "true",
-        "next": "end"
+        "next": "end",
+        "Character": "none"
     },
     "end":
     {
@@ -532,7 +583,7 @@
             "scaleX":1,
             "scaleY":1,
             "rotation":0,
-            "emoticon":5,
+            "emoticon":8 ,
             "emoticonY":0
         }
     }

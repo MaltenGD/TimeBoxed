@@ -7,7 +7,7 @@
             "text":"Welcome my friend, I hope your paws are steady. Hanafuda is an ancient Japanese card game, tradition, elegance, and gambling all mixed together.",
             "animation":"true",
             "next":"HTD2",
-            "tutoImage": "HanafudaBackgroundPlaceholder",
+            "tutoImage": "none",
             "Character":{
                 "ImageKey":"kronos",
                 "frame":4,
@@ -68,7 +68,7 @@
             "text":"Before we begin, see these eight cards?",
             "animation":"true",
             "next":"HTD5",
-            "tutoImage": "ChooseCard",
+            "tutoImage": "TutorialChooseCard",
             "Character":"none"
         },
 
@@ -78,18 +78,8 @@
             "text":"Pick one, choose wisely... or don't. It's random anyway. Whoever flips the earliest month gets to go first.",
             "animation":"true",
             "next":"HTD6",
-            "tutoImage":"ChooseCard",
-            "Character":{
-                "ImageKey":"kronos",
-                "frame":3,
-                "x":100,
-                "y":250,
-                "scaleX":1,
-                "scaleY":1,
-                "rotation":0,
-                "emoticon":"none",
-                "emoticonY":0
-            }
+            "tutoImage":"TutorialChooseCard",
+            "Character":"none"
         },
 
         "HTD6":
@@ -98,7 +88,7 @@
             "text":"These cards come in 12 suits, one for each month. But don't worry about the months, just match similar flowers. Same flower? Good. Different flower? Useless, don’t do that.",
             "animation":"true",
             "next":"HTD7",
-            "tutoImage":"CardGroups",
+            "tutoImage":"TutorialCardGroup",
             "Character":"none"
         },
 
@@ -128,17 +118,7 @@
             "animation":"true",
             "next":"HTD10",
             "tutoImage":"MatchCard",
-            "Character":{
-                "ImageKey":"kronos",
-                "frame":2,
-                "x":100,
-                "y":250,
-                "scaleX":1,
-                "scaleY":1,
-                "rotation":0,
-                "emoticon":5,
-                "emoticonY":0
-            }
+            "Character":"none"
         },
 
         "HTD10":
@@ -176,17 +156,7 @@
             "animation":"true",
             "next":"HTD14",
             "tutoImage":"Decision",
-            "Character":{
-                "ImageKey":"kronos",
-                "frame":1,
-                "x":100,
-                "y":250,
-                "scaleX":1,
-                "scaleY":1,
-                "rotation":0,
-                "emoticon":5,
-                "emoticonY":0
-            }
+            "Character":"none"
         },
 
         "HTD14":
@@ -196,17 +166,7 @@
             "animation":"true",
             "next":"HTD15",
             "tutoImage":"Decision",
-            "Character":{
-                "ImageKey":"kronos",
-                "frame":0,
-                "x":100,
-                "y":250,
-                "scaleX":1,
-                "scaleY":1,
-                "rotation":0,
-                "emoticon":5,
-                "emoticonY":0
-            }
+            "Character":"none"
         },
 
         "HTD15":
@@ -216,17 +176,7 @@
             "animation":"true",
             "next":"HTD16",
             "tutoImage":"Decision",
-            "Character":{
-                "ImageKey":"kronos",
-                "frame":2,
-                "x":100,
-                "y":250,
-                "scaleX":1,
-                "scaleY":1,
-                "rotation":0,
-                "emoticon":5,
-                "emoticonY":0
-            }
+            "Character":"none"
         },
 
         "HTD16":
@@ -236,17 +186,7 @@
             "animation":"true",
             "next":"HTD17",
             "tutoImage":"Decision",
-            "Character":{
-                "ImageKey":"kronos",
-                "frame":2,
-                "x":100,
-                "y":250,
-                "scaleX":1,
-                "scaleY":1,
-                "rotation":0,
-                "emoticon":5,
-                "emoticonY":0
-            }
+            "Character":"none"
         },
 
         "HTD17":
@@ -264,7 +204,7 @@
             "text":"So remember: Match cards, make yaku. Choose Koikoi if you're feeling lucky, choose Shobu if you're feeling scared.",
             "animation":"true",
             "next":"HTD19",
-            "tutoImage":"",
+            "tutoImage":"none",
             "Character":{
                 "ImageKey":"kronos",
                 "frame":2,
@@ -285,17 +225,7 @@
             "animation":"true",
             "next":"HTD20",
             "tutoImage":"Help",
-            "Character":{
-                "ImageKey":"kronos",
-                "frame":2,
-                "x":100,
-                "y":250,
-                "scaleX":1,
-                "scaleY":1,
-                "rotation":0,
-                "emoticon":5,
-                "emoticonY":0
-            }
+            "Character":"none"
         },
 
         "HTD20":
@@ -304,7 +234,7 @@
             "text":"Time to play for real, good luck! You'll need it.",
             "animation":"true",
             "next": null,
-            "image":"none",
+            "tutoImage":"none",
             "Character":{
                 "ImageKey":"kronos",
                 "frame":0,

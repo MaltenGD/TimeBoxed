@@ -19,7 +19,7 @@ export class TutorialHanafuda extends BaseScene
          this.height = height;
 
         if (this.playerData.TimeboxedMode) this.background = this.add.image(width / 2, height / 2, 'backgroundTB').setDisplaySize(width, height);
-        else this.background = this.add.image(width / 2, height / 2, 'background').setDisplaySize(width, height);
+        else this.background = this.add.image(width / 2, height / 2, 'background').setDisplaySize(width, height).setDepth(-3);
         
         this.transitionController = new TransitionController(this);
         this.transitionController.startFadeInTransition();
@@ -51,6 +51,10 @@ export class TutorialHanafuda extends BaseScene
         this.events.on('changeTutoImage',(imageKey)=> {
             this.changeTutoImage(imageKey);
         });
+
+        this.events.on('CharacterTalking', (characterObj) => {
+            this.displayCharacterSprite(characterObj);
+        })
     }
 
     changeTutoImage(imageKey)
@@ -63,7 +67,29 @@ export class TutorialHanafuda extends BaseScene
         if (imageKey != "none") this.tutoImage = this.add.image(this.width/2, this.height/2, imageKey).setOrigin(0.5).setScale(1);
     }
 
+    displayCharacterSprite(characterObj) {
+        if (this.currentCharacter || characterObj == "none") { // if another character was talking or set to none, delete sprite
+            this.currentCharacter.destroy();
+            if (this.currentEmoticon)
+                this.currentEmoticon.destroy();
+        }
 
+        this.currentCharacter = this.add.sprite(characterObj.x, this.height, characterObj.ImageKey, characterObj.frame)
+        .setScale(characterObj.scaleX, characterObj.scaleY).setOrigin(0, 1).setDepth(-2);
+
+        if (characterObj.emoticon && characterObj.emoticon != "none") {
+            let xOffset = 0;
+            if (characterObj.emoticonX) {
+                xOffset = characterObj.emoticonX;
+            }
+            this.currentEmoticon = this.add.sprite(characterObj.x - 20 + xOffset, this.height/2 + characterObj.emoticonY, "emotes", characterObj.emoticon)
+            .setScale(characterObj.scaleX, characterObj.scaleY).setOrigin(0, 1).setDepth(-1);
+            console.log(characterObj.emoticon);
+        }
+        else if (characterObj.emoticon == "none" || this.currentEmoticon) {
+            this.currentEmoticon.destroy();
+        }
+    }
 
     
 }

@@ -20,6 +20,8 @@ export class HanafudaIntro extends BaseScene{
         // Get the canvas width and height to use when giving a position to an object
         let { width, height } = this.sys.game.canvas;
 
+        this.height = height;
+
         // Background music
         const baseMusicVolume = 0.25;
         this.music = this.sound.add('japaneseMusic', { loop: true, volume: baseMusicVolume * this.playerData.musicVolume });
@@ -34,7 +36,7 @@ export class HanafudaIntro extends BaseScene{
         this.sound.pauseOnBlur = false; // Keep audio playing even when the window loses focus.
 
         //Background
-        this.background = this.add.image(width / 2, height / 2, 'HanafudaBackgroundPlaceholder').setDisplaySize(width, height);
+        this.background = this.add.image(width / 2, height / 2, 'HanafudaBackgroundPlaceholder').setDisplaySize(width, height).setDepth(-3);
 
         //Back button
         this.backBtn = this.add.image(80, 50, 'BackNormalButton').setScale(0.27)
@@ -75,6 +77,35 @@ export class HanafudaIntro extends BaseScene{
                     }
                 });
             } , 400);  
+
         });
+
+        this.events.on('CharacterTalking', (characterObj) => {
+            this.displayCharacterSprite(characterObj);
+        })
+    }
+
+    displayCharacterSprite(characterObj) {
+        if (this.currentCharacter || characterObj == "none") { // if another character was talking or set to none, delete sprite
+            this.currentCharacter.destroy();
+            if (this.currentEmoticon)
+                this.currentEmoticon.destroy();
+        }
+
+        this.currentCharacter = this.add.sprite(characterObj.x, this.height, characterObj.ImageKey, characterObj.frame)
+        .setScale(characterObj.scaleX, characterObj.scaleY).setOrigin(0, 1).setDepth(-2);
+
+        if (characterObj.emoticon && characterObj.emoticon != "none") {
+            let xOffset = 0;
+            if (characterObj.emoticonX) {
+                xOffset = characterObj.emoticonX;
+            }
+            this.currentEmoticon = this.add.sprite(characterObj.x - 20 + xOffset, this.height/2 + characterObj.emoticonY, "emotes", characterObj.emoticon)
+            .setScale(characterObj.scaleX, characterObj.scaleY).setOrigin(0, 1).setDepth(-1);
+            console.log(characterObj.emoticon);
+        }
+        else if (characterObj.emoticon == "none" || this.currentEmoticon) {
+            this.currentEmoticon.destroy();
+        }
     }
 }

@@ -43,6 +43,10 @@ export class HanafudaEndScene extends Phaser.Scene{
             this.dialogueController.handleInteraction();
         });
 
+        this.events.on('CharacterTalking', (characterObj) => {
+        this.displayCharacterSprite(characterObj);
+        })
+
         this.events.on('Finished', () => {
             //this.transitionController.startFadeOutTransition();
             this.scene.start('SelectionMenuScene', this.playerData);  
@@ -57,5 +61,41 @@ export class HanafudaEndScene extends Phaser.Scene{
             this.dialogueController.skipToEnd();  
         });
     
+    }
+
+    displayCharacterSprite(characterObj) {
+        if (this.currentCharacter) {
+        this.currentCharacter.destroy();
+        this.currentCharacter = null;
+    }
+
+    if (this.currentEmoticon) {
+        this.currentEmoticon.destroy();
+        this.currentEmoticon = null;
+    }
+
+    if (characterObj === "none") {
+        return;
+    }
+
+        this.currentCharacter = this.add.sprite(characterObj.x, this.height, characterObj.ImageKey, characterObj.frame)
+        .setScale(characterObj.scaleX, characterObj.scaleY).setOrigin(0, 1).setDepth(-2);
+
+        if (characterObj.emoticon && characterObj.emoticon != "none") {
+            let xOffset = 0;
+            if (characterObj.emoticonX) {
+                xOffset = characterObj.emoticonX;
+            }
+            this.currentEmoticon = this.add.sprite(characterObj.x - 20 + xOffset, this.height/2 + characterObj.emoticonY, "emotes", characterObj.emoticon)
+            .setScale(characterObj.scaleX, characterObj.scaleY).setOrigin(0, 1).setDepth(-1);
+            console.log(characterObj.emoticon);
+        }
+        else if (characterObj.emoticon == "none") {
+
+        if (this.currentEmoticon) {
+            this.currentEmoticon.destroy();
+            this.currentEmoticon = null;
+        }
+        }
     }
 }
