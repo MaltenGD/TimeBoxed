@@ -45,7 +45,7 @@ export class TaliBeginScene extends BaseScene {
 
         await document.fonts.load('64px TaliOne');
 
-        this.background = this.add.image(this.width / 2, this.height / 2, 'taliBackgroundPlaceholder').setDisplaySize(this.width, this.height);
+        this.background = this.add.image(this.width / 2, this.height / 2, 'TaliBackground').setDisplaySize(this.width, this.height);
 
         this.taliGame = new Tali(this, this.width, this.height);
 

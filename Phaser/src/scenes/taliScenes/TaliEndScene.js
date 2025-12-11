@@ -121,7 +121,7 @@ export class TaliEndScene extends BaseScene {
      * Adds all the images to the scene.
      */
     addImages() {
-        this.background = this.add.image(this.width / 2, this.height / 2, 'taliBackgroundPlaceholder').setDisplaySize(this.width, this.height).setDepth(-3);
+        this.background = this.add.image(this.width / 2, this.height / 2, 'TaliBackground').setDisplaySize(this.width, this.height).setDepth(-3);
         this.boardImg = this.add.image(this.width/2, this.height/2, 'taliBoard').setOrigin(0.5).setScale(0.44).setDepth(-2);
     }
 

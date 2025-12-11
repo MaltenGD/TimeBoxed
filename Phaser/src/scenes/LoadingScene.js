@@ -86,7 +86,7 @@ export class LoadingScene extends Phaser.Scene
     {
         this.load.image('background', 'Phaser/assets/StartMenu/MainBackground.png');
         this.load.image('backgroundTB', 'Phaser/assets/StartMenu/MainBackgroundTimeboxedMode.png');
-        this.load.image('taliBackgroundPlaceholder', 'Phaser/assets/tali/taliBackgroundPlaceholder.png');
+        this.load.image('TaliBackground', 'Phaser/assets/tali/TaliBackground.png');
         this.load.image('StartMenuKronos', 'Phaser/assets/StartMenu/bigKronos.png');
         this.load.image('Timepiece', 'Phaser/assets/StartMenu/timePiece.png');
         this.load.image('BoxOpen', 'Phaser/assets/StartMenu/cardboardbox.png')

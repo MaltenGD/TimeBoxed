@@ -23,7 +23,7 @@ export class TaliIntroScene extends BaseScene
         this.setBackgroundMusic('taliIntroMusic');
 
         //creating the background
-        this.background = this.add.image(width / 2, height / 2, 'taliBackgroundPlaceholder').setDisplaySize(width, height).setDepth(-3);
+        this.background = this.add.image(width / 2, height / 2, 'TaliBackground').setDisplaySize(width, height).setDepth(-3);
 
         this.backBtn = this.add.text(0, 0, 'Pause', { fontSize: 64, fill: '#000000ff'})
         .setInteractive()

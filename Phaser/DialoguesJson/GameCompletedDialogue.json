@@ -4,55 +4,154 @@
             "speaker": "Kronos",
             "text": "Well, well... The hands of my clock have spun their last for these little games. And you... you stand victorious.",
             "animation": "true",
-            "next": "GCD2"
+            "next": "GCD2",
+            "Character":{
+                "ImageKey":"kronos",
+                "frame":1,
+                "x":100,
+                "y":250,
+                "scaleX":1,
+                "scaleY":1,
+                "rotation":0,
+                "emoticon":"none",
+                "emoticonY":0
+            }
         },
         "GCD2": {
             "speaker": "Kronos",
             "text": "Impressive. You have danced through the currents of time, untangled my messes, and proven your worth.",
             "animation": "true",
-            "next": "GCD3"
+            "next": "GCD3",
+            "Character":{
+                "ImageKey":"kronos",
+                "frame":3,
+                "x":100,
+                "y":250,
+                "scaleX":1,
+                "scaleY":1,
+                "rotation":0,
+                "emoticon":4,
+                "emoticonY":0
+            }
         },
         "GCD3": {
             "speaker": "Player",
             "text": "I just wanted my yarn ball back. You certainly have a strange way of asking for help.",
             "animation": "true",
-            "next": "GCD4"
+            "next": "GCD4",
+            "Character":{
+                "ImageKey":"kronos",
+                "frame":5,
+                "x":100,
+                "y":250,
+                "scaleX":1,
+                "scaleY":1,
+                "rotation":0,
+                "emoticon":6,
+                "emoticonY":40
+            }
         },
         "GCD4": {
             "speaker": "Kronos",
             "text": "Hah! A direct approach is so... linear. It's been eons since I've had such a delightful spectacle. Watching you outwit those old fools was marvelous fun.",
             "animation": "true",
-            "next": "GCD5"
+            "next": "GCD5",
+            "Character":{
+                "ImageKey":"kronos",
+                "frame":2,
+                "x":100,
+                "y":250,
+                "scaleX":1,
+                "scaleY":1,
+                "rotation":0,
+                "emoticon":"none",
+                "emoticonY":0
+            }
         },
         "GCD5": {
             "speaker": "Kronos",
             "text": "But a promise is a promise, even for one who stands outside of time. You have earned your reward.",
             "animation": "true",
-            "next": "GCD6"
+            "next": "GCD6",
+            "Character":{
+                "ImageKey":"kronos",
+                "frame":3,
+                "x":100,
+                "y":250,
+                "scaleX":1,
+                "scaleY":1,
+                "rotation":0,
+                "emoticon":"none",
+                "emoticonY":0
+            }
         },
         "GCD6": {
             "speaker": "Kronos",
             "text": "Here. Your precious ball of yarn, as agreed.",
             "animation": "true",
-            "next": "GCD7"
+            "next": "GCD7",
+            "Character":{
+                "ImageKey":"kronos",
+                "frame":3,
+                "x":100,
+                "y":250,
+                "scaleX":1,
+                "scaleY":1,
+                "rotation":0,
+                "emoticon":"none",
+                "emoticonY":0
+            }
         },
         "GCD7": {
             "speaker": "Player",
             "text": "Finally! After all that, I can just be a normal cat again.",
             "animation": "true",
-            "next": "GCD8"
+            "next": "GCD8",
+            "Character":{
+                "ImageKey":"kronos",
+                "frame":2,
+                "x":100,
+                "y":250,
+                "scaleX":1,
+                "scaleY":1,
+                "rotation":0,
+                "emoticon":3,
+                "emoticonY":40
+            }
         },
         "GCD8": {
             "speaker": "Kronos",
             "text": "Ah, but has this adventure not changed the very thread of your existence? Thank you, little cat, for this grand diversion.",
             "animation": "true",
-            "next": "end"
+            "next": "end",
+            "Character":{
+                "ImageKey":"kronos",
+                "frame":0,
+                "x":100,
+                "y":250,
+                "scaleX":1,
+                "scaleY":1,
+                "rotation":0,
+                "emoticon":5,
+                "emoticonY":0
+            }
         },
         "end": {
             "speaker": "Kronos",
             "text": "Now... your own path awaits. Farewell.",
             "animation": "true",
-            "next": null
+            "next": null,
+            "Character":{
+                "ImageKey":"kronos",
+                "frame":0,
+                "x":100,
+                "y":250,
+                "scaleX":1,
+                "scaleY":1,
+                "rotation":0,
+                "emoticon":"none",
+                "emoticonY":0
+            }
         }
     }
 }
