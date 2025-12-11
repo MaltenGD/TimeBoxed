@@ -181,10 +181,10 @@ export class HanafudaGameState extends BaseScene{
                         this.infoText.setText("Arranging cards");//it changes the text on screen
                         this.renderCards(); //render of updated cards
 
-                        // this.time.delayedCall(800, ()=>{
-                        //     this.previousState = this.currentState;
-                        //     this.combinationAction();
-                        // });
+                        this.time.delayedCall(800, ()=>{
+                            this.previousState = this.currentState;
+                            this.combinationAction();
+                        });
                     });
                 });
             break;
