@@ -8,7 +8,7 @@
             "Character":{
                 "ImageKey":"kronos",
                 "frame":1,
-                "x":100,
+                "x":1060,
                 "y":250,
                 "scaleX":1,
                 "scaleY":1,
@@ -25,7 +25,7 @@
             "Character":{
                 "ImageKey":"kronos",
                 "frame":3,
-                "x":100,
+                "x":1060,
                 "y":250,
                 "scaleX":1,
                 "scaleY":1,
@@ -40,9 +40,9 @@
             "animation": "true",
             "next": "GCD4",
             "Character":{
-                "ImageKey":"kronos",
+                "ImageKey":"protagonist",
                 "frame":5,
-                "x":100,
+                "x":460,
                 "y":250,
                 "scaleX":1,
                 "scaleY":1,
@@ -59,7 +59,7 @@
             "Character":{
                 "ImageKey":"kronos",
                 "frame":2,
-                "x":100,
+                "x":1060,
                 "y":250,
                 "scaleX":1,
                 "scaleY":1,
@@ -76,7 +76,7 @@
             "Character":{
                 "ImageKey":"kronos",
                 "frame":3,
-                "x":100,
+                "x":1060,
                 "y":250,
                 "scaleX":1,
                 "scaleY":1,
@@ -93,7 +93,7 @@
             "Character":{
                 "ImageKey":"kronos",
                 "frame":3,
-                "x":100,
+                "x":1060,
                 "y":250,
                 "scaleX":1,
                 "scaleY":1,
@@ -108,9 +108,9 @@
             "animation": "true",
             "next": "GCD8",
             "Character":{
-                "ImageKey":"kronos",
+                "ImageKey":"protagonist",
                 "frame":2,
-                "x":100,
+                "x":460,
                 "y":250,
                 "scaleX":1,
                 "scaleY":1,
@@ -127,7 +127,7 @@
             "Character":{
                 "ImageKey":"kronos",
                 "frame":0,
-                "x":100,
+                "x":1060,
                 "y":250,
                 "scaleX":1,
                 "scaleY":1,
@@ -144,7 +144,7 @@
             "Character":{
                 "ImageKey":"kronos",
                 "frame":0,
-                "x":100,
+                "x":1060,
                 "y":250,
                 "scaleX":1,
                 "scaleY":1,
