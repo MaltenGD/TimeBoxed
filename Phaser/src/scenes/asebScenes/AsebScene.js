@@ -39,7 +39,6 @@ export class AsebScene extends BaseScene {
 
         this.playerData = playerData;
         console.log(this.playerData)
-        this.playerData.DebugMode = false;
 
         // Default to player going first if no data is passed.
             if (playerData !== undefined) this.playerFirst = playerData.AsebPlayerFirst
