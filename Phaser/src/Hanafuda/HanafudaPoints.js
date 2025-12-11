@@ -160,8 +160,10 @@ export default class HanafudaPoints {
             console.log("enemy decision Yaku:", shobu ? "Shobu" : "Koikoi");
             this.showEnemy(last, accumulated);
 
-            if (shobu) this.onEnemyShobu(last,accumulated);
-            else this.onKoikoiEnemy(last, accumulated);
+            this.scene.time.delayedCall(1500, () => { 
+                if (shobu) this.onEnemyShobu(last,accumulated);
+                else this.onKoikoiEnemy(last, accumulated);
+            });
         }
     }
 
