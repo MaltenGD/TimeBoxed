@@ -179,7 +179,7 @@ export class GameModeSelectionScene extends BaseScene {
            
             this.transitionController.startFadeOutTransition(() => {
                 this.playerData.TimeboxedMode = true;
-                this.scene.start('TimeBoxedDefeat', this.playerData);
+                this.scene.start('Intro', this.playerData);
                
             }, 400);
             });

@@ -3,8 +3,11 @@ import { BaseScene } from "./BaseScene.js";
 
 const IMAGE_KEYS = {
     'Egypt': 'asebVerticalBackground', 
-    'Rome': 'taliVerticalBackground', 
-    'Japan': 'BoxClosed'  
+    'EgyptHovered': 'asebVerticalBackgroundHovered', 
+    'Rome': 'taliVerticalBackground',
+    'RomeHovered': 'taliVerticalBackgroundHovered', 
+    'Japan': 'japanVerticalBackground',
+    'JapanHovered': 'japanVerticalBackgroundHovered'
 };
 
 
@@ -294,6 +297,7 @@ export class SelectionMenuScene extends BaseScene {
                          */
                         btn.setInteractive({ cursor: 'pointer' })
                             .on('pointerover', () => {
+                                btn.setTexture(IMAGE_KEYS[opciones[index] + 'Hovered']);
                                 this.sound.play('buttonHover', { volume: 2 * this.playerData.sfxVolume });
                                
                                 this.tweens.add({
@@ -305,7 +309,8 @@ export class SelectionMenuScene extends BaseScene {
                                 });
                             })
                             .on('pointerout', () => {
-                             
+                                
+                                btn.setTexture(IMAGE_KEYS[opciones[index]]); // Se recupera su textura normal
                                 this.tweens.add({
                                     targets: btn,
                                     scaleX: 0.4,

@@ -214,6 +214,7 @@ export class LoadingScene extends Phaser.Scene
      */
     loadAsebAssets() {
         this.load.image('asebVerticalBackground', 'Phaser/assets/SelectionMenu/EgyptVertical.png');
+        this.load.image('asebVerticalBackgroundHovered', 'Phaser/assets/SelectionMenu/EgyptVerticalHovered.png');
 
         this.load.image('asebBackground', 'Phaser/assets/aseb/AsebBackground.png');
 
@@ -247,6 +248,7 @@ export class LoadingScene extends Phaser.Scene
      */
     loadTaliAssets() {
         this.load.image('taliVerticalBackground', 'Phaser/assets/SelectionMenu/RomeVertical.png');
+        this.load.image('taliVerticalBackgroundHovered', 'Phaser/assets/SelectionMenu/RomeVerticalHovered.png');
 
         this.load.image('taliButton', 'Phaser/assets/tali/button.png');
 
@@ -282,11 +284,13 @@ export class LoadingScene extends Phaser.Scene
 
     loadHanafudaAssets()
     {
+        this.load.image('japanVerticalBackground', 'Phaser/assets/SelectionMenu/JapanVertical.png')
+        this.load.image('japanVerticalBackgroundHovered', 'Phaser/assets/SelectionMenu/JapanVerticalHovered.png')
         this.load.image('HanafudaBackground', 'Phaser/assets/Hanafuda/HanafudaBackground.png');
-        this.load.image('YakusNormalButton', 'Phaser/assets/Hanafuda/UI/YakusNormalButton.png');
-        this.load.image('YakusHoverButton', 'Phaser/assets/Hanafuda/UI/YakusHoverButton.png');
-        this.load.image('BackNormalButton', 'Phaser/assets/Hanafuda/UI/BackNormalButton.png');
-        this.load.image('BackHoverButton', 'Phaser/assets/Hanafuda/UI/BackHoverButton.png');
+        this.load.image('YakusHoverButton', 'Phaser/assets/Hanafuda/UI/YakusNormalButton.png');
+        this.load.image('YakusNormalButton', 'Phaser/assets/Hanafuda/UI/YakusHoverButton.png');
+        this.load.image('BackHoverButton', 'Phaser/assets/Hanafuda/UI/BackNormalButton.png');
+        this.load.image('BackNormalButton', 'Phaser/assets/Hanafuda/UI/BackHoverButton.png');
 
         this.load.image('Card0', 'Phaser/assets/Hanafuda/HanafudaCards/0.png');
         this.load.image('Card1', 'Phaser/assets/Hanafuda/HanafudaCards/1.png');
