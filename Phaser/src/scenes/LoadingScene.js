@@ -215,7 +215,7 @@ export class LoadingScene extends Phaser.Scene
     loadAsebAssets() {
         this.load.image('asebVerticalBackground', 'Phaser/assets/SelectionMenu/EgyptVertical.png');
 
-        this.load.image('asebBackgroundPlaceholder', 'Phaser/assets/aseb/Egipcio.png');
+        this.load.image('asebBackground', 'Phaser/assets/aseb/AsebBackground.png');
 
         this.load.image('StickBoard', 'Phaser/assets/aseb/stickBoard.png');
         this.load.image('AsebButton', 'Phaser/assets/aseb/AsebButton.png');

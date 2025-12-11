@@ -20,15 +20,14 @@ export class TutorialAseb extends BaseScene
          this.width = width;
          this.height = height;
 
-        if (this.playerData.TimeboxedMode) this.background = this.add.image(width / 2, height / 2, 'backgroundTB').setDisplaySize(width, height);
-        else this.background = this.add.image(width / 2, height / 2, 'background').setDisplaySize(width, height);
+        if (this.playerData.TimeboxedMode) this.background = this.add.image(width / 2, height / 2, 'backgroundTB').setDisplaySize(width, height).setDepth(-3);
+        else this.background = this.add.image(width / 2, height / 2, 'background').setDisplaySize(width, height).setDepth(-3);
         
         this.transitionController = new TransitionController(this);
         this.transitionController.startFadeInTransition();
 
         const tutorialAsebData = this.cache.json.get('AsebTutorialDialogue');
         this.dialogueController = new DialogueController(this, "AsebTutorial", tutorialAsebData);
-        this.dialogueController.iniDialogue();
         
         this.events.on('nextDialog',()=>
         {
@@ -53,9 +52,11 @@ export class TutorialAseb extends BaseScene
         this.events.on('changeTutoImage',(imageKey)=> {
             this.changeTutoImage(imageKey);
         });
-        this.events.on('CharacterTalking',(CharacterOBJ)=> {
-            this.DisplayCharacterSprite(CharacterOBJ);
-        });
+         this.events.on('CharacterTalking', (characterObj) => {
+            this.displayCharacterSprite(characterObj);
+        })
+
+        this.dialogueController.iniDialogue();
     }
 
     changeTutoImage(imageKey)
@@ -65,24 +66,32 @@ export class TutorialAseb extends BaseScene
             this.tutoImage.destroy();
         }
 
-        if (imageKey != "none") this.tutoImage = this.add.image(this.width/2, this.height/2, imageKey).setOrigin(0.5).setScale(1);
+        if (imageKey != "none") this.tutoImage = this.add.image(this.width/2, this.height/2, imageKey).setOrigin(0.5).setScale(1).setDepth(-3);
     }
 
-    DisplayCharacterSprite(CharacterOBJ)
-    {
-        if(this.currentCharacter) // If another character was talking previously
-        {
-            this.currentCharacter.destroy();
+   displayCharacterSprite(characterObj) {
+        if (this.currentCharacter || characterObj == "none") { // if another character was talking or set to none, delete sprite
+            if (this.currentCharacter) this.currentCharacter.destroy();
+            if (this.currentEmoticon) this.currentEmoticon.destroy();
+                
         }
 
-        if (CharacterOBJ.imageKey != "narrator") // The narrator doesnt have any appearance
-        {
-            this.currentCharacter = this.add.sprite(CharacterOBJ.x, CharacterOBJ.y, CharacterOBJ.imageKey, CharacterOBJ.frame)
-            .setScale(CharacterOBJ.scaleX, CharacterOBJ.scaleY);
+        this.currentCharacter = this.add.sprite(characterObj.x, this.height, characterObj.ImageKey, characterObj.frame)
+        .setScale(characterObj.scaleX, characterObj.scaleY).setOrigin(0, 1).setDepth(-2);
+
+        if (characterObj.emoticon && characterObj.emoticon != "none") {
+            let xOffset = 0;
+            if (characterObj.emoticonX) {
+                xOffset = characterObj.emoticonX;
+            }
+            this.currentEmoticon = this.add.sprite(characterObj.x - 20 + xOffset, this.height/2 + characterObj.emoticonY, "emotes", characterObj.emoticon)
+            .setScale(characterObj.scaleX, characterObj.scaleY).setOrigin(0, 1).setDepth(-1);
+            console.log(characterObj.emoticon);
+        }
+        else if (characterObj.emoticon == "none" || this.currentEmoticon) {
+            if (this.currentEmoticon) this.currentEmoticon.destroy();
         }
     }
-
-
 
     
 }

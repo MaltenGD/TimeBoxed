@@ -63,7 +63,7 @@ export class AsebScene extends BaseScene {
         this.transitionController = new TransitionController(this);
         this.transitionController.startFadeInTransition();
 
-        this.background = this.add.image(this.width / 2, this.height / 2, 'asebBackgroundPlaceholder').setDisplaySize(this.width, this.height);
+        this.background = this.add.image(this.width / 2, this.height / 2, 'asebBackground').setDisplaySize(this.width, this.height);
         this.infoBoard = this.add.image(this.width/2, this.height/2, 'StickBoard').setOrigin(0.5).setScale(1.5,2.25).setRotation(Phaser.Math.DegToRad(90));
 
         const backBtnImage = this.add.image(0, 0, 'AsebButton').setScale(0.3,0.5);

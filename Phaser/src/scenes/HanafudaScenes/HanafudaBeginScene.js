@@ -36,7 +36,7 @@ export class HanafudaBeginScene extends BaseScene
         // The font size here doesn't matter, it just ensures the font family is ready.
         await document.fonts.load('64px CenturyGothic');
 
-        const baseMusicVolume = 0.25;
+        const baseMusicVolume = 0.20;
         this.music = this.sound.add('japaneseMusic', { loop: true, volume: baseMusicVolume * this.playerData.musicVolume });
         this.soundInstances.push({ 
             sound: this.music, 

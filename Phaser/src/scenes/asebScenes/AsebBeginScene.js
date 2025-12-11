@@ -150,7 +150,7 @@ export class AsebBeginScene extends BaseScene {
         this.transitionController = new TransitionController(this);
         this.transitionController.startFadeInTransition();
 
-        this.background = this.add.image(this.width/ 2, this.height / 2, 'asebBackgroundPlaceholder').setDisplaySize(this.width, this.height);
+        this.background = this.add.image(this.width/ 2, this.height / 2, 'asebBackground').setDisplaySize(this.width, this.height);
         /** @type {AsebGame} */
         this.asebGame = new AsebGame(this);
 
@@ -382,5 +382,7 @@ export class AsebBeginScene extends BaseScene {
             this.music.stop();
         }
     }
+
+    
 
 }

@@ -7,17 +7,20 @@ export class IntroAseb extends BaseScene
     constructor(){super('IntroAseb');}
 
 
-    create(playerData) 
+    async create(playerData) 
     {
 
         this.playerData = playerData;
         console.log(this.playerData)
+
+        await document.fonts.load('64px Anubismythicalserif');
 
         this.transitionController = new TransitionController(this);
         this.transitionController.startFadeInTransition();
 
         // Get the canvas width and height to use when giving a position to an object
         let { width, height } = this.sys.game.canvas;
+        this.height = height;
 
 
          // Background music
@@ -35,7 +38,7 @@ export class IntroAseb extends BaseScene
         this.sound.pauseOnBlur = false; // Keep audio playing even when the window loses focus.
 
         //creating the background
-        this.background = this.add.image(width / 2, height / 2, 'asebBackgroundPlaceholder').setDisplaySize(width, height);
+        this.background = this.add.image(width / 2, height / 2, 'asebBackground').setDisplaySize(width, height).setDepth(-3);
 
         // --- Back Button ---
         const backBtnImage = this.add.image(0, 0, 'AsebButton').setScale(0.3,0.5);
@@ -64,6 +67,10 @@ export class IntroAseb extends BaseScene
         {
             this.dialogueController.handleInteraction();
         });
+
+         this.events.on('CharacterTalking', (characterObj) => {
+            this.displayCharacterSprite(characterObj);
+        })
 
         this.events.on('Finished', () => {
 
@@ -94,5 +101,28 @@ export class IntroAseb extends BaseScene
             
             });
             
+    }
+    displayCharacterSprite(characterObj) {
+        if (this.currentCharacter || characterObj == "none") { // if another character was talking or set to none, delete sprite
+            if (this.currentCharacter) this.currentCharacter.destroy();
+            if (this.currentEmoticon) this.currentEmoticon.destroy();
+                
+        }
+
+        this.currentCharacter = this.add.sprite(characterObj.x, this.height, characterObj.ImageKey, characterObj.frame)
+        .setScale(characterObj.scaleX, characterObj.scaleY).setOrigin(0, 1).setDepth(-2);
+
+        if (characterObj.emoticon && characterObj.emoticon != "none") {
+            let xOffset = 0;
+            if (characterObj.emoticonX) {
+                xOffset = characterObj.emoticonX;
+            }
+            this.currentEmoticon = this.add.sprite(characterObj.x - 20 + xOffset, this.height/2 + characterObj.emoticonY, "emotes", characterObj.emoticon)
+            .setScale(characterObj.scaleX, characterObj.scaleY).setOrigin(0, 1).setDepth(-1);
+            console.log(characterObj.emoticon);
+        }
+        else if (characterObj.emoticon == "none" || this.currentEmoticon) {
+            if (this.currentEmoticon) this.currentEmoticon.destroy();
+        }
     }
 }

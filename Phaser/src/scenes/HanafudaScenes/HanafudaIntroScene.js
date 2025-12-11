@@ -23,7 +23,7 @@ export class HanafudaIntro extends BaseScene{
         this.height = height;
 
         // Background music
-        const baseMusicVolume = 0.25;
+        const baseMusicVolume = 0.20;
         this.music = this.sound.add('japaneseMusic', { loop: true, volume: baseMusicVolume * this.playerData.musicVolume });
         this.soundInstances.push({ 
             sound: this.music, 
