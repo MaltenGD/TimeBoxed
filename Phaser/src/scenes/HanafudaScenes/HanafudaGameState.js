@@ -141,7 +141,7 @@ export class HanafudaGameState extends BaseScene{
         switch(this.currentState){
             case HANAFUDA_STATE.START_ROUND:
                 this.round++; //The round counter is increased when a new round begins
-                this.roundText.setText(`Round:${this.round}/4`) //The text that shows the number of rounds is updated
+                this.roundText.setText(`Round:${this.round}/3`) //The text that shows the number of rounds is updated
 
                 this.prepareRound.createDeck(); //It creates the deck with all the cards
                 this.prepareRound.shuffleDeck(); //It suffles the cards, so the probablity of getting pairs together is lower
@@ -281,7 +281,7 @@ export class HanafudaGameState extends BaseScene{
                     this.opponentPointsText.setText(`Benten points: ${this.opponentScore}`);
                 }
                 this.transitionController.startFadeInTransition();
-                this.blackScreen = this.add.rectangle(0, 0, this.width, this.height, 0x000000).setOrigin(0, 0);
+                this.blackScreen = this.add.rectangle(0, 0, this.width, this.height, 0x000000).setOrigin(0, 0).setDepth(4);
                 this.infoText.setText("Starting next round");
 
                 //Destroy the objects on scene, so it can prepare for a new round or the end of the game
@@ -294,7 +294,7 @@ export class HanafudaGameState extends BaseScene{
 
                 console.log("roundCounter",this.round);
                 this.time.delayedCall(1000, ()=> {
-                    if(this.round < 4){ //a new round will start unless all the set rounds are completed, in which case the game ends
+                    if(this.round < 3){ //a new round will start unless all the set rounds are completed, in which case the game ends
                         this.transitionController.startFadeInTransition();
                         this.blackScreen.destroy();
                         this.transitionTo(HANAFUDA_STATE.START_ROUND);

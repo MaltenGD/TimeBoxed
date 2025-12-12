@@ -154,13 +154,13 @@ export default class HanafudaRender{
         .on('pointerup', () => { this.scene.openYakusMenu();});
 
         //Text
-        this.scene.infoText = this.scene.add.text(370, this.height / 2 + 180, "Start!", {fontSize: '40px', fill: '#ffffff', fontFamily: "CenturyGothic"}).setDepth(1);
-        this.scene.roundText = this.scene.add.text(90, 1000, `Round:${this.scene.round}/4`, {fontSize: "30px",color: "#a3f9c2", fontFamily: "CenturyGothic"});
+        this.scene.infoText = this.scene.add.text(370, this.height / 2 + 180, "Start!", {fontSize: '40px', fill: '#ffffff', fontFamily: "CenturyGothic"}).setDepth(5);
+        this.scene.roundText = this.scene.add.text(90, 1000, `Round:${this.scene.round}/4`, {fontSize: "30px",color: "#a3f9c2", fontFamily: "CenturyGothic"}).setDepth(5);
 
         // PlayerScore Text
-        this.scene.playerPointsText = this.scene.add.text(this.width/2 + 130, 1010, "Your points: 0", {fontSize: "26px", color: "#a3f9c2", fontFamily: "CenturyGothic"});
+        this.scene.playerPointsText = this.scene.add.text(this.width/2 + 130, 1010, "Your points: 0", {fontSize: "26px", color: "#a3f9c2", fontFamily: "CenturyGothic"}).setDepth(5);
 
         // OpponentScore Text
-        this.scene.opponentPointsText = this.scene.add.text(350, 50, "Benten points: 0", {fontSize: "26px",color: "#a3f9c2",fontFamily: "CenturyGothic"});
+        this.scene.opponentPointsText = this.scene.add.text(350, 50, "Benten points: 0", {fontSize: "26px",color: "#a3f9c2",fontFamily: "CenturyGothic"}).setDepth(5);
     }
 }
