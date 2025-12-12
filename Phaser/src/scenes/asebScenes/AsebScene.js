@@ -82,7 +82,7 @@ export class AsebScene extends BaseScene {
 
         if (this.playerData.DebugMode)
         {
-            this.winBtn = this.add.text(0, 70, 'Win Game', { fontSize: 64, fill: '#000000ff'})
+            this.winBtn = this.add.text(10, 150, 'Win Game', { fontSize: 64, fill: '#000000ff'})
             .setInteractive()
             .on('pointerover', () => this.winBtn.setStyle({fill: '#0f0'}))
             .on('pointerout', () => this.winBtn.setStyle({fill: '#000000ff'}))
@@ -91,7 +91,7 @@ export class AsebScene extends BaseScene {
                 this.nextTurn();
             }).setDepth(100) // Es feo poner 100 pero es solo para la presentación. No tiene importancia ¿verdad?; 
 
-            this.loseBtn = this.add.text(350, 70, 'Lose Game', { fontSize: 64, fill: '#000000ff'})
+            this.loseBtn = this.add.text(10, 300, 'Lose Game', { fontSize: 64, fill: '#000000ff'})
             .setInteractive()
             .on('pointerover', () => this.loseBtn.setStyle({fill: '#f00'}))
             .on('pointerout', () => this.loseBtn.setStyle({fill: '#000000ff'}))

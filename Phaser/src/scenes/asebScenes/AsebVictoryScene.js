@@ -42,13 +42,20 @@ export class AsebVictoryScene extends BaseScene
         //creating the background
         this.background = this.add.image(width / 2, height / 2, 'asebBackground').setDisplaySize(width, height).setDepth(-3);
 
-        this.backBtn = this.add.text(0, 0, 'Pause', { fontSize: 64, fill: '#000000ff'})
-        .setInteractive()
-        .on('pointerover', () => this.backBtn.setStyle({fill: 'rgba(104, 35, 35, 1)'}))
-        .on('pointerout', () => this.backBtn.setStyle({fill: '#000000ff'}))
-        .on('pointerdown', () => {
-            this.openOptionMenu();
-        });
+        // --- Back Button ---
+        const backBtnImage = this.add.image(0, 0, 'AsebButton').setScale(0.3,0.5);
+        const backBtnText = this.add.text(0, 0, 'Pause', { fontSize: 48, fill: '#000000ff', fontFamily: "Anubismythicalserif"}).setOrigin(0.5);
+
+        this.backBtn = this.add.container(140, 80, [ backBtnImage, backBtnText ]);
+        this.backBtn.setSize(backBtnImage.width * 0.5, backBtnImage.height * 0.5).setInteractive()
+            .on('pointerover', () => {
+                this.sound.play('buttonHover', { volume: 2 * this.playerData.sfxVolume }); 
+                this.tweens.add({ targets: this.backBtn, scale: 1.1, duration: 100, ease: 'Power1' });
+            })
+            .on('pointerout', () => {
+                this.tweens.add({ targets: this.backBtn, scale: 1.0, duration: 100, ease: 'Power1' });
+            })
+            .on('pointerdown', () => this.openOptionMenu());
 
         /** variable json*/
         const victoryAsebData = this.cache.json.get('AsebWinDialogue');
