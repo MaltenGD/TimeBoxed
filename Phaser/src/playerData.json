@@ -1,5 +1,5 @@
 {
-    "DebugMode": true,
+    "DebugMode": false,
     "FromSelectionMenu": false,
     "StartedIntro": false,
     "TimeboxedMode": false,
