@@ -192,7 +192,7 @@
         "HTD17":
         {
             "speaker":"Kronos",
-            "text":"The match lasts 4 rounds. At the end of all 4, whoever has the most points wins the entire game.",
+            "text":"The match lasts 3 rounds. At the end of all 3, whoever has the most points wins the entire game.",
             "animation":"true",
             "next":"HTD18",
             "tutoImage":""
