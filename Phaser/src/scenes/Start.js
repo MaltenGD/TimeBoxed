@@ -1,12 +1,12 @@
 import TransitionController from "../misc/transitioncontroller.js";
-import { ConfirmMenuScene } from "./ConfirmMenuScene.js";
+import { BaseScene } from "./BaseScene.js";
 
 /**
  * @file Start.js
  * @description Escena inicial del juego. Desde aqui el jugador puede incial la partida 
  * y ver los creditos
  */
-export class Start extends Phaser.Scene {
+export class Start extends BaseScene {
 
     /**
      * Crea una nueva instancia de la escena Start
@@ -15,8 +15,8 @@ export class Start extends Phaser.Scene {
     constructor() {
         super('Start');
         this.firstAccess = true;
-    }
 
+    }
 
 
     /**
@@ -26,7 +26,14 @@ export class Start extends Phaser.Scene {
      */
     create(playerData) {
 
+        // This scene does not use the options menu, so we remove the listener.
+        // Note: super.create() is not called, so the listener is never added.
+        // If it were, we would use: this.input.keyboard.removeListener('keydown-ESC');
+
         console.log('playerData:', Object.keys(playerData).length);
+
+        
+        this.DisableOptionMenu();
 
         if (Object.keys(playerData).length == 0) // La primera vez que se inicia el juego (PlayerData es vacío)
         {
@@ -37,8 +44,21 @@ export class Start extends Phaser.Scene {
 
         this.transitionController = new TransitionController(this);
         this.transitionController.startFadeInTransition();
-       
+
+        this.sound.unlock();
+        // Background music
+            const baseMusicVolume = 0.20;
+            this.music = this.sound.add('startMenuMusic', { loop: true, volume: baseMusicVolume * this.playerData.musicVolume });
+            this.soundInstances.push({ 
+                sound: this.music, 
+                type: 'music', 
+                baseVolume: baseMusicVolume 
+            });
+            this.music.play();
         
+
+        // Unlock audio on the first user interaction
+        this.sound.pauseOnBlur = false; // Keep audio playing even when the window loses focus.
 
         console.log('playerData:', this.playerData);
 
@@ -48,143 +68,227 @@ export class Start extends Phaser.Scene {
         else this.background = this.add.image(width / 2, height / 2, 'background').setDisplaySize(width, height);
 
 
-        const box = this.add.image(400, 950, 'BoxOpen').setOrigin(0.5).setScale(1.5);
-        const kitty = this.add.image(500, 450, 'StartMenuKronos').setOrigin(0.5).setScale(0.9);
+        const box = this.add.image(300, 1050, 'BoxOpen').setOrigin(0.5).setScale(1.75).setRotation(0.2);
 
+        // a constant wobbling effect as if the box was floating on space
         this.tweens.add({
-            targets: kitty,
-            y: 620,
-            duration: 3000,
+            targets: box,
+            y: 1030,
+            duration: 4000,
             ease: 'Sine.easeInOut',
             yoyo: true,
             loop: -1
         });
 
-        const logo = this.add.image(1300, 150, 'logo').setOrigin(0.5);
-        const playButton = this.add.sprite(1150, 900, 'playButton', 0).setInteractive().setOrigin(0.5).setScale(1.4);
+        const kitty = this.add.image(350, 450, 'StartMenuKronos').setOrigin(0.5).setScale(0.82);
 
+        this.tweens.add({
+            targets: kitty,
+            y: 520,
+            duration: 4500,
+            ease: 'Sine.easeInOut',
+            yoyo: true,
+            loop: -1
+        });
+
+        const timepiece = this.add.image(240, 260, 'Timepiece').setOrigin(0.5).setScale(0.9);
+
+        this.tweens.add({
+            targets: timepiece,
+            y: 380,
+            duration: 5500,
+            ease: 'Sine.easeInOut',
+            yoyo: true,
+            loop: -1
+        });
+
+        const logoOriginalX = (width / 2) - 125;
+        const logoOriginalY = 125;
+        const logoTargetY = 150;
+        const logo = [
+            this.add.image(logoOriginalX, logoOriginalY, 'T').setOrigin(0.5).setScale(0.8),
+            this.add.image(logoOriginalX + 45, logoOriginalY, 'I').setOrigin(0.5).setScale(0.8),
+            this.add.image(logoOriginalX + 120, logoOriginalY, 'M').setOrigin(0.5).setScale(0.8),
+            this.add.image(logoOriginalX + 220, logoOriginalY, 'E').setOrigin(0.5).setScale(0.8),
+            this.add.image(logoOriginalX + 320, logoOriginalY, 'B').setOrigin(0.5).setScale(0.8),
+            this.add.image(logoOriginalX + 430, logoOriginalY, 'O').setOrigin(0.5).setScale(0.8),
+            this.add.image(logoOriginalX + 555, logoOriginalY, 'X').setOrigin(0.5).setScale(0.8),
+            this.add.image(logoOriginalX + 700, logoOriginalY, 'E2').setOrigin(0.5).setScale(0.8),
+            this.add.image(logoOriginalX + 860, logoOriginalY, 'D').setOrigin(0.5).setScale(0.8)
+        ]
+        .forEach((letter, index) => {
+            this.tweens.add({
+                targets: letter,
+                y: logoTargetY,
+                duration: 3000,
+                ease: 'Sine.easeInOut',
+                delay: index * 150,
+                yoyo: true,
+                loop: -1
+            });
+        });
+
+        // Define final positions for the letters
+        const letterSpacing = 100;
+        const normalPositions = {
+            S: { x: -2 * letterSpacing - 20 , y: 0 },
+            T1: { x: -1 * letterSpacing - 20, y: 0 },
+            A: { x: -20, y: 0 },
+            R: { x: letterSpacing + 40, y: 0 },
+            T2: { x: 3 * letterSpacing + 40, y: 0 }
+        };
+
+        // letter images
+        const playButtonS = this.add.image(normalPositions.S.x, normalPositions.S.y, 'playButtonS').setOrigin(0.5)
+        const playButtonT = this.add.image(normalPositions.T1.x, normalPositions.T1.y, 'playButtonT').setOrigin(0.5)
+        const playButtonA = this.add.image(normalPositions.A.x, normalPositions.A.y, 'playButtonA').setOrigin(0.5)
+        const playButtonR = this.add.image(normalPositions.R.x, normalPositions.R.y, 'playButtonR').setOrigin(0.5)
+        const playButtonT2 = this.add.image(normalPositions.T2.x, normalPositions.T2.y, 'playButtonT2').setOrigin(0.5)
+
+        const startLetters = [
+            { letter: playButtonS, key: 'S', pos: normalPositions.S },
+            { letter: playButtonT, key: 'T', pos: normalPositions.T1 },
+            { letter: playButtonA, key: 'A', pos: normalPositions.A },
+            { letter: playButtonR, key: 'R', pos: normalPositions.R },
+            { letter: playButtonT2, key: 'T2', pos: normalPositions.T2 }
+        ];
+
+        this.wanderingTweens = [];
+        this.arrangementTweens = [];
+        this.startWandering(startLetters);
+        const playButton = this.add.container(width / 2 + 200, height - 200, [playButtonS, playButtonT, playButtonA, playButtonR, playButtonT2]).setSize(600, 150).setInteractive();
         //boton de creditos
-        const creditsButton = this.add.text(1150, 750, 'CREDITS',
-            {
-                fontsize: '36px',
-                fill: '#000000',
-                backgroundColor: '#ffffffff',
-                padding: { x: 40, y: 20 }
-            }).setOrigin(0.5)
-            .setInteractive();
-
-        this.TimeboxedButton = this.add.text(1500, 900, '',
-            {
-                fontSize: '30px',
-                fill: '#000000',
-                backgroundColor: '#ffffffff',
-                padding: { x: 40, y: 40 },
-                
-            }).setOrigin(0.5)
-        if (this.playerData.TimeboxedMode) this.TimeboxedButton.setText('   DISABLE\nTIMEBOXED MODE')
-        else this.TimeboxedButton.setText('   ENABLE\nTIMEBOXED MODE')
-
-        if (!this.playerData.IntroCompleted) this.TimeboxedButton.setInteractive(); 
-        else this.TimeboxedButton.setAlpha(0.5);
-        
+        const settingsButton = this.add.image( width - 125, height - 225, 'StartMenuSettings').setOrigin(0.5).setScale(0.12).setInteractive();
+        const creditsButton = this.add.image( width - 125, height - 100, 'creditsButton').setOrigin(0.5).setScale(0.12).setInteractive();
 
         //PLAY BUTTON INTERACTIONS
-
+        this.arranged = false;
         //efecto hover del boton play
         playButton.on('pointerover', () => {
-            playButton.setFrame(1);
+            if (this.arranged) return;
+            
+            this.sound.play('buttonHover', { volume: 2 * this.playerData.sfxVolume });
+
+            // Stop wandering tweens
+            this.wanderingTweens.forEach(tween => tween.stop());
+            this.wanderingTweens = [];
+
+            // Change textures to hovered version
+            startLetters.forEach(item => item.letter.setTexture(`playButton${item.key}Hovered`));
+            
+            // Rearrange letters
+            this.arrangementTweens.forEach(tween => tween.remove());
+            this.arrangementTweens = [];
+
+            startLetters.forEach((item, index) => {
+                const tween = this.tweens.add({
+                    targets: item.letter,
+                    x: item.pos.x,
+                    y: item.pos.y,
+                    duration: 500,
+                    ease: 'Power2',
+                    onComplete: (index === startLetters.length - 1) ? () => { this.arranged = true; } : null
+                });
+                this.arrangementTweens.push(tween);
+            });
         });
+
         playButton.on('pointerout', () => {
-            playButton.setFrame(0);
+            // Stop any arranging tweens immediately
+            this.arrangementTweens.forEach(tween => tween.stop());
+            this.arrangementTweens = [];
+
+            // Revert textures to normal
+            startLetters.forEach(item => item.letter.setTexture(`playButton${item.key}`));
+
+            // Restart the wandering with new random destinations
+            this.startWandering(startLetters);
+
+            this.arranged = false;
         });
 
         //accion click
         playButton.on('pointerup', () => {
             this.transitionController.startFadeOutTransition(() => {
-                
-                if (this.playerData.IntroCompleted) this.scene.start('SelectionMenuScene', this.playerData)
-                else this.scene.start('Intro', this.playerData)
-            
+                this.KillSounds();
+                if (this.playerData.IntroCompleted) {
+                    this.scene.start('SelectionMenuScene', this.playerData);
+                } else if (this.playerData.StartedIntro) {
+                    this.scene.start('Intro', this.playerData);
+                }
+                else {
+                     if (this.scene.isActive('GameModeSelection')) return;
+                    
+                    this.scene.pause('Start');
+                    this.scene.launch('GameModeSelection', { PausedScene: 'Start', playerData: this.playerData });
+                }
             }, 400);
         });
 
         //CREDITS BUTTON INTERACTIONS
 
         //efecto hover del boton Creditos
-        creditsButton.on('pointerover', () => creditsButton.setStyle({ fill: '#62a6ffff' }));
-        creditsButton.on('pointerout', () => creditsButton.setStyle({ fill: '#000000ff' }));
+        creditsButton.on('pointerover', () => {
+            this.sound.play('buttonHover', { volume: 2 * this.playerData.sfxVolume });
+            this.tweens.add({
+                targets: creditsButton,
+                scale: 0.14,
+                duration: 200,
+                ease: 'Sine.easeInOut',
+                yoyo: false,
+            });
+        });
+        creditsButton.on('pointerout', () => {
+            this.tweens.add({
+                targets: creditsButton,
+                scale: 0.12,
+                duration: 200,
+                ease: 'Sine.easeInOut',
+                yoyo: false,
+            });
+           
+        });
 
-        //efecto hover del boton Timeboxed
-        this.TimeboxedButton.on('pointerover', () => this.TimeboxedButton.setStyle({ fill: '#62a6ffff' }));
-        this.TimeboxedButton.on('pointerout', () => this.TimeboxedButton.setStyle({ fill: '#000000ff' }));
+        settingsButton.on('pointerover', () => {
+            settingsButton.setTexture('StartMenuSettingsHovered');
+            this.sound.play('buttonHover', { volume: 2 * this.playerData.sfxVolume });
+            this.tweens.add({
+                targets: settingsButton,
+                scale: 0.14,
+                duration: 200,
+                ease: 'Sine.easeInOut',
+                yoyo: false,
+            });
+        }).on('pointerout', () => {
+            settingsButton.setTexture('StartMenuSettings');
+            this.tweens.add({
+                targets: settingsButton,
+                scale: 0.12,
+                duration: 200,
+                ease: 'Sine.easeInOut',
+                yoyo: false,
+            });
+           
+        }).on('pointerdown', () => {
+            this.scene.pause();
+            this.scene.launch('SettingsScene', {
+                fromScene: 'Start',
+                playerData: this.playerData
+            });
+        });
+
+
 
         //accion click
         creditsButton.on('pointerdown', () => {
 
              this.transitionController.startFadeOutTransition(() => {
                 
-               this.scene.start('CreditsScene');
+               this.scene.start('CreditsScene', this.playerData);
             
             }, 200);
             
         });
-        
-        this.TimeboxedButton.on('pointerdown', () => {
-
-            if (this.playerData.showedTBwarn == true)
-            {
-                this.changeTimeboxedMode(!this.playerData.TimeboxedMode);
-            }
-            else{
-
-            
-
-            if (this.scene.isActive('ConfirmMenu')) return;
-
-            this.scene.pause();
-            this.scene.launch('ConfirmMenu',{
-                sceneToPause: this.scene.key,
-                text: "Are you sure you want to activate TimeBoxed mode?\n\n When playing with this enabled, if you lose any game, the entire game will restart. \nCompleting the entire game in this mode will grant an exclusive achievement",
-                onYes: () => {
-                    this.transitionController.startFadeInTransition();
-                    this.scene.resume(this);
-                    this.scene.stop('ConfirmMenu');
-                
-                    this.changeTimeboxedMode(true);
-                    this.playerData.showedTBwarn = true;
-                },
-                onNo: () => {
-                    this.scene.resume(this);
-                    this.scene.stop('ConfirmMenu');
-                }
-            });
-
-            }
-
-          
-        });
-
-
-         
-
-        logo.setScale(0.5);
-
-        //animacion del nombre del juego
-        this.tweens.add({
-            targets: logo,
-            y: 200,
-            duration: 1800,
-            ease: 'Sine.easeInOut',
-            yoyo: true,
-            loop: -1
-        });
-
-        //Logo del equipo en la esquina
-        const teamLogo = this.add.image(width - 100, height - 100, 'teamLogo')
-            .setOrigin(0.5)
-            .setScale(0.15)
-        //.setAlpha(0.9);
-        //.setTint(0xffffffff);
 
 
     }
@@ -207,6 +311,28 @@ export class Start extends Phaser.Scene {
 
     }
 
+    /**
+     * Starts the wandering animation for the START button letters.
+     * It stops any existing wandering tweens and creates new ones.
+     * @param {Array<object>} letters - Array of letter objects to animate.
+     */
+    startWandering(letters) {
+        this.wanderingTweens.forEach(tween => tween.stop());
+        this.wanderingTweens = [];
+
+        letters.forEach(letter => {
+            const newTween = this.tweens.add({
+                targets: letter.letter,
+                x: letter.pos.x + Phaser.Math.Between(-5, 5),
+                y: letter.pos.y + 20,
+                duration: Phaser.Math.Between(2000, 4000),
+                ease: 'Sine.easeInOut',
+                yoyo: true,
+                loop: -1
+            });
+            this.wanderingTweens.push(newTween);
+        });
+    }
 
 
 }

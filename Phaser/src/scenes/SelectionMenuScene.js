@@ -1,10 +1,13 @@
 import TransitionController, {RGBColor} from "../misc/transitioncontroller.js";
-
+import { BaseScene } from "./BaseScene.js";
 
 const IMAGE_KEYS = {
     'Egypt': 'asebVerticalBackground', 
-    'Rome': 'taliVerticalBackground', 
-    'Japan': 'BoxClosed'  
+    'EgyptHovered': 'asebVerticalBackgroundHovered', 
+    'Rome': 'taliVerticalBackground',
+    'RomeHovered': 'taliVerticalBackgroundHovered', 
+    'Japan': 'japanVerticalBackground',
+    'JapanHovered': 'japanVerticalBackgroundHovered'
 };
 
 
@@ -14,7 +17,7 @@ const IMAGE_KEYS = {
  * shows in the different levels of the game, so the player can choose
  */
 
-export class SelectionMenuScene extends Phaser.Scene {
+export class SelectionMenuScene extends BaseScene {
     constructor() {
         super('SelectionMenuScene');
     }
@@ -25,9 +28,25 @@ export class SelectionMenuScene extends Phaser.Scene {
         this.playerData = playerData;
         console.log(this.playerData)
 
+        if (this.playerData.AsebCompleted && this.playerData.TaliCompleted && this.playerData.HanafudaCompleted) {
+            this.scene.start('GameCompleted', this.playerData);
+            return;
+        }
+
+
+        const baseMusicVolume = 0.25;
+        this.music = this.sound.add('ChooseYourEra', { loop: true, volume: baseMusicVolume * this.playerData.musicVolume });
+        this.soundInstances.push({ 
+            sound: this.music, 
+            type: 'music', 
+            baseVolume: baseMusicVolume 
+        });
+        this.music.play();
+
         this.transitionController = new TransitionController(this);
 
         this.transitionController.startFadeInTransition();
+
         
         const { width, height } = this.sys.game.canvas;  //width and height of the canvas
         if (this.playerData.TimeboxedMode) this.background = this.add.image(width / 2, height / 2, 'backgroundTB').setDisplaySize(width, height);
@@ -100,7 +119,7 @@ export class SelectionMenuScene extends Phaser.Scene {
          * HanafudaScene for japanese level scene
         */
 
-        const scenes = ['IntroAseb', 'TaliIntroScene', 'HanafudaBeginScene'];
+        const scenes = ['IntroAseb', 'TaliIntroScene', 'HanafudaIntro'];
 
         /** Maps level options to playerData completion flags */
         const completionFlags = {
@@ -172,16 +191,29 @@ export class SelectionMenuScene extends Phaser.Scene {
          * .on('pointerout', ...) changes the background color of the button when not hovering
          * .on('pointerdown', ...) starts the Start scene when the button is clicked
         */
-        const backBtn = this.add.text(200, height - 100, 'Return to main menu', {
-            fontSize: '30px',
-            fill: '#000000',
-            backgroundColor: '#f7f7f7',
-            padding: { x: 20, y: 10 }
+        const backBtn = this.add.image(220, height - 100, 'BackToStartNormal')
+            .setOrigin(0.5)
+            .setInteractive({ cursor: 'pointer' });
+
+        backBtn.on('pointerover', () => { 
+            this.sound.play('buttonHover', { volume: 2 * this.playerData.sfxVolume }); 
+            backBtn.setTexture('BackToStartHovered');
+            this.tweens.add({
+                targets: backBtn,
+                scale: 1.05,
+                duration: 100,
+                ease: 'Power1'
+            });
+        }).on('pointerout', () => {
+            backBtn.setTexture('BackToStartNormal');
+            this.tweens.add({
+                targets: backBtn,
+                scale: 1.0,
+                duration: 150,
+                ease: 'Power1'
+            });
         })
-        .setOrigin(0.5)
-        .setInteractive({ cursor: 'pointer' })
-        .on('pointerover', () => backBtn.setStyle({ backgroundColor: '#bbbaba' }))
-        .on('pointerout', () => backBtn.setStyle({ backgroundColor: '#f7f7f7' }))
+
         .on('pointerdown', () => {
             this.transitionController.startFadeOutTransition(() => {
                 
@@ -205,7 +237,8 @@ export class SelectionMenuScene extends Phaser.Scene {
         box.on('pointerdown', () => {
             if (deployed) return;
             deployed = true;
-
+            this.time.delayedCall(100, () => { this.sound.play('boxClickedSFX', { volume: 0.5 * this.playerData.sfxVolume });});
+            
             // Stop the floating animation
             floatingBoxAnim.stop();
 
@@ -252,7 +285,7 @@ export class SelectionMenuScene extends Phaser.Scene {
                     x: finalPositions[index].x,
                     y: finalPositions[index].y,
                     alpha: 1,
-                    duration: 1000,
+                    duration: 800,
                     ease: 'Sine.easeOut',
                     onComplete: () => { // this is done so buttons are interactive only when the animation is complete
                         /**
@@ -264,23 +297,26 @@ export class SelectionMenuScene extends Phaser.Scene {
                          */
                         btn.setInteractive({ cursor: 'pointer' })
                             .on('pointerover', () => {
+                                btn.setTexture(IMAGE_KEYS[opciones[index] + 'Hovered']);
+                                this.sound.play('buttonHover', { volume: 2 * this.playerData.sfxVolume });
                                
                                 this.tweens.add({
                                     targets: btn,
                                     scaleX: 0.42,
                                     scaleY: 0.42,
                                     duration: 200,
-                                    ease: 'Back.easeOut'
+                                    ease: 'Power1'
                                 });
                             })
                             .on('pointerout', () => {
-                             
+                                
+                                btn.setTexture(IMAGE_KEYS[opciones[index]]); // Se recupera su textura normal
                                 this.tweens.add({
                                     targets: btn,
                                     scaleX: 0.4,
                                     scaleY: 0.4,
                                     duration: 200,
-                                    ease: 'Back.easeIn'
+                                    ease: 'Power1'
                                 });
                             })
                             .on('pointerdown', () => {
@@ -289,6 +325,7 @@ export class SelectionMenuScene extends Phaser.Scene {
                             if (this.playerData[completionFlag]) {
                                     this.scene.pause();
                                     this.scene.launch('ConfirmMenu',{
+                                    playerData: this.playerData,
                                     sceneToPause: this.scene.key,
                                     text: "You've already beaten this level. Completing it again won't grant you additional achievements. \n\n Are you sure you want to replay it?",
                                     onYes: () => {         
@@ -331,7 +368,7 @@ export class SelectionMenuScene extends Phaser.Scene {
                     onComplete: () => {
                         this.tweens.add({
                             targets: btn,
-                            y: finalPositions[index].y - 15,
+                            y: finalPositions[index].y - 25,
                             duration: 2000 + (index * 300),
                             ease: 'Sine.easeInOut',
                             yoyo: true,
@@ -349,6 +386,7 @@ export class SelectionMenuScene extends Phaser.Scene {
         */
         box.on('pointerover', () => {
             if (!deployed) {
+                this.sound.play('buttonHover', { volume: 2 * this.playerData.sfxVolume });
 
                 /**
                  * Box scaling effect when hovering

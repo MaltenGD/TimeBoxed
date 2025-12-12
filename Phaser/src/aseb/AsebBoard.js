@@ -30,7 +30,9 @@ export default class AsebBoard extends Phaser.GameObjects.Image
     this.createPositions();
     this.createPieces();
 
-    //this.debugDrawPositions();
+    this.on('pieceAnimComplete', (piece, IsSpecialPosition, row, col) =>{
+      this.checkNewPosition(IsSpecialPosition, piece, row, col);
+    });
   }
 
   /**
@@ -113,7 +115,7 @@ export default class AsebBoard extends Phaser.GameObjects.Image
      * Calculates the target board position for a piece given a number of moves.
      * @param {AsebPiece} piece - The piece to calculate the move for.
      * @param {number} numPositions - The number of squares to move.
-     * @returns {{row: number, col: number}} The calculated target row and column.
+     * @returns The calculated target row and column.
      */
     getNextBoardPosition(piece, numPositions)  
     {
@@ -161,7 +163,7 @@ export default class AsebBoard extends Phaser.GameObjects.Image
      * Checks if there are any valid moves available for a given set of pieces and a move distance.
      * @param {AsebPiece[]} piecesArray - The array of pieces to check (player pieces or enemy pieces).
      * @param {number} moves - The number of squares to move.
-     * @returns {boolean} True if at least one valid move exists, false otherwise.
+     * @returns True if at least one valid move exists, false otherwise.
      */
     IsThereValidMoves(piecesArray, moves)
     {
@@ -183,7 +185,7 @@ export default class AsebBoard extends Phaser.GameObjects.Image
      * Validates a potential move for a piece to a target row and column.
      * @param {AsebPiece} piece - The piece that is intended to move.
      * @param {{row: number, col: number}} position - The target destination with row and column.
-     * @returns {{isValid: boolean, piece: AsebPiece|null, isSpecialPosition: boolean, msg: string}} An object describing the validity of the move.
+     * @returns An object describing the validity of the move.
      */
     IsValidMove(piece, {row, col})
     {
@@ -208,7 +210,7 @@ export default class AsebBoard extends Phaser.GameObjects.Image
      * This function handles validating the move, capturing opponent pieces, and emitting events.
      * @param {AsebPiece} piece - The piece to move.
      * @param {{row: number, col: number}} The target destination with row and column.
-     * @returns {boolean} True if the move was successful, false otherwise.
+     * @returns True if the move was successful, false otherwise.
      */
     TryMovePiece(piece , {row, col})
     {
@@ -245,19 +247,17 @@ export default class AsebBoard extends Phaser.GameObjects.Image
 
         piece.setBoardVariables(row, col);
 
+        piece.MoveInScreen(boardTargetPos.x, boardTargetPos.y, isNextPositionValid.isSpecialPosition, row, col);
+        this.scene.sound.play('boxClickedSFX', { volume: 0.5 * this.scene.playerData.sfxVolume }); // The sound when a piece is moved is the same as when a box is clicked in the selection menu
+        boardTargetPos.SetPiece(piece);
 
-        if (piece.Ended())
-        {
-          this.emit('pieceReachesEnd', piece);
-          piece.destroy();
-        }
-        else{
-          piece.MoveInScreen(boardTargetPos.x, boardTargetPos.y);
-          boardTargetPos.SetPiece(piece);
+        return true;
+    }
 
-        }
-        
-        if (isNextPositionValid.isSpecialPosition)
+
+    checkNewPosition(isSpecialPosition, piece, row, col)
+    {
+      if (isSpecialPosition)
         {
           this.emit('SpecialPosition' ,piece.type);
           if (piece.type === PIECE_TYPE.PLAYER) 
@@ -267,11 +267,14 @@ export default class AsebBoard extends Phaser.GameObjects.Image
             }
           
         }
+        else if (piece.Ended())
+        {
+          this.emit('pieceReachesEnd', piece);
+          this.positions[row][col].SetPiece(null);
+          piece.destroy();
+        }
         else this.emit('pieceMoved', piece); // Emit an event to notify the scene.
-
-        return true;
     }
-
     /**
      * Manages the AI's turn. It gets a throw result and attempts to make a valid move with a random piece.
      * @param {number} StickResultSum - The result of the AI's stick throw.
@@ -279,11 +282,10 @@ export default class AsebBoard extends Phaser.GameObjects.Image
     doRandomMovement(StickResultSum)
     {
         console.log(`Anubis threw a ${StickResultSum}`);
-
         // If the throw is 0, the turn is skipped.
         if (StickResultSum === 0) {
-            console.log("Anubis threw a 0. Turn skipped.");
-            this.scene.infoText.setText("Anubis threw a 0!\nTurn is skipped.");
+            console.log("Anubis got 0 points. Turn skipped.");
+            this.scene.infoText.setText("Anubis got 0 points!\nTurn is skipped.");
             this.scene.time.addEvent({
             delay: this.scene.pauseTime,
             callback: () => {
@@ -293,7 +295,7 @@ export default class AsebBoard extends Phaser.GameObjects.Image
             return; 
         }
 
-        this.scene.infoText.setText(`Anubis threw a ${StickResultSum}!`);
+        this.scene.infoText.setText(`Anubis got ${StickResultSum} points!`);
 
         this.scene.time.addEvent({
             delay: this.scene.pauseTime,
@@ -316,7 +318,7 @@ export default class AsebBoard extends Phaser.GameObjects.Image
 
               // If the loop completes, no valid moves were found.
               console.log("Anubis has no valid moves.");
-              this.scene.infoText.setText(`Anubis threw a ${throwResult}\nbut has no valid moves!`);
+              this.scene.infoText.setText(`Anubis got ${throwResult} points\nbut has no valid moves!`);
               this.scene.time.addEvent({
                   delay: this.scene.pauseTime,
                   callback: () => {

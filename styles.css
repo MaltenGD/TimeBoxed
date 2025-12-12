@@ -5,7 +5,14 @@ html {
 
 body{
     background: rgb(17, 17, 17);
+}
 
+html, body {
+  cursor: url("images/cursor_normal_small_v2.png") 10 5, auto;
+}
+
+a, button, [role="button"], input[type="button"], input[type="submit"] {
+  cursor: url("images/cursor_open_small_v2.png") 10 5, auto;
 }
 
 #game-container {
@@ -25,6 +32,32 @@ body{
 @font-face {
   font-family: 'rimouski';
   src: url('fonts/rimouski.otf') format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Anubismythicalserif';
+  src: url('fonts/Anubismythicalserif-lxdLy.otf') format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'TaliOne';
+  src: url('fonts/Tali1.ttf') format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'TaliTwo';
+  src: url('fonts/TaliMorrisRoman-Black.ttf') format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'CenturyGothic';
+  src: url('fonts/CenturyGothicRegular.otf') format("opentype");
   font-weight: normal;
   font-style: normal;
 }

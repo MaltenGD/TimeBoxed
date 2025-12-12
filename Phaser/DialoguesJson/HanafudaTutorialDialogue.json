@@ -1,0 +1,251 @@
+{
+    "HanafudaTutorialDialogue":
+    {
+        "start":
+        {
+            "speaker":"Kronos",
+            "text":"Welcome my friend, I hope your paws are steady. Hanafuda is an ancient Japanese card game, tradition, elegance, and gambling all mixed together.",
+            "animation":"true",
+            "next":"HTD2",
+            "tutoImage": "none",
+            "Character":{
+                "ImageKey":"kronos",
+                "frame":4,
+                "x":1060,
+                "y":250,
+                "scaleX":1,
+                "scaleY":1,
+                "rotation":0,
+                "emoticon":"none",
+                "emoticonY":0
+            }
+
+        },
+
+        "HTD2":
+        {
+            "speaker":"Kronos",
+            "text":"Perfect for a refined creature like me… and for you, I guess.",
+            "animation":"true",
+            "next":"HTD3",
+            "tutoImage": "none",
+            "Character":{
+                "ImageKey":"kronos",
+                "frame":0,
+                "x":1060,
+                "y":250,
+                "scaleX":1,
+                "scaleY":1,
+                "rotation":0,
+                "emoticon":5,
+                "emoticonY":0
+            }
+        },
+
+        "HTD3":
+        {
+            "speaker":"Kronos",
+            "text":"Don't worry, if you lose, you only lose your soul. I'm joking! …mostly.",
+            "animation":"true",
+            "next":"HTD4",
+            "tutoImage": "none",
+            "Character":{
+                "ImageKey":"kronos",
+                "frame":2,
+                "x":1060,
+                "y":250,
+                "scaleX":1,
+                "scaleY":1,
+                "rotation":0,
+                "emoticon":"none",
+                "emoticonY":0
+            }
+        },
+
+        "HTD4":
+        {
+            "speaker":"Kronos",
+            "text":"Before we begin, see these eight cards?",
+            "animation":"true",
+            "next":"HTD5",
+            "tutoImage": "TutorialChooseCard",
+            "Character":"none"
+        },
+
+        "HTD5":
+        {
+            "speaker":"Kronos",
+            "text":"Pick one, choose wisely... or don't. It's random anyway. Whoever flips the earliest month gets to go first.",
+            "animation":"true",
+            "next":"HTD6",
+            "tutoImage":"TutorialChooseCard",
+            "Character":"none"
+        },
+
+        "HTD6":
+        {
+            "speaker":"Kronos",
+            "text":"These cards come in 12 suits, one for each month. But don't worry about the months, just match similar flowers. Same flower? Good. Different flower? Useless, don’t do that.",
+            "animation":"true",
+            "next":"HTD7",
+            "tutoImage":"TutorialCardGroup",
+            "Character":"none"
+        },
+
+        "HTD7":
+        {
+            "speaker":"Kronos",
+            "text":"On your turn, you pick one card from your hand and try to match it with a card on the field. Match = you capture both cards. No match? Then your card gets added to the field like sad leftovers.",
+            "animation":"true",
+            "next":"HTD8",
+            "tutoImage":"TutorialTablero",
+            "Character":"none"
+        },
+
+        "HTD8":
+        {
+            "speaker":"Kronos",
+            "text":"After you play a card, the game flips one card from the deck. If that card matches something on the field, you capture those too.",
+            "animation":"true",
+            "next":"HTD9",
+            "tutoImage":"MatchCard"
+        },
+
+        "HTD9":
+        {
+            "speaker":"Kronos",
+            "text":"Yes, two chances per turn. Easy, right? Even a stray cat like you can understand it.",
+            "animation":"true",
+            "next":"HTD10",
+            "tutoImage":"MatchCard",
+            "Character":"none"
+        },
+
+        "HTD10":
+        {
+            "speaker":"Kronos",
+            "text":"The goal is to make yaku--special combinations of cards. When you make a yaku, you score points. Points good. Losing bad. Simple. These are all the yaku you can make.",
+            "animation":"true",
+            "next":"HTD11",
+            "tutoImage":"TutorialCombination",
+            "Character":"none"
+        },
+
+         "HTD11":
+        {
+            "speaker":"Kronos",
+            "text":"And if your memory fails you, which it will, you can always check them from the Yaku list menu",
+            "animation":"true",
+            "next":"HTD12",
+            "tutoImage":"YakuMenu"
+        },
+
+        "HTD12":
+        {
+            "speaker":"Kronos",
+            "text":"Now here comes the fun part, the dangerous part. When you complete a yaku, you get a choice: Koikoi or Shobu.",
+            "animation":"true",
+            "next":"HTD13",
+            "tutoImage":"Decision"
+        },
+
+        "HTD13":
+        {
+            "speaker":"Kronos",
+            "text":"If you choose Koikoi, you're saying: 'I want MORE points. I'm not done yet.' It's a gamble, your opponent can steal the round if they finish a yaku before you do.",
+            "animation":"true",
+            "next":"HTD14",
+            "tutoImage":"Decision",
+            "Character":"none"
+        },
+
+        "HTD14":
+        {
+            "speaker":"Kronos",
+            "text":"Risky… but delicious when it works.",
+            "animation":"true",
+            "next":"HTD15",
+            "tutoImage":"Decision",
+            "Character":"none"
+        },
+
+        "HTD15":
+        {
+            "speaker":"Kronos",
+            "text":"If you choose Shobu, you stop the round immediately. You take your points, safe and tidy, and the next round begins.",
+            "animation":"true",
+            "next":"HTD16",
+            "tutoImage":"Decision",
+            "Character":"none"
+        },
+
+        "HTD16":
+        {
+            "speaker":"Kronos",
+            "text":" No risk, no thrill, but hey, not everyone has the stomach for danger.",
+            "animation":"true",
+            "next":"HTD17",
+            "tutoImage":"Decision",
+            "Character":"none"
+        },
+
+        "HTD17":
+        {
+            "speaker":"Kronos",
+            "text":"The match lasts 3 rounds. At the end of all 3, whoever has the most points wins the entire game.",
+            "animation":"true",
+            "next":"HTD18",
+            "tutoImage":""
+        },
+
+        "HTD18":
+        {
+            "speaker":"Kronos",
+            "text":"So remember: Match cards, make yaku. Choose Koikoi if you're feeling lucky, choose Shobu if you're feeling scared.",
+            "animation":"true",
+            "next":"HTD19",
+            "tutoImage":"none",
+            "Character":{
+                "ImageKey":"kronos",
+                "frame":2,
+                "x":1060,
+                "y":250,
+                "scaleX":1,
+                "scaleY":1,
+                "rotation":0,
+                "emoticon":5,
+                "emoticonY":0
+            }
+        },
+
+        "HTD19":
+        {
+            "speaker":"Kronos",
+            "text":"If your little cat brain needs a refresher, open the menu and choose Help and I'll repeat myself like a very handsome, very annoyed tutor.",
+            "animation":"true",
+            "next":"HTD20",
+            "tutoImage":"Help",
+            "Character":"none"
+        },
+
+        "HTD20":
+        {
+            "speaker":"Kronos",
+            "text":"Time to play for real, good luck! You'll need it.",
+            "animation":"true",
+            "next": null,
+            "tutoImage":"none",
+            "Character":{
+                "ImageKey":"kronos",
+                "frame":0,
+                "x":1060,
+                "y":250,
+                "scaleX":1,
+                "scaleY":1,
+                "rotation":0,
+                "emoticon":"none",
+                "emoticonY":0
+            }
+        }
+    }
+}

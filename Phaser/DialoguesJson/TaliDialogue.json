@@ -46,6 +46,15 @@
         "speaker": "Kronos",
         "text": "Don't get drunk or you'll lose. No one can hold their alcohol like Mercury.",
         "animation": "true",
+        "Character": {
+            "ImageKey": "kronos",
+            "frame": 4,
+            "x": 1060,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0
+        },
         "next": "TI6"
     },
     
@@ -54,6 +63,17 @@
         "speaker": "Kronos",
         "text": "...except me, of course.",
         "animation": "true",
+        "Character": {
+            "ImageKey": "kronos",
+            "frame": 3,
+            "x": 1060,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0,
+            "emoticon": 5,
+            "emoticonY": 0
+        },
         "next": "TI7"
     },
     
@@ -62,6 +82,15 @@
         "speaker": "Narrator",
         "text": "Kronos looks very proud of himself.",
         "animation": "true",
+        "Character": {
+            "ImageKey": "kronos",
+            "frame": 0,
+            "x": 1060,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0
+        },
         "next": "TI8"
     },
     
@@ -70,6 +99,16 @@
         "speaker": "Player",
         "text": "Is that why you lost?",
         "animation": "true",
+        "Character": {
+            "ImageKey": "protagonist",
+            "frame": 3,
+            "x": 460,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0,
+            "emoticon": "none"
+        },
         "next": "TI9"
     },
     
@@ -78,6 +117,17 @@
         "speaker": "Kronos",
         "text": "Hmph.",
         "animation": "true",
+        "Character": {
+            "ImageKey": "kronos",
+            "frame": 2,
+            "x": 1060,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0,
+            "emoticon": 9,
+            "emoticonY": -20
+        },
         "next": "TI10"
     },
     
@@ -86,6 +136,16 @@
         "speaker": "Narrator",
         "text": "Kronos opens his mouth-",
         "animation": "true",
+        "Character": {
+            "ImageKey": "kronos",
+            "frame": 4,
+            "x": 1060,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0,
+            "emoticon": "none"
+        },
         "next": "TI11"
     },
     
@@ -94,6 +154,17 @@
         "speaker": "???",
         "text": "GOD OF TIME!",
         "animation": "true",
+        "Character": {
+            "ImageKey": "kronos",
+            "frame": 2,
+            "x": 1060,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0,
+            "emoticon": 3,
+            "emoticonY": 0
+        },
         "next": "TI12"
     },
     
@@ -102,6 +173,7 @@
         "speaker": "Narrator",
         "text": "A booming voice interrupts your conversation.",
         "animation": "true",
+        "Character": "none",
         "next": "TI13"
     },
     
@@ -110,6 +182,17 @@
         "speaker": "Kronos",
         "text": "Tsk. There he is. Be careful, kitty.",
         "animation": "true",
+        "Character": {
+            "ImageKey": "kronos",
+            "frame": 4,
+            "x": 1060,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0,
+            "emoticon": 8,
+            "emoticonY": 0
+        },
         "next": "TI14"
     },
     
@@ -118,6 +201,7 @@
         "speaker": "Narrator",
         "text": "You are about to protest when Kronos pushes you forward and you stumble at the feet of a very...",
         "animation": "true",
+        "Character": "none",
         "next": "TI15"
     },
     
@@ -126,22 +210,42 @@
         "speaker": "Narrator",
         "text": "...small, fluffy, spiky cat with tiny eyes and brown fur.",
         "animation": "true",
+        "Character": {
+            "ImageKey": "mercury",
+            "frame": 0,
+            "x": 760,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0
+        },
         "next": "TI16"
     },
     
     "TI16":
     {
         "speaker": "Narrator",
-        "text": "You glance back, but Kronos has disappeared. ",
+        "text": "You glance back, but Kronos has disappeared.",
         "animation": "true",
         "next": "TI17"
     },
     
     "TI17":
     {
-        "speaker": "PLayer",
+        "speaker": "Player",
         "text": "You son of a-",
         "animation": "true",
+        "Character": {
+            "ImageKey": "protagonist",
+            "frame": 4,
+            "x": 460,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 9,
+            "emoticon": 9,
+            "emoticonY": 50
+        },
         "next": "TI18"
     },
     
@@ -150,6 +254,17 @@
         "speaker": "???",
         "text": "Who's this little kitty? A follower of Kronos's?",
         "animation": "true",
+        "Character": {
+            "ImageKey": "mercury",
+            "frame": 1,
+            "x": 760,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0,
+            "emoticon": 1,
+            "emoticonY": 140
+        },
         "next": "TI19"
     },
     
@@ -158,6 +273,17 @@
         "speaker": "Player",
         "text": "I- Uh- I-",
         "animation": "true",
+        "Character": {
+            "ImageKey": "protagonist",
+            "frame": 6,
+            "x": 460,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0,
+            "emoticon": 8,
+            "emoticonY": 50
+        },
         "next": "TI20"
     },
     
@@ -166,6 +292,7 @@
         "speaker": "Narrator",
         "text": "Mercury, the trickster, God of commerce and thieves, laughs in your face.",
         "animation": "true",
+        "Character": "none",
         "next": "TI21"
     },
     
@@ -182,6 +309,15 @@
         "speaker": "Mercury",
         "text": "You're here for the can of tuna ol' Kronos lost? I'm surprised you would wager your soul for him!",
         "animation": "true",
+        "Character": {
+            "ImageKey": "mercury",
+            "frame": 1,
+            "x": 760,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0
+        },
         "next": "TI23"
     },
     
@@ -190,6 +326,17 @@
         "speaker": "Narrator",
         "text": "Mercury slams his paw into the table and interrupts your thoughts about the soul-trading. Four stone dice on the table shake.",
         "animation": "true",
+        "Character": {
+            "ImageKey": "mercury",
+            "frame": 0,
+            "x": 760,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0,
+            "emoticon": 5,
+            "emoticonY": 120
+        },
         "next": "end"
     },
     
@@ -198,6 +345,15 @@
         "speaker": "Mercury",
         "text": "Then join me for a round of Tali, and let the dice decide your fate!",
         "animation": "true",
+        "Character": {
+            "ImageKey": "mercury",
+            "frame": 1,
+            "x": 760,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0
+        },
         "next": null
     }
 },
@@ -208,23 +364,49 @@
         "text": "So your friend has left you, huh?",
         "animation":"true",
         "next": "TT1",
-        "image": ""
+        "Character": {
+            "ImageKey": "mercury",
+            "frame": 1,
+            "x": 100,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0
+        }
     },
 
     "TT1":{
         "speaker": "Mercury",
         "text": "Typical Kronos.",
         "animation":"true",
-        "next": "TT2",
-        "image": ""
+        "Character": {
+            "ImageKey": "mercury",
+            "frame": 3,
+            "x": 100,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0
+        },
+        "next": "TT2"
     },
 
     "TT2":{
         "speaker": "Mercury",
         "text": "Do not worry, *I* will teach you!",
         "animation":"true",
-        "next": "TT3",
-        "image": ""
+        "Character": {
+            "ImageKey": "mercury",
+            "frame": 1,
+            "x": 100,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0,
+            "emoticon": 5,
+            "emoticonY": 140
+        },
+        "next": "TT3"
     },
 
     "TT3":{
@@ -232,15 +414,34 @@
         "text": "Tali is a game that revolves around dice. The rules are simple:",
         "animation":"true",
         "next": "TT4",
-        "image": ""
+        "Character": {
+            "ImageKey": "mercury",
+            "frame": 1,
+            "x": 100,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0,
+            "emoticon": "none"
+        },
+        "tutoImage": "TT3"
     },
 
     "TT4":{
         "speaker": "Mercury",
         "text": "Each of us rolls the dice once. Whoever gets a higher score begins.",
         "animation":"true",
+        "Character": {
+            "ImageKey": "mercury",
+            "frame": 4,
+            "x": 100,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0
+        },
         "next": "TT5",
-        "image": ""
+        "tutoImage": "TT4"
     },
 
     "TT5":{
@@ -248,7 +449,16 @@
         "text": "On your turn, you throw the dice and get points based on the combinations they form.",
         "animation":"true",
         "next": "TT6",
-        "image": ""
+        "Character": {
+            "ImageKey": "mercury",
+            "frame": 1,
+            "x": 100,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0
+        },
+        "tutoImage": "TT5"
     },
 
     "TT6":{
@@ -256,7 +466,18 @@
         "text": "Let me tell you about them!",
         "animation":"true",
         "next": "TT7",
-        "image": ""
+        "Character": {
+            "ImageKey": "mercury",
+            "frame": 4,
+            "x": 100,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0,
+            "emoticon": 4,
+            "emoticonY": 140
+        },
+        "tutoImage": ""
     },
 
     "TT7":{
@@ -264,7 +485,16 @@
         "text": "Venus: all the dice rolled different numbers.",
         "animation":"true",
         "next": "TT8",
-        "image": ""
+        "Character": {
+            "ImageKey": "mercury",
+            "frame": 1,
+            "x": 100,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0
+        },
+        "tutoImage": "TT7"
     },
 
     "TT8":{
@@ -272,7 +502,16 @@
         "text": "Marte: you rolled at least one dice with the number 6 on it.",
         "animation":"true",
         "next": "TT9",
-        "image": ""
+        "Character": {
+            "ImageKey": "mercury",
+            "frame": 1,
+            "x": 100,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0
+        },
+        "tutoImage": "TT8"
     },
 
     "TT9":{
@@ -280,7 +519,16 @@
         "text": "Jupiter: all the dice rolled the same number.",
         "animation":"true",
         "next": "TT10",
-        "image": ""
+        "Character": {
+            "ImageKey": "mercury",
+            "frame": 1,
+            "x": 100,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0
+        },
+        "tutoImage": "TT9"
     },
 
     "TT10":{
@@ -288,7 +536,16 @@
         "text": "Neptune: all the dice landed on 1. This is an unlucky throw, so it gives you no points.",
         "animation":"true",
         "next": "TT11",
-        "image": ""
+        "Character": {
+            "ImageKey": "mercury",
+            "frame": 1,
+            "x": 100,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0
+        },
+        "tutoImage": "TT10"
     },
 
     "TT11":{
@@ -296,63 +553,180 @@
         "text": "I saved the best for last! Luna: you rolled at least 3 dice with the number 3.",
         "animation":"true",
         "next": "TT12",
-        "image": ""
+        "Character": {
+            "ImageKey": "mercury",
+            "frame": 4,
+            "x": 100,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0,
+            "emoticon": 5,
+            "emoticonY": 140
+        },
+        "tutoImage": "TT11"
     },
 
     "TT12":{
         "speaker": "Mercury",
         "text": "If you roll a Luna, you get another turn! How cool is that?",
         "animation":"true",
+        "Character": {
+            "ImageKey": "mercury",
+            "frame": 1,
+            "x": 100,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0
+        },
+        "next": "TT12-1"
+    },
+
+    "TT12-1":{
+        "speaker": "Mercury",
+        "text": "I always forget the combinations, so I made it easy for us.",
+        "animation":"true",
+        "Character": {
+            "ImageKey": "mercury",
+            "frame": 3,
+            "x": 100,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0,
+            "emoticon": 6,
+            "emoticonY": 140
+        },
+        "next": "TT12-2",
+        "tutoImage": "none"
+    },
+
+    "TT12-2":{
+        "speaker": "Mercury",
+        "text": "Just click there to revise them again!",
+        "animation":"true",
+        "Character": {
+            "ImageKey": "mercury",
+            "frame": 1,
+            "x": 100,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0,
+            "emoticon": 4,
+            "emoticonY": 140
+        },
         "next": "TT13",
-        "image": ""
+        "tutoImage": "TT12-2"
     },
 
     "TT13":{
         "speaker": "Mercury",
         "text": "We're going to play three rounds. May the dice be in your favor!",
         "animation":"true",
+        "Character": {
+            "ImageKey": "mercury",
+            "frame": 1,
+            "x": 100,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0,
+            "emoticon": "none"
+        },
         "next": "TT14",
-        "image": ""
+        "tutoImage": "none"
     },
 
     "TT14":{
         "speaker": "Kronos",
         "text": "Psst, friend!",
         "animation":"true",
-        "next": "TT15",
-        "image": ""
+        "Character": {
+            "ImageKey": "kronos",
+            "frame": 3,
+            "x": 100,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0,
+            "emoticon": 3,
+            "emoticonY": 0
+        },
+        "next": "TT15"
     },
 
     "TT15":{
         "speaker": "Kronos",
         "text": "I don't trust the fates to be in your favor in this game, so I'll help you.",
         "animation":"true",
-        "next": "TT16",
-        "image": ""
+        "Character": {
+            "ImageKey": "kronos",
+            "frame": 4,
+            "x": 100,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0,
+            "emoticon": "none"
+        },
+        "next": "TT16"
     },
 
     "TT16":{
         "speaker": "Kronos",
         "text": "Each time before Mercury's turn, you should try distracting him.",
         "animation":"true",
+        "Character": {
+            "ImageKey": "kronos",
+            "frame": 3,
+            "x": 100,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0
+        },
         "next": "TT17",
-        "image": ""
+        "tutoImage": "TT16"
     },
 
     "TT17":{
         "speaker": "Kronos",
         "text": "How? Just say something about the alcohol, or compliment his eyes. You'll figure it out!",
         "animation":"true",
+        "Character": {
+            "ImageKey": "kronos",
+            "frame": 4,
+            "x": 100,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0,
+            "emoticon": 6,
+            "emoticonY": 0
+        },
         "next": "end",
-        "image": ""
+        "tutoImage": "TT17"
     },
 
     "end":{
         "speaker": "Mercury",
         "text": "I think we're ready now. Let's start!",
         "animation":"true",
+        "Character": {
+            "ImageKey": "kronos",
+            "frame": 0,
+            "x": 100,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0,
+            "emoticon": 5,
+            "emoticonY": 0
+        },
         "next": null,
-        "image": "none"
+        "tutoImage": "none"
     }
 },
 
@@ -378,6 +752,17 @@
         "speaker": "Mercury",
         "text": "NOOOOOO!",
         "animation": "true",
+        "Character": {
+            "ImageKey": "mercury",
+            "frame": 3,
+            "x": 760,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0,
+            "emoticon": 2,
+            "emoticonY": 140
+        },
         "next": "TW3"
     },
 
@@ -394,6 +779,17 @@
         "speaker": "Mercury",
         "text": "I can't believe I lost...",
         "animation": "true",
+        "Character": {
+            "ImageKey": "mercury",
+            "frame": 3,
+            "x": 760,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0,
+            "emoticon": 8,
+            "emoticonY": 140
+        },
         "next": "TW5"
     },
 
@@ -402,6 +798,17 @@
         "speaker": "Narrator",
         "text": "He raises his head and takes a big gulp from his cup of fermented milk drink, descending even more into drunkenness.",
         "animation": "true",
+        "Character": {
+            "ImageKey": "mercury",
+            "frame": 0,
+            "x": 760,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0,
+            "emoticon": 8,
+            "emoticonY": 140
+        },
         "next": "TW6"
     },
 
@@ -410,6 +817,17 @@
         "speaker": "Player",
         "text": "So about the can-",
         "animation": "true",
+        "Character": {
+            "ImageKey": "protagonist",
+            "frame": 6,
+            "x": 460,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0,
+            "emoticon": 6,
+            "emoticonY": 50
+        },
         "next": "TW7"
     },
 
@@ -417,6 +835,15 @@
     {
         "speaker": "Kronos",
         "text": "Kitty!",
+        "Character": {
+            "ImageKey": "kronos",
+            "frame": 0,
+            "x": 1060,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0
+        },
         "animation": "true",
         "next": "TW8"
     },
@@ -426,6 +853,15 @@
         "speaker": "Narrator",
         "text": "Kronos appears next to you and slings his paw over your shoulder.",
         "animation": "true",
+        "Character": {
+            "ImageKey": "kronos",
+            "frame": 1,
+            "x": 1060,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0
+        },
         "next": "TW9"
     },
 
@@ -434,6 +870,17 @@
         "speaker": "Kronos",
         "text": "I knew you could do it.",
         "animation": "true",
+        "Character": {
+            "ImageKey": "kronos",
+            "frame": 3,
+            "x": 1060,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0,
+            "emoticon": 4,
+            "emoticonY": 0
+        },
         "next": "TW10"
     },
 
@@ -442,6 +889,17 @@
         "speaker": "Player",
         "text": "You abandoned me, Kronos, what the fu-",
         "animation": "true",
+        "Character": {
+            "ImageKey": "protagonist",
+            "frame": 4,
+            "x": 460,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0,
+            "emoticon": 9,
+            "emoticonY": 50
+        },
         "next": "TW11"
     },
 
@@ -450,6 +908,17 @@
         "speaker": "Kronos",
         "text": "Ay-oh-kay, we're going to take my dear tuna can and leave! Bye, Mercury!",
         "animation": "true",
+        "Character": {
+            "ImageKey": "kronos",
+            "frame": 0,
+            "x": 1060,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0,
+            "emoticon": 2,
+            "emoticonY": 0
+        },
         "next": "end"
     }, 
 
@@ -458,6 +927,7 @@
         "speaker": "Narrator",
         "text": "You jump back into the box, leaving a drunk Mercury to sob on the table.",
         "animation": "true",
+        "Character": "none",
         "next": null
     }
 },
@@ -485,6 +955,17 @@
         "speaker": "Mercury",
         "text": "YES! Whoop!",
         "animation": "true",
+        "Character": {
+            "ImageKey": "mercury",
+            "frame": 1,
+            "x": 760,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0,
+            "emoticon": 4,
+            "emoticonY": 140
+        },
         "next": "TW3"
     },
 
@@ -501,6 +982,17 @@
         "speaker": "Mercury",
         "text": "You lose!",
         "animation": "true",
+        "Character": {
+            "ImageKey": "mercury",
+            "frame": 1,
+            "x": 760,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0,
+            "emoticon": 5,
+            "emoticonY": 140
+        },
         "next": "TW5"
     },
 
@@ -517,6 +1009,16 @@
         "speaker": "Mercury",
         "text": "Now your soul is mine!",
         "animation": "true",
+        "Character": {
+            "ImageKey": "mercury",
+            "frame": 4,
+            "x": 760,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0,
+            "emoticon": "none"
+        },
         "next": "TW7"
     },
     
@@ -525,6 +1027,7 @@
         "speaker": "Narrator",
         "text": "Mercury takes a swig of his fermented milk and orders another drink.",
         "animation": "true",
+        "Character": "none",
         "next": "TW8"
     },
 
@@ -533,6 +1036,17 @@
         "speaker": "Player",
         "text": "Soul? No one said anything about a soul-",
         "animation": "true",
+        "Character": {
+            "ImageKey": "protagonist",
+            "frame": 3,
+            "x": 460,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0,
+            "emoticon": 2,
+            "emoticonY": 50
+        },
         "next": "TW9"
     },
 
@@ -541,6 +1055,16 @@
         "speaker": "Mercury",
         "text": "You're a mortal, you lose, you give me your soul.",
         "animation": "true",
+        "Character": {
+            "ImageKey": "mercury",
+            "frame": 1,
+            "x": 760,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0,
+            "emoticon": "none"
+        },
         "next": "TW10"
     },
 
@@ -549,6 +1073,7 @@
         "speaker": "Narrator",
         "text": "You stumble back. Kronos appears behind you and drags you into the crowds.",
         "animation": "true",
+        "Character":"none",
         "next": "TW11"
     },
 
@@ -557,6 +1082,7 @@
         "speaker":"Narrator",
         "text": "Fortunately for you, Mercury is too drunk to notice right away.",
         "animation": "true",
+        "Character":"none",
         "next": "TW12"
     },
 
@@ -565,6 +1091,15 @@
         "speaker":"Kronos",
         "text": "Ok, kitty, we'll have to redo this. But promise me you'll win next time, alright?",
         "animation": "true",
+        "Character": {
+            "ImageKey": "kronos",
+            "frame": 4,
+            "x": 1060,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0
+        },
         "next": "TW13"
     },
 
@@ -573,6 +1108,7 @@
         "speaker":"Narrator",
         "text": "The world dissolves into a swirl of colors and fades to black.",
         "animation": "true",
+        "Character":"none",
         "next": "end"
     },
 
@@ -581,6 +1117,124 @@
         "speaker":"Narrator",
         "text":"The hands of time turn back and you forget this ever happened...",
         "animation": "true",
+        "next": null
+    }
+},
+
+"DistractMercuryDialogue0": {
+    "start": {
+        "speaker": "Mercury",
+        "text": "Ah... I finished my drink.",
+        "animation":"true",
+        "Character": {
+            "ImageKey": "mercury",
+            "frame": 3,
+            "x": 100,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0
+        },
+        "next": "end"
+    },
+    "end" : {
+        "speaker": "Narrator",
+        "text": "Mercury looks at your drink with shinning eyes.",
+        "animation": "true",
+         "Character": {
+            "ImageKey": "mercury",
+            "frame": 4,
+            "x": 100,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0,
+            "emoticon": 7,
+            "emoticonY": 310,
+            "emoticonX": 90
+        },
+        "next": null
+    }
+},
+
+"DistractMercuryDialogue1": {
+    "start": {
+        "speaker": "Mercury",
+        "text": "Can you roll faster? I'm getting bored...",
+        "animation":"true",
+        "Character": {
+            "ImageKey": "mercury",
+            "frame": 3,
+            "x": 100,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0,
+            "emoticon": 6,
+            "emoticonY": 140
+        },
+        "next": null
+    }
+},
+
+"DistractMercuryDialogue2": {
+    "start": {
+        "speaker": "Mercury",
+        "text": "How about you pay for my drink this time, eh?",
+        "animation":"true",
+         "Character": {
+            "ImageKey": "mercury",
+            "frame": 4,
+            "x": 100,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0,
+            "emoticon": 7,
+            "emoticonY": 310,
+            "emoticonX": 90
+        },
+        "next": null
+    }
+},
+
+"DistractMercuryDialogue3": {
+    "start": {
+        "speaker": "Narrator",
+        "text": "If you move any slower, Mercury will fall asleep.",
+        "animation": "true",
+         "Character": {
+            "ImageKey": "mercury",
+            "frame": 3,
+            "x": 100,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0,
+            "emoticon": 8,
+            "emoticonY": 140
+        },
+        "next": null
+    }
+},
+
+"DistractMercuryDialogue4": {
+    "start": {
+        "speaker": "Mercury",
+        "text": "Do you know where our friend Kronos has gone to?",
+        "animation": "true",
+         "Character": {
+            "ImageKey": "mercury",
+            "frame": 4,
+            "x": 100,
+            "y": 250,
+            "scaleX": 1,
+            "scaleY": 1,
+            "rotation": 0,
+            "emoticon": 7,
+            "emoticonY": 310,
+            "emoticonX": 90
+        },
         "next": null
     }
 }

@@ -11,6 +11,7 @@ export const GAME_STATE = {
     PLAYER_THROWN: 'PLAYER_THROWN',
     ENEMY_START: 'ENEMY_START',
     ENEMY_ROLLED: 'ENEMY_ROLLED',
+    ENEMY_DISTRACT: 'ENEMY_DISTRACT',
     ENEMY_THROWN: 'ENEMY_THROWN',
     GAME_OVER: 'GAME_OVER'
 };
@@ -60,7 +61,7 @@ export default class Tali {
          
         this.addImages();
 
-        this.noComboText = this.scene.add.text(this.width/2, this.height/2, 'No combinations!', {fontSize: 80}).setOrigin(0.5).setAlpha(0);
+        this.noComboText = this.scene.add.text(this.width/2, this.height/2, 'No combinations!', {fontSize: 80, fontFamily: 'TaliOne'}).setOrigin(0.5).setAlpha(0);
         this.noComboText.depth = 1;
     }
 
@@ -82,13 +83,12 @@ export default class Tali {
      * Adds all the images.
      */
     addImages() {
-        for (let i = 0, j = 1; i < Tali.DICE_THROW_NAMES.length; i++, j++) {
-            this.throwImages[i] = this.scene.add.image(j*this.width/5, this.height/2, Tali.DICE_THROW_NAMES[i]).setOrigin(0.5).setAlpha(0).setScale(0.9);
+        for (let i = 0, j = -600; i < Tali.DICE_THROW_NAMES.length; i++, j+=300) {
+            this.throwImages[i] = this.scene.add.image(this.width/2 + j, this.height/2, Tali.DICE_THROW_NAMES[i]).setOrigin(0.5).setAlpha(0).setScale(0.35);
             this.throwImages[i].depth = 1;
         }
     }
     
-
     /**
      * Starts the new game.
      */
@@ -106,7 +106,8 @@ export default class Tali {
             switch(this.state) {
                 case GAME_STATE.PLAYER_START:
                     this.hideThrows();
-                    this.turnCount++;
+                    if (!this.lunaThrow) this.turnCount++;
+                    else this.lunaThrow = false;
                     this.emitState();
                     this.state = GAME_STATE.PLAYER_ROLLED;
                     break; 
@@ -119,12 +120,12 @@ export default class Tali {
                     break;
                 case GAME_STATE.PLAYER_THROWN:
                     this.hideDice();
+                    this.identifyRoll(this.player);
                     this.animateThrows();
                     this.emitter.once('throwsIn', () => {
                         this.emitState();
                         if (this.lunaThrow) {
                             this.state = GAME_STATE.PLAYER_START;
-                            this.lunaThrow = false;
                         }
                         else {
                             this.state = GAME_STATE.ENEMY_START;
@@ -133,7 +134,8 @@ export default class Tali {
                     break;
                 case GAME_STATE.ENEMY_START:
                     this.hideThrows();
-                    this.turnCount++;
+                    if (!this.lunaThrow) this.turnCount++;
+                    else this.lunaThrow = false;
                     this.emitState();
                     this.state = GAME_STATE.ENEMY_ROLLED;
                     break;
@@ -141,17 +143,22 @@ export default class Tali {
                     this.generalRoll(this.enemy);
                     this.emitter.once('diceIn', () => {
                         this.emitState();
-                        this.state = GAME_STATE.ENEMY_THROWN;
+                        this.state = GAME_STATE.ENEMY_DISTRACT;
                     })
+                    break;
+                case GAME_STATE.ENEMY_DISTRACT:
+                    this.emitState();
+                    this.state = GAME_STATE.ENEMY_THROWN;
+                    this.hideDice();
                     break;
                 case GAME_STATE.ENEMY_THROWN:
                     this.hideDice();
+                    this.identifyRoll(this.enemy);
                     this.animateThrows();
                     this.emitter.once('throwsIn', () => {
                         this.emitState();
                         if (this.lunaThrow) {
                             this.state = GAME_STATE.ENEMY_START;
-                            this.lunaThrow = false;
                         }
                         else {
                             this.state = GAME_STATE.PLAYER_START;
@@ -175,7 +182,7 @@ export default class Tali {
 
         this.setDiceImages();
         
-        this.identifyRoll(player);
+        // this.identifyRoll(player);
     }
 
     /**
@@ -301,10 +308,16 @@ export default class Tali {
      * Positions the dice images according to the current roll.
      */
     setDiceImages() {
-        for (let i = 0, j = -this.width/12; i < Tali.NUMBER_OF_DICE; i++, j+=this.width/12) { 
-            this.diceImages[i] = this.scene.add.image(this.width/2 - j, this.height/2, 'dice' + this.currentRoll[i]).setOrigin(0, 0.5).setScale(0.3).setAlpha(0);
+        for (let i = 0, j = -2*this.width/12; i < Tali.NUMBER_OF_DICE; i++, j+=this.width/12) { 
+            this.diceImages[i] = this.scene.add.image(this.width/2 + j, this.height/2, 'dice' + this.currentRoll[i]).setOrigin(0, 0.5).setScale(0.3).setAlpha(0);
         }
         this.animateDice();
+    }
+
+    setDiceImagesWithoutAnimating() {
+        for (let i = 0, j = -2*this.width/12; i < Tali.NUMBER_OF_DICE; i++, j+=this.width/12) { 
+            this.diceImages[i] = this.scene.add.image(this.width/2 + j, this.height/2, 'dice' + this.currentRoll[i]).setOrigin(0, 0.5).setScale(0.3).setAlpha(1);
+        }
     }
 
     /**
@@ -320,19 +333,31 @@ export default class Tali {
      * Animates the appearance of the dice.
      */
     animateDiceIn(img) {
+
+        let rollInterval = this.scene.time.addEvent({
+            delay: 100,
+            callback: () => {
+                const randomFace = Phaser.Math.Between(0, Tali.NUMBER_OF_DICE - 1);
+                img.setTexture('dice' + randomFace);
+            },
+            loop: true
+        });
+
         this.scene.tweens.add({
             targets: img,
             alpha: 1,
-            duration: 700,
+            duration: 1000,
             ease: 'Sine.easeOut',
             onComplete: () => {
+                rollInterval.remove(); // para el “giro”
+                img.setTexture('dice' + this.currentRoll[this.diceImages.indexOf(img)]); // cara real
                 this.diceRollIndex++;
                 if (this.diceRollIndex >= this.currentRoll.length) {
                     this.diceRollIndex = 0;
                     this.emitter.emit('diceIn');
                 }
             }
-        })
+        });
     }
 
     hideDice() {

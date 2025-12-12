@@ -30,7 +30,6 @@ export default class AchievementManager {
         for (let key in achievementsObj) {
             temp = new Achievement(key, achievementsObj[key]['name'], achievementsObj[key]['description'], achievementsObj[key]['image'])
             this.achievementMap.set(key, temp);
-            console.log("LOADED ACHIEVEMENT " + key + " " + achievementsObj[key]['name']);
         }
     }
 

@@ -1,34 +1,42 @@
 import TransitionController, {RGBColor} from '../../misc/transitioncontroller.js';
 import DialogueController from '../../DialogueController.js';
 import { OptionMenuScene } from '../OptionMenuScene.js';
+import { BaseScene } from '../BaseScene.js';
+import { SkipButton } from '../../SkipButton.js';
 
 /**
  * @class TaliEndScene
  * The scene for the end of the Tali game.
  */
-export class TaliEndScene extends Phaser.Scene {
+export class TaliEndScene extends BaseScene {
     constructor() {
         super('TaliEndScene');
         this.dialogueController;
     }
 
-    preload() {
+    async create(data) {
         let {width, height} = this.sys.game.canvas;
         this.width = width;
         this.height = height;
-    }
 
-    create(playerData) {
-
-        this.playerData = playerData;
+        this.playerData = data.playerData;
+        this.distractCounter = data.distractCounter;
         console.log(this.playerData);
         this.playerWon = this.playerData.TaliCompleted;
+
+        await document.fonts.load('64px TaliOne'); 
+
+        this.setBackgroundMusic('taliIntroMusic');
 
         this.achManager = this.registry.get('AchievementManager');
         if (this.playerWon) {
             this.achManager.awardAchievement('TA1');
             console.log("TA1 awarded!");
             this.achManager.checkGameCompletion(this.playerData);
+            if (this.distractCounter >= 3) {
+                this.achManager.awardAchievement('TA2');
+                console.log("TA2 awarded!");
+            }
         }
         this.registry.set('AchievementManager', this.achManager);
         
@@ -36,12 +44,10 @@ export class TaliEndScene extends Phaser.Scene {
         this.transitionController.startFadeInTransition();
         
         this.createUI();
-        this.setInput();
         this.setDialogue();
 
-        this.input.keyboard.on('keydown-ESC', () => {
-            this.openOptionMenu();
-        });
+        /**Skip button */
+        this.skipBtn = new SkipButton(this, width - 15, 15, this.dialogueController, this.playerData);
     }
 
     /**
@@ -53,11 +59,6 @@ export class TaliEndScene extends Phaser.Scene {
         this.addText();
     }
 
-    setInput() {
-        this.input.keyboard.on('keydown-ESC', () => {
-            this.openOptionMenu();
-        });
-    }
 
     setDialogue() {
         let taliDialogue = this.cache.json.get('TaliDialogue'), taliDialogueGroup;
@@ -68,6 +69,15 @@ export class TaliEndScene extends Phaser.Scene {
             taliDialogueGroup = "TaliLose";
         }
         this.dialogueController = new DialogueController(this, taliDialogueGroup, taliDialogue);
+
+        this.events.on('changeTutoImage',(imageKey)=> {
+            this.changeTutoImage(imageKey);
+        });
+
+        this.events.on('CharacterTalking', (characterObj) => {
+            this.displayCharacterSprite(characterObj);
+        })
+
         this.dialogueController.iniDialogue();
         
         this.events.on('nextDialog',()=>
@@ -76,17 +86,43 @@ export class TaliEndScene extends Phaser.Scene {
         });
 
         this.events.on('Finished', () => {
-            this.scene.start('SelectionMenuScene', this.playerData);
-            console.log("cambia de escena");
+            this.transitionController.startFadeOutTransition(()=> {
+                if (this.playerData.TimeboxedMode && !this.playerWon) this.scene.start('TimeBoxedDefeat', this.playerData);
+                else this.scene.start('SelectionMenuScene', this.playerData);
+            }, 400);
         });
+    }
+
+    displayCharacterSprite(characterObj) {
+        if (this.currentCharacter || characterObj == "none") { // if another character was talking or set to none, delete sprite
+            this.currentCharacter.destroy();
+            if (this.currentEmoticon)
+                this.currentEmoticon.destroy();
+        }
+
+        this.currentCharacter = this.add.sprite(characterObj.x, this.height, characterObj.ImageKey, characterObj.frame)
+        .setScale(characterObj.scaleX, characterObj.scaleY).setOrigin(0, 1).setDepth(-2);
+
+        if (characterObj.emoticon && characterObj.emoticon != "none") {
+            let xOffset = 0;
+            if (characterObj.emoticonX) {
+                xOffset = characterObj.emoticonX;
+            }
+            this.currentEmoticon = this.add.sprite(characterObj.x - 20 + xOffset, this.height/2 + characterObj.emoticonY, "emotes", characterObj.emoticon)
+            .setScale(characterObj.scaleX, characterObj.scaleY).setOrigin(0, 1).setDepth(-1);
+            console.log(characterObj.emoticon);
+        }
+        else if (characterObj.emoticon == "none" || this.currentEmoticon) {
+            this.currentEmoticon.destroy();
+        }
     }
 
     /**
      * Adds all the images to the scene.
      */
     addImages() {
-        this.background = this.add.image(this.width / 2, this.height / 2, 'taliBackgroundPlaceholder').setDisplaySize(this.width, this.height);
-        this.boardImg = this.add.image(this.width/2, this.height/2, 'taliBoard').setOrigin(0.5).setScale(0.5);
+        this.background = this.add.image(this.width / 2, this.height / 2, 'TaliBackground').setDisplaySize(this.width, this.height).setDepth(-3);
+        this.boardImg = this.add.image(this.width/2, this.height/2, 'taliBoard').setOrigin(0.5).setScale(0.44).setDepth(-2);
     }
 
     /**
@@ -94,32 +130,14 @@ export class TaliEndScene extends Phaser.Scene {
      */
     createButtons() {
         /**Back button */
-       this.backBtn = this.add.text(0, 0, 'Back', { fontSize: 64, fill: '#000000ff'})
+       this.backBtn = this.add.text(0, 0, 'Pause', { fontSize: 64, fill: '#000000ff', fontFamily: "TaliOne"})
         .setInteractive()
         .on('pointerover', () => this.backBtn.setStyle({fill: 'rgba(104, 35, 35, 1)'}))
         .on('pointerout', () => this.backBtn.setStyle({fill: '#000000ff'}))
         .on('pointerdown', () => {
             this.openOptionMenu();
         });
-
-        /**Skip button */
-        const skipBtn = this.add.text(this.width - 100, this.height - 1000 , 'SKIP', {
-            fontSize: '30px',
-            fill: '#000000',
-            backgroundColor: '#f7f7f7',
-            padding: { x: 20, y: 10 }
-        })
-        .setOrigin(0.5)
-        .setInteractive({ cursor: 'pointer' })
-        .on('pointerover', () => skipBtn.setStyle({ backgroundColor: '#bbbaba' }))
-        .on('pointerout', () => skipBtn.setStyle({ backgroundColor: '#f7f7f7' }))
-        .on('pointerdown', () => {
-           this.transitionController.startFadeOutTransition(() => {
-                
-                 this.dialogueController.skipToEnd();
-            
-            }, 400);
-        });
+        
     }
 
     /**
@@ -151,17 +169,6 @@ export class TaliEndScene extends Phaser.Scene {
      * Adds all the text to the scene.
      */
     addText() {
-        this.victoryText = this.add.text(this.width/2, this.height/5, this.playerWon ? 'You won!' : 'You lost!', { fontSize: 64, fill: '#000'}).setOrigin(0.5);
-    }
-    
-    /**
-     * Opens the option menu.
-     */
-    openOptionMenu()
-    {
-        if (this.scene.isActive('OptionMenu')) return;
-            this.scene.pause();
-            this.playerData.SceneToResume = this.scene.key;
-            this.scene.launch('OptionMenu', this.playerData);
+        this.victoryText = this.add.text(this.width/2, this.height/3, this.playerWon ? 'You won!' : 'You lost!', { fontSize: 150, fill: '#fff', fontFamily: 'TaliOne'}).setOrigin(0.5).setDepth(-2);
     }
 }

@@ -1,7 +1,9 @@
 import DialogueController from "../../DialogueController.js";
 import TransitionController, {RGBColor} from "../../misc/transitioncontroller.js";
+import { SkipButton } from "../../SkipButton.js";
+import { BaseScene } from "../BaseScene.js";
 
-export class AsebVictoryScene extends Phaser.Scene
+export class AsebVictoryScene extends BaseScene
 {
     constructor(){super('AsebVictoryScene');}
 
@@ -19,74 +21,88 @@ export class AsebVictoryScene extends Phaser.Scene
 
         // Get the canvas width and height to use when giving a position to an object
         let { width, height } = this.sys.game.canvas;
+        this.height = height;
+
+        const baseMusicVolume = 0.25;
+            this.music = this.sound.add('egyptMusic', { loop: true, volume: baseMusicVolume * this.playerData.musicVolume });
+            this.soundInstances.push({ 
+                sound: this.music, 
+                type: 'music', 
+                baseVolume: baseMusicVolume 
+            });
+            this.music.play();
+
+        
+        // Award Achievements
 
         this.awardAch("AS1");
         if (this.playerData.AsebNoCapturesCompletion) this.awardAch("AS2");
         if (this.playerData.AsebLandedOnEverySpecial) this.awardAch("AS3");
 
-        this.input.keyboard.on('keydown-ESC', () => {
-           this.openOptionMenu();
-        });
-
         //creating the background
-        this.background = this.add.image(width / 2, height / 2, 'asebBackgroundPlaceholder').setDisplaySize(width, height);
+        this.background = this.add.image(width / 2, height / 2, 'asebBackground').setDisplaySize(width, height).setDepth(-3);
 
-        this.backBtn = this.add.text(0, 0, 'Back', { fontSize: 64, fill: '#000000ff'})
-        .setInteractive()
-        .on('pointerover', () => this.backBtn.setStyle({fill: 'rgba(104, 35, 35, 1)'}))
-        .on('pointerout', () => this.backBtn.setStyle({fill: '#000000ff'}))
-        .on('pointerdown', () => {
-            this.openOptionMenu();
-        });
-        /**Skip button */
-        const skipBtn = this.add.text(width - 100, height - 1000 , 'SKIP', {
-            fontSize: '30px',
-            fill: '#000000',
-            backgroundColor: '#f7f7f7',
-            padding: { x: 20, y: 10 }
-        })
-        .setOrigin(0.5)
-        .setInteractive({ cursor: 'pointer' })
-        .on('pointerover', () => skipBtn.setStyle({ backgroundColor: '#bbbaba' }))
-        .on('pointerout', () => skipBtn.setStyle({ backgroundColor: '#f7f7f7' }))
-        .on('pointerdown', () => {
-            this.dialogueController.skipToEnd();
+        // --- Back Button ---
+        const backBtnImage = this.add.image(0, 0, 'AsebButton').setScale(0.3,0.5);
+        const backBtnText = this.add.text(0, 0, 'Pause', { fontSize: 48, fill: '#000000ff', fontFamily: "Anubismythicalserif"}).setOrigin(0.5);
 
-        });
+        this.backBtn = this.add.container(140, 80, [ backBtnImage, backBtnText ]);
+        this.backBtn.setSize(backBtnImage.width * 0.5, backBtnImage.height * 0.5).setInteractive()
+            .on('pointerover', () => {
+                this.sound.play('buttonHover', { volume: 2 * this.playerData.sfxVolume }); 
+                this.tweens.add({ targets: this.backBtn, scale: 1.1, duration: 100, ease: 'Power1' });
+            })
+            .on('pointerout', () => {
+                this.tweens.add({ targets: this.backBtn, scale: 1.0, duration: 100, ease: 'Power1' });
+            })
+            .on('pointerdown', () => this.openOptionMenu());
 
         /** variable json*/
         const victoryAsebData = this.cache.json.get('AsebWinDialogue');
         this.dialogueController = new DialogueController(this, "AsebWin", victoryAsebData);
         this.dialogueController.iniDialogue();
+
+        /**Skip button */
+        this.skipBtn = new SkipButton(this, width - 15, 15, this.dialogueController, this.playerData);
         
         this.events.on('nextDialog',()=>
         {
             this.dialogueController.handleInteraction();
         });
 
+         this.events.on('CharacterTalking', (characterObj) => {
+            this.displayCharacterSprite(characterObj);
+        })
+
         this.events.on('Finished', () => {
             this.transitionController.startFadeOutTransition(() => {
-            this.scene.start('SelectionMenuScene');
+            this.scene.start('SelectionMenuScene', this.playerData);
                 }, 400);
             console.log("cambia de escena");
         });
     
     }
+    displayCharacterSprite(characterObj) {
+        if (this.currentCharacter || characterObj == "none") { // if another character was talking or set to none, delete sprite
+            if (this.currentCharacter) this.currentCharacter.destroy();
+            if (this.currentEmoticon) this.currentEmoticon.destroy();
+                
+        }
 
-    awardAch(achievementID) {
-        this.achManager = this.registry.get('AchievementManager');
-        this.achManager.awardAchievement(achievementID);
-        console.log(achievementID + " awarded!");
-        this.achManager.checkGameCompletion(this.playerData);
-        this.registry.set('AchievementManager', this.achManager);
+        this.currentCharacter = this.add.sprite(characterObj.x, this.height, characterObj.ImageKey, characterObj.frame)
+        .setScale(characterObj.scaleX, characterObj.scaleY).setOrigin(0, 1).setDepth(-2);
+
+        if (characterObj.emoticon && characterObj.emoticon != "none") {
+            let xOffset = 0;
+            if (characterObj.emoticonX) {
+                xOffset = characterObj.emoticonX;
+            }
+            this.currentEmoticon = this.add.sprite(characterObj.x - 20 + xOffset, this.height/2 + characterObj.emoticonY, "emotes", characterObj.emoticon)
+            .setScale(characterObj.scaleX, characterObj.scaleY).setOrigin(0, 1).setDepth(-1);
+            console.log(characterObj.emoticon);
+        }
+        else if (characterObj.emoticon == "none" || this.currentEmoticon) {
+            if (this.currentEmoticon) this.currentEmoticon.destroy();
+        }
     }
-    
-    openOptionMenu()
-    {
-        if (this.scene.isActive('OptionMenu')) return;
-            this.scene.pause();
-            this.playerData.SceneToResume = this.scene.key;
-            this.scene.launch('OptionMenu', this.playerData);
-    }
-            
 }

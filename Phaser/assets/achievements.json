@@ -3,49 +3,55 @@
     {
         "AS1":
         {
-            "name": "Stick King",
-            "description": "Won once in Aseb.",
-            "image": "tempInsignia1"
+            "name": "Wonder of Egypt",
+            "description": "Win once in Aseb.",
+            "image": "Wonder_of_Egypt"
         },
         "AS2":
         {
             "name": "Underworld Conqueror",
-            "description": "Won Aseb without having any of your pieces captured.",
+            "description": "Win Aseb without having any of your pieces captured.",
             "image": "Underworld_Conqueror"
         },
         "AS3":
         {
             "name": "Square Master",
-            "description": "Won Aseb and land on all special squares at least once in that match.",
+            "description": "Win Aseb and land on all special squares at least once in that match.",
             "image": "Square_Master"
         },
 
         "TA1":
         {
             "name": "Dice Ruler",
-            "description": "Won once in Tali.",
-            "image": "tempInsignia2"
+            "description": "Win once in Tali.",
+            "image": "Dice_Ruler"
+        },
+        "TA2":
+        {
+            "name": "Stealthy Kitty",
+            "description": "Win in Tali after distracting Mercury at least three times.",
+            "image": "Stealthy_Kitty"
         },
 
         "HA1":
         {
             "name": "Card God",
-            "description": "Won once in Hanafuda.",
-            "image": "tempInsignia3"
+            "description": "Win once in Hanafuda.",
+            "image": "Card_God"
         },
 
         "G1":
         {
             "name": "Master of Time",
-            "description": "Completed the entire game.",
-            "image": "tempInsignia4"
+            "description": "Complete the entire game.",
+            "image": "Master_of_Time"
         },
 
         "G2":
         {
             "name": "God of Time",
-            "description": "Completed the entire game in Timeboxed mode.",
-            "image": "tempInsignia5"
+            "description": "Complete the entire game in Timeboxed mode.",
+            "image": "God_of_Time"
         }
     }
 }

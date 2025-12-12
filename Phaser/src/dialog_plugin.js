@@ -125,6 +125,7 @@ export default class DialogBox{
 		this.timedEvent.remove();
 		this.timedEvent = undefined;
 		this.text.setText(this.dialog.join(''));
+		this.scene.events.emit('typingComplete');
 	}
 	// Consigue el ancho del juego (en funcion del tamaño en la escena) 
 	_getGameWidth() {
@@ -187,6 +188,7 @@ export default class DialogBox{
 			if (this.isAnimating()) 
 			{
 				this.skipAnimation();
+				
 			} else 
 			{
 				this.scene.events.emit('nextDialog');
@@ -256,6 +258,7 @@ export default class DialogBox{
 		if (this.eventCounter === this.dialog.length) {
 			this.timedEvent.remove();
 			this.timedEvent = undefined;
+			this.scene.events.emit('typingComplete');
 		}
 	}
 

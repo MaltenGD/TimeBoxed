@@ -1,0 +1,155 @@
+{
+"HanafudaWinDialogue":{
+    "start": 
+    {
+        "speaker": "Narrator",
+        "text": "The last card clicks perfectly into place. Benten freezes",
+        "animation": "true",
+        "next": "HW1"
+    },
+    "HW1":
+    {
+        "speaker": "Benten",
+        "text": "…You… won?  I haven't been beaten this cleanly in centuries.",
+        "animation": "true",
+        "next": "HW2",
+        "Character":{
+            "ImageKey":"benten",
+            "frame":0,
+            "x":760,
+            "y":250,
+            "scaleX":1,
+            "scaleY":1,
+            "rotation":0,
+            "emoticon":1,
+            "emoticonY":-80,
+            "emoticonX":-20
+        }
+    },
+    "HW2":
+    {
+        "speaker": "Player",
+        "text": "So… about that artifact you promised",
+        "animation": "true",
+        "next": "HW3",
+        "Character":{
+            "ImageKey":"protagonist",
+            "frame":1,
+            "x":460,
+            "y":250,
+            "scaleX":1,
+            "scaleY":1,
+            "rotation":0,
+            "emoticon":5,
+            "emoticonY":40
+        }
+    },
+    "HW3":
+    {
+        "speaker": "Benten",
+        "text": "Oh, I always honor my wagers.",
+        "animation": "true",
+        "next": "HW4",
+        "Character":{
+            "ImageKey":"benten",
+            "frame":3,
+            "x":760,
+            "y":250,
+            "scaleX":1,
+            "scaleY":1,
+            "rotation":0,
+            "emoticon":"none",
+            "emoticonY":-80
+        }
+    },
+    "HW4":
+    {
+        "speaker": "Narrator",
+        "text": "She raised her hand, a shimmering artifact materializes, floating between you.",
+        "animation": "true",
+        "next": "HW5",
+        "Character":"none"
+    },
+        "HW5":
+    {
+        "speaker": "Player",
+        "text": "I'll take good care of it. Thanks.",
+        "animation": "true",
+        "next": "HW6",
+        "Character":{
+            "ImageKey":"protagonist",
+            "frame":2,
+            "x":460,
+            "y":250,
+            "scaleX":1,
+            "scaleY":1,
+            "rotation":0,
+            "emoticon":5,
+            "emoticonY":40
+        }
+    },
+    "HW6":
+    {
+        "speaker": "Kronos",
+        "text": "Heh. Told you he could pull it off",
+        "animation": "true",
+        "next": "HW7",
+        "Character":{
+            "ImageKey":"kronos",
+            "frame":3,
+            "x":1060,
+            "y":250,
+            "scaleX":1,
+            "scaleY":1,
+            "rotation":0,
+            "emoticon":5,
+            "emoticonY":0
+        }
+    },
+
+    "HW7":
+    {
+        "speaker": "Benten",
+        "text": "You're interesting, little mortal. Clever enough to win, stubborn enough to try, and foolish enough to wager your soul.",
+        "animation": "true",
+        "next": "HW8",
+        "Character":{
+            "ImageKey":"benten",
+            "frame":1,
+            "x":760,
+            "y":250,
+            "scaleX":1,
+            "scaleY":1,
+            "rotation":0,
+            "emoticon":"none",
+            "emoticonY":40
+        }
+    },
+    "HW8":
+    {
+        "speaker": "Benten",
+        "text": "And I respect it. Take your prize.",
+        "animation": "true",
+        "next": "HW9",
+        "Character":{
+            "ImageKey":"benten",
+            "frame":1,
+            "x":760,
+            "y":250,
+            "scaleX":1,
+            "scaleY":1,
+            "rotation":0,
+            "emoticon":"none",
+            "emoticonY":40
+        }
+    },
+    "HW9":
+    {
+        "speaker": "Narrator",
+        "text": "With the artifact secured, you step away from the shrine victorious.The gamble was deadly… But the reward was worth every heartbeat.",
+        "animation": "true",
+        "next": null,
+        "Character":"none"
+    }
+}
+}

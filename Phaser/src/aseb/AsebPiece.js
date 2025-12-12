@@ -87,7 +87,7 @@ export default class AsebPiece extends Phaser.GameObjects.Image {
      */
     onClick() {
         if (!this.movable) {
-            console.log("this piece can not be moved (and neither the rest lmao )")
+            console.log("this piece can not be moved")
             return;
         }
         console.log("The piece is in position " + this.boardPos.row + "," + this.boardPos.col)
@@ -113,9 +113,20 @@ export default class AsebPiece extends Phaser.GameObjects.Image {
      * @param {number} x - The new x-coordinate.
      * @param {number} y - The new y-coordinate.
      */
-    MoveInScreen(x, y) {
-        this.x = x;
-        this.y = y;
+    MoveInScreen(x, y, IsSpecialPosition, row, col, AnimDuration = 200) {
+        this.scene.tweens.add({
+            targets: this,
+            x: x,
+            y: y,
+            duration: AnimDuration,
+            ease: 'Cubic.easeInOut',
+            onComplete: () => {
+                this.scene.time.delayedCall(350, () => {
+                    this.board.emit('pieceAnimComplete', this, IsSpecialPosition, row, col);
+                });
+                
+            }
+        });
     }
     /**
      * Sets whether the piece is movable by the player.
@@ -125,8 +136,7 @@ export default class AsebPiece extends Phaser.GameObjects.Image {
 
         // Se hace interactiva si se quiere y si se puede mover la pieza
         if (state) {
-            this.movable = this.board.IsValidMove(this, this.board.getNextBoardPosition(this, moves)).isValid;
-        }
+            this.movable = this.board.IsValidMove(this, this.board.getNextBoardPosition(this, moves)).isValid;        }
         else {
             this.movable = false;
         }
@@ -146,7 +156,7 @@ export default class AsebPiece extends Phaser.GameObjects.Image {
 
     /**
      * Checks if the piece has reached the final position on the board.
-     * @returns {boolean} True if the piece is at the end, false otherwise.
+     * @returns True if the piece is at the end, false otherwise.
      */
     Ended() {
         return (this.boardPos.row === 1 && this.boardPos.col === 0);
