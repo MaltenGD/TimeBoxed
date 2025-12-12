@@ -77,8 +77,8 @@ Desde el punto de vista artístico, el juego adopta un estilo visual en **2D con
 | **HappyNeighborhood.mp3** | Música de fondo para la narrativa inicial. | Escena de Introducción. | Libre de uso ([YouTube](https://www.youtube.com/watch?v=c-ymtReBAo4)) |
 | **ChooseYourEra.mp3** | Música de fondo para la selección de era. | Escena del Menú de Selección de Nivel. | Con derechos de autor ([YouTube](https://www.youtube.com/watch?v=SwUpMhp-DEc)) |
 | **japanese.mp3** | Música de fondo para la sección de Japón. | Escenas de Hanafuda. | - |
-| **TaliIntroMusic.mp3** | Música de introducción para el juego de Roma. | Escena de Introducción de Tali. | - |
-| **TaliGameMusic.mp3** | Música de fondo durante la partida. | Escena de Juego de Tali. | - |
+| **TaliIntroMusic.mp3** | Música de introducción para el juego de Roma. | Escena de Introducción de Tali. | [Adrian von Zigler](https://www.youtube.com/channel/UCSeJA6az0GrNM4_-pl3HQSQ), CC BY-NC-ND, permite el uso no-comercial de la obra |
+| **TaliGameMusic.mp3** | Música de fondo durante la partida. | Escena de Juego de Tali. | [Sebastien Angel Epic Music Composer](https://www.youtube.com/c/S%C3%A9bastienAngel), CC BY-NC-ND, permite el uso no-comercial de la obra |
 
 ---
 
