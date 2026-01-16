@@ -1,7 +1,7 @@
 //import TransitionController from "../../misc/transitioncontroller.js";
 import { BaseScene } from '../BaseScene.js';
-import DialogueController from '../../DialogueController.js';
-import { SkipButton } from "../../SkipButton.js";
+import DialogueController from '../../dialogues/DialogueController.js';
+import { SkipButton } from "../../misc/SkipButton.js";
 
 export class HanafudaEndScene extends Phaser.Scene{
     constructor() {

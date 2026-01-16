@@ -46,7 +46,7 @@ export class LoadingScene extends Phaser.Scene
         this.loadAudioAssets();
         this.loadCharacterAssets();
         
-        this.load.json('achievements', 'Phaser/assets/achievements.json');
+        this.load.json('achievements', 'Phaser/assets/jsonFiles/achievements.json');
 
         this.load.on('progress', (value) => {
         //console.log(value);
@@ -84,40 +84,40 @@ export class LoadingScene extends Phaser.Scene
     
     loadMainMenuAssets()
     {
-        this.load.image('background', 'Phaser/assets/StartMenu/MainBackground.png');
-        this.load.image('backgroundTB', 'Phaser/assets/StartMenu/MainBackgroundTimeboxedMode.png');
+        this.load.image('background', 'Phaser/assets/startMenu/MainBackground.png');
+        this.load.image('backgroundTB', 'Phaser/assets/startMenu/MainBackgroundTimeboxedMode.png');
         this.load.image('TaliBackground', 'Phaser/assets/tali/TaliBackground.png');
-        this.load.image('StartMenuKronos', 'Phaser/assets/StartMenu/bigKronos.png');
-        this.load.image('Timepiece', 'Phaser/assets/StartMenu/timePiece.png');
-        this.load.image('BoxOpen', 'Phaser/assets/StartMenu/cardboardbox.png')
+        this.load.image('StartMenuKronos', 'Phaser/assets/startMenu/bigKronos.png');
+        this.load.image('Timepiece', 'Phaser/assets/startMenu/timePiece.png');
+        this.load.image('BoxOpen', 'Phaser/assets/startMenu/cardboardbox.png')
         
         //Timeboxed Logo
-        this.load.image('T', 'Phaser/assets/StartMenu/TimeboxedTitle/T.png');  
-        this.load.image('I', 'Phaser/assets/StartMenu/TimeboxedTitle/I.png');  
-        this.load.image('M', 'Phaser/assets/StartMenu/TimeboxedTitle/M.png');  
-        this.load.image('E', 'Phaser/assets/StartMenu/TimeboxedTitle/FirstE.png');
-        this.load.image('B', 'Phaser/assets/StartMenu/TimeboxedTitle/B.png');  
-        this.load.image('O', 'Phaser/assets/StartMenu/TimeboxedTitle/O.png');  
-        this.load.image('X', 'Phaser/assets/StartMenu/TimeboxedTitle/X.png');  
-        this.load.image('E2', 'Phaser/assets/StartMenu/TimeboxedTitle/SecondE.png');  
-        this.load.image('D', 'Phaser/assets/StartMenu/TimeboxedTitle/D.png');     
+        this.load.image('T', 'Phaser/assets/startMenu/TimeboxedTitle/T.png');  
+        this.load.image('I', 'Phaser/assets/startMenu/TimeboxedTitle/I.png');  
+        this.load.image('M', 'Phaser/assets/startMenu/TimeboxedTitle/M.png');  
+        this.load.image('E', 'Phaser/assets/startMenu/TimeboxedTitle/FirstE.png');
+        this.load.image('B', 'Phaser/assets/startMenu/TimeboxedTitle/B.png');  
+        this.load.image('O', 'Phaser/assets/startMenu/TimeboxedTitle/O.png');  
+        this.load.image('X', 'Phaser/assets/startMenu/TimeboxedTitle/X.png');  
+        this.load.image('E2', 'Phaser/assets/startMenu/TimeboxedTitle/SecondE.png');  
+        this.load.image('D', 'Phaser/assets/startMenu/TimeboxedTitle/D.png');     
 
-        this.load.image('creditsButton', 'Phaser/assets/StartMenu/creditsButton.png');
-        this.load.image('teamLogo', 'Phaser/assets/teamLogo.png');
-        this.load.json('playerData', 'Phaser/src/playerData.json');
-        this.load.image('playButtonS', 'Phaser/assets/StartMenu/StartButtonS.png');
-        this.load.image('playButtonT', 'Phaser/assets/StartMenu/StartButtonT.png');
-        this.load.image('playButtonA', 'Phaser/assets/StartMenu/StartButtonA.png');
-        this.load.image('playButtonR', 'Phaser/assets/StartMenu/StartButtonR.png');
-        this.load.image('playButtonT2', 'Phaser/assets/StartMenu/StartButtonT2.png');
-        this.load.image('StartMenuSettings', 'Phaser/assets/StartMenu/StartMenuSettings.png');
+        this.load.image('creditsButton', 'Phaser/assets/startMenu/creditsButton.png');
+        this.load.image('teamLogo', 'Phaser/assets/startMenu/teamLogo.png');
+        this.load.json('playerData', 'Phaser/assets/jsonFiles/playerData.json');
+        this.load.image('playButtonS', 'Phaser/assets/startMenu/StartButtonS.png');
+        this.load.image('playButtonT', 'Phaser/assets/startMenu/StartButtonT.png');
+        this.load.image('playButtonA', 'Phaser/assets/startMenu/StartButtonA.png');
+        this.load.image('playButtonR', 'Phaser/assets/startMenu/StartButtonR.png');
+        this.load.image('playButtonT2', 'Phaser/assets/startMenu/StartButtonT2.png');
+        this.load.image('StartMenuSettings', 'Phaser/assets/startMenu/StartMenuSettings.png');
 
-        this.load.image('playButtonSHovered', 'Phaser/assets/StartMenu/StartButtonSHovered.png');
-        this.load.image('playButtonTHovered', 'Phaser/assets/StartMenu/StartButtonTHovered.png');
-        this.load.image('playButtonAHovered', 'Phaser/assets/StartMenu/StartButtonAHovered.png');
-        this.load.image('playButtonRHovered', 'Phaser/assets/StartMenu/StartButtonRHovered.png');
-        this.load.image('playButtonT2Hovered', 'Phaser/assets/StartMenu/StartButtonT2Hovered.png');
-        this.load.image('StartMenuSettingsHovered', 'Phaser/assets/StartMenu/StartMenuSettingsHovered.png');
+        this.load.image('playButtonSHovered', 'Phaser/assets/startMenu/StartButtonSHovered.png');
+        this.load.image('playButtonTHovered', 'Phaser/assets/startMenu/StartButtonTHovered.png');
+        this.load.image('playButtonAHovered', 'Phaser/assets/startMenu/StartButtonAHovered.png');
+        this.load.image('playButtonRHovered', 'Phaser/assets/startMenu/StartButtonRHovered.png');
+        this.load.image('playButtonT2Hovered', 'Phaser/assets/startMenu/StartButtonT2Hovered.png');
+        this.load.image('StartMenuSettingsHovered', 'Phaser/assets/startMenu/StartMenuSettingsHovered.png');
 
 
     }
@@ -136,7 +136,7 @@ export class LoadingScene extends Phaser.Scene
         
 
         // Musica
-        this.load.audio('HappyNeighborhood', 'Phaser/assets/audio/Intro/HappyNeighborhood.mp3')
+        this.load.audio('HappyNeighborhood', 'Phaser/assets/audio/intro/HappyNeighborhood.mp3')
         this.load.audio('ChooseYourEra', 'Phaser/assets/audio/SelectionMenuScene/ChooseYourEra.mp3')
         this.load.audio('egyptMusic', 'Phaser/assets/audio/Egypt-Aseb/AsebIntroMusic.mp3');
         this.load.audio('CreepyegyptMusic', 'Phaser/assets/audio/Egypt-Aseb/AsebDefeatMusic.mp3');
@@ -148,21 +148,16 @@ export class LoadingScene extends Phaser.Scene
      * Loads all intro assets.
      */
     loadIntroAssets() {
-
          // loads the background
-        this.load.image('IntroBackground', 'Phaser/assets/Intro/IntroBackground.png');
+        this.load.image('IntroBackground', 'Phaser/assets/intro/IntroBackground.png');
 
         //Skip Button
-        this.load.image('SkipButtonNormal', 'Phaser/assets/SkipButtonNormal.png');
-        this.load.image('SkipButtonHovered', 'Phaser/assets/SkipButtonHovered.png');
+        this.load.image('SkipButtonNormal', 'Phaser/assets/buttons/SkipButtonNormal.png');
+        this.load.image('SkipButtonHovered', 'Phaser/assets/buttons/SkipButtonHovered.png');
 
         //Pause Button
-        this.load.image('PauseButtonNormal', 'Phaser/assets/PauseButtonNormal.png');
-        this.load.image('PauseButtonHovered', 'Phaser/assets/PauseButtonHovered.png');
-        
-        
-
-        
+        this.load.image('PauseButtonNormal', 'Phaser/assets/buttons/PauseButtonNormal.png');
+        this.load.image('PauseButtonHovered', 'Phaser/assets/buttons/PauseButtonHovered.png');
     }
 
     /**
@@ -171,41 +166,41 @@ export class LoadingScene extends Phaser.Scene
     loadOptionMenuAssets()
     {
         // Normal mode assets
-        this.load.image('OptionMenuBase', 'Phaser/assets/OptionMenu/OptionMenuBase.png');
-        this.load.image('ResumeButtonNormal', 'Phaser/assets/OptionMenu/ResumeNormal.png');
-        this.load.image('ResumeButtonHovered', 'Phaser/assets/OptionMenu/ResumeHovered.png');
-        this.load.image('HelpButtonNormal', 'Phaser/assets/OptionMenu/HelpNormal.png');
-        this.load.image('HelpButtonHovered', 'Phaser/assets/OptionMenu/HelpHovered.png');
-        this.load.image('ItemsButtonNormal', 'Phaser/assets/OptionMenu/ItemsNormal.png');
-        this.load.image('ItemsButtonHovered', 'Phaser/assets/OptionMenu/ItemsHovered.png');
-        this.load.image('ExitButtonNormal', 'Phaser/assets/OptionMenu/ExitNormal.png');
-        this.load.image('ExitButtonHovered', 'Phaser/assets/OptionMenu/ExitHovered.png');
-        this.load.image('SettingsIcon', 'Phaser/assets/OptionMenu/SettingsIcon.png');
-        this.load.image('SettingsIconHovered', 'Phaser/assets/OptionMenu/SettingsIconHovered.png');
+        this.load.image('OptionMenuBase', 'Phaser/assets/optionMenu/OptionMenuBase.png');
+        this.load.image('ResumeButtonNormal', 'Phaser/assets/optionMenu/ResumeNormal.png');
+        this.load.image('ResumeButtonHovered', 'Phaser/assets/optionMenu/ResumeHovered.png');
+        this.load.image('HelpButtonNormal', 'Phaser/assets/optionMenu/HelpNormal.png');
+        this.load.image('HelpButtonHovered', 'Phaser/assets/optionMenu/HelpHovered.png');
+        this.load.image('ItemsButtonNormal', 'Phaser/assets/optionMenu/ItemsNormal.png');
+        this.load.image('ItemsButtonHovered', 'Phaser/assets/optionMenu/ItemsHovered.png');
+        this.load.image('ExitButtonNormal', 'Phaser/assets/optionMenu/ExitNormal.png');
+        this.load.image('ExitButtonHovered', 'Phaser/assets/optionMenu/ExitHovered.png');
+        this.load.image('SettingsIcon', 'Phaser/assets/optionMenu/SettingsIcon.png');
+        this.load.image('SettingsIconHovered', 'Phaser/assets/optionMenu/SettingsIconHovered.png');
         
         // Timeboxed mode assets
-        this.load.image('OptionMenuBaseTB', 'Phaser/assets/OptionMenu/TimeboxedMode/OptionMenuBase.png');
-        this.load.image('ResumeButtonNormalTB', 'Phaser/assets/OptionMenu/TimeboxedMode/ResumeNormal.png');
-        this.load.image('ResumeButtonHoveredTB', 'Phaser/assets/OptionMenu/TimeboxedMode/ResumeHovered.png');
-        this.load.image('HelpButtonNormalTB', 'Phaser/assets/OptionMenu/TimeboxedMode/HelpNormal.png');
-        this.load.image('HelpButtonHoveredTB', 'Phaser/assets/OptionMenu/TimeboxedMode/HelpHovered.png');
-        this.load.image('ItemsButtonNormalTB', 'Phaser/assets/OptionMenu/TimeboxedMode/ItemsNormal.png');
-        this.load.image('ItemsButtonHoveredTB', 'Phaser/assets/OptionMenu/TimeboxedMode/ItemsHovered.png');
-        this.load.image('ExitButtonNormalTB', 'Phaser/assets/OptionMenu/TimeboxedMode/ExitNormal.png');
-        this.load.image('ExitButtonHoveredTB', 'Phaser/assets/OptionMenu/TimeboxedMode/ExitHovered.png');
-        this.load.image('SettingsIconTB', 'Phaser/assets/OptionMenu/TimeboxedMode/SettingsIcon.png');
-        this.load.image('SettingsIconHoveredTB', 'Phaser/assets/OptionMenu/TimeboxedMode/SettingsIconHovered.png');
+        this.load.image('OptionMenuBaseTB', 'Phaser/assets/optionMenu/TimeboxedMode/OptionMenuBase.png');
+        this.load.image('ResumeButtonNormalTB', 'Phaser/assets/optionMenu/TimeboxedMode/ResumeNormal.png');
+        this.load.image('ResumeButtonHoveredTB', 'Phaser/assets/optionMenu/TimeboxedMode/ResumeHovered.png');
+        this.load.image('HelpButtonNormalTB', 'Phaser/assets/optionMenu/TimeboxedMode/HelpNormal.png');
+        this.load.image('HelpButtonHoveredTB', 'Phaser/assets/optionMenu/TimeboxedMode/HelpHovered.png');
+        this.load.image('ItemsButtonNormalTB', 'Phaser/assets/optionMenu/TimeboxedMode/ItemsNormal.png');
+        this.load.image('ItemsButtonHoveredTB', 'Phaser/assets/optionMenu/TimeboxedMode/ItemsHovered.png');
+        this.load.image('ExitButtonNormalTB', 'Phaser/assets/optionMenu/TimeboxedMode/ExitNormal.png');
+        this.load.image('ExitButtonHoveredTB', 'Phaser/assets/optionMenu/TimeboxedMode/ExitHovered.png');
+        this.load.image('SettingsIconTB', 'Phaser/assets/optionMenu/TimeboxedMode/SettingsIcon.png');
+        this.load.image('SettingsIconHoveredTB', 'Phaser/assets/optionMenu/TimeboxedMode/SettingsIconHovered.png');
 
         // Settings Menu Assets
-        this.load.image('SettingsBackButton', 'Phaser/assets/Settings/SettingsBackButton.png');
+        this.load.image('SettingsBackButton', 'Phaser/assets/settings/SettingsBackButton.png');
     }
 
     loadSelectionMenuAssets()
     {
 
-        this.load.image('BoxClosed', 'Phaser/assets/SelectionMenu/BoxClosed.png');
-        this.load.image('BackToStartNormal', 'Phaser/assets/SelectionMenu/BackToStartNormal.png');
-        this.load.image('BackToStartHovered', 'Phaser/assets/SelectionMenu/BackToStartHovered.png');
+        this.load.image('BoxClosed', 'Phaser/assets/selectionMenu/BoxClosed.png');
+        this.load.image('BackToStartNormal', 'Phaser/assets/selectionMenu/BackToStartNormal.png');
+        this.load.image('BackToStartHovered', 'Phaser/assets/selectionMenu/BackToStartHovered.png');
 
     }
 
@@ -213,8 +208,8 @@ export class LoadingScene extends Phaser.Scene
      * Loads all aseb assets.
      */
     loadAsebAssets() {
-        this.load.image('asebVerticalBackground', 'Phaser/assets/SelectionMenu/EgyptVertical.png');
-        this.load.image('asebVerticalBackgroundHovered', 'Phaser/assets/SelectionMenu/EgyptVerticalHovered.png');
+        this.load.image('asebVerticalBackground', 'Phaser/assets/selectionMenu/EgyptVertical.png');
+        this.load.image('asebVerticalBackgroundHovered', 'Phaser/assets/selectionMenu/EgyptVerticalHovered.png');
 
         this.load.image('asebBackground', 'Phaser/assets/aseb/AsebBackground.png');
 
@@ -247,8 +242,8 @@ export class LoadingScene extends Phaser.Scene
      * Loads all tali assets.
      */
     loadTaliAssets() {
-        this.load.image('taliVerticalBackground', 'Phaser/assets/SelectionMenu/RomeVertical.png');
-        this.load.image('taliVerticalBackgroundHovered', 'Phaser/assets/SelectionMenu/RomeVerticalHovered.png');
+        this.load.image('taliVerticalBackground', 'Phaser/assets/selectionMenu/RomeVertical.png');
+        this.load.image('taliVerticalBackgroundHovered', 'Phaser/assets/selectionMenu/RomeVerticalHovered.png');
 
         this.load.image('taliButton', 'Phaser/assets/tali/button.png');
 
@@ -284,79 +279,79 @@ export class LoadingScene extends Phaser.Scene
 
     loadHanafudaAssets()
     {
-        this.load.image('japanVerticalBackground', 'Phaser/assets/SelectionMenu/JapanVertical.png')
-        this.load.image('japanVerticalBackgroundHovered', 'Phaser/assets/SelectionMenu/JapanVerticalHovered.png')
-        this.load.image('HanafudaBackground', 'Phaser/assets/Hanafuda/HanafudaBackground.png');
-        this.load.image('YakusHoverButton', 'Phaser/assets/Hanafuda/UI/YakusNormalButton.png');
-        this.load.image('YakusNormalButton', 'Phaser/assets/Hanafuda/UI/YakusHoverButton.png');
-        this.load.image('BackHoverButton', 'Phaser/assets/Hanafuda/UI/BackNormalButton.png');
-        this.load.image('BackNormalButton', 'Phaser/assets/Hanafuda/UI/BackHoverButton.png');
+        this.load.image('japanVerticalBackground', 'Phaser/assets/selectionMenu/JapanVertical.png')
+        this.load.image('japanVerticalBackgroundHovered', 'Phaser/assets/selectionMenu/JapanVerticalHovered.png')
+        this.load.image('HanafudaBackground', 'Phaser/assets/hanafuda/HanafudaBackground.png');
+        this.load.image('YakusHoverButton', 'Phaser/assets/hanafuda/UI/YakusNormalButton.png');
+        this.load.image('YakusNormalButton', 'Phaser/assets/hanafuda/UI/YakusHoverButton.png');
+        this.load.image('BackHoverButton', 'Phaser/assets/hanafuda/UI/BackNormalButton.png');
+        this.load.image('BackNormalButton', 'Phaser/assets/hanafuda/UI/BackHoverButton.png');
 
-        this.load.image('Card0', 'Phaser/assets/Hanafuda/HanafudaCards/0.png');
-        this.load.image('Card1', 'Phaser/assets/Hanafuda/HanafudaCards/1.png');
-        this.load.image('Card2', 'Phaser/assets/Hanafuda/HanafudaCards/2.png');
-        this.load.image('Card3', 'Phaser/assets/Hanafuda/HanafudaCards/3.png');
-        this.load.image('Card4', 'Phaser/assets/Hanafuda/HanafudaCards/4.png');
-        this.load.image('Card5', 'Phaser/assets/Hanafuda/HanafudaCards/5.png');
-        this.load.image('Card6', 'Phaser/assets/Hanafuda/HanafudaCards/6.png');
-        this.load.image('Card7', 'Phaser/assets/Hanafuda/HanafudaCards/7.png');
-        this.load.image('Card8', 'Phaser/assets/Hanafuda/HanafudaCards/8.png');
-        this.load.image('Card9', 'Phaser/assets/Hanafuda/HanafudaCards/9.png');
-        this.load.image('Card10', 'Phaser/assets/Hanafuda/HanafudaCards/10.png');
-        this.load.image('Card11', 'Phaser/assets/Hanafuda/HanafudaCards/11.png');
-        this.load.image('Card12', 'Phaser/assets/Hanafuda/HanafudaCards/12.png');
-        this.load.image('Card13', 'Phaser/assets/Hanafuda/HanafudaCards/13.png');
-        this.load.image('Card14', 'Phaser/assets/Hanafuda/HanafudaCards/14.png');
-        this.load.image('Card15', 'Phaser/assets/Hanafuda/HanafudaCards/15.png');
-        this.load.image('Card16', 'Phaser/assets/Hanafuda/HanafudaCards/16.png');
-        this.load.image('Card17', 'Phaser/assets/Hanafuda/HanafudaCards/17.png');
-        this.load.image('Card18', 'Phaser/assets/Hanafuda/HanafudaCards/18.png');
-        this.load.image('Card19', 'Phaser/assets/Hanafuda/HanafudaCards/19.png');
-        this.load.image('Card20', 'Phaser/assets/Hanafuda/HanafudaCards/20.png');
-        this.load.image('Card21', 'Phaser/assets/Hanafuda/HanafudaCards/21.png');
-        this.load.image('Card22', 'Phaser/assets/Hanafuda/HanafudaCards/22.png');
-        this.load.image('Card23', 'Phaser/assets/Hanafuda/HanafudaCards/23.png');
-        this.load.image('Card24', 'Phaser/assets/Hanafuda/HanafudaCards/24.png');
-        this.load.image('Card25', 'Phaser/assets/Hanafuda/HanafudaCards/25.png');
-        this.load.image('Card26', 'Phaser/assets/Hanafuda/HanafudaCards/26.png');
-        this.load.image('Card27', 'Phaser/assets/Hanafuda/HanafudaCards/27.png');
-        this.load.image('Card28', 'Phaser/assets/Hanafuda/HanafudaCards/28.png');
-        this.load.image('Card29', 'Phaser/assets/Hanafuda/HanafudaCards/29.png');
-        this.load.image('Card30', 'Phaser/assets/Hanafuda/HanafudaCards/30.png');
-        this.load.image('Card31', 'Phaser/assets/Hanafuda/HanafudaCards/31.png');
-        this.load.image('Card32', 'Phaser/assets/Hanafuda/HanafudaCards/32.png');
-        this.load.image('Card33', 'Phaser/assets/Hanafuda/HanafudaCards/33.png');
-        this.load.image('Card34', 'Phaser/assets/Hanafuda/HanafudaCards/34.png');
-        this.load.image('Card35', 'Phaser/assets/Hanafuda/HanafudaCards/35.png');
-        this.load.image('Card36', 'Phaser/assets/Hanafuda/HanafudaCards/36.png');
-        this.load.image('Card37', 'Phaser/assets/Hanafuda/HanafudaCards/37.png');
-        this.load.image('Card38', 'Phaser/assets/Hanafuda/HanafudaCards/38.png');
-        this.load.image('Card39', 'Phaser/assets/Hanafuda/HanafudaCards/39.png');
-        this.load.image('Card40', 'Phaser/assets/Hanafuda/HanafudaCards/40.png');
-        this.load.image('Card41', 'Phaser/assets/Hanafuda/HanafudaCards/41.png');
-        this.load.image('Card42', 'Phaser/assets/Hanafuda/HanafudaCards/42.png');
-        this.load.image('Card43', 'Phaser/assets/Hanafuda/HanafudaCards/43.png');
-        this.load.image('Card44', 'Phaser/assets/Hanafuda/HanafudaCards/44.png');
-        this.load.image('Card45', 'Phaser/assets/Hanafuda/HanafudaCards/45.png');
-        this.load.image('Card46', 'Phaser/assets/Hanafuda/HanafudaCards/46.png');
-        this.load.image('Card47', 'Phaser/assets/Hanafuda/HanafudaCards/47.png');
+        this.load.image('Card0', 'Phaser/assets/hanafuda/HanafudaCards/0.png');
+        this.load.image('Card1', 'Phaser/assets/hanafuda/HanafudaCards/1.png');
+        this.load.image('Card2', 'Phaser/assets/hanafuda/HanafudaCards/2.png');
+        this.load.image('Card3', 'Phaser/assets/hanafuda/HanafudaCards/3.png');
+        this.load.image('Card4', 'Phaser/assets/hanafuda/HanafudaCards/4.png');
+        this.load.image('Card5', 'Phaser/assets/hanafuda/HanafudaCards/5.png');
+        this.load.image('Card6', 'Phaser/assets/hanafuda/HanafudaCards/6.png');
+        this.load.image('Card7', 'Phaser/assets/hanafuda/HanafudaCards/7.png');
+        this.load.image('Card8', 'Phaser/assets/hanafuda/HanafudaCards/8.png');
+        this.load.image('Card9', 'Phaser/assets/hanafuda/HanafudaCards/9.png');
+        this.load.image('Card10', 'Phaser/assets/hanafuda/HanafudaCards/10.png');
+        this.load.image('Card11', 'Phaser/assets/hanafuda/HanafudaCards/11.png');
+        this.load.image('Card12', 'Phaser/assets/hanafuda/HanafudaCards/12.png');
+        this.load.image('Card13', 'Phaser/assets/hanafuda/HanafudaCards/13.png');
+        this.load.image('Card14', 'Phaser/assets/hanafuda/HanafudaCards/14.png');
+        this.load.image('Card15', 'Phaser/assets/hanafuda/HanafudaCards/15.png');
+        this.load.image('Card16', 'Phaser/assets/hanafuda/HanafudaCards/16.png');
+        this.load.image('Card17', 'Phaser/assets/hanafuda/HanafudaCards/17.png');
+        this.load.image('Card18', 'Phaser/assets/hanafuda/HanafudaCards/18.png');
+        this.load.image('Card19', 'Phaser/assets/hanafuda/HanafudaCards/19.png');
+        this.load.image('Card20', 'Phaser/assets/hanafuda/HanafudaCards/20.png');
+        this.load.image('Card21', 'Phaser/assets/hanafuda/HanafudaCards/21.png');
+        this.load.image('Card22', 'Phaser/assets/hanafuda/HanafudaCards/22.png');
+        this.load.image('Card23', 'Phaser/assets/hanafuda/HanafudaCards/23.png');
+        this.load.image('Card24', 'Phaser/assets/hanafuda/HanafudaCards/24.png');
+        this.load.image('Card25', 'Phaser/assets/hanafuda/HanafudaCards/25.png');
+        this.load.image('Card26', 'Phaser/assets/hanafuda/HanafudaCards/26.png');
+        this.load.image('Card27', 'Phaser/assets/hanafuda/HanafudaCards/27.png');
+        this.load.image('Card28', 'Phaser/assets/hanafuda/HanafudaCards/28.png');
+        this.load.image('Card29', 'Phaser/assets/hanafuda/HanafudaCards/29.png');
+        this.load.image('Card30', 'Phaser/assets/hanafuda/HanafudaCards/30.png');
+        this.load.image('Card31', 'Phaser/assets/hanafuda/HanafudaCards/31.png');
+        this.load.image('Card32', 'Phaser/assets/hanafuda/HanafudaCards/32.png');
+        this.load.image('Card33', 'Phaser/assets/hanafuda/HanafudaCards/33.png');
+        this.load.image('Card34', 'Phaser/assets/hanafuda/HanafudaCards/34.png');
+        this.load.image('Card35', 'Phaser/assets/hanafuda/HanafudaCards/35.png');
+        this.load.image('Card36', 'Phaser/assets/hanafuda/HanafudaCards/36.png');
+        this.load.image('Card37', 'Phaser/assets/hanafuda/HanafudaCards/37.png');
+        this.load.image('Card38', 'Phaser/assets/hanafuda/HanafudaCards/38.png');
+        this.load.image('Card39', 'Phaser/assets/hanafuda/HanafudaCards/39.png');
+        this.load.image('Card40', 'Phaser/assets/hanafuda/HanafudaCards/40.png');
+        this.load.image('Card41', 'Phaser/assets/hanafuda/HanafudaCards/41.png');
+        this.load.image('Card42', 'Phaser/assets/hanafuda/HanafudaCards/42.png');
+        this.load.image('Card43', 'Phaser/assets/hanafuda/HanafudaCards/43.png');
+        this.load.image('Card44', 'Phaser/assets/hanafuda/HanafudaCards/44.png');
+        this.load.image('Card45', 'Phaser/assets/hanafuda/HanafudaCards/45.png');
+        this.load.image('Card46', 'Phaser/assets/hanafuda/HanafudaCards/46.png');
+        this.load.image('Card47', 'Phaser/assets/hanafuda/HanafudaCards/47.png');
 
-        this.load.image('TutorialCardGroup','Phaser/assets/Hanafuda/Tutorial/TutorialCardGroup.png')
-        this.load.image('TutorialChooseCard','Phaser/assets/Hanafuda/Tutorial/TutorialChooseCard.png')
-        this.load.image('TutorialCombination', 'Phaser/assets/Hanafuda/Tutorial/TutorialCombination.png');
-        this.load.image('Decision', 'Phaser/assets/Hanafuda/Tutorial/Decision.png');
-        this.load.image('Help', 'Phaser/assets/Hanafuda/Tutorial/Help.png');
-        this.load.image('MatchCard', 'Phaser/assets/Hanafuda/Tutorial/MatchCard.png');
-        this.load.image('TutorialTablero', 'Phaser/assets/Hanafuda/Tutorial/TutorialTablero.png');
-        this.load.image('YakuMenu', 'Phaser/assets/Hanafuda/Tutorial/YakuMenu.png');
+        this.load.image('TutorialCardGroup','Phaser/assets/hanafuda/Tutorial/TutorialCardGroup.png')
+        this.load.image('TutorialChooseCard','Phaser/assets/hanafuda/Tutorial/TutorialChooseCard.png')
+        this.load.image('TutorialCombination', 'Phaser/assets/hanafuda/Tutorial/TutorialCombination.png');
+        this.load.image('Decision', 'Phaser/assets/hanafuda/Tutorial/Decision.png');
+        this.load.image('Help', 'Phaser/assets/hanafuda/Tutorial/Help.png');
+        this.load.image('MatchCard', 'Phaser/assets/hanafuda/Tutorial/MatchCard.png');
+        this.load.image('TutorialTablero', 'Phaser/assets/hanafuda/Tutorial/TutorialTablero.png');
+        this.load.image('YakuMenu', 'Phaser/assets/hanafuda/Tutorial/YakuMenu.png');
         
     }
 
     loadCreditsAssets() {
-        this.load.image('member1', 'Phaser/assets/mewingCat.jpg');
-        this.load.image('member2', 'Phaser/assets/oreoCat.jpg');
-        this.load.image('member3', 'Phaser/assets/alienCat.jpg');
-        this.load.image('member4', 'Phaser/assets/awkwarCat.jpg');
+        this.load.image('member1', 'Phaser/assets/creditsMenu/mewingCat.jpg');
+        this.load.image('member2', 'Phaser/assets/creditsMenu/oreoCat.jpg');
+        this.load.image('member3', 'Phaser/assets/creditsMenu/alienCat.jpg');
+        this.load.image('member4', 'Phaser/assets/creditsMenu/awkwarCat.jpg');
     }
 
     loadInisgniaAssets() {
@@ -376,63 +371,63 @@ export class LoadingScene extends Phaser.Scene
         * @param {string} key - The key to reference the loaded JSON data.
         * @param {string} url - The URL of the JSON file to load.
         */
-        this.load.json('TaliDialogue', 'Phaser/DialoguesJson/TaliDialogue.json');
+        this.load.json('TaliDialogue', 'Phaser/assets/dialoguesJson/TaliDialogue.json');
 
         /** Load the json file for the Intro Dialogue 
         * @param {string} key - The key to reference the loaded JSON data.
         * @param {string} url - The URL of the JSON file to load.
         */
-        this.load.json('IntroDialogue', 'Phaser/DialoguesJson/IntroDialogue.json');
+        this.load.json('IntroDialogue', 'Phaser/assets/dialoguesJson/IntroDialogue.json');
 
          /** Load the json file for the Intro Dialogue 
         * @param {string} key - The key to reference the loaded JSON data.
         * @param {string} url - The URL of the JSON file to load.
         */
-        this.load.json('AsebTutorialDialogue', 'Phaser/DialoguesJson/AsebTutorialDialogue.json');
+        this.load.json('AsebTutorialDialogue', 'Phaser/assets/dialoguesJson/AsebTutorialDialogue.json');
 
         /** Load the json file for the Egypt/Aseb Intro Dialogue 
         * @param {string} key - The key to reference the loaded JSON data.
         * @param {string} url - The URL of the JSON file to load.
         */
-        this.load.json('AsebIntroDialogue', 'Phaser/DialoguesJson/EgyptDialogue.json');
+        this.load.json('AsebIntroDialogue', 'Phaser/assets/dialoguesJson/EgyptDialogue.json');
 
         /** Load the json file for the Aseb Defeat Dialogue, when the player loses. 
         * @param {string} key - The key to reference the loaded JSON data.
         * @param {string} url - The URL of the JSON file to load.
         */
-        this.load.json('AsebDefeatDialogue', 'Phaser/DialoguesJson/AsebDefeatDialogue.json');
+        this.load.json('AsebDefeatDialogue', 'Phaser/assets/dialoguesJson/AsebDefeatDialogue.json');
 
         /** Load the json file for the Aseb Winning Dialogue, when the player wins.
         * @param {string} key - The key to reference the loaded JSON data.
         * @param {string} url - The URL of the JSON file to load.
         */
-        this.load.json('AsebWinDialogue', 'Phaser/DialoguesJson/AsebWinDialogue.json');
+        this.load.json('AsebWinDialogue', 'Phaser/assets/dialoguesJson/AsebWinDialogue.json');
 
-        this.load.json('HanafudaTutorialDialogue', 'Phaser/DialoguesJson/HanafudaTutorialDialogue.json');
+        this.load.json('HanafudaTutorialDialogue', 'Phaser/assets/dialoguesJson/HanafudaTutorialDialogue.json');
 
         /** Load the json file for the hanafuda intro Dialogue, before hanafuda game starts.
         * @param {string} key - The key to reference the loaded JSON data.
         * @param {string} url - The URL of the JSON file to load.
         */
-        this.load.json('HanafudaIntroDialogue', 'Phaser/DialoguesJson/HanafudaDialogues/HanafudaIntroDialogue.json');
+        this.load.json('HanafudaIntroDialogue', 'Phaser/assets/dialoguesJson/HanafudaDialogues/HanafudaIntroDialogue.json');
 
         /** Load the json file for the hanafuda Win Dialogue, When player wins hanafuda.
         * @param {string} key - The key to reference the loaded JSON data.
         * @param {string} url - The URL of the JSON file to load.
         */
-        this.load.json('HanafudaWinDialogue', 'Phaser/DialoguesJson/HanafudaDialogues/HanafudaWinDialogue.json');
+        this.load.json('HanafudaWinDialogue', 'Phaser/assets/dialoguesJson/HanafudaDialogues/HanafudaWinDialogue.json');
 
         /** Load the json file for the hanafuda defeat Dialogue, When player is defeated in hanafuda.
         * @param {string} key - The key to reference the loaded JSON data.
         * @param {string} url - The URL of the JSON file to load.
         */
-        this.load.json('HanafudaDefeatDialogue', 'Phaser/DialoguesJson/HanafudaDialogues/HanafudaDefeatDialogue.json');
+        this.load.json('HanafudaDefeatDialogue', 'Phaser/assets/dialoguesJson/HanafudaDialogues/HanafudaDefeatDialogue.json');
 
         /** Load the json file for the Game Completed Dialogue, when the player completes the game.
         * @param {string} key - The key to reference the loaded JSON data.
         * @param {string} url - The URL of the JSON file to load.
         */
-        this.load.json('GameCompletedDialogue', 'Phaser/DialoguesJson/GameCompletedDialogue.json');
+        this.load.json('GameCompletedDialogue', 'Phaser/assets/dialoguesJson/GameCompletedDialogue.json');
     }
 
     loadCharacterAssets() {

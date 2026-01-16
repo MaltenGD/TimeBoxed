@@ -1,4 +1,4 @@
-import DialogueController from "../../DialogueController.js";
+import DialogueController from '../../dialogues/DialogueController.js';
 import TransitionController, {RGBColor} from "../../misc/transitioncontroller.js";
 import { BaseScene } from "../BaseScene.js";
 export class TutorialHanafuda extends BaseScene

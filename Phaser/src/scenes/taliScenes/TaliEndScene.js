@@ -1,8 +1,8 @@
 import TransitionController, {RGBColor} from '../../misc/transitioncontroller.js';
-import DialogueController from '../../DialogueController.js';
+import DialogueController from '../../dialogues/DialogueController.js';
 import { OptionMenuScene } from '../OptionMenuScene.js';
 import { BaseScene } from '../BaseScene.js';
-import { SkipButton } from '../../SkipButton.js';
+import { SkipButton } from '../../misc/SkipButton.js';
 
 /**
  * @class TaliEndScene
