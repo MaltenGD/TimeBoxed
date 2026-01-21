@@ -1,7 +1,6 @@
 # TIMEBOXED: *Game Design Document*
 
-![PopcatGames Logo](images/logo.png)
-![Timeboxed Logo](Phaser/assets/titlelogo.png)
+![PopcatGames Logo](images/Website_Images/Logo.png)
 
 **Equipo de desarrollo**:
 

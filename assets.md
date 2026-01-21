@@ -62,7 +62,7 @@ Desde el punto de vista artístico, el juego adopta un estilo visual en **2D con
 
 | Alien Cat | Awkward Cat | Mewing Cat | Oreo Cat |
 | :---: | :---: | :---: | :---: |
-| ![Alien Cat](Phaser/assets/alienCat.jpg) | ![Awkward Cat](Phaser/assets/awkwarCat.jpg) | ![Mewing Cat](Phaser/assets/mewingCat.jpg) | ![Oreo Cat](Phaser/assets/oreoCat.jpg) |
+| ![Alien Cat](Phaser/assets/creditsMenu/alienCat.jpg) | ![Awkward Cat](Phaser/assets/creditsMenu/awkwarCat.jpg) | ![Mewing Cat](Phaser/assets/creditsMenu/mewingCat.jpg) | ![Oreo Cat](Phaser/assets/creditsMenu/oreoCat.jpg) |
 
 ---
 

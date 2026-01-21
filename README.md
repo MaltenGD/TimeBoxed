@@ -1,5 +1,4 @@
 # Timeboxed
-![Timeboxed Logo](Phaser/assets/titlelogo.png)
 
 > Proyecto universitario desarrollado como parte de la asignatura de Programación de videojuegos en lenguajes interpretados
 
@@ -9,44 +8,44 @@
 
 ### Capturas del juego
 #### Start Menu
-![StartMenu](images/GameScreenshots/StartMenu.png)
+![StartMenu](images/Game_Screenshots/StartMenu.png)
 
 #### Pause Menu
-![PauseMenu](images/GameScreenshots/PauseMenu.png)
+![PauseMenu](images/Game_Screenshots/PauseMenu.png)
 
 #### Timeboxed Mode
-![Timeboxed](images/GameScreenshots/TimeboxedMode.png)
+![Timeboxed](images/Game_Screenshots/TimeboxedMode.png)
 
 #### Logros
-![Logros](images/GameScreenshots/Achievements.png)
+![Logros](images/Game_Screenshots/Achievements.png)
 
 #### Diálogo
-![IntroDialogue](images/GameScreenshots/IntroDialogue.png)
+![IntroDialogue](images/Game_Screenshots/IntroDialogue.png)
 
-![AsebDialogue](images/GameScreenshots/AsebDialogue.png)
+![AsebDialogue](images/Game_Screenshots/AsebDialogue.png)
 
-![TaliDialogue](images/GameScreenshots/TaliDialogue.png)
+![TaliDialogue](images/Game_Screenshots/TaliDialogue.png)
 
-![HanafudaDialogue](images/GameScreenshots/HanafudaDialogue.png)
+![HanafudaDialogue](images/Game_Screenshots/HanafudaDialogue.png)
 
 #### Aseb
-![AsebBegin](images/GameScreenshots/AsebBegin.png)
+![AsebBegin](images/Game_Screenshots/AsebBegin.png)
 
-![AsebStart](images/GameScreenshots/AsebStart.png)
+![AsebStart](images/Game_Screenshots/AsebStart.png)
 
-![AsebPlay](images/GameScreenshots/AsebPlay.png)
+![AsebPlay](images/Game_Screenshots/AsebPlay.png)
 
 #### Tali
-![TaliRoll](images/GameScreenshots/TaliRoll.png)
+![TaliRoll](images/Game_Screenshots/TaliRoll.png)
 
-![TaliCombination](images/GameScreenshots/TaliCombination.png)
+![TaliCombination](images/Game_Screenshots/TaliCombination.png)
 
-![TaliDistract](images/GameScreenshots/TaliDistractMercury.png)
+![TaliDistract](images/Game_Screenshots/TaliDistractMercury.png)
 
 #### Hanafuda
-![HanafudaBegin](images/GameScreenshots/HanafudaBegin.png)
+![HanafudaBegin](images/Game_Screenshots/HanafudaBegin.png)
 
-![HanafudaRound](images/GameScreenshots/HanafudaRound.png)
+![HanafudaRound](images/Game_Screenshots/HanafudaRound.png)
 
 ## Versión jugable
 **https://maltengd.github.io/TimeBoxed/**
